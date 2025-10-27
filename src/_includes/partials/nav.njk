@@ -1,0 +1,13 @@
+{# Tools Navigation - Can be used in dropdowns or sidebars #}
+<nav class="tools-nav">
+  <ul class="space-y-2">
+    {% for tool in collections.tools %}
+    <li>
+      <a href="{{ tool.url }}" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
+        {{ tool.data.title }}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</nav>
+

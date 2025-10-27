@@ -1,0 +1,11 @@
+# robots.txt for devtoolscenter.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://devtoolscenter.com/sitemap.xml
+
+# Disallow admin or private directories (if any in future)
+# Disallow: /admin/
+

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  {# SEO Meta Tags #}
+  <title>{{ title }}{% if title %} | {% endif %}DevTools Center</title>
+  <meta name="description" content="{{ description or 'Free online developer tools for JSON formatting, JWT decoding, Base64 encoding, and more.' }}">
+  {% if keywords %}<meta name="keywords" content="{{ keywords }}">{% endif %}
+  
+  {# Canonical URL #}
+  <link rel="canonical" href="https://devtoolscenter.com{{ page.url }}">
+  
+  {# Open Graph Tags #}
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ title }}{% if title %} | {% endif %}DevTools Center">
+  <meta property="og:description" content="{{ description or 'Free online developer tools for JSON formatting, JWT decoding, Base64 encoding, and more.' }}">
+  <meta property="og:url" content="https://devtoolscenter.com{{ page.url }}">
+  <meta property="og:site_name" content="DevTools Center">
+  {% if image %}<meta property="og:image" content="{{ image }}">{% endif %}
+  
+  {# Twitter Card Tags #}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ title }}{% if title %} | {% endif %}DevTools Center">
+  <meta name="twitter:description" content="{{ description or 'Free online developer tools for JSON formatting, JWT decoding, Base64 encoding, and more.' }}">
+  {% if image %}<meta name="twitter:image" content="{{ image }}">{% endif %}
+  
+  {# Favicon #}
+  <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+  
+  {# Styles #}
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  
+  {# Theme Toggle - Inline to prevent flash #}
+  <script>
+    (function() {
+      function getThemePreference() {
+        if (localStorage.theme) {
+          return localStorage.theme;
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      
+      function setTheme(theme) {
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+      
+      setTheme(getThemePreference());
+    })();
+  </script>
+  
+  {# JSON-LD Structured Data #}
+  {% if schema %}
+  <script type="application/ld+json">
+    {{ schema | jsonld | safe }}
+  </script>
+  {% endif %}
+</head>
+<body>
+  {% include "partials/header.njk" %}
+  
+  <main class="min-h-screen">
+    {{ content | safe }}
+  </main>
+  
+  {% include "partials/footer.njk" %}
+  
+  {# Theme Toggle Script #}
+  <script src="/assets/js/theme-toggle.js"></script>
+  
+  {# Page-specific scripts #}
+  {% if pageScript %}
+  <script src="{{ pageScript }}" defer></script>
+  {% endif %}
+</body>
+</html>
+
