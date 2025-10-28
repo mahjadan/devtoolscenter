@@ -50,14 +50,13 @@ schema:
   </div>
   
   <div>
-    <label for="json-output" class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+    <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
       Formatted Output
     </label>
-    <textarea 
+    <div 
       id="json-output" 
-      class="tool-textarea"
-      readonly
-    ></textarea>
+      class="w-full min-h-[200px] p-4 font-mono text-sm border-2 border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 overflow-auto whitespace-pre-wrap break-words"
+    ></div>
   </div>
 </div>
 
