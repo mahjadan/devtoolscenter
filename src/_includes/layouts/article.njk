@@ -1,0 +1,207 @@
+---
+layout: layouts/base.njk
+---
+
+<article class="article-shell">
+  <section class="article-hero">
+    <div class="article-hero__container">
+      <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_320px]">
+        <div>
+          <div class="article-hero__badge">
+            <svg aria-hidden="true" class="h-4 w-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24">
+              <path d="M9 2l.867 1.802a2 2 0 001.736 1.115l1.918.11a2 2 0 011.128.367l1.618 1.19a2 2 0 00.966.351l1.93.173a2 2 0 011.642 2.591l-.598 1.888a2 2 0 00.286 1.72l1.071 1.64a2 2 0 01-.381 2.62l-1.496 1.246a2 2 0 00-.646 1.964l.412 1.93a2 2 0 01-2.176 2.422l-1.95-.26a2 2 0 00-1.503.408l-1.584 1.274a2 2 0 01-2.512 0l-1.584-1.274a2 2 0 00-1.503-.408l-1.95.26a2 2 0 01-2.176-2.422l.411-1.93a2 2 0 00-.646-1.964L2.81 16.33a2 2 0 01-.381-2.62l1.071-1.64a2 2 0 00.286-1.72l-.598-1.889a2 2 0 011.642-2.59l1.93-.173a2 2 0 00.966-.352l1.618-1.19a2 2 0 011.128-.367l1.918-.11A2 2 0 008.133 3.802L9 2z" />
+            </svg>
+            <span>Developer Insights</span>
+          </div>
+
+          <h1 class="article-hero__title">{{ title }}</h1>
+
+          {% if description %}
+          <p class="article-hero__subtitle">{{ description }}</p>
+          {% endif %}
+
+          <div class="article-meta">
+            {% if author %}
+            <span class="article-meta__item">
+              <span class="article-meta__icon" aria-hidden="true">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24">
+                  <path d="M12 12a5 5 0 100-10 5 5 0 000 10z" />
+                  <path d="M20 22a8 8 0 10-16 0" />
+                </svg>
+              </span>
+              <span class="sr-only">Author</span>
+              {{ author }}
+            </span>
+            {% endif %}
+
+            {% if date %}
+            <span class="article-meta__item">
+              <span class="article-meta__icon" aria-hidden="true">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24">
+                  <rect width="18" height="18" x="3" y="4" rx="2" />
+                  <path d="M16 2v4" />
+                  <path d="M8 2v4" />
+                  <path d="M3 10h18" />
+                </svg>
+              </span>
+              <span class="sr-only">Published</span>
+              <time datetime="{{ date | date('yyyy-MM-dd') }}">{{ date | date('MMMM d, yyyy') }}</time>
+            </span>
+            {% endif %}
+
+            {% if readTime %}
+            <span class="article-meta__item">
+              <span class="article-meta__icon" aria-hidden="true">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M12 7v5l3 2" />
+                </svg>
+              </span>
+              <span class="sr-only">Estimated read time</span>
+              {{ readTime }} min read
+            </span>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="article-hero__media">
+          <figure class="article-hero__figure">
+            {% if heroIllustration %}
+              <img src="{{ heroIllustration }}" alt="{{ heroIllustrationAlt or 'Hero illustration for this article' }}">
+            {% else %}
+              <div class="article-hero__placeholder">
+                <span>Hero Illustration Placeholder</span>
+              </div>
+            {% endif %}
+          </figure>
+          {% if heroCaption %}
+          <figcaption class="article-hero__caption">{{ heroCaption }}</figcaption>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="article-body">
+    {{ content | safe }}
+  </section>
+
+  {% if jsonExample or apiExample or terminalExample %}
+  <section class="article-code-gallery">
+    <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[0.4em] text-slate-500 dark:text-slate-400">Implementation Ready</p>
+        <h2 class="mt-2 text-3xl font-semibold text-slate-900 dark:text-white">Reference Snippets</h2>
+      </div>
+      <p class="max-w-xl text-sm text-slate-600 dark:text-slate-300">Copy, adapt, and ship faster with pre-formatted JSON payloads, API requests, and terminal commands tailored for tooling workflows.</p>
+    </div>
+
+    <div class="article-code-gallery__grid">
+      {% if jsonExample %}
+      <article class="article-code-card" data-variant="json">
+        <div class="article-code-card__header">
+          <span class="article-code-card__title">JSON EXAMPLE</span>
+          <span class="article-code-card__tag">JSON</span>
+        </div>
+        <div class="article-code-card__body">
+          <pre data-language="JSON"><code class="language-json">{{ jsonExample | escape }}</code></pre>
+        </div>
+      </article>
+      {% endif %}
+
+      {% if apiExample %}
+      <article class="article-code-card" data-variant="api">
+        <div class="article-code-card__header">
+          <span class="article-code-card__title">API CALL</span>
+          <span class="article-code-card__tag">{{ apiExampleLanguage | default('HTTP') | upper }}</span>
+        </div>
+        <div class="article-code-card__body">
+          <pre data-language="{{ apiExampleLanguage | default('HTTP') | upper }}"><code class="language-{{ apiExampleLanguage | default('http') | lower }}">{{ apiExample | escape }}</code></pre>
+        </div>
+      </article>
+      {% endif %}
+
+      {% if terminalExample %}
+      <article class="article-code-card" data-variant="terminal">
+        <div class="article-code-card__header">
+          <span class="article-code-card__title">TERMINAL COMMAND</span>
+          <span class="article-code-card__tag">{{ terminalExampleLanguage | default('Bash') | upper }}</span>
+        </div>
+        <div class="article-code-card__body">
+          <pre data-language="{{ terminalExampleLanguage | default('Bash') | upper }}"><code class="language-{{ terminalExampleLanguage | default('bash') | lower }}">{{ terminalExample | escape }}</code></pre>
+        </div>
+      </article>
+      {% endif %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if diagrams %}
+  <section class="article-diagrams">
+    <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[0.4em] text-slate-500 dark:text-slate-400">Visual Systems</p>
+        <h2 class="mt-2 text-3xl font-semibold text-slate-900 dark:text-white">Diagram Placeholders</h2>
+      </div>
+      <p class="max-w-xl text-sm text-slate-600 dark:text-slate-300">Reserve space for architecture diagrams, workflow maps, or annotated screenshots to reinforce the narrative.</p>
+    </div>
+
+    <div class="mt-12 grid gap-10 md:grid-cols-2">
+      {% for item in diagrams %}
+      <figure class="article-diagram">
+        <div class="article-diagram__frame">
+          <div class="article-diagram__label">{{ item.label or 'Workflow Diagram' }}</div>
+        </div>
+        {% if item.caption %}
+        <figcaption class="article-diagram__caption">{{ item.caption }}</figcaption>
+        {% endif %}
+      </figure>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if cta %}
+  <section class="article-cta">
+    <div class="article-cta__card">
+      <div class="article-cta__content">
+        <div class="space-y-4">
+          <h2 class="article-cta__headline">{{ cta.headline or 'Ready to keep building?' }}</h2>
+          {% if cta.copy %}
+          <p class="article-cta__body">{{ cta.copy }}</p>
+          {% endif %}
+        </div>
+        {% if cta.href and cta.label %}
+        <a href="{{ cta.href }}" class="article-cta__button">
+          <span>{{ cta.label }}</span>
+          <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24">
+            <path d="M5 12h14" />
+            <path d="M12 5l7 7-7 7" />
+          </svg>
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
+</article>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const codeBlocks = document.querySelectorAll('.article-body pre code, .article-code-card pre code');
+
+    codeBlocks.forEach((block) => {
+      const pre = block.parentElement;
+      if (!pre.dataset.language) {
+        const languageClass = Array.from(block.classList).find((cls) => cls.startsWith('language-'));
+        if (languageClass) {
+          pre.dataset.language = languageClass.replace('language-', '').toUpperCase();
+        } else {
+          pre.dataset.language = 'CODE';
+        }
+      }
+    });
+  });
+</script>
+
+
