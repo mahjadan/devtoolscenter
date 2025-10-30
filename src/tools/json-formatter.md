@@ -60,7 +60,7 @@ schema:
   </div>
 </div>
 
-<div class="mt-12 p-6 bg-gradient-to-r from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 rounded-lg border-2 border-primary-200 dark:border-primary-800">
+<div class="mt-12 p-6 bg-gradient-to-r from-primary-50 via-primary-100/50 to-accent-50 dark:from-gray-800 dark:via-primary-900/30 dark:to-gray-800 rounded-lg border-2 border-primary-300 dark:border-primary-500/50 shadow-md dark:shadow-lg dark:shadow-primary-900/20">
   <h2 class="text-2xl font-bold mb-3 text-gray-900 dark:text-white">About JSON Formatter</h2>
   <p class="text-gray-700 dark:text-gray-300 mb-4">
     Format, beautify, and validate JSON data with syntax highlighting and error detection. 

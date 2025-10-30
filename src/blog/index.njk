@@ -14,7 +14,7 @@ permalink: /blog/
   {# Featured Article #}
   {% set featuredArticle = collections.blog | reverse | first %}
   {% if featuredArticle %}
-  <div class="mb-12 p-8 bg-gradient-to-br from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 rounded-xl border-2 border-primary-200 dark:border-primary-800">
+  <div class="mb-12 p-8 bg-gradient-to-br from-primary-50 via-primary-100/50 to-accent-50 dark:from-gray-800 dark:via-primary-900/30 dark:to-gray-800 rounded-xl border-2 border-primary-300 dark:border-primary-500/50 shadow-lg dark:shadow-xl dark:shadow-primary-900/20">
     <div class="text-sm font-semibold text-primary-600 dark:text-primary-400 mb-2">FEATURED</div>
     <h2 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
       <a href="{{ featuredArticle.url }}" class="hover:text-primary-600 dark:hover:text-primary-400">{{ featuredArticle.data.title }}</a>

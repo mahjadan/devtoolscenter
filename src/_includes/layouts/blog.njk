@@ -19,10 +19,10 @@ layout: layouts/base.njk
     
     {# Hero Title with Gradient #}
     <div class="article-hero-gradient p-8 rounded-xl mb-6">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-orange-600 to-amber-500 bg-clip-text text-transparent leading-tight">
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-primary-600 to-primary-400 dark:from-primary-500 dark:to-primary-300 bg-clip-text text-transparent leading-tight">
         {{ title }}
       </h1>
-      <p class="text-xl md:text-2xl text-gray-700 dark:text-gray-300 leading-relaxed">{{ description }}</p>
+      <p class="text-xl md:text-2xl text-gray-900 dark:text-gray-300 leading-relaxed font-medium">{{ description }}</p>
     </div>
     
     {# Metadata with Icons #}
@@ -53,9 +53,9 @@ layout: layouts/base.njk
   {# Article Content - Enhanced Typography with Better Contrast #}
   <div class="prose dark:prose-invert max-w-none prose-lg code-block-enhanced
     prose-headings:font-bold 
-    prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
-    prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
-    prose-p:text-base prose-p:leading-relaxed prose-p:mb-6
+    prose-h2:text-3xl prose-h2:mt-10 prose-h2:mb-4
+    prose-h3:text-2xl prose-h3:mt-6 prose-h3:mb-3
+    prose-p:text-base prose-p:leading-relaxed prose-p:mb-5
     prose-a:transition-all
     prose-strong:font-semibold
     prose-code:font-mono prose-code:text-sm
@@ -70,12 +70,16 @@ layout: layouts/base.njk
 
   {# Related Tool CTA - Enhanced Design #}
   {% if relatedTool %}
-  <div class="mt-16 mb-12 relative overflow-hidden rounded-2xl">
-    <div class="absolute inset-0 bg-gradient-to-r from-orange-600 to-amber-500 opacity-95"></div>
-    <div class="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-white/10"></div>
+  <div class="mt-16 mb-12 relative overflow-hidden rounded-2xl shadow-xl">
+    {# Light theme gradient - Blue/primary colors #}
+    <div class="absolute inset-0 bg-gradient-to-r from-primary-500 via-primary-600 to-primary-700 dark:hidden"></div>
+    {# Dark theme gradient - Dark slate with subtle blue accent #}
+    <div class="hidden dark:block absolute inset-0 bg-gradient-to-r from-slate-800 via-slate-700/90 to-slate-800"></div>
+    <div class="hidden dark:block absolute inset-0 bg-gradient-to-br from-primary-500/10 via-transparent to-primary-400/5"></div>
+    <div class="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-white/10 dark:hidden"></div>
     <div class="relative p-8 md:p-12 text-center">
       {# Icon #}
-      <div class="inline-flex items-center justify-center w-16 h-16 mb-6 bg-white/20 backdrop-blur-lg rounded-full">
+      <div class="inline-flex items-center justify-center w-16 h-16 mb-6 bg-white/20 dark:bg-white/20 backdrop-blur-lg rounded-full">
         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
         </svg>
@@ -86,7 +90,7 @@ layout: layouts/base.njk
         Ready to put this into practice? Use our free {{ relatedToolName }} tool. It works entirely in your browser with no signup required.
       </p>
       
-      <a href="{{ relatedTool }}" class="inline-flex items-center gap-2 px-8 py-4 bg-white text-orange-600 font-semibold rounded-xl hover:bg-gray-50 transition-all hover:scale-105 hover:shadow-2xl">
+      <a href="{{ relatedTool }}" class="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary-600 dark:text-primary-400 font-semibold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-50 transition-all hover:scale-105 hover:shadow-2xl">
         <span>Launch {{ relatedToolName }}</span>
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
