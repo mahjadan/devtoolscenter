@@ -37,4 +37,214 @@
   .tool-card {
     @apply bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:border-primary-500 dark:hover:border-primary-400 transition-all duration-200 hover:shadow-lg;
   }
+
+  /* Enhanced Blog Article Styles */
+  .article-hero-gradient {
+    background: linear-gradient(135deg, rgba(234, 88, 12, 0.1), rgba(245, 158, 11, 0.1));
+    @apply border-l-4 border-orange-600;
+  }
+  
+  .code-block-enhanced pre {
+    position: relative;
+    background: #ffffff !important;
+    border: 1px solid #e5e7eb;
+    @apply rounded-xl shadow-lg transition-all duration-300;
+  }
+  
+  .code-block-enhanced pre:hover {
+    border-color: #d1d5db;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+  
+  .code-block-enhanced pre code {
+    @apply text-gray-900;
+  }
+  
+  /* Dark mode code blocks */
+  .code-block-enhanced pre:is(.dark *) {
+    background: #1e293b !important;
+    border: 1px solid #334155;
+  }
+  
+  .code-block-enhanced pre:hover:is(.dark *) {
+    border-color: #10b981;
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.15);
+  }
+  
+  .code-block-enhanced pre code:is(.dark *) {
+    @apply text-gray-100;
+  }
+  
+  .metadata-icon {
+    @apply w-[18px] h-[18px] text-orange-600 dark:text-amber-400;
+  }
+  
+  .article-animate {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@layer utilities {
+  /* Blog Prose Enhancements - Warm Orange/Amber Theme with Emerald Accents */
+  .prose h2 {
+    @apply text-orange-600 dark:text-amber-400 border-b-2 border-orange-500 dark:border-amber-500 pb-3;
+    position: relative;
+    font-weight: 700;
+  }
+  
+  .prose h2::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    @apply bg-orange-500 dark:bg-amber-500;
+  }
+  
+  .prose h3 {
+    @apply text-orange-600 dark:text-amber-400 font-semibold;
+  }
+  
+  .prose ul > li::marker {
+    @apply text-emerald-600 dark:text-emerald-400 font-bold;
+  }
+  
+  .prose strong {
+    @apply text-gray-900 dark:text-white font-semibold;
+  }
+  
+  .prose code {
+    @apply text-emerald-600 dark:text-emerald-400 font-medium bg-emerald-50 dark:bg-emerald-900/20 px-1.5 py-0.5 rounded;
+  }
+  
+  .prose blockquote {
+    @apply border-l-4 border-l-orange-500 bg-orange-50 dark:bg-orange-900/20 rounded-lg px-6 py-4 my-6;
+  }
+  
+  .prose a {
+    @apply text-primary-600 dark:text-primary-400 underline decoration-2 underline-offset-2 hover:text-primary-700 dark:hover:text-primary-300;
+  }
+  
+  .prose p {
+    @apply text-gray-700 dark:text-gray-300 leading-relaxed;
+  }
+  
+  /* Code Block Syntax Highlighting - Light Theme (matching reference) */
+  .prose pre code {
+    @apply text-gray-900;
+  }
+  
+  /* Light theme syntax tokens */
+  .prose pre code .token.comment,
+  .prose pre code .token.prolog,
+  .prose pre code .token.doctype,
+  .prose pre code .token.cdata {
+    color: #6a737d; /* gray for comments */
+  }
+  
+  .prose pre code .token.property,
+  .prose pre code .token.tag,
+  .prose pre code .token.constant,
+  .prose pre code .token.symbol,
+  .prose pre code .token.deleted {
+    color: #008080; /* teal for property names/keys */
+  }
+  
+  .prose pre code .token.string,
+  .prose pre code .token.char,
+  .prose pre code .token.attr-value,
+  .prose pre code .token.builtin,
+  .prose pre code .token.inserted {
+    color: #22863a; /* green for string values */
+  }
+  
+  .prose pre code .token.keyword,
+  .prose pre code .token.boolean,
+  .prose pre code .token.null {
+    color: #005cc5; /* blue for keywords/booleans */
+  }
+  
+  .prose pre code .token.number {
+    color: #e36209; /* orange for numbers */
+  }
+  
+  .prose pre code .token.function,
+  .prose pre code .token.class-name {
+    color: #6f42c1; /* purple for functions */
+  }
+  
+  .prose pre code .token.punctuation,
+  .prose pre code .token.operator {
+    color: #24292e; /* dark gray for punctuation */
+  }
+  
+  .prose pre code .token.attr-name,
+  .prose pre code .token.selector {
+    color: #005cc5; /* blue for attribute names */
+  }
+  
+  /* Dark mode syntax highlighting */
+  .prose pre code:is(.dark *) {
+    @apply text-gray-100;
+  }
+  
+  .prose pre code:is(.dark *) .token.comment,
+  .prose pre code:is(.dark *) .token.prolog,
+  .prose pre code:is(.dark *) .token.doctype,
+  .prose pre code:is(.dark *) .token.cdata {
+    color: #8b949e;
+  }
+  
+  .prose pre code:is(.dark *) .token.property,
+  .prose pre code:is(.dark *) .token.tag,
+  .prose pre code:is(.dark *) .token.constant,
+  .prose pre code:is(.dark *) .token.symbol,
+  .prose pre code:is(.dark *) .token.deleted {
+    color: #79c0ff;
+  }
+  
+  .prose pre code:is(.dark *) .token.string,
+  .prose pre code:is(.dark *) .token.char,
+  .prose pre code:is(.dark *) .token.attr-value,
+  .prose pre code:is(.dark *) .token.builtin,
+  .prose pre code:is(.dark *) .token.inserted {
+    color: #a5d6ff;
+  }
+  
+  .prose pre code:is(.dark *) .token.keyword,
+  .prose pre code:is(.dark *) .token.boolean,
+  .prose pre code:is(.dark *) .token.null {
+    color: #ff7b72;
+  }
+  
+  .prose pre code:is(.dark *) .token.number {
+    color: #79c0ff;
+  }
+  
+  .prose pre code:is(.dark *) .token.function,
+  .prose pre code:is(.dark *) .token.class-name {
+    color: #d2a8ff;
+  }
+  
+  .prose pre code:is(.dark *) .token.punctuation,
+  .prose pre code:is(.dark *) .token.operator {
+    color: #c9d1d9;
+  }
+  
+  .prose pre code:is(.dark *) .token.attr-name,
+  .prose pre code:is(.dark *) .token.selector {
+    color: #79c0ff;
+  }
 }

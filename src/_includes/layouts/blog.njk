@@ -2,106 +2,6 @@
 layout: layouts/base.njk
 ---
 
-<style>
-  /* Enhanced Blog Article Styles */
-  .article-hero-gradient {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1));
-    border-left: 4px solid rgb(59, 130, 246);
-  }
-  
-  .code-block-enhanced pre {
-    position: relative;
-    background: #0d1117 !important;
-    border: 2px solid #30363d;
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
-  }
-  
-  .code-block-enhanced pre:hover {
-    border-color: rgb(59, 130, 246);
-    box-shadow: 0 8px 32px rgba(59, 130, 246, 0.2);
-  }
-  
-  .code-language-tag {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: rgb(59, 130, 246);
-    color: white;
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 0.25rem 0.75rem;
-    border-radius: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    z-index: 10;
-  }
-  
-  .prose h2 {
-    color: rgb(59, 130, 246) !important;
-    border-bottom: 3px solid rgb(59, 130, 246);
-    padding-bottom: 0.5rem;
-    position: relative;
-  }
-  
-  .prose h2::after {
-    content: '';
-    position: absolute;
-    bottom: -3px;
-    left: 0;
-    width: 60px;
-    height: 3px;
-    background: rgb(16, 185, 129);
-  }
-  
-  .prose h3 {
-    color: rgb(59, 130, 246) !important;
-  }
-  
-  .prose ul > li::marker {
-    color: rgb(16, 185, 129);
-    font-weight: bold;
-  }
-  
-  .prose strong {
-    color: rgb(59, 130, 246) !important;
-  }
-  
-  .prose code {
-    color: rgb(59, 130, 246) !important;
-    font-weight: 500;
-  }
-  
-  .prose blockquote {
-    border-left-color: rgb(59, 130, 246);
-    background: rgba(59, 130, 246, 0.05);
-    border-radius: 8px;
-    padding: 1rem 1.5rem;
-  }
-  
-  .metadata-icon {
-    width: 18px;
-    height: 18px;
-    color: rgb(59, 130, 246);
-  }
-  
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .article-animate {
-    animation: fadeInUp 0.6s ease-out;
-  }
-</style>
-
 <article class="container mx-auto px-4 py-8 max-w-4xl article-animate">
   {# Article Header - Enhanced Design #}
   <header class="mb-12">
@@ -119,7 +19,7 @@ layout: layouts/base.njk
     
     {# Hero Title with Gradient #}
     <div class="article-hero-gradient p-8 rounded-xl mb-6">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent leading-tight">
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-orange-600 to-amber-500 bg-clip-text text-transparent leading-tight">
         {{ title }}
       </h1>
       <p class="text-xl md:text-2xl text-gray-700 dark:text-gray-300 leading-relaxed">{{ description }}</p>
@@ -150,29 +50,29 @@ layout: layouts/base.njk
     </div>
   </header>
 
-  {# Article Content - Enhanced Typography #}
+  {# Article Content - Enhanced Typography with Better Contrast #}
   <div class="prose dark:prose-invert max-w-none prose-lg code-block-enhanced
     prose-headings:font-bold 
     prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
     prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
-    prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6
-    prose-a:text-primary-600 dark:prose-a:text-primary-400 prose-a:no-underline hover:prose-a:underline prose-a:font-medium prose-a:transition-all
+    prose-p:text-base prose-p:leading-relaxed prose-p:mb-6
+    prose-a:transition-all
     prose-strong:font-semibold
     prose-code:font-mono prose-code:text-sm
-    prose-pre:bg-gray-900 dark:prose-pre:bg-gray-950 prose-pre:p-6 prose-pre:my-8
-    prose-ul:my-6 prose-ul:space-y-2
-    prose-ol:my-6 prose-ol:space-y-2
-    prose-li:text-gray-700 dark:prose-li:text-gray-300
-    prose-blockquote:my-6 prose-blockquote:not-italic
+    prose-pre:p-6 prose-pre:my-8 prose-pre:overflow-x-auto
+    prose-ul:my-6 prose-ul:space-y-3
+    prose-ol:my-6 prose-ol:space-y-3
+    prose-li:leading-relaxed
+    prose-blockquote:not-italic
     prose-img:rounded-xl prose-img:shadow-lg">
     {{ content | safe }}
   </div>
 
   {# Related Tool CTA - Enhanced Design #}
   {% if relatedTool %}
-  <div class="mt-16 mb-12 relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-emerald-600 opacity-90 rounded-2xl"></div>
-    <div class="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-white/10 rounded-2xl"></div>
+  <div class="mt-16 mb-12 relative overflow-hidden rounded-2xl">
+    <div class="absolute inset-0 bg-gradient-to-r from-orange-600 to-amber-500 opacity-95"></div>
+    <div class="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-white/10"></div>
     <div class="relative p-8 md:p-12 text-center">
       {# Icon #}
       <div class="inline-flex items-center justify-center w-16 h-16 mb-6 bg-white/20 backdrop-blur-lg rounded-full">
@@ -182,18 +82,18 @@ layout: layouts/base.njk
       </div>
       
       <h3 class="text-2xl md:text-3xl font-bold mb-4 text-white">Try {{ relatedToolName }} Now</h3>
-      <p class="text-lg text-white/95 mb-8 max-w-2xl mx-auto leading-relaxed">
+      <p class="text-lg text-white opacity-95 mb-8 max-w-2xl mx-auto leading-relaxed">
         Ready to put this into practice? Use our free {{ relatedToolName }} tool. It works entirely in your browser with no signup required.
       </p>
       
-      <a href="{{ relatedTool }}" class="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-gray-50 transition-all hover:scale-105 hover:shadow-2xl">
+      <a href="{{ relatedTool }}" class="inline-flex items-center gap-2 px-8 py-4 bg-white text-orange-600 font-semibold rounded-xl hover:bg-gray-50 transition-all hover:scale-105 hover:shadow-2xl">
         <span>Launch {{ relatedToolName }}</span>
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
         </svg>
       </a>
       
-      <div class="mt-6 flex items-center justify-center gap-6 text-sm text-white/80">
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-6 text-sm text-white opacity-90">
         <span class="flex items-center gap-1">
           <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
