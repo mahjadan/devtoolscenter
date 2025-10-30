@@ -1,0 +1,57 @@
+---
+layout: layouts/base.njk
+title: Developer Tools Blog
+description: Learn about developer tools, best practices, and how to use our free online tools effectively.
+permalink: /blog/
+---
+
+<div class="container mx-auto px-4 py-8 max-w-6xl">
+  <div class="mb-12">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">{{ title }}</h1>
+    <p class="text-xl text-gray-600 dark:text-gray-300">{{ description }}</p>
+  </div>
+
+  {# Featured Article #}
+  {% set featuredArticle = collections.blog | reverse | first %}
+  {% if featuredArticle %}
+  <div class="mb-12 p-8 bg-gradient-to-br from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 rounded-xl border-2 border-primary-200 dark:border-primary-800">
+    <div class="text-sm font-semibold text-primary-600 dark:text-primary-400 mb-2">FEATURED</div>
+    <h2 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">
+      <a href="{{ featuredArticle.url }}" class="hover:text-primary-600 dark:hover:text-primary-400">{{ featuredArticle.data.title }}</a>
+    </h2>
+    <p class="text-lg text-gray-700 dark:text-gray-300 mb-4">{{ featuredArticle.data.description }}</p>
+    <div class="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-4">
+      <time datetime="{{ featuredArticle.date }}">{{ featuredArticle.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }}</time>
+      {% if featuredArticle.data.readTime %}
+      <span>•</span>
+      <span>{{ featuredArticle.data.readTime }} min read</span>
+      {% endif %}
+    </div>
+    <a href="{{ featuredArticle.url }}" class="btn btn-primary">Read Article →</a>
+  </div>
+  {% endif %}
+
+  {# All Articles #}
+  <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">All Articles</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for article in collections.blog | reverse %}
+    <article class="tool-card">
+      <div class="mb-2">
+        <span class="text-xs font-semibold px-2 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded">{{ article.data.category }}</span>
+      </div>
+      <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">
+        <a href="{{ article.url }}" class="hover:text-primary-600 dark:hover:text-primary-400">{{ article.data.title }}</a>
+      </h3>
+      <p class="text-gray-600 dark:text-gray-300 mb-4">{{ article.data.description }}</p>
+      <div class="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+        <time datetime="{{ article.date }}">{{ article.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) }}</time>
+        {% if article.data.readTime %}
+        <span>•</span>
+        <span>{{ article.data.readTime }} min</span>
+        {% endif %}
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</div>
+

@@ -60,29 +60,14 @@ schema:
   </div>
 </div>
 
-<div class="mt-12 prose dark:prose-invert max-w-none">
-  <h2>About JSON Formatter</h2>
-  <p>
-    This JSON formatter and validator helps you format, beautify, and validate JSON data. 
-    It provides clear error messages when your JSON is invalid and can both format (prettify) 
-    and minify JSON strings.
+<div class="mt-12 p-6 bg-gradient-to-r from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 rounded-lg border-2 border-primary-200 dark:border-primary-800">
+  <h2 class="text-2xl font-bold mb-3 text-gray-900 dark:text-white">About JSON Formatter</h2>
+  <p class="text-gray-700 dark:text-gray-300 mb-4">
+    Format, beautify, and validate JSON data with syntax highlighting and error detection. 
+    This tool works entirely in your browser, keeping your data private and secure.
   </p>
-  
-  <h3>Features</h3>
-  <ul>
-    <li>Format and beautify JSON with proper indentation</li>
-    <li>Minify JSON by removing whitespace</li>
-    <li>Validate JSON syntax with detailed error messages</li>
-    <li>Copy formatted output with one click</li>
-    <li>Works entirely in your browser - your data stays private</li>
-  </ul>
-  
-  <h3>How to Use</h3>
-  <ol>
-    <li>Paste your JSON data into the input textarea</li>
-    <li>Click "Format JSON" to beautify or "Minify" to compress</li>
-    <li>If there are syntax errors, they will be highlighted with line numbers</li>
-    <li>Use "Copy Result" to copy the formatted JSON to your clipboard</li>
-  </ol>
+  <a href="/blog/understanding-json-formatting/" class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold hover:underline">
+    Learn more about JSON formatting and best practices →
+  </a>
 </div>
 

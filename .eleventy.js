@@ -21,6 +21,13 @@ module.exports = function(eleventyConfig) {
     });
   });
 
+  // Create a collection for blog posts
+  eleventyConfig.addCollection("blog", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("src/blog/*.md").sort((a, b) => {
+      return b.date - a.date; // Sort by date, newest first
+    });
+  });
+
   // Custom filter for JSON-LD structured data
   eleventyConfig.addFilter("jsonld", function(obj) {
     return JSON.stringify(obj);

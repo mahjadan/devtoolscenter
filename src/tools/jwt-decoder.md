@@ -80,37 +80,18 @@ schema:
   </div>
 </div>
 
-<div class="mt-12 prose dark:prose-invert max-w-none">
-  <h2>About JWT Decoder</h2>
-  <p>
-    JSON Web Token (JWT) is a compact, URL-safe means of representing claims to be transferred between two parties. 
-    This tool decodes JWT tokens and displays the header and payload in a readable format.
+<div class="mt-12 p-6 bg-gradient-to-r from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 rounded-lg border-2 border-primary-200 dark:border-primary-800">
+  <h2 class="text-2xl font-bold mb-3 text-gray-900 dark:text-white">About JWT Decoder</h2>
+  <p class="text-gray-700 dark:text-gray-300 mb-3">
+    Decode and inspect JSON Web Tokens (JWT) to view header and payload information. This tool runs entirely in your browser, 
+    ensuring your tokens remain private and secure.
   </p>
-  
-  <h3>Features</h3>
-  <ul>
-    <li>Decode JWT header and payload</li>
-    <li>Display token algorithm and type</li>
-    <li>Show expiration and issued-at timestamps</li>
-    <li>Format JSON output for readability</li>
-    <li>Client-side decoding - your tokens never leave your browser</li>
-  </ul>
-  
-  <h3>Security Note</h3>
-  <p>
-    This tool only <strong>decodes</strong> JWT tokens - it does not verify signatures. JWT tokens are encoded, 
-    not encrypted, so the header and payload can be read by anyone. Never put sensitive information in a JWT 
-    without proper encryption.
+  <p class="text-sm text-amber-700 dark:text-amber-300 mb-4 p-3 bg-amber-50 dark:bg-amber-900/20 rounded border border-amber-200 dark:border-amber-800">
+    <strong>Security Note:</strong> This tool only decodes JWT tokens - it does not verify signatures. 
+    Remember that JWT payloads are encoded, not encrypted.
   </p>
-  
-  <h3>JWT Structure</h3>
-  <p>
-    A JWT consists of three parts separated by dots (.):
-  </p>
-  <ul>
-    <li><strong>Header:</strong> Contains token type and signing algorithm</li>
-    <li><strong>Payload:</strong> Contains claims (user data, expiration, etc.)</li>
-    <li><strong>Signature:</strong> Used to verify the token hasn't been tampered with</li>
-  </ul>
+  <a href="/blog/jwt-tokens-explained/" class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold hover:underline">
+    Learn more about JWT tokens and best practices →
+  </a>
 </div>
 

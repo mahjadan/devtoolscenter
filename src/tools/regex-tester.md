@@ -85,28 +85,14 @@ schema:
   </div>
 </div>
 
-<div class="mt-12 prose dark:prose-invert max-w-none">
-  <h2>About Regex Tester</h2>
-  <p>
-    A regular expression (regex) is a sequence of characters that defines a search pattern. This tool helps you 
-    test and debug your regular expressions with real-time feedback and match highlighting.
+<div class="mt-12 p-6 bg-gradient-to-r from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 rounded-lg border-2 border-primary-200 dark:border-primary-800">
+  <h2 class="text-2xl font-bold mb-3 text-gray-900 dark:text-white">About Regex Tester</h2>
+  <p class="text-gray-700 dark:text-gray-300 mb-3">
+    Test and debug regular expressions with real-time feedback, match highlighting, and capture group visualization. 
+    Supports global, case-insensitive, and multiline flags for flexible pattern matching.
   </p>
-  
-  <h3>Features</h3>
-  <ul>
-    <li>Test regex patterns against sample text</li>
-    <li>Support for global, case-insensitive, and multiline flags</li>
-    <li>Highlight all matches in the test string</li>
-    <li>Display capture groups and their values</li>
-    <li>Real-time pattern validation</li>
-  </ul>
-  
-  <h3>Common Regex Patterns</h3>
-  <ul>
-    <li><strong>Email:</strong> <code>^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$</code></li>
-    <li><strong>URL:</strong> <code>https?://[\w\-]+(\.[\w\-]+)+[/#?]?.*$</code></li>
-    <li><strong>Phone:</strong> <code>^\+?[\d\s\-()]+$</code></li>
-    <li><strong>Hex Color:</strong> <code>^#?([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$</code></li>
-  </ul>
+  <p class="text-sm text-gray-600 dark:text-gray-400">
+    <strong>Example patterns:</strong> Email validation, URL matching, phone numbers, and hex colors
+  </p>
 </div>
 

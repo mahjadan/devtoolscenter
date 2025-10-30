@@ -54,53 +54,136 @@
     return div.innerHTML;
   }
   
-  // Basic JSON formatter that works even with invalid JSON
+  // Try to format JSON by fixing the error temporarily
   function formatInvalidJSON(input, errorPosition) {
+    // Try to fix the JSON by removing the error character
+    const fixedInput = input.slice(0, errorPosition) + input.slice(errorPosition + 1);
+    
     let formatted = '';
+    let currentPos = 0;
     let indent = 0;
     const indentStr = '  ';
+    let inString = false;
+    let escape = false;
     
-    for (let i = 0; i < input.length; i++) {
-      const char = input[i];
-      const nextChar = input[i + 1];
+    try {
+      // Try to parse and format the fixed version
+      const parsed = JSON.parse(fixedInput);
+      const validFormatted = JSON.stringify(parsed, null, 2);
       
-      // Highlight error character
-      if (i === errorPosition) {
-        formatted += `<span style="background-color: #ef4444; color: white; padding: 2px 4px; font-weight: bold; border-radius: 3px;">${escapeHtml(char)}</span>`;
-        continue;
+      // Now we need to insert the error character back into the formatted version
+      // This is tricky - we need to map positions
+      // Simpler approach: format manually with error highlighting
+      
+      for (let i = 0; i < input.length; i++) {
+        const char = input[i];
+        const prevChar = input[i - 1];
+        const nextChar = input[i + 1];
+        
+        // Handle string state
+        if (char === '"' && !escape) {
+          inString = !inString;
+        }
+        escape = (char === '\\' && !escape);
+        
+        // Skip whitespace outside strings
+        if (!inString && (char === ' ' || char === '\t' || char === '\n' || char === '\r')) {
+          continue;
+        }
+        
+        // Highlight error character
+        if (i === errorPosition) {
+          formatted += `<span style="background-color: #ef4444; color: white; padding: 2px 4px; font-weight: bold; border-radius: 3px;">${escapeHtml(char)}</span>`;
+          continue;
+        }
+        
+        // Format structural characters
+        if (!inString) {
+          if (char === '{' || char === '[') {
+            formatted += escapeHtml(char);
+            if (nextChar && nextChar !== '}' && nextChar !== ']') {
+              indent++;
+              formatted += '\n' + indentStr.repeat(indent);
+            }
+          } else if (char === '}' || char === ']') {
+            const prevNonSpace = input.slice(0, i).replace(/\s/g, '').slice(-1);
+            if (prevNonSpace !== '{' && prevNonSpace !== '[' && prevNonSpace !== ',') {
+              indent = Math.max(0, indent - 1);
+              formatted += '\n' + indentStr.repeat(indent);
+            } else {
+              indent = Math.max(0, indent - 1);
+            }
+            formatted += escapeHtml(char);
+          } else if (char === ',') {
+            formatted += escapeHtml(char);
+            // Add newline after comma (unless we just highlighted an error)
+            if (i !== errorPosition - 1 && i !== errorPosition + 1) {
+              formatted += '\n' + indentStr.repeat(indent);
+            }
+          } else if (char === ':') {
+            formatted += escapeHtml(char) + ' ';
+          } else {
+            formatted += escapeHtml(char);
+          }
+        } else {
+          formatted += escapeHtml(char);
+        }
       }
       
-      if (char === '{' || char === '[') {
-        formatted += escapeHtml(char);
-        if (nextChar !== '}' && nextChar !== ']') {
-          indent++;
-          formatted += '\n' + indentStr.repeat(indent);
+      return formatted;
+      
+    } catch (e) {
+      // If fixing didn't work, just format as-is with basic indentation
+      for (let i = 0; i < input.length; i++) {
+        const char = input[i];
+        const nextChar = input[i + 1];
+        
+        // Handle string state
+        if (char === '"' && !escape) {
+          inString = !inString;
         }
-      } else if (char === '}' || char === ']') {
-        if (input[i - 1] !== '{' && input[i - 1] !== '[') {
-          indent--;
-          formatted += '\n' + indentStr.repeat(indent);
+        escape = (char === '\\' && !escape);
+        
+        // Skip whitespace outside strings
+        if (!inString && (char === ' ' || char === '\t' || char === '\n' || char === '\r')) {
+          continue;
         }
-        formatted += escapeHtml(char);
-      } else if (char === ',') {
-        formatted += escapeHtml(char);
-        if (nextChar !== ' ' && nextChar !== '\n') {
-          formatted += '\n' + indentStr.repeat(indent);
+        
+        // Highlight error character
+        if (i === errorPosition) {
+          formatted += `<span style="background-color: #ef4444; color: white; padding: 2px 4px; font-weight: bold; border-radius: 3px;">${escapeHtml(char)}</span>`;
+          continue;
         }
-      } else if (char === ':') {
-        formatted += escapeHtml(char) + ' ';
-      } else if (char === '\n' || char === '\r') {
-        // Skip original newlines
-        continue;
-      } else if (char === ' ' && (input[i - 1] === ',' || input[i - 1] === '{' || input[i - 1] === '[')) {
-        // Skip spaces after structural characters
-        continue;
-      } else {
-        formatted += escapeHtml(char);
+        
+        // Format structural characters
+        if (!inString) {
+          if (char === '{' || char === '[') {
+            formatted += escapeHtml(char);
+            if (nextChar && nextChar !== '}' && nextChar !== ']') {
+              indent++;
+              formatted += '\n' + indentStr.repeat(indent);
+            }
+          } else if (char === '}' || char === ']') {
+            if (indent > 0) {
+              indent--;
+              formatted += '\n' + indentStr.repeat(indent);
+            }
+            formatted += escapeHtml(char);
+          } else if (char === ',') {
+            formatted += escapeHtml(char);
+            formatted += '\n' + indentStr.repeat(indent);
+          } else if (char === ':') {
+            formatted += escapeHtml(char) + ' ';
+          } else {
+            formatted += escapeHtml(char);
+          }
+        } else {
+          formatted += escapeHtml(char);
+        }
       }
+      
+      return formatted;
     }
-    
-    return formatted;
   }
   
   // Format with error highlighting (returns HTML)

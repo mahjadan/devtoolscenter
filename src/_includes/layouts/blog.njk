@@ -1,0 +1,68 @@
+---
+layout: layouts/base.njk
+---
+
+<article class="container mx-auto px-4 py-8 max-w-4xl">
+  {# Article Header #}
+  <header class="mb-8">
+    <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-4">
+      <a href="/blog/" class="hover:text-primary-600 dark:hover:text-primary-400">Blog</a>
+      <span>/</span>
+      <span>{{ category }}</span>
+    </div>
+    <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">{{ title }}</h1>
+    <p class="text-xl text-gray-600 dark:text-gray-300">{{ description }}</p>
+    <div class="flex items-center gap-4 mt-6 text-sm text-gray-600 dark:text-gray-400">
+      <time datetime="{{ date }}">{{ date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }}</time>
+      {% if readTime %}
+      <span>•</span>
+      <span>{{ readTime }} min read</span>
+      {% endif %}
+    </div>
+  </header>
+
+  {# Article Content #}
+  <div class="prose dark:prose-invert max-w-none prose-lg
+    prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white
+    prose-p:text-gray-700 dark:prose-p:text-gray-300
+    prose-a:text-primary-600 dark:prose-a:text-primary-400 prose-a:no-underline hover:prose-a:underline
+    prose-strong:text-gray-900 dark:prose-strong:text-white
+    prose-code:text-gray-900 dark:prose-code:text-white prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+    prose-pre:bg-gray-900 dark:prose-pre:bg-gray-950
+    prose-ul:text-gray-700 dark:prose-ul:text-gray-300
+    prose-ol:text-gray-700 dark:prose-ol:text-gray-300
+    prose-li:text-gray-700 dark:prose-li:text-gray-300">
+    {{ content | safe }}
+  </div>
+
+  {# Related Tool CTA #}
+  {% if relatedTool %}
+  <div class="mt-12 p-6 bg-gradient-to-r from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 rounded-lg border-2 border-primary-200 dark:border-primary-800">
+    <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Try it yourself</h3>
+    <p class="text-gray-700 dark:text-gray-300 mb-4">Ready to use our {{ relatedToolName }}? It's free and works entirely in your browser.</p>
+    <a href="{{ relatedTool }}" class="btn btn-primary">
+      Go to {{ relatedToolName }} →
+    </a>
+  </div>
+  {% endif %}
+
+  {# Related Articles #}
+  {% if relatedArticles %}
+  <div class="mt-12 pt-8 border-t-2 border-gray-200 dark:border-gray-700">
+    <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Related Articles</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {% for articleUrl in relatedArticles %}
+        {% for article in collections.blog %}
+          {% if article.url == articleUrl %}
+      <a href="{{ article.url }}" class="group p-6 bg-white dark:bg-gray-800 rounded-lg border-2 border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors">
+        <h3 class="font-semibold text-lg mb-2 text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400">{{ article.data.title }}</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300">{{ article.data.description }}</p>
+      </a>
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</article>
+

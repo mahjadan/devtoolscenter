@@ -74,46 +74,14 @@ schema:
   </div>
 </div>
 
-<div class="mt-12 prose dark:prose-invert max-w-none">
-  <h2>About UUID Generator</h2>
-  <p>
-    A UUID (Universally Unique Identifier) is a 128-bit number used to uniquely identify information 
-    in computer systems. This tool generates random UUIDs using the Version 4 specification.
+<div class="mt-12 p-6 bg-gradient-to-r from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 rounded-lg border-2 border-primary-200 dark:border-primary-800">
+  <h2 class="text-2xl font-bold mb-3 text-gray-900 dark:text-white">About UUID Generator</h2>
+  <p class="text-gray-700 dark:text-gray-300 mb-3">
+    Generate cryptographically strong random UUIDs (Version 4) for database keys, session IDs, file names, and unique identifiers. 
+    Generate single or bulk UUIDs with options for formatting.
   </p>
-  
-  <h3>Features</h3>
-  <ul>
-    <li>Generate single or multiple UUIDs (up to 100 at once)</li>
-    <li>UUID Version 4 (random) generation</li>
-    <li>Option to generate with or without hyphens</li>
-    <li>Option for uppercase or lowercase format</li>
-    <li>Cryptographically strong random number generation</li>
-    <li>Copy all UUIDs to clipboard</li>
-  </ul>
-  
-  <h3>UUID Version 4 Format</h3>
-  <p>
-    UUID v4 uses random or pseudo-random numbers. The format is:
-  </p>
-  <p class="font-mono text-sm">
-    xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx
-  </p>
-  <p>
-    Where each <code>x</code> is a random hexadecimal digit (0-9, a-f) and <code>y</code> is one of 8, 9, a, or b.
-  </p>
-  
-  <h3>Common Use Cases</h3>
-  <ul>
-    <li><strong>Database Keys:</strong> Primary keys for distributed databases</li>
-    <li><strong>Session IDs:</strong> Unique session identifiers</li>
-    <li><strong>File Names:</strong> Unique file or resource names</li>
-    <li><strong>API Keys:</strong> Unique identifiers for API requests</li>
-    <li><strong>Tracking:</strong> Event or transaction tracking IDs</li>
-  </ul>
-  
-  <h3>Example</h3>
-  <p class="font-mono text-sm">
-    550e8400-e29b-41d4-a716-446655440000
+  <p class="text-sm text-gray-600 dark:text-gray-400">
+    <strong>Example:</strong> 550e8400-e29b-41d4-a716-446655440000
   </p>
 </div>
 

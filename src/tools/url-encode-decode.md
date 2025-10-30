@@ -61,32 +61,14 @@ schema:
   </div>
 </div>
 
-<div class="mt-12 prose dark:prose-invert max-w-none">
-  <h2>About URL Encoder / Decoder</h2>
-  <p>
-    URL encoding (also known as percent-encoding) is a mechanism for encoding information in a Uniform Resource 
-    Identifier (URI). This tool helps you encode and decode URLs and URI components.
+<div class="mt-12 p-6 bg-gradient-to-r from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 rounded-lg border-2 border-primary-200 dark:border-primary-800">
+  <h2 class="text-2xl font-bold mb-3 text-gray-900 dark:text-white">About URL Encoder / Decoder</h2>
+  <p class="text-gray-700 dark:text-gray-300 mb-3">
+    URL encoding (percent-encoding) converts special characters to be safely transmitted in URLs. 
+    Encode full URLs or individual components, and decode them back to readable text.
   </p>
-  
-  <h3>Features</h3>
-  <ul>
-    <li>Encode full URLs with <code>encodeURI()</code></li>
-    <li>Decode full URLs with <code>decodeURI()</code></li>
-    <li>Encode URI components with <code>encodeURIComponent()</code></li>
-    <li>Decode URI components with <code>decodeURIComponent()</code></li>
-    <li>Handles special characters and UTF-8 encoding</li>
-  </ul>
-  
-  <h3>When to Use</h3>
-  <ul>
-    <li><strong>Encode URL:</strong> When you need to encode a complete URL (preserves :, /, ?, &, =)</li>
-    <li><strong>Encode Component:</strong> When encoding query parameters or path segments (encodes all special chars)</li>
-    <li><strong>Decode URL:</strong> To decode a complete encoded URL</li>
-    <li><strong>Decode Component:</strong> To decode individual URI components</li>
-  </ul>
-  
-  <h3>Examples</h3>
-  <p><strong>Original:</strong> <code>hello world & special chars!</code></p>
-  <p><strong>Encoded Component:</strong> <code>hello%20world%20%26%20special%20chars!</code></p>
+  <p class="text-sm text-gray-600 dark:text-gray-400">
+    <strong>Example:</strong> "hello world & special!" becomes "hello%20world%20%26%20special!"
+  </p>
 </div>
 

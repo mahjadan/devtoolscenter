@@ -60,40 +60,14 @@ schema:
   </div>
 </div>
 
-<div class="mt-12 prose dark:prose-invert max-w-none">
-  <h2>About Base64 Encoding</h2>
-  <p>
-    Base64 is a binary-to-text encoding scheme that represents binary data in an ASCII string format. 
-    It's commonly used to encode binary data for transmission over media designed to handle text.
+<div class="mt-12 p-6 bg-gradient-to-r from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 rounded-lg border-2 border-primary-200 dark:border-primary-800">
+  <h2 class="text-2xl font-bold mb-3 text-gray-900 dark:text-white">About Base64 Encoding</h2>
+  <p class="text-gray-700 dark:text-gray-300 mb-3">
+    Base64 is a binary-to-text encoding scheme commonly used for email attachments, data URIs, authentication, 
+    and storing binary data in text-only systems. This tool supports UTF-8 encoding and handles special characters.
   </p>
-  
-  <h3>Features</h3>
-  <ul>
-    <li>Encode text to Base64 format</li>
-    <li>Decode Base64 strings back to text</li>
-    <li>Support for UTF-8 encoding</li>
-    <li>Handle special characters and unicode</li>
-    <li>Copy results with one click</li>
-  </ul>
-  
-  <h3>Common Use Cases</h3>
-  <ul>
-    <li><strong>Email Attachments:</strong> MIME email attachments are encoded in Base64</li>
-    <li><strong>Data URIs:</strong> Embedding images in CSS or HTML</li>
-    <li><strong>Authentication:</strong> HTTP Basic Authentication uses Base64</li>
-    <li><strong>APIs:</strong> Some APIs require Base64-encoded data</li>
-    <li><strong>Storage:</strong> Storing binary data in text-only systems</li>
-  </ul>
-  
-  <h3>How It Works</h3>
-  <p>
-    Base64 encoding converts binary data into a set of 64 ASCII characters (A-Z, a-z, 0-9, +, /). 
-    Every 3 bytes of binary data are represented by 4 Base64 characters. If the input length isn't 
-    divisible by 3, padding characters (=) are added.
+  <p class="text-sm text-gray-600 dark:text-gray-400">
+    <strong>Example:</strong> "Hello, World!" encodes to "SGVsbG8sIFdvcmxkIQ=="
   </p>
-  
-  <h3>Example</h3>
-  <p><strong>Original:</strong> <code>Hello, World!</code></p>
-  <p><strong>Base64:</strong> <code>SGVsbG8sIFdvcmxkIQ==</code></p>
 </div>
 

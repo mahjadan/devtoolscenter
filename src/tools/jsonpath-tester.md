@@ -81,38 +81,14 @@ schema:
   </div>
 </div>
 
-<div class="mt-12 prose dark:prose-invert max-w-none">
-  <h2>About JSONPath</h2>
-  <p>
-    JSONPath is a query language for JSON, similar to XPath for XML. It allows you to extract specific 
-    data from JSON documents using path expressions.
+<div class="mt-12 p-6 bg-gradient-to-r from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 rounded-lg border-2 border-primary-200 dark:border-primary-800">
+  <h2 class="text-2xl font-bold mb-3 text-gray-900 dark:text-white">About JSONPath Tester</h2>
+  <p class="text-gray-700 dark:text-gray-300 mb-4">
+    Test JSONPath expressions against JSON data in real-time. JSONPath is a query language for JSON, 
+    similar to XPath for XML, making it easy to extract specific data from complex JSON structures.
   </p>
-  
-  <h3>Features</h3>
-  <ul>
-    <li>Test JSONPath expressions against JSON data</li>
-    <li>Real-time query evaluation</li>
-    <li>Support for basic JSONPath syntax</li>
-    <li>Clear error messages for invalid queries</li>
-    <li>Formatted JSON output</li>
-  </ul>
-  
-  <h3>JSONPath Syntax</h3>
-  <ul>
-    <li><strong>$</strong> - Root element</li>
-    <li><strong>@</strong> - Current element (in filters)</li>
-    <li><strong>.</strong> or <strong>[]</strong> - Child operator</li>
-    <li><strong>..</strong> - Recursive descent</li>
-    <li><strong>*</strong> - Wildcard (all elements)</li>
-    <li><strong>[]</strong> - Array subscript</li>
-    <li><strong>[,]</strong> - Array indices or names</li>
-    <li><strong>[start:end:step]</strong> - Array slice</li>
-  </ul>
-  
-  <h3>Note</h3>
-  <p>
-    This is a basic JSONPath implementation. Advanced features like filters and complex expressions 
-    may have limited support. For production use, consider using a full-featured JSONPath library.
-  </p>
+  <a href="/blog/jsonpath-expressions-guide/" class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold hover:underline">
+    Learn more about JSONPath syntax and advanced queries →
+  </a>
 </div>
 

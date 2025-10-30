@@ -59,34 +59,14 @@ schema:
   </div>
 </div>
 
-<div class="mt-12 prose dark:prose-invert max-w-none">
-  <h2>About YAML to JSON Converter</h2>
-  <p>
-    This tool converts between YAML and JSON formats bidirectionally. YAML (YAML Ain't Markup Language) 
-    is a human-readable data serialization format commonly used for configuration files.
+<div class="mt-12 p-6 bg-gradient-to-r from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 rounded-lg border-2 border-primary-200 dark:border-primary-800">
+  <h2 class="text-2xl font-bold mb-3 text-gray-900 dark:text-white">About YAML to JSON Converter</h2>
+  <p class="text-gray-700 dark:text-gray-300 mb-4">
+    Convert between YAML and JSON formats bidirectionally with automatic format detection and validation. 
+    Perfect for configuration files and data transformation between formats.
   </p>
-  
-  <h3>Features</h3>
-  <ul>
-    <li>Convert YAML to JSON format</li>
-    <li>Convert JSON to YAML format</li>
-    <li>Automatic format detection</li>
-    <li>Syntax validation and error reporting</li>
-    <li>Preserves data types and structure</li>
-  </ul>
-  
-  <h3>How to Use</h3>
-  <ol>
-    <li>Paste your YAML or JSON data into the input field</li>
-    <li>Click "YAML → JSON" or "JSON → YAML" depending on your conversion direction</li>
-    <li>The converted output will appear in the output field</li>
-    <li>Click "Copy Result" to copy to your clipboard</li>
-  </ol>
-  
-  <h3>Note</h3>
-  <p>
-    This is a basic YAML converter using a simple parser. For complex YAML features like anchors, 
-    aliases, or multi-line strings, you may need a more advanced parser.
-  </p>
+  <a href="/blog/yaml-vs-json/" class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold hover:underline">
+    Learn more about YAML vs JSON and when to use each →
+  </a>
 </div>
 
