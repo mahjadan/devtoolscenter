@@ -38,7 +38,7 @@
     @apply bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:border-primary-500 dark:hover:border-primary-400 transition-all duration-200 hover:shadow-lg;
   }
 
-  /* Enhanced Blog Article Styles */
+  /* Enhanced Blog Article Styles - Light Mode (default) */
   .article-hero-gradient {
     background: linear-gradient(
       135deg,
@@ -47,13 +47,12 @@
       #bfdbfe 70%,
       #dbeafe 100%
     ) !important;
-    @apply border-l-4 border-primary-600 dark:border-primary-400;
     box-shadow: 0 10px 30px rgba(37, 99, 235, 0.1),
       0 0 0 1px rgba(37, 99, 235, 0.05) !important;
     position: relative;
   }
 
-  /* Add subtle glow effect for light mode */
+  /* Light mode glow effect */
   .article-hero-gradient::after {
     content: "";
     position: absolute;
@@ -68,19 +67,7 @@
     border-radius: inherit;
   }
 
-  @media (prefers-color-scheme: dark) {
-    .article-hero-gradient {
-      background: linear-gradient(
-        135deg,
-        rgba(15, 23, 42, 0.95) 0%,
-        rgba(30, 41, 59, 0.9) 50%,
-        rgba(15, 23, 42, 0.95) 100%
-      ) !important;
-      box-shadow: 0 10px 40px rgba(56, 189, 248, 0.15),
-        0 0 0 1px rgba(56, 189, 248, 0.1);
-    }
-  }
-
+  /* Dark Mode - only apply when .dark class is present */
   .dark .article-hero-gradient {
     background: linear-gradient(
       135deg,
@@ -89,7 +76,12 @@
       rgba(15, 23, 42, 0.95) 100%
     ) !important;
     box-shadow: 0 10px 40px rgba(56, 189, 248, 0.15),
-      0 0 0 1px rgba(56, 189, 248, 0.1);
+      0 0 0 1px rgba(56, 189, 248, 0.1) !important;
+  }
+
+  /* Hide light mode glow in dark mode */
+  .dark .article-hero-gradient::after {
+    display: none;
   }
 
   .code-block-enhanced pre {
@@ -181,7 +173,8 @@
     @apply text-gray-900 dark:text-white font-semibold;
   }
 
-  .prose code {
+  /* Inline code (not in pre blocks) */
+  .prose code:not(pre code) {
     @apply text-primary-600 dark:text-primary-400 font-medium bg-primary-50 dark:bg-primary-900/20 px-1.5 py-0.5 rounded;
   }
 
@@ -205,10 +198,44 @@
     margin-top: 0.5rem;
   }
 
-  /* Code Block Syntax Highlighting - Light Theme (matching reference) */
+  /* Code Block Styling - Better margins and padding */
+  .prose pre {
+    @apply bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg;
+    padding: 1.5rem;
+    margin-top: 1.75rem;
+    margin-bottom: 1.75rem;
+    overflow-x: auto;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Extra spacing when code blocks follow headings or paragraphs */
+  .prose p + pre,
+  .prose h2 + pre,
+  .prose h3 + pre,
+  .prose ul + pre,
+  .prose ol + pre {
+    margin-top: 1.25rem;
+  }
+
+  /* Extra spacing before paragraphs following code blocks */
+  .prose pre + p,
+  .prose pre + h2,
+  .prose pre + h3,
+  .prose pre + ul,
+  .prose pre + ol {
+    margin-top: 1.5rem;
+  }
+
   .prose pre code {
     @apply text-gray-900;
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
   }
+
+  /* Code Block Syntax Highlighting - Light Theme (matching reference) */
 
   /* Light theme syntax tokens */
   .prose pre code .token.comment,
@@ -259,7 +286,12 @@
     color: #005cc5; /* blue for attribute names */
   }
 
-  /* Dark mode syntax highlighting */
+  /* Dark mode code blocks */
+  .prose pre:is(.dark *) {
+    @apply bg-gray-800 border-gray-700;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+
   .prose pre code:is(.dark *) {
     @apply text-gray-100;
   }

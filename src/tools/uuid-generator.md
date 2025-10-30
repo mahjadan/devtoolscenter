@@ -76,12 +76,12 @@ schema:
 
 <div class="mt-12 p-6 bg-gradient-to-r from-primary-50 via-primary-100/50 to-accent-50 dark:from-gray-800 dark:via-primary-900/30 dark:to-gray-800 rounded-lg border-2 border-primary-300 dark:border-primary-500/50 shadow-md dark:shadow-lg dark:shadow-primary-900/20">
   <h2 class="text-2xl font-bold mb-3 text-gray-900 dark:text-white">About UUID Generator</h2>
-  <p class="text-gray-700 dark:text-gray-300 mb-3">
+  <p class="text-gray-700 dark:text-gray-300 mb-4">
     Generate cryptographically strong random UUIDs (Version 4) for database keys, session IDs, file names, and unique identifiers. 
     Generate single or bulk UUIDs with options for formatting.
   </p>
-  <p class="text-sm text-gray-600 dark:text-gray-400">
-    <strong>Example:</strong> 550e8400-e29b-41d4-a716-446655440000
-  </p>
+  <a href="/blog/understanding-uuid-generation/" class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold hover:underline">
+    Learn more about UUID generation and best practices →
+  </a>
 </div>
 

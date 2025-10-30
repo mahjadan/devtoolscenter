@@ -63,12 +63,12 @@ schema:
 
 <div class="mt-12 p-6 bg-gradient-to-r from-primary-50 via-primary-100/50 to-accent-50 dark:from-gray-800 dark:via-primary-900/30 dark:to-gray-800 rounded-lg border-2 border-primary-300 dark:border-primary-500/50 shadow-md dark:shadow-lg dark:shadow-primary-900/20">
   <h2 class="text-2xl font-bold mb-3 text-gray-900 dark:text-white">About URL Encoder / Decoder</h2>
-  <p class="text-gray-700 dark:text-gray-300 mb-3">
+  <p class="text-gray-700 dark:text-gray-300 mb-4">
     URL encoding (percent-encoding) converts special characters to be safely transmitted in URLs. 
     Encode full URLs or individual components, and decode them back to readable text.
   </p>
-  <p class="text-sm text-gray-600 dark:text-gray-400">
-    <strong>Example:</strong> "hello world & special!" becomes "hello%20world%20%26%20special!"
-  </p>
+  <a href="/blog/understanding-url-encoding/" class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold hover:underline">
+    Learn more about URL encoding and best practices →
+  </a>
 </div>
 
