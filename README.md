@@ -1,211 +1,266 @@
-# DevTools Center
+# Developer Tools Blog - Article Template
 
-> Free online developer tools for formatting, validating, encoding, and testing
+A **visually engaging and professional single-article page template** designed specifically for blogs focused on Coding Tools and Developer Technologies. This template features a modern, clean design with dark/light theme support, syntax-highlighted code blocks, and exceptional readability.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Node Version](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](package.json)
+![Template Preview](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
+![Theme Support](https://img.shields.io/badge/Themes-Dark%20%7C%20Light-blue)
+![Responsive](https://img.shields.io/badge/Design-Fully%20Responsive-orange)
 
-## 🚀 Live Site
+## 🎨 Design Features
 
-Visit [devtoolscenter.com](https://devtoolscenter.com) to use the tools.
+### Visual Theme
+- **Dual Theme Support**: Seamless dark and light theme with instant toggle
+- **Modern Color Palette**: 
+  - Electric blue (`#00d4ff`) primary accent
+  - Neon green (`#00ff88`) secondary accent
+  - Deep orange (`#ff6b35`) warning/alert accent
+  - Professional backgrounds (charcoal/navy for dark, crisp white for light)
+- **High Contrast**: Optimized for readability with developer-focused aesthetics
 
-## 📋 Overview
+### Typography
+- **Technical Font**: Source Code Pro for headings and code
+- **Body Font**: Inter for comfortable reading
+- **Optimized Line Height**: 1.8 for body text, ensuring excellent readability
+- **Responsive Sizing**: Scales beautifully across all devices
 
-DevTools Center is a collection of free, privacy-focused developer utilities that run entirely in your browser. All tools are client-side, meaning your data never leaves your device.
+### Code Presentation
+The template features **industry-leading code block styling**:
+- **Syntax Highlighting**: Professional color scheme (Monokai-inspired)
+- **Language Tags**: Clear badges indicating code type (JSON, JavaScript, Bash, HTTP)
+- **Copy Button**: One-click code copying with visual feedback
+- **Multiple Styles**: 
+  - Standard code blocks
+  - API request/response examples
+  - Terminal commands with authentic styling (black background, green text)
+- **Filename Display**: Shows file names for context
+- **Line Wrapping**: Horizontal scroll for long lines
 
-### Available Tools
+## 📋 Template Structure
 
-- **JSON Formatter & Validator** - Format, beautify, and validate JSON data
-- **YAML to JSON Converter** - Convert between YAML and JSON formats
-- **URL Encoder/Decoder** - Encode and decode URLs and URI components
-- **JWT Decoder** - Decode and inspect JSON Web Tokens
-- **Regex Tester** - Test and debug regular expressions
-- **JSONPath Tester** - Query JSON data with JSONPath expressions
-- **Base64 Encoder/Decoder** - Encode and decode Base64 strings
-- **UUID Generator** - Generate random UUIDs (v4)
-
-## 🛠️ Tech Stack
-
-- **Static Site Generator:** [Eleventy](https://www.11ty.dev/) (11ty)
-- **CSS Framework:** [Tailwind CSS](https://tailwindcss.com/)
-- **JavaScript:** Vanilla JS (no frameworks)
-- **Hosting:** [Cloudflare Pages](https://pages.cloudflare.com/)
-- **Build Tool:** npm scripts
-
-## 📦 Installation
-
-### Prerequisites
-
-- Node.js 18 or higher
-- npm or yarn
-
-### Setup
-
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd devtoolscenter
+### 1. Article Header
+```html
+- Hero Illustration (animated SVG)
+- Prominent Title (gradient text effect)
+- Metadata (Author, Date, Read Time with icons)
 ```
 
-2. Install dependencies:
-```bash
-npm install
+### 2. Content Sections
+- **Lead Paragraph**: Highlighted introduction with border accent
+- **Section Headings**: Icon + gradient underline
+- **Key Concept Boxes**: Highlighted definitions with icon headers
+- **Custom Lists**: 
+  - Checkmark bullets for feature lists
+  - Arrow bullets for action items
+  - Numbered badges for step-by-step guides
+
+### 3. Code Examples
+Multiple code block types demonstrated:
+- JSON configuration files
+- JavaScript/Node.js code
+- HTTP API requests
+- Terminal/Bash commands
+
+### 4. Visual Elements
+- **Workflow Diagrams**: SVG-based flow charts
+- **Icons**: Contextual line-art icons for sections
+- **Illustrations**: Animated network diagrams
+- **Concept Boxes**: Color-coded callouts (info, warning)
+
+### 5. Call-to-Action
+- **Prominent CTA Section**: Gradient background with pulse animation
+- **Primary Action Button**: Download/Subscribe with hover effects
+- **Secondary Links**: Newsletter, community links
+
+## 🚀 Usage
+
+### Quick Start
+
+1. **Clone or Download** the template files:
+   ```bash
+   git clone <repository-url>
+   ```
+
+2. **Open in Browser**:
+   ```bash
+   open article-template.html
+   ```
+
+3. **Customize Content**:
+   - Replace article title, author, and date
+   - Update code examples
+   - Modify sections as needed
+
+### File Structure
+
+```
+project-root/
+│
+├── article-template.html    # Main HTML template
+├── styles.css               # Complete stylesheet with themes
+└── README.md               # This documentation
 ```
 
-3. Start development server:
-```bash
-npm run dev
+### Customization Guide
+
+#### Changing Colors
+
+Edit CSS variables in `styles.css`:
+
+```css
+:root {
+    --accent-primary: #00d4ff;      /* Main accent color */
+    --accent-secondary: #0099ff;    /* Secondary accent */
+    --accent-tertiary: #00ff88;     /* Tertiary accent */
+    --accent-orange: #ff6b35;       /* Warning/alert color */
+}
 ```
 
-This will start:
-- Eleventy dev server with live reload (port 8080)
-- Tailwind CSS watcher
+#### Adding New Sections
 
-4. Open your browser to `http://localhost:8080`
+Use this template structure:
 
-## 🏗️ Build
-
-To build the site for production:
-
-```bash
-npm run build
+```html
+<section class="content-section">
+    <h2 class="section-heading">
+        <svg class="heading-icon" width="32" height="32">
+            <!-- SVG icon path -->
+        </svg>
+        Your Section Title
+    </h2>
+    
+    <p>Your content here...</p>
+</section>
 ```
 
-This will:
-1. Build and minify Tailwind CSS
-2. Generate static HTML with Eleventy
-3. Output everything to `_site/` directory
+#### Code Block Template
 
-## 📁 Project Structure
-
-```
-devtoolscenter/
-├── src/
-│   ├── _includes/
-│   │   ├── layouts/          # Page layouts
-│   │   │   ├── base.njk      # Base HTML template
-│   │   │   └── tool.njk      # Tool page template
-│   │   └── partials/         # Reusable components
-│   │       ├── header.njk
-│   │       ├── footer.njk
-│   │       └── nav.njk
-│   ├── assets/
-│   │   ├── css/
-│   │   │   └── styles.css    # Tailwind input file
-│   │   ├── js/
-│   │   │   ├── theme-toggle.js
-│   │   │   └── tools/        # Individual tool scripts
-│   │   └── images/
-│   ├── tools/                # Tool pages (markdown)
-│   │   ├── json-formatter.md
-│   │   ├── yaml-to-json.md
-│   │   └── ...
-│   ├── pages/                # Legal & info pages
-│   │   ├── about.md
-│   │   ├── contact.md
-│   │   ├── privacy-policy.md
-│   │   └── terms-of-service.md
-│   ├── index.njk             # Homepage
-│   ├── robots.txt
-│   └── _headers              # Cloudflare headers
-├── _site/                    # Build output (git-ignored)
-├── .eleventy.js              # Eleventy config
-├── tailwind.config.js        # Tailwind config
-├── postcss.config.js         # PostCSS config
-├── package.json
-└── README.md
+```html
+<div class="code-block-wrapper">
+    <div class="code-header">
+        <span class="language-tag">LANGUAGE</span>
+        <span class="code-filename">filename.ext</span>
+        <button class="copy-button" onclick="copyCode(this)">
+            <!-- Copy icon SVG -->
+            Copy
+        </button>
+    </div>
+    <pre class="code-content"><code>Your code here</code></pre>
+</div>
 ```
 
-## 🎨 Customization
+## 🎯 Key Features
 
-### Adding a New Tool
+### Responsive Design
+- **Mobile-First**: Optimized for all screen sizes
+- **Breakpoints**: 
+  - Mobile: < 480px
+  - Tablet: 480px - 768px
+  - Desktop: > 768px
 
-1. Create a new markdown file in `src/tools/`:
+### Accessibility
+- **Keyboard Navigation**: Full keyboard support with visible focus indicators
+- **Screen Readers**: Semantic HTML with proper ARIA labels
+- **Color Contrast**: WCAG 2.1 AA compliant
+- **Reduced Motion**: Respects user's motion preferences
 
-```markdown
----
-layout: layouts/tool.njk
-title: Your Tool Name
-description: Tool description
-permalink: /your-tool/
-icon: 🔧
-order: 9
-pageScript: /assets/js/tools/your-tool.js
-keywords: keyword1, keyword2
-relatedTools:
-  - /json-formatter/
-  - /base64-encode-decode/
-schema:
-  "@context": "https://schema.org"
-  "@type": "SoftwareApplication"
-  name: "Your Tool Name"
-  # ... more schema properties
----
+### Performance
+- **Lightweight**: No external dependencies except Google Fonts
+- **Fast Loading**: Optimized CSS and inline JavaScript
+- **Print Friendly**: Dedicated print styles
 
-<!-- Tool HTML here -->
+### Interactive Elements
+- **Theme Toggle**: Persistent theme selection (localStorage)
+- **Copy Code**: One-click code copying
+- **Smooth Scrolling**: Anchor link navigation
+- **Hover Effects**: Subtle animations on interactive elements
+
+## 🔧 Browser Support
+
+- ✅ Chrome (latest)
+- ✅ Firefox (latest)
+- ✅ Safari (latest)
+- ✅ Edge (latest)
+- ✅ Mobile browsers (iOS Safari, Chrome Mobile)
+
+## 📱 Responsive Breakpoints
+
+| Device | Width | Adjustments |
+|--------|-------|-------------|
+| Mobile | < 480px | Single column, larger touch targets |
+| Tablet | 480px - 768px | Adjusted typography, flexible layout |
+| Desktop | > 768px | Full layout, side-by-side elements |
+
+## 🎨 Design Elements Showcase
+
+### Typography Scale
+```
+- Article Title: 3rem (48px)
+- Section Headings: 2rem (32px)
+- Body Text: 1.1rem (17.6px)
+- Code: 0.95rem (15.2px)
 ```
 
-2. Create the tool's JavaScript in `src/assets/js/tools/your-tool.js`
+### Spacing System
+```css
+--spacing-xs:  0.5rem  (8px)
+--spacing-sm:  1rem    (16px)
+--spacing-md:  1.5rem  (24px)
+--spacing-lg:  2rem    (32px)
+--spacing-xl:  3rem    (48px)
+--spacing-xxl: 4rem    (64px)
+```
 
-3. The tool will automatically appear on the homepage
+### Border Radius
+```css
+--radius-sm:  4px   (subtle)
+--radius-md:  8px   (standard)
+--radius-lg:  12px  (prominent)
+--radius-xl:  16px  (hero elements)
+```
 
-### Styling
+## 🌟 Best Practices
 
-- Global styles: Edit `src/assets/css/styles.css`
-- Tailwind config: Edit `tailwind.config.js`
-- Colors, fonts, etc. can be customized in the Tailwind config
+### Content Guidelines
 
-## 🚀 Deployment
+1. **Headings**: Use descriptive, action-oriented section titles
+2. **Code Examples**: Always include context and explanations
+3. **Lists**: Break complex information into scannable bullet points
+4. **Images**: Use SVG for icons and diagrams (scalable, theme-aware)
 
-### Cloudflare Pages
+### Code Block Usage
 
-1. Push your code to GitHub
-2. Log in to Cloudflare Dashboard
-3. Go to Pages → Create a project
-4. Connect your GitHub repository
-5. Configure build settings:
-   - **Build command:** `npm run build`
-   - **Build output directory:** `_site`
-   - **Environment variables:** `NODE_VERSION=18`
-6. Click "Save and Deploy"
+- **Short Snippets**: Use inline `<code>` tags
+- **Full Examples**: Use code block wrappers with language tags
+- **Terminal Commands**: Use the terminal-specific styling
+- **API Calls**: Use the API example variant
 
-Cloudflare will automatically deploy on every push to your main branch.
+### Performance Tips
 
-### Custom Domain
-
-1. In Cloudflare Pages, go to your project
-2. Navigate to "Custom domains"
-3. Add your domain (devtoolscenter.com)
-4. Follow DNS configuration instructions
-
-## 🔒 Privacy & Security
-
-- All tools run 100% client-side
-- No data is sent to servers
-- No user data is collected or stored
-- Privacy-first analytics (optional)
+- Keep code blocks under 50 lines when possible
+- Use lazy loading for images/diagrams in long articles
+- Minimize custom fonts (currently uses 2 font families)
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This template is free to use for personal and commercial projects. Attribution is appreciated but not required.
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Feel free to:
+- Report bugs
+- Suggest new features
+- Submit pull requests
+- Share your customizations
 
-## 📧 Contact
+## 📞 Support
 
-- Website: [devtoolscenter.com](https://devtoolscenter.com)
-- Email: hello@devtoolscenter.com
-- Contact Page: [devtoolscenter.com/contact](https://devtoolscenter.com/contact/)
-
-## 🙏 Acknowledgments
-
-- Built with [Eleventy](https://www.11ty.dev/)
-- Styled with [Tailwind CSS](https://tailwindcss.com/)
-- Hosted on [Cloudflare Pages](https://pages.cloudflare.com/)
+For questions or issues:
+- Open an issue on GitHub
+- Reach out via email
+- Check the documentation
 
 ---
 
-Made with ❤️ for developers worldwide
+**Built with ❤️ for the Developer Community**
 
+*Making technical content beautiful, one article at a time.*

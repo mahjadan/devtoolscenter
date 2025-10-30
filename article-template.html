@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Tools Blog - Article Template</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="dark-theme">
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="moon-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+
+    <article class="article-container">
+        <!-- Article Header -->
+        <header class="article-header">
+            <div class="hero-illustration">
+                <svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Stylized database/server illustration -->
+                    <defs>
+                        <linearGradient id="heroGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#0099ff;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <!-- Network nodes -->
+                    <circle cx="100" cy="150" r="30" fill="url(#heroGradient)" opacity="0.9"/>
+                    <circle cx="300" cy="80" r="35" fill="url(#heroGradient)" opacity="0.9"/>
+                    <circle cx="300" cy="220" r="35" fill="url(#heroGradient)" opacity="0.9"/>
+                    <circle cx="500" cy="150" r="30" fill="url(#heroGradient)" opacity="0.9"/>
+                    <!-- Connection lines -->
+                    <line x1="130" y1="150" x2="265" y2="80" stroke="#00d4ff" stroke-width="3" opacity="0.5"/>
+                    <line x1="130" y1="150" x2="265" y2="220" stroke="#00d4ff" stroke-width="3" opacity="0.5"/>
+                    <line x1="335" y1="80" x2="470" y2="150" stroke="#00d4ff" stroke-width="3" opacity="0.5"/>
+                    <line x1="335" y1="220" x2="470" y2="150" stroke="#00d4ff" stroke-width="3" opacity="0.5"/>
+                    <!-- Data packets -->
+                    <circle cx="200" cy="110" r="8" fill="#ff6b35" opacity="0.8">
+                        <animate attributeName="cx" from="130" to="265" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="200" cy="185" r="8" fill="#00ff88" opacity="0.8">
+                        <animate attributeName="cx" from="130" to="265" dur="2.5s" repeatCount="indefinite"/>
+                    </circle>
+                </svg>
+            </div>
+            
+            <div class="article-title-section">
+                <h1 class="article-title">Building Scalable REST APIs with Modern Backend Tools</h1>
+                <div class="article-metadata">
+                    <span class="metadata-item">
+                        <svg class="metadata-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        Sarah Chen
+                    </span>
+                    <span class="metadata-item">
+                        <svg class="metadata-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        October 15, 2025
+                    </span>
+                    <span class="metadata-item">
+                        <svg class="metadata-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        12 min read
+                    </span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Article Content -->
+        <div class="article-content">
+            <!-- Introduction -->
+            <p class="lead-paragraph">
+                Modern backend development requires a robust toolkit that enables developers to build, test, and deploy APIs efficiently. In this comprehensive guide, we'll explore the essential tools and best practices for creating scalable REST APIs that can handle production workloads.
+            </p>
+
+            <!-- Section with Icon -->
+            <section class="content-section">
+                <h2 class="section-heading">
+                    <svg class="heading-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                        <path d="M2 17l10 5 10-5"></path>
+                        <path d="M2 12l10 5 10-5"></path>
+                    </svg>
+                    Core Architecture Principles
+                </h2>
+                
+                <p>
+                    When building REST APIs, following established architectural patterns ensures your application remains maintainable and scalable. The foundation starts with understanding the separation of concerns and implementing proper layering.
+                </p>
+
+                <!-- Key Concept Box -->
+                <div class="concept-box">
+                    <div class="concept-header">
+                        <svg class="concept-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        <strong>Key Concept: RESTful Design</strong>
+                    </div>
+                    <p>
+                        REST (Representational State Transfer) is an architectural style that uses HTTP methods explicitly, is stateless, and exposes directory structure-like URIs. Resources are identified by URIs, and operations are performed using standard HTTP methods (GET, POST, PUT, DELETE).
+                    </p>
+                </div>
+
+                <!-- Custom Bulleted List -->
+                <ul class="custom-list">
+                    <li class="list-item">
+                        <svg class="list-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span><strong>Stateless Communication:</strong> Each request contains all information needed to process it</span>
+                    </li>
+                    <li class="list-item">
+                        <svg class="list-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span><strong>Resource-Based URLs:</strong> Use nouns instead of verbs (e.g., <code>/users</code> not <code>/getUsers</code>)</span>
+                    </li>
+                    <li class="list-item">
+                        <svg class="list-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span><strong>Standard HTTP Methods:</strong> Leverage GET, POST, PUT, PATCH, and DELETE appropriately</span>
+                    </li>
+                    <li class="list-item">
+                        <svg class="list-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span><strong>Proper Status Codes:</strong> Return meaningful HTTP status codes (200, 201, 400, 404, 500, etc.)</span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Setup Section -->
+            <section class="content-section">
+                <h2 class="section-heading">
+                    <svg class="heading-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M12 1v6m0 6v6m5.2-15.8l-4.2 4.2m-2 2l-4.2 4.2m15.8.8h-6m-6 0H1m15.8 5.2l-4.2-4.2m-2-2L6.4 18.4"></path>
+                    </svg>
+                    Initial Setup and Configuration
+                </h2>
+
+                <p>
+                    Let's start by setting up a basic Node.js project with Express, one of the most popular frameworks for building REST APIs. We'll configure our environment and establish the project structure.
+                </p>
+
+                <!-- JSON Code Block -->
+                <div class="code-block-wrapper">
+                    <div class="code-header">
+                        <span class="language-tag">JSON</span>
+                        <span class="code-filename">package.json</span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            Copy
+                        </button>
+                    </div>
+                    <pre class="code-content"><code>{
+  "name": "scalable-rest-api",
+  "version": "1.0.0",
+  "description": "A production-ready REST API built with Node.js and Express",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "test": "jest --coverage"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.5.0",
+    "dotenv": "^16.3.1",
+    "helmet": "^7.0.0",
+    "cors": "^2.8.5",
+    "express-rate-limit": "^6.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "jest": "^29.6.4"
+  }
+}</code></pre>
+                </div>
+
+                <p>
+                    With our dependencies defined, let's create the main server configuration. This file establishes middleware, routing, and error handling.
+                </p>
+
+                <!-- Python/JavaScript Code Block -->
+                <div class="code-block-wrapper">
+                    <div class="code-header">
+                        <span class="language-tag">JavaScript</span>
+                        <span class="code-filename">server.js</span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            Copy
+                        </button>
+                    </div>
+                    <pre class="code-content"><code><span class="token-keyword">const</span> <span class="token-variable">express</span> = <span class="token-function">require</span>(<span class="token-string">'express'</span>);
+<span class="token-keyword">const</span> <span class="token-variable">helmet</span> = <span class="token-function">require</span>(<span class="token-string">'helmet'</span>);
+<span class="token-keyword">const</span> <span class="token-variable">cors</span> = <span class="token-function">require</span>(<span class="token-string">'cors'</span>);
+<span class="token-keyword">const</span> <span class="token-variable">rateLimit</span> = <span class="token-function">require</span>(<span class="token-string">'express-rate-limit'</span>);
+<span class="token-keyword">require</span>(<span class="token-string">'dotenv'</span>).<span class="token-function">config</span>();
+
+<span class="token-keyword">const</span> <span class="token-variable">app</span> = <span class="token-function">express</span>();
+<span class="token-keyword">const</span> <span class="token-variable">PORT</span> = process.env.<span class="token-property">PORT</span> || <span class="token-number">3000</span>;
+
+<span class="token-comment">// Security middleware</span>
+app.<span class="token-function">use</span>(<span class="token-function">helmet</span>());
+app.<span class="token-function">use</span>(<span class="token-function">cors</span>());
+
+<span class="token-comment">// Rate limiting</span>
+<span class="token-keyword">const</span> <span class="token-variable">limiter</span> = <span class="token-function">rateLimit</span>({
+  <span class="token-property">windowMs</span>: <span class="token-number">15</span> * <span class="token-number">60</span> * <span class="token-number">1000</span>, <span class="token-comment">// 15 minutes</span>
+  <span class="token-property">max</span>: <span class="token-number">100</span> <span class="token-comment">// limit each IP to 100 requests per windowMs</span>
+});
+app.<span class="token-function">use</span>(<span class="token-string">'/api/'</span>, limiter);
+
+<span class="token-comment">// Body parsing middleware</span>
+app.<span class="token-function">use</span>(express.<span class="token-function">json</span>());
+app.<span class="token-function">use</span>(express.<span class="token-function">urlencoded</span>({ <span class="token-property">extended</span>: <span class="token-boolean">true</span> }));
+
+<span class="token-comment">// Routes</span>
+app.<span class="token-function">use</span>(<span class="token-string">'/api/users'</span>, <span class="token-function">require</span>(<span class="token-string">'./routes/users'</span>));
+app.<span class="token-function">use</span>(<span class="token-string">'/api/posts'</span>, <span class="token-function">require</span>(<span class="token-string">'./routes/posts'</span>));
+
+<span class="token-comment">// Error handling middleware</span>
+app.<span class="token-function">use</span>(<span class="token-keyword">function</span>(<span class="token-parameter">err</span>, <span class="token-parameter">req</span>, <span class="token-parameter">res</span>, <span class="token-parameter">next</span>) {
+  console.<span class="token-function">error</span>(err.<span class="token-property">stack</span>);
+  res.<span class="token-function">status</span>(<span class="token-number">500</span>).<span class="token-function">json</span>({ 
+    <span class="token-property">error</span>: <span class="token-string">'Something went wrong!'</span>,
+    <span class="token-property">message</span>: process.env.<span class="token-property">NODE_ENV</span> === <span class="token-string">'development'</span> ? err.<span class="token-property">message</span> : <span class="token-keyword">undefined</span>
+  });
+});
+
+app.<span class="token-function">listen</span>(PORT, () => {
+  console.<span class="token-function">log</span>(<span class="token-string">`Server running on port ${PORT}`</span>);
+});</code></pre>
+                </div>
+            </section>
+
+            <!-- API Implementation Section -->
+            <section class="content-section">
+                <h2 class="section-heading">
+                    <svg class="heading-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                    API Endpoint Implementation
+                </h2>
+
+                <p>
+                    Now let's implement a real-world API endpoint with proper error handling, validation, and response formatting. This example demonstrates a complete CRUD operation for a user resource.
+                </p>
+
+                <!-- Numbered List -->
+                <ol class="numbered-list">
+                    <li class="numbered-item">
+                        <span class="number-badge">1</span>
+                        <div class="numbered-content">
+                            <strong>Define the Route Handler</strong> - Create a new file in your routes directory
+                        </div>
+                    </li>
+                    <li class="numbered-item">
+                        <span class="number-badge">2</span>
+                        <div class="numbered-content">
+                            <strong>Implement Validation</strong> - Add input validation using middleware or libraries
+                        </div>
+                    </li>
+                    <li class="numbered-item">
+                        <span class="number-badge">3</span>
+                        <div class="numbered-content">
+                            <strong>Connect to Database</strong> - Establish connection with your data layer
+                        </div>
+                    </li>
+                    <li class="numbered-item">
+                        <span class="number-badge">4</span>
+                        <div class="numbered-content">
+                            <strong>Return Formatted Response</strong> - Send consistent JSON responses with proper status codes
+                        </div>
+                    </li>
+                </ol>
+
+                <!-- API Call Example -->
+                <div class="code-block-wrapper api-example">
+                    <div class="code-header">
+                        <span class="language-tag">HTTP</span>
+                        <span class="code-filename">API Request Example</span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            Copy
+                        </button>
+                    </div>
+                    <pre class="code-content"><code><span class="token-keyword">POST</span> <span class="token-url">https://api.example.com/api/users</span>
+<span class="token-property">Content-Type:</span> application/json
+<span class="token-property">Authorization:</span> Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+{
+  <span class="token-string">"username"</span>: <span class="token-string">"developer123"</span>,
+  <span class="token-string">"email"</span>: <span class="token-string">"dev@example.com"</span>,
+  <span class="token-string">"role"</span>: <span class="token-string">"admin"</span>
+}
+
+<span class="token-comment">// Response (201 Created)</span>
+{
+  <span class="token-string">"success"</span>: <span class="token-boolean">true</span>,
+  <span class="token-string">"data"</span>: {
+    <span class="token-string">"id"</span>: <span class="token-string">"usr_7x9k2m4n"</span>,
+    <span class="token-string">"username"</span>: <span class="token-string">"developer123"</span>,
+    <span class="token-string">"email"</span>: <span class="token-string">"dev@example.com"</span>,
+    <span class="token-string">"role"</span>: <span class="token-string">"admin"</span>,
+    <span class="token-string">"createdAt"</span>: <span class="token-string">"2025-10-15T10:30:00Z"</span>
+  }
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- Performance Tips Section -->
+            <section class="content-section">
+                <h2 class="section-heading">
+                    <svg class="heading-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                    Performance Optimization Tips
+                </h2>
+
+                <p>
+                    Optimizing your API for performance is crucial for handling high traffic and providing a great user experience. Here are essential techniques to implement:
+                </p>
+
+                <!-- Custom List with Arrow Icons -->
+                <ul class="custom-list arrow-list">
+                    <li class="list-item">
+                        <svg class="list-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                        <span>Implement <strong>caching strategies</strong> using Redis or in-memory cache for frequently accessed data</span>
+                    </li>
+                    <li class="list-item">
+                        <svg class="list-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                        <span>Use <strong>database indexing</strong> on commonly queried fields to speed up searches</span>
+                    </li>
+                    <li class="list-item">
+                        <svg class="list-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                        <span>Enable <strong>response compression</strong> (gzip) to reduce payload size</span>
+                    </li>
+                    <li class="list-item">
+                        <svg class="list-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                        <span>Implement <strong>pagination</strong> for list endpoints to avoid loading large datasets</span>
+                    </li>
+                </ul>
+
+                <!-- Diagram Placeholder -->
+                <div class="diagram-placeholder">
+                    <div class="diagram-header">
+                        <svg class="diagram-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="3" y1="9" x2="21" y2="9"></line>
+                            <line x1="9" y1="21" x2="9" y2="9"></line>
+                        </svg>
+                        Workflow Diagram
+                    </div>
+                    <div class="diagram-content">
+                        <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+                            <!-- API Request Flow Diagram -->
+                            <defs>
+                                <linearGradient id="boxGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0.8" />
+                                    <stop offset="100%" style="stop-color:#0099ff;stop-opacity:0.9" />
+                                </linearGradient>
+                            </defs>
+                            
+                            <!-- Client -->
+                            <rect x="50" y="150" width="120" height="80" rx="8" fill="url(#boxGradient)"/>
+                            <text x="110" y="195" text-anchor="middle" fill="white" font-size="16" font-weight="600">Client</text>
+                            
+                            <!-- API Gateway -->
+                            <rect x="250" y="150" width="120" height="80" rx="8" fill="url(#boxGradient)"/>
+                            <text x="310" y="185" text-anchor="middle" fill="white" font-size="16" font-weight="600">API</text>
+                            <text x="310" y="205" text-anchor="middle" fill="white" font-size="16" font-weight="600">Gateway</text>
+                            
+                            <!-- Cache -->
+                            <rect x="450" y="50" width="120" height="80" rx="8" fill="url(#boxGradient)"/>
+                            <text x="510" y="95" text-anchor="middle" fill="white" font-size="16" font-weight="600">Cache</text>
+                            
+                            <!-- Database -->
+                            <rect x="450" y="250" width="120" height="80" rx="8" fill="url(#boxGradient)"/>
+                            <text x="510" y="295" text-anchor="middle" fill="white" font-size="16" font-weight="600">Database</text>
+                            
+                            <!-- Response -->
+                            <rect x="650" y="150" width="120" height="80" rx="8" fill="url(#boxGradient)"/>
+                            <text x="710" y="195" text-anchor="middle" fill="white" font-size="16" font-weight="600">Response</text>
+                            
+                            <!-- Arrows -->
+                            <path d="M 170 190 L 240 190" stroke="#00ff88" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                            <path d="M 370 170 L 440 110" stroke="#00ff88" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                            <path d="M 370 210 L 440 270" stroke="#00ff88" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                            <path d="M 570 90 L 640 170" stroke="#00ff88" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                            <path d="M 570 290 L 640 210" stroke="#00ff88" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                            
+                            <!-- Arrow marker -->
+                            <defs>
+                                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                    <polygon points="0 0, 10 3, 0 6" fill="#00ff88"/>
+                                </marker>
+                            </defs>
+                            
+                            <!-- Labels -->
+                            <text x="205" y="175" text-anchor="middle" fill="#00ff88" font-size="12">Request</text>
+                            <text x="395" y="130" text-anchor="middle" fill="#00ff88" font-size="12">Check Cache</text>
+                            <text x="395" y="250" text-anchor="middle" fill="#00ff88" font-size="12">Query DB</text>
+                        </svg>
+                        <p class="diagram-caption">Figure 1: API request flow with caching layer</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Terminal Command Section -->
+            <section class="content-section">
+                <h2 class="section-heading">
+                    <svg class="heading-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="4 17 10 11 4 5"></polyline>
+                        <line x1="12" y1="19" x2="20" y2="19"></line>
+                    </svg>
+                    Deployment Commands
+                </h2>
+
+                <p>
+                    Once your API is ready for production, use these commands to deploy and manage your application. These examples show deployment to a cloud platform and basic monitoring setup.
+                </p>
+
+                <!-- Terminal Command Block -->
+                <div class="code-block-wrapper terminal-block">
+                    <div class="code-header terminal-header">
+                        <span class="language-tag">Bash</span>
+                        <span class="terminal-title">
+                            <span class="terminal-dot red"></span>
+                            <span class="terminal-dot yellow"></span>
+                            <span class="terminal-dot green"></span>
+                            Terminal
+                        </span>
+                        <button class="copy-button" onclick="copyCode(this)">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            Copy
+                        </button>
+                    </div>
+                    <pre class="code-content terminal-content"><code><span class="terminal-prompt">$</span> <span class="terminal-command">npm run build</span>
+<span class="terminal-output">Building production bundle...</span>
+<span class="terminal-output">✓ Build completed successfully</span>
+
+<span class="terminal-prompt">$</span> <span class="terminal-command">docker build -t scalable-api:latest .</span>
+<span class="terminal-output">Sending build context to Docker daemon...</span>
+<span class="terminal-output">Step 1/8 : FROM node:18-alpine</span>
+<span class="terminal-output">Successfully built 8c9d7b6e4f2a</span>
+
+<span class="terminal-prompt">$</span> <span class="terminal-command">kubectl apply -f deployment.yaml</span>
+<span class="terminal-output">deployment.apps/api-deployment created</span>
+<span class="terminal-output">service/api-service created</span>
+
+<span class="terminal-prompt">$</span> <span class="terminal-command">kubectl get pods</span>
+<span class="terminal-output">NAME                              READY   STATUS    RESTARTS   AGE</span>
+<span class="terminal-output">api-deployment-7d8f9c5b6d-x4k2m   1/1     Running   0          2m</span>
+
+<span class="terminal-prompt">$</span> <span class="terminal-command">curl https://api.example.com/health</span>
+<span class="terminal-success">{"status": "healthy", "uptime": 3600}</span></code></pre>
+                </div>
+            </section>
+
+            <!-- Troubleshooting Section -->
+            <section class="content-section">
+                <h2 class="section-heading">
+                    <svg class="heading-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        <path d="M12 8v4"></path>
+                        <path d="M12 16h.01"></path>
+                    </svg>
+                    Common Issues and Troubleshooting
+                </h2>
+
+                <div class="concept-box warning-box">
+                    <div class="concept-header">
+                        <svg class="concept-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                        <strong>Memory Leak Warning</strong>
+                    </div>
+                    <p>
+                        Be cautious of memory leaks in long-running Node.js applications. Always close database connections, clear timers, and remove event listeners when they're no longer needed. Use tools like <code>node --inspect</code> and Chrome DevTools to profile memory usage.
+                    </p>
+                </div>
+
+                <ul class="custom-list">
+                    <li class="list-item">
+                        <svg class="list-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span><strong>CORS Errors:</strong> Ensure your CORS configuration matches your frontend domain</span>
+                    </li>
+                    <li class="list-item">
+                        <svg class="list-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span><strong>Rate Limit Issues:</strong> Adjust rate limiting based on your traffic patterns</span>
+                    </li>
+                    <li class="list-item">
+                        <svg class="list-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span><strong>Timeout Errors:</strong> Implement proper timeout handling for external API calls</span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Conclusion -->
+            <section class="content-section">
+                <h2 class="section-heading">
+                    <svg class="heading-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                    </svg>
+                    Conclusion
+                </h2>
+
+                <p>
+                    Building scalable REST APIs requires careful attention to architecture, security, and performance. By following the patterns and practices outlined in this guide, you'll be well-equipped to create production-ready APIs that can handle real-world traffic and evolve with your application's needs.
+                </p>
+
+                <p>
+                    Remember to continuously monitor your API's performance, gather metrics, and iterate on your implementation. The tools and frameworks discussed here provide a solid foundation, but the key to success is understanding your specific use case and optimizing accordingly.
+                </p>
+            </section>
+        </div>
+
+        <!-- Call-to-Action Section -->
+        <section class="cta-section">
+            <div class="cta-content">
+                <div class="cta-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                </div>
+                <h3 class="cta-title">Download the Complete Sample Code</h3>
+                <p class="cta-description">
+                    Get the full source code for this tutorial, including additional examples, test suites, and deployment configurations. Perfect for learning and jumpstarting your next project.
+                </p>
+                <button class="cta-button">
+                    <svg class="button-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Download Sample Code
+                </button>
+                <div class="cta-secondary">
+                    <a href="#" class="cta-link">Subscribe to Newsletter</a>
+                    <span class="cta-separator">•</span>
+                    <a href="#" class="cta-link">Join Our Community</a>
+                </div>
+            </div>
+        </section>
+    </article>
+
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            if (body.classList.contains('dark-theme')) {
+                body.classList.remove('dark-theme');
+                body.classList.add('light-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.remove('light-theme');
+                body.classList.add('dark-theme');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.body.classList.add(savedTheme + '-theme');
+        });
+
+        // Copy Code Functionality
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block-wrapper').querySelector('code');
+            const text = codeBlock.innerText;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.innerHTML;
+                button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
