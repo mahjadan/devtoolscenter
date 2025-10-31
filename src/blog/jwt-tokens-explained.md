@@ -14,6 +14,21 @@ tags:
   - authentication
   - security
   - tokens
+schema:
+  "@context": "https://schema.org"
+  "@type": "Article"
+  headline: "JWT Tokens Explained - Complete Guide to JSON Web Tokens"
+  description: "Learn everything about JWT tokens, how they work, when to use them, and best practices for secure implementation in your applications."
+  author:
+    "@type": "Organization"
+    name: "DevTools Center"
+  datePublished: "2025-10-20"
+  dateModified: "2025-10-20"
+  publisher:
+    "@type": "Organization"
+    name: "DevTools Center"
+    url: "https://devtoolscenter.com"
+  url: "https://devtoolscenter.com/blog/jwt-tokens-explained/"
 ---
 
 ## What is JWT?

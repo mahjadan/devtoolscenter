@@ -15,6 +15,21 @@ tags:
   - formatting
   - validation
   - data-structures
+schema:
+  "@context": "https://schema.org"
+  "@type": "Article"
+  headline: "Understanding JSON Formatting and Validation"
+  description: "A comprehensive guide to JSON format, why it matters, and how to format and validate JSON effectively for better code readability and debugging."
+  author:
+    "@type": "Organization"
+    name: "DevTools Center"
+  datePublished: "2025-10-15"
+  dateModified: "2025-10-15"
+  publisher:
+    "@type": "Organization"
+    name: "DevTools Center"
+    url: "https://devtoolscenter.com"
+  url: "https://devtoolscenter.com/blog/understanding-json-formatting/"
 ---
 
 ## What is JSON?

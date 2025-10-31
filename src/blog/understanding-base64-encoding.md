@@ -15,6 +15,21 @@ tags:
   - encoding
   - binary
   - data-encoding
+schema:
+  "@context": "https://schema.org"
+  "@type": "Article"
+  headline: "Understanding Base64 Encoding - Complete Guide"
+  description: "Learn everything about Base64 encoding, how it works, when to use it, and best practices for encoding and decoding binary data in text formats."
+  author:
+    "@type": "Organization"
+    name: "DevTools Center"
+  datePublished: "2025-10-18"
+  dateModified: "2025-10-18"
+  publisher:
+    "@type": "Organization"
+    name: "DevTools Center"
+    url: "https://devtoolscenter.com"
+  url: "https://devtoolscenter.com/blog/understanding-base64-encoding/"
 ---
 
 ## What is Base64?

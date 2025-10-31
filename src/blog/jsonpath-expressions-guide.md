@@ -14,6 +14,21 @@ tags:
   - json
   - data-query
   - api
+schema:
+  "@context": "https://schema.org"
+  "@type": "Article"
+  headline: "JSONPath Expressions - Query JSON Like a Pro"
+  description: "Master JSONPath expressions to query and extract data from JSON documents efficiently. Learn syntax, operators, and practical examples."
+  author:
+    "@type": "Organization"
+    name: "DevTools Center"
+  datePublished: "2025-10-18"
+  dateModified: "2025-10-18"
+  publisher:
+    "@type": "Organization"
+    name: "DevTools Center"
+    url: "https://devtoolscenter.com"
+  url: "https://devtoolscenter.com/blog/jsonpath-expressions-guide/"
 ---
 
 ## What is JSONPath?

@@ -14,6 +14,21 @@ tags:
   - json
   - configuration
   - data-formats
+schema:
+  "@context": "https://schema.org"
+  "@type": "Article"
+  headline: "YAML vs JSON - Which Format Should You Choose?"
+  description: "A comprehensive comparison of YAML and JSON formats, their strengths, weaknesses, and when to use each for configuration files and data serialization."
+  author:
+    "@type": "Organization"
+    name: "DevTools Center"
+  datePublished: "2025-10-12"
+  dateModified: "2025-10-12"
+  publisher:
+    "@type": "Organization"
+    name: "DevTools Center"
+    url: "https://devtoolscenter.com"
+  url: "https://devtoolscenter.com/blog/yaml-vs-json/"
 ---
 
 ## Introduction

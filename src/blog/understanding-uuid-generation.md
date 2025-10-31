@@ -15,6 +15,21 @@ tags:
   - unique-identifiers
   - database
   - development
+schema:
+  "@context": "https://schema.org"
+  "@type": "Article"
+  headline: "Understanding UUID Generation - Complete Guide to Unique Identifiers"
+  description: "Learn everything about UUIDs (Universally Unique Identifiers), how they work, different versions, and best practices for generating unique IDs in your applications."
+  author:
+    "@type": "Organization"
+    name: "DevTools Center"
+  datePublished: "2025-10-20"
+  dateModified: "2025-10-20"
+  publisher:
+    "@type": "Organization"
+    name: "DevTools Center"
+    url: "https://devtoolscenter.com"
+  url: "https://devtoolscenter.com/blog/understanding-uuid-generation/"
 ---
 
 ## What is a UUID?

@@ -15,6 +15,21 @@ tags:
   - percent-encoding
   - uris
   - web-development
+schema:
+  "@context": "https://schema.org"
+  "@type": "Article"
+  headline: "Understanding URL Encoding - Complete Guide to Percent Encoding"
+  description: "Learn everything about URL encoding (percent-encoding), how it works, when to use it, and best practices for encoding URLs and URI components safely."
+  author:
+    "@type": "Organization"
+    name: "DevTools Center"
+  datePublished: "2025-10-19"
+  dateModified: "2025-10-19"
+  publisher:
+    "@type": "Organization"
+    name: "DevTools Center"
+    url: "https://devtoolscenter.com"
+  url: "https://devtoolscenter.com/blog/understanding-url-encoding/"
 ---
 
 ## What is URL Encoding?
