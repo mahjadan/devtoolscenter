@@ -124,34 +124,22 @@ permalink: /about/
   <div class="mb-16">
     <h2 class="text-4xl font-bold mb-6 text-center text-gray-900 dark:text-white">Our Tools</h2>
     <p class="text-center text-lg text-gray-600 dark:text-gray-400 mb-10">
-      We currently offer 8 essential developer tools:
+      We currently offer {{ collections.tools | size }} essential developer tools:
     </p>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-      <div class="p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-400 transition-all">
-        <strong class="text-gray-900 dark:text-white">JSON Formatter & Validator</strong> - Format and validate JSON data
-      </div>
-      <div class="p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-400 transition-all">
-        <strong class="text-gray-900 dark:text-white">YAML to JSON Converter</strong> - Convert between YAML and JSON formats
-      </div>
-      <div class="p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-400 transition-all">
-        <strong class="text-gray-900 dark:text-white">URL Encoder/Decoder</strong> - Encode and decode URLs and URI components
-      </div>
-      <div class="p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-400 transition-all">
-        <strong class="text-gray-900 dark:text-white">JWT Decoder</strong> - Decode and inspect JSON Web Tokens
-      </div>
-      <div class="p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-400 transition-all">
-        <strong class="text-gray-900 dark:text-white">Regex Tester</strong> - Test and debug regular expressions
-      </div>
-      <div class="p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-400 transition-all">
-        <strong class="text-gray-900 dark:text-white">JSONPath Tester</strong> - Query JSON data with JSONPath expressions
-      </div>
-      <div class="p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-400 transition-all">
-        <strong class="text-gray-900 dark:text-white">Base64 Encoder/Decoder</strong> - Encode and decode Base64 strings
-      </div>
-      <div class="p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-400 transition-all">
-        <strong class="text-gray-900 dark:text-white">UUID Generator</strong> - Generate random UUIDs
-      </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">{% for tool in collections.tools %}
+      <a href="{{ tool.url }}" class="block p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-400 hover:shadow-lg transition-all cursor-pointer group" aria-label="Go to {{ tool.data.title }}">
+        <div class="flex items-start space-x-3">
+          <div class="flex-shrink-0">
+            <div class="w-10 h-10 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center group-hover:bg-primary-200 dark:group-hover:bg-primary-800 transition-colors">
+              <span class="text-xl">{{ tool.data.icon or '🔧' }}</span>
+            </div>
+          </div>
+          <div class="flex-1">
+            <strong class="text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors block mb-1">{{ tool.data.title }}</strong>
+            <span class="text-gray-600 dark:text-gray-400 text-sm">{{ tool.data.description }}</span>
+          </div>
+        </div>
+      </a>{% endfor %}
     </div>
     
     <p class="text-center text-gray-600 dark:text-gray-400">

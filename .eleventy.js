@@ -47,6 +47,11 @@ module.exports = function(eleventyConfig) {
   // Custom filter for current year
   eleventyConfig.addFilter("year", () => `${new Date().getFullYear()}`);
 
+  // Custom filter for array/collection size
+  eleventyConfig.addFilter("size", function(array) {
+    return array ? array.length : 0;
+  });
+
   // Asset URL filter - returns hashed URL if available, otherwise original
   eleventyConfig.addFilter("assetUrl", function(assetPath) {
     // Normalize path (remove leading slash if present, ensure forward slashes)
