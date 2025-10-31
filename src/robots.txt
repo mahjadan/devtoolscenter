@@ -1,11 +1,17 @@
 # robots.txt for devtoolscenter.com
+# This file tells search engines how to crawl and index your site
 
+# Allow all search engines to crawl all pages
 User-agent: *
 Allow: /
 
-# Sitemap
+# Sitemap location
 Sitemap: https://devtoolscenter.com/sitemap.xml
 
 # Disallow admin or private directories (if any in future)
 # Disallow: /admin/
+
+# Crawl-delay (optional - remove if not needed)
+# User-agent: *
+# Crawl-delay: 1
 
