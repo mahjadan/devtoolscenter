@@ -22,6 +22,18 @@ schema:
     "@type": "Offer"
     price: "0"
     priceCurrency: "USD"
+breadcrumbSchema:
+  "@context": "https://schema.org"
+  "@type": "BreadcrumbList"
+  itemListElement:
+    - "@type": "ListItem"
+      position: 1
+      name: "Home"
+      item: "https://devtoolscenter.com/"
+    - "@type": "ListItem"
+      position: 2
+      name: "JSONPath Tester"
+      item: "https://devtoolscenter.com/jsonpath-tester/"
 ---
 
 <div class="space-y-6">

@@ -60,6 +60,11 @@
     {{ schema | jsonld | safe }}
   </script>
   {% endif %}
+  {% if breadcrumbSchema %}
+  <script type="application/ld+json">
+    {{ breadcrumbSchema | jsonld | safe }}
+  </script>
+  {% endif %}
 </head>
 <body>
   {% include "partials/header.njk" %}
