@@ -7,7 +7,7 @@
     "dev:eleventy": "eleventy --serve",
     "dev:css": "tailwindcss -i src/assets/css/styles.css -o _site/assets/css/styles.css --watch",
     "build": "npm run build:css && npm run build:eleventy",
-    "build:css": "NODE_ENV=production tailwindcss -i src/assets/css/styles.css -o _site/assets/css/styles.css --minify",
+    "build:css": "mkdir -p _site/assets/css && NODE_ENV=production tailwindcss -i src/assets/css/styles.css -o _site/assets/css/styles.css --minify",
     "build:eleventy": "eleventy"
   },
   "keywords": [
