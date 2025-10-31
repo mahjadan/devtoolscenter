@@ -16,8 +16,8 @@
   Cache-Control: public, max-age=31536000, immutable
 
 /assets/css/*
-  # Cache CSS files (allow revalidation for updates)
-  Cache-Control: public, max-age=3600, must-revalidate
+  # Cache CSS files
+  Cache-Control: public, max-age=31536000, immutable
   Content-Type: text/css
 
 /assets/js/*
