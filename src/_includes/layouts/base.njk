@@ -30,7 +30,7 @@
   <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
   
   {# Styles #}
-  <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="stylesheet" href="{{ '/assets/css/styles.css' | assetUrl }}">
   
   {# Theme Toggle - Inline to prevent flash #}
   <script>
@@ -71,11 +71,11 @@
   {% include "partials/footer.njk" %}
   
   {# Theme Toggle Script #}
-  <script src="/assets/js/theme-toggle.js"></script>
+  <script src="{{ '/assets/js/theme-toggle.js' | assetUrl }}"></script>
   
   {# Page-specific scripts #}
   {% if pageScript %}
-  <script src="{{ pageScript }}" defer></script>
+  <script src="{{ pageScript | assetUrl }}" defer></script>
   {% endif %}
 </body>
 </html>

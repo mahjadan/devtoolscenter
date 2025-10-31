@@ -48,6 +48,9 @@ This creates optimized production files in the `_site/` directory:
 - Minified CSS
 - Static HTML pages
 - Copied JavaScript and assets
+- **Asset fingerprinting** - CSS/JS files get content hashes (e.g., `styles.abc12345.css`) for cache busting
+
+See [ASSET_FINGERPRINTING.md](ASSET_FINGERPRINTING.md) for details on how fingerprinting works.
 
 ### 5. Test Production Build Locally
 
@@ -234,7 +237,7 @@ Check browser console for localStorage errors. Some browsers block localStorage 
 
 ---
 
-**Need Help?** See the full [README.md](README.md) or [REQUIREMENTS.md](REQUIREMENTS.md) for detailed information.
+**Need Help?** See the full [README.md](README.md), [REQUIREMENTS.md](REQUIREMENTS.md), or [ASSET_FINGERPRINTING.md](ASSET_FINGERPRINTING.md) for detailed information.
 
 Happy coding! 🚀
 
