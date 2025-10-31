@@ -135,6 +135,65 @@
   }
 }
 
+@layer components {
+  /* Screen reader only utility - shown on focus */
+  .sr-only {
+    @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .sr-only.focus\:not-sr-only:focus {
+    @apply static w-auto h-auto p-2 m-0 overflow-visible whitespace-normal;
+    clip: auto;
+  }
+
+  /* Navigation link active states */
+  .nav-link.active,
+  .mobile-nav-link.active {
+    @apply text-primary-600 dark:text-primary-400 font-semibold bg-primary-50 dark:bg-primary-900/20;
+  }
+
+  .nav-link {
+    @apply relative;
+  }
+
+  .nav-link.active::after {
+    content: "";
+    @apply absolute bottom-0 left-0 right-0 h-0.5 bg-primary-600 dark:bg-primary-400 rounded-full;
+  }
+
+  /* Mobile menu animations - faster and smoother */
+  #mobile-menu {
+    animation: slideDown 0.15s ease-out;
+    transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  #mobile-menu-backdrop {
+    animation: fadeIn 0.15s ease-out;
+    transition: opacity 0.15s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
 @layer utilities {
   /* Blog Prose Enhancements - Unified with Homepage Colors with Better Contrast */
   .prose h2 {

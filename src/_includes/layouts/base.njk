@@ -69,7 +69,7 @@
 <body>
   {% include "partials/header.njk" %}
   
-  <main class="min-h-screen">
+  <main id="main-content" class="min-h-screen">
     {{ content | safe }}
   </main>
   
@@ -77,6 +77,12 @@
   
   {# Theme Toggle Script #}
   <script src="{{ '/assets/js/theme-toggle.js' | assetUrl }}"></script>
+  
+  {# Mobile Menu Script #}
+  <script src="{{ '/assets/js/mobile-menu.js' | assetUrl }}"></script>
+  
+  {# Navigation Active State Script #}
+  <script src="{{ '/assets/js/nav-active-state.js' | assetUrl }}"></script>
   
   {# Page-specific scripts #}
   {% if pageScript %}
