@@ -27,7 +27,7 @@ const themes = {
 
 // Theme Manager
 const ThemeManager = {
-  currentTheme: 'zen-light',
+  currentTheme: 'premium-dark',
   storageKey: 'devtools-theme-preference',
   
   // Initialize theme system

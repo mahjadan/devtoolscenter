@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="zen-light">
+<html lang="en" data-theme="premium-dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,7 +51,8 @@
         if (saved && (saved === 'zen-light' || saved === 'premium-dark' || saved === 'cyberpunk')) {
           return saved;
         }
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'premium-dark' : 'zen-light';
+        // Default to premium-dark theme
+        return 'premium-dark';
       }
       
       const theme = getThemePreference();

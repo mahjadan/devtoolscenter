@@ -10,30 +10,30 @@
   --bg-secondary: #ffffff;
   --bg-tertiary: #faf8f6;
   --bg-elevated: #ffffff;
-  
+
   --accent-primary: #b7c9a5;
   --accent-secondary: #a8dadc;
   --accent-tertiary: #e8d5c4;
   --accent-warm: #c9b8a5;
   --accent-soft-blue: #a8dadc;
-  
+
   --text-primary: #3d3d3d;
   --text-secondary: #6b6b6b;
   --text-muted: #9a9a9a;
   --text-inverse: #ffffff;
-  
+
   /* Shapes - Organic & Rounded */
   --radius-sm: 12px;
   --radius-md: 20px;
   --radius-lg: 32px;
   --radius-xl: 48px;
   --radius-full: 9999px;
-  
+
   /* Shadows - Soft & Gentle */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.08);
-  
+
   /* Spacing */
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
@@ -41,21 +41,21 @@
   --spacing-lg: 3rem;
   --spacing-xl: 4rem;
   --spacing-xxl: 6rem;
-  
+
   /* Semantic color aliases for compatibility */
   --sage-green: var(--accent-primary);
   --warm-beige: var(--accent-tertiary);
   --soft-blue: var(--accent-secondary);
   --gentle-gray: var(--text-muted);
-  
+
   /* Animation - Slow & Smooth */
   --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-fast: all 0.3s ease;
-  
+
   /* Typography */
-  --font-primary: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-heading: 'Lora', Georgia, serif;
-  --font-mono: 'Courier New', Courier, monospace;
+  --font-primary: "Inter", system-ui, -apple-system, sans-serif;
+  --font-heading: "Lora", Georgia, serif;
+  --font-mono: "Courier New", Courier, monospace;
 }
 
 /* Body & Base Styles */
@@ -72,15 +72,22 @@
 
 /* Subtle organic texture overlay */
 [data-theme="zen-light"] body::before {
-  content: '';
+  content: "";
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: 
-    radial-gradient(circle at 20% 50%, rgba(183, 201, 165, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(168, 218, 220, 0.03) 0%, transparent 50%);
+  background-image: radial-gradient(
+      circle at 20% 50%,
+      rgba(183, 201, 165, 0.03) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(168, 218, 220, 0.03) 0%,
+      transparent 50%
+    );
   pointer-events: none;
   z-index: 0;
 }
@@ -117,7 +124,11 @@
 /* Buttons */
 [data-theme="zen-light"] button,
 [data-theme="zen-light"] .btn {
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-soft-blue));
+  background: linear-gradient(
+    135deg,
+    var(--accent-primary),
+    var(--accent-soft-blue)
+  );
   color: var(--text-inverse);
   border: none;
   border-radius: var(--radius-full);
@@ -181,13 +192,17 @@
 [data-theme="zen-light"] [class*="card"]::before,
 [data-theme="zen-light"] .tool-card::before,
 [data-theme="zen-light"] .zen-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  background: linear-gradient(
+    90deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   opacity: 0;
   transition: var(--transition);
@@ -259,52 +274,56 @@
 
 /* Animations - Breathing, Floating, Pulse */
 @keyframes breathe {
-  0%, 100% { 
-    opacity: 1; 
+  0%,
+  100% {
+    opacity: 1;
   }
-  50% { 
-    opacity: 0.9; 
+  50% {
+    opacity: 0.9;
   }
 }
 
 @keyframes float-gentle {
-  0%, 100% { 
+  0%,
+  100% {
     transform: translate(0, 0) rotate(0deg);
     opacity: 0.1;
   }
-  25% { 
+  25% {
     transform: translate(20px, -30px) rotate(90deg);
     opacity: 0.15;
   }
-  50% { 
+  50% {
     transform: translate(0, -50px) rotate(180deg);
     opacity: 0.08;
   }
-  75% { 
+  75% {
     transform: translate(-20px, -30px) rotate(270deg);
     opacity: 0.12;
   }
 }
 
 @keyframes breathe-circle {
-  0%, 100% { 
+  0%,
+  100% {
     transform: scale(1);
     opacity: 0.6;
   }
-  50% { 
+  50% {
     transform: scale(1.1);
     opacity: 1;
   }
 }
 
 @keyframes pulse-slow {
-  0%, 100% { 
-    transform: scale(1); 
-    opacity: 0.5; 
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
   }
-  50% { 
-    transform: scale(1.05); 
-    opacity: 0.7; 
+  50% {
+    transform: scale(1.05);
+    opacity: 0.7;
   }
 }
 
@@ -318,7 +337,8 @@
   text-align: center;
   padding: var(--spacing-xxl) var(--spacing-lg);
   margin-bottom: var(--spacing-xl);
-  background: linear-gradient(135deg, 
+  background: linear-gradient(
+    135deg,
     rgba(183, 201, 165, 0.1),
     rgba(168, 218, 220, 0.1)
   );
@@ -328,19 +348,30 @@
 }
 
 [data-theme="zen-light"] .hero::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -50%;
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(183, 201, 165, 0.15) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(183, 201, 165, 0.15) 0%,
+    transparent 70%
+  );
   animation: pulse-slow 8s ease-in-out infinite;
 }
 
 [data-theme="zen-light"] .hero-content {
   position: relative;
   z-index: 1;
+}
+
+/* Hide premium-dark elements */
+[data-theme="zen-light"] .particle,
+[data-theme="zen-light"] .hero-badge,
+[data-theme="zen-light"] .badge-dot {
+  display: none;
 }
 
 [data-theme="zen-light"] .zen-icon {
@@ -381,7 +412,7 @@
 }
 
 [data-theme="zen-light"] .breath-circle::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -405,13 +436,21 @@
 }
 
 [data-theme="zen-light"] .section-title::after {
-  content: '';
+  content: "";
   display: block;
   width: 60px;
   height: 3px;
   background: var(--accent-secondary);
   margin: var(--spacing-md) auto 0;
   border-radius: var(--radius-full);
+}
+
+[data-theme="zen-light"] .section-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: var(--spacing-md);
+  font-weight: 300;
 }
 
 /* Tools Grid */
@@ -426,7 +465,11 @@
 [data-theme="zen-light"] .card-icon {
   width: 70px;
   height: 70px;
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  background: linear-gradient(
+    135deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;

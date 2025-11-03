@@ -17,11 +17,30 @@ schema:
 
 {# Hero Section #}
 <section class="hero">
+  {# Premium Dark Theme - Floating Particles #}
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  
   <div class="container mx-auto px-4">
     <div class="hero-content text-center">
+      {# Premium Dark Theme - Hero Badge #}
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span>Professional tools</span>
+      </div>
+      
+      {# Zen Light Theme - Zen Icon #}
       <div class="zen-icon">🌸</div>
+      
+      {# Hero Title - Different for each theme #}
       <h2>Calm. Focus. Create.</h2>
+      
       <p>Professional developer utilities that work right in your browser. Fast, secure, and completely free.</p>
+      
+      {# Zen Light Theme - Breathing Circle #}
       <div class="breath-circle"></div>
     </div>
   </div>
@@ -29,7 +48,10 @@ schema:
 
 {# Tools Grid #}
 <section id="tools-section" class="container mx-auto px-4">
-  <h2 class="section-title">Essential Tools</h2>
+  <div class="section-header">
+    <h2 class="section-title">Featured Tools</h2>
+    <p class="section-subtitle">Premium developer utilities with beautiful interactions.</p>
+  </div>
   
   <div class="tools-grid">
     {% for tool in collections.tools %}

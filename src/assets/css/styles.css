@@ -23,7 +23,7 @@ body {
 
 code,
 pre {
-  font-family: var(--font-mono, 'Courier New', Courier, monospace);
+  font-family: var(--font-mono, "Courier New", Courier, monospace);
 }
 
 /* ===================================
@@ -66,6 +66,10 @@ pre {
 /* Flexbox Utilities */
 .flex {
   display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
 }
 
 .flex-wrap {
@@ -124,6 +128,10 @@ pre {
   margin-top: 1rem;
 }
 
+.space-y-6 > * + * {
+  margin-top: 1.5rem;
+}
+
 /* Grid Utilities */
 .grid {
   display: grid;
@@ -156,6 +164,10 @@ pre {
 
   .md\:flex-row {
     flex-direction: row;
+  }
+
+  .md\:flex {
+    display: flex;
   }
 
   .md\:items-end {
@@ -269,6 +281,11 @@ pre {
 
 .text-left {
   text-align: left;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .text-xl {
@@ -563,15 +580,28 @@ pre {
   color: var(--text-muted);
 }
 
+/* JSON Output */
+#json-output {
+  width: 100%;
+  min-height: 200px;
+  padding: var(--spacing-sm);
+  font-family: var(--font-mono, "Courier New", Courier, monospace);
+  font-size: 0.875rem;
+  border: 2px solid var(--accent-primary);
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.6;
+}
+
 /* Header & Navigation */
 header {
-  background: var(--bg-secondary);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--accent-primary);
   position: sticky;
   top: 0;
   z-index: 50;
-  box-shadow: var(--shadow-sm);
   width: 100%;
 }
 
@@ -580,8 +610,14 @@ header nav {
   width: 100%;
 }
 
-header nav .container {
-  width: 100%;
+header nav.container {
+  background: var(--bg-secondary);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--accent-primary);
+  box-shadow: var(--shadow-sm);
+  border-radius: 0 0 var(--radius-lg, 12px) var(--radius-lg, 12px);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 header nav > div {
@@ -946,6 +982,11 @@ header nav > div {
 }
 
 /* Article Styles */
+.article-hero,
+.article-hero * {
+  position: static !important;
+}
+
 .article-hero-gradient {
   background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
   box-shadow: var(--shadow-md);
