@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="zen-light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,28 +29,33 @@
   {# Favicon #}
   <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
   
-  {# Styles #}
+  {# Google Fonts - All theme fonts #}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
+  
+  {# Theme CSS Files #}
+  <link rel="stylesheet" href="{{ '/assets/css/themes/zen-light.css' | assetUrl }}">
+  <link rel="stylesheet" href="{{ '/assets/css/themes/premium-dark.css' | assetUrl }}">
+  <link rel="stylesheet" href="{{ '/assets/css/themes/cyberpunk.css' | assetUrl }}">
+  
+  {# Main Styles #}
   <link rel="stylesheet" href="{{ '/assets/css/styles.css' | assetUrl }}">
   
-  {# Theme Toggle - Inline to prevent flash #}
+  {# Theme Switcher - Inline to prevent flash #}
   <script>
     (function() {
+      const storageKey = 'devtools-theme-preference';
       function getThemePreference() {
-        if (localStorage.theme) {
-          return localStorage.theme;
+        const saved = localStorage.getItem(storageKey);
+        if (saved && (saved === 'zen-light' || saved === 'premium-dark' || saved === 'cyberpunk')) {
+          return saved;
         }
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'premium-dark' : 'zen-light';
       }
       
-      function setTheme(theme) {
-        if (theme === 'dark') {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
-      }
-      
-      setTheme(getThemePreference());
+      const theme = getThemePreference();
+      document.documentElement.setAttribute('data-theme', theme);
     })();
   </script>
   
@@ -67,6 +72,16 @@
   {% endif %}
 </head>
 <body>
+  {# Premium Dark Theme - Gradient Mesh Background #}
+  <div class="gradient-mesh">
+    <div class="mesh-gradient-1"></div>
+    <div class="mesh-gradient-2"></div>
+    <div class="mesh-gradient-3"></div>
+  </div>
+
+  {# Premium Dark Theme - Interactive Cursor Trail #}
+  <div class="cursor-trail" id="cursorTrail"></div>
+
   {% include "partials/header.njk" %}
   
   <main id="main-content" class="min-h-screen">
@@ -75,8 +90,8 @@
   
   {% include "partials/footer.njk" %}
   
-  {# Theme Toggle Script #}
-  <script src="{{ '/assets/js/theme-toggle.js' | assetUrl }}"></script>
+  {# Theme Switcher Script #}
+  <script src="{{ '/assets/js/theme-switcher.js' | assetUrl }}"></script>
   
   {# Mobile Menu Script #}
   <script src="{{ '/assets/js/mobile-menu.js' | assetUrl }}"></script>

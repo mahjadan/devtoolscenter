@@ -1,0 +1,510 @@
+/* ===================================
+   ZEN MINIMAL THEME (Light)
+   File: assets/css/themes/zen-light.css
+   Default light theme for DevTools Center
+   =================================== */
+
+[data-theme="zen-light"] {
+  /* Colors - Soft & Natural */
+  --bg-primary: #f7f3f0;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #faf8f6;
+  --bg-elevated: #ffffff;
+  
+  --accent-primary: #b7c9a5;
+  --accent-secondary: #a8dadc;
+  --accent-tertiary: #e8d5c4;
+  --accent-warm: #c9b8a5;
+  --accent-soft-blue: #a8dadc;
+  
+  --text-primary: #3d3d3d;
+  --text-secondary: #6b6b6b;
+  --text-muted: #9a9a9a;
+  --text-inverse: #ffffff;
+  
+  /* Shapes - Organic & Rounded */
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 32px;
+  --radius-xl: 48px;
+  --radius-full: 9999px;
+  
+  /* Shadows - Soft & Gentle */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.08);
+  
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 3rem;
+  --spacing-xl: 4rem;
+  --spacing-xxl: 6rem;
+  
+  /* Semantic color aliases for compatibility */
+  --sage-green: var(--accent-primary);
+  --warm-beige: var(--accent-tertiary);
+  --soft-blue: var(--accent-secondary);
+  --gentle-gray: var(--text-muted);
+  
+  /* Animation - Slow & Smooth */
+  --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: all 0.3s ease;
+  
+  /* Typography */
+  --font-primary: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Lora', Georgia, serif;
+  --font-mono: 'Courier New', Courier, monospace;
+}
+
+/* Body & Base Styles */
+[data-theme="zen-light"] body {
+  font-family: var(--font-primary);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.8;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  font-weight: 300;
+}
+
+/* Subtle organic texture overlay */
+[data-theme="zen-light"] body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(183, 201, 165, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(168, 218, 220, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Typography */
+[data-theme="zen-light"] h1,
+[data-theme="zen-light"] h2,
+[data-theme="zen-light"] h3,
+[data-theme="zen-light"] h4,
+[data-theme="zen-light"] h5,
+[data-theme="zen-light"] h6 {
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+[data-theme="zen-light"] h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 600;
+  color: var(--accent-primary);
+}
+
+/* Links */
+[data-theme="zen-light"] a {
+  color: var(--accent-primary);
+  text-decoration: underline;
+  transition: var(--transition-fast);
+}
+
+[data-theme="zen-light"] a:hover {
+  color: var(--accent-soft-blue);
+}
+
+/* Buttons */
+[data-theme="zen-light"] button,
+[data-theme="zen-light"] .btn {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-soft-blue));
+  color: var(--text-inverse);
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 14px 32px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="zen-light"] button:hover,
+[data-theme="zen-light"] .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Input Fields */
+[data-theme="zen-light"] input,
+[data-theme="zen-light"] textarea,
+[data-theme="zen-light"] select {
+  background: var(--bg-tertiary);
+  border: 2px solid transparent;
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  padding: 16px 20px;
+  font-family: var(--font-primary);
+  transition: var(--transition);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="zen-light"] input:focus,
+[data-theme="zen-light"] textarea:focus,
+[data-theme="zen-light"] select:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  background: var(--bg-secondary);
+  box-shadow: 0 0 0 4px rgba(183, 201, 165, 0.1);
+}
+
+[data-theme="zen-light"] input::placeholder,
+[data-theme="zen-light"] textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/* Cards */
+[data-theme="zen-light"] .card,
+[data-theme="zen-light"] [class*="card"],
+[data-theme="zen-light"] .tool-card,
+[data-theme="zen-light"] .zen-card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  position: relative;
+  overflow: visible;
+}
+
+/* Gradient top border on hover */
+[data-theme="zen-light"] .card::before,
+[data-theme="zen-light"] [class*="card"]::before,
+[data-theme="zen-light"] .tool-card::before,
+[data-theme="zen-light"] .zen-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  opacity: 0;
+  transition: var(--transition);
+}
+
+[data-theme="zen-light"] .card:hover,
+[data-theme="zen-light"] [class*="card"]:hover,
+[data-theme="zen-light"] .tool-card:hover,
+[data-theme="zen-light"] .zen-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+[data-theme="zen-light"] .card:hover::before,
+[data-theme="zen-light"] [class*="card"]:hover::before,
+[data-theme="zen-light"] .tool-card:hover::before,
+[data-theme="zen-light"] .zen-card:hover::before {
+  opacity: 1;
+}
+
+/* Code Blocks */
+[data-theme="zen-light"] code,
+[data-theme="zen-light"] pre {
+  font-family: var(--font-mono);
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border-radius: var(--radius-md);
+}
+
+[data-theme="zen-light"] .code-block-wrapper,
+[data-theme="zen-light"] .code-block {
+  background: var(--bg-tertiary);
+  border-left: 4px solid var(--accent-primary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+/* Navigation */
+[data-theme="zen-light"] nav a {
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-full);
+  padding: 12px 24px;
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-fast);
+}
+
+[data-theme="zen-light"] nav a:hover {
+  background: var(--accent-primary);
+  color: var(--text-inverse);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Header */
+[data-theme="zen-light"] header {
+  background: rgba(247, 243, 240, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(183, 201, 165, 0.2);
+}
+
+/* Footer */
+[data-theme="zen-light"] footer {
+  border-top: 1px solid rgba(183, 201, 165, 0.2);
+  color: var(--text-secondary);
+}
+
+/* Animations - Breathing, Floating, Pulse */
+@keyframes breathe {
+  0%, 100% { 
+    opacity: 1; 
+  }
+  50% { 
+    opacity: 0.9; 
+  }
+}
+
+@keyframes float-gentle {
+  0%, 100% { 
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0.1;
+  }
+  25% { 
+    transform: translate(20px, -30px) rotate(90deg);
+    opacity: 0.15;
+  }
+  50% { 
+    transform: translate(0, -50px) rotate(180deg);
+    opacity: 0.08;
+  }
+  75% { 
+    transform: translate(-20px, -30px) rotate(270deg);
+    opacity: 0.12;
+  }
+}
+
+@keyframes breathe-circle {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% { 
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { 
+    transform: scale(1); 
+    opacity: 0.5; 
+  }
+  50% { 
+    transform: scale(1.05); 
+    opacity: 0.7; 
+  }
+}
+
+/* Breathing animation for h1 */
+[data-theme="zen-light"] h1 {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+/* Hero Section */
+[data-theme="zen-light"] .hero {
+  text-align: center;
+  padding: var(--spacing-xxl) var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+  background: linear-gradient(135deg, 
+    rgba(183, 201, 165, 0.1),
+    rgba(168, 218, 220, 0.1)
+  );
+  border-radius: var(--radius-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="zen-light"] .hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(183, 201, 165, 0.15) 0%, transparent 70%);
+  animation: pulse-slow 8s ease-in-out infinite;
+}
+
+[data-theme="zen-light"] .hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+[data-theme="zen-light"] .zen-icon {
+  font-size: 4rem;
+  margin-bottom: var(--spacing-md);
+  display: inline-block;
+  animation: float-gentle 6s ease-in-out infinite;
+}
+
+[data-theme="zen-light"] .hero h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 7vw, 4rem);
+  font-weight: 500;
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+  line-height: 1.3;
+  letter-spacing: -1px;
+}
+
+[data-theme="zen-light"] .hero p {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  max-width: 650px;
+  margin: 0 auto var(--spacing-lg);
+  font-weight: 300;
+  line-height: 2;
+}
+
+/* Breathing circle decoration */
+[data-theme="zen-light"] .breath-circle {
+  width: 80px;
+  height: 80px;
+  margin: var(--spacing-lg) auto;
+  border: 2px solid var(--accent-primary);
+  border-radius: 50%;
+  position: relative;
+  animation: breathe-circle 4s ease-in-out infinite;
+}
+
+[data-theme="zen-light"] .breath-circle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60%;
+  height: 60%;
+  background: var(--accent-primary);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.3;
+}
+
+/* Section Titles */
+[data-theme="zen-light"] .section-title {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 500;
+  text-align: center;
+  margin: var(--spacing-xxl) 0 var(--spacing-lg);
+  color: var(--accent-primary);
+  position: relative;
+}
+
+[data-theme="zen-light"] .section-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--accent-secondary);
+  margin: var(--spacing-md) auto 0;
+  border-radius: var(--radius-full);
+}
+
+/* Tools Grid */
+[data-theme="zen-light"] .tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xxl);
+}
+
+/* Card Icon */
+[data-theme="zen-light"] .card-icon {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  margin-bottom: var(--spacing-md);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+[data-theme="zen-light"] .zen-card:hover .card-icon {
+  transform: scale(1.05) rotate(-3deg);
+  box-shadow: var(--shadow-md);
+}
+
+[data-theme="zen-light"] .zen-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-primary);
+}
+
+[data-theme="zen-light"] .zen-card p {
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-md);
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+/* Prose content styling */
+[data-theme="zen-light"] .prose p {
+  font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 2;
+}
+
+[data-theme="zen-light"] .prose h2,
+[data-theme="zen-light"] .prose h3 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+[data-theme="zen-light"] .prose ul,
+[data-theme="zen-light"] .prose ol {
+  font-weight: 300;
+}
+
+[data-theme="zen-light"] .prose li {
+  line-height: 2;
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Responsive adjustments for zen-light */
+@media (max-width: 768px) {
+  [data-theme="zen-light"] {
+    --spacing-xl: 2rem;
+    --spacing-xxl: 3rem;
+  }
+
+  [data-theme="zen-light"] .hero {
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+
+  [data-theme="zen-light"] .tools-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="zen-light"] *,
+  [data-theme="zen-light"] *::before,
+  [data-theme="zen-light"] *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

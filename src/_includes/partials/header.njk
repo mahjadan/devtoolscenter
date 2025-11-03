@@ -1,60 +1,46 @@
 {# Skip to main content link for accessibility #}
-<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary-600 focus:text-white focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-all">
+<a href="#main-content" class="sr-only">
   Skip to main content
 </a>
 
-<header class="bg-white dark:bg-gray-800 border-b-2 border-gray-200 dark:border-gray-700 sticky top-0 z-50 shadow-sm">
+<header>
   <nav class="container mx-auto px-4 py-4" role="navigation" aria-label="Main navigation">
     <div class="flex items-center justify-between">
       {# Logo/Brand #}
-      <a href="/" class="flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-lg p-1 transition-all" aria-label="DevTools Center Home">
-        <svg class="w-8 h-8 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <a href="/" class="flex items-center space-x-2 rounded-lg p-1" aria-label="DevTools Center Home">
+        <svg class="w-8 h-8" style="color: var(--accent-primary);" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
         </svg>
-        <span class="text-xl font-bold text-gray-900 dark:text-white">DevTools Center</span>
+        <span class="text-xl font-bold">DevTools Center</span>
       </a>
       
       {# Desktop Navigation Menu #}
-      <div class="hidden md:flex items-center space-x-1">
+      <div class="hidden md:flex items-center space-x-2">
         {% set currentUrl = page.url or '' %}
         {% set isToolPage = currentUrl !== '/' and currentUrl !== '/blog/' and '/blog/' not in currentUrl and currentUrl !== '/about/' and currentUrl !== '/contact/' and currentUrl !== '/privacy-policy/' and currentUrl !== '/terms-of-service/' and currentUrl != '' %}
         {% set isBlogPage = '/blog/' in currentUrl %}
-        <a href="/" class="nav-link px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-100 {% if currentUrl === '/' and not isToolPage %}active{% endif %}" {% if currentUrl === '/' and not isToolPage %}aria-current="page"{% endif %}>Home</a>
-        <a href="/#tools-section" class="nav-link px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-100 {% if isToolPage %}active{% endif %}" {% if isToolPage %}aria-current="page"{% endif %}>Tools</a>
-        <a href="/blog/" class="nav-link px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-100 {% if isBlogPage %}active{% endif %}" {% if isBlogPage %}aria-current="page"{% endif %}>Blog</a>
-        <a href="/about/" class="nav-link px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-100 {% if currentUrl === '/about/' %}active{% endif %}" {% if currentUrl === '/about/' %}aria-current="page"{% endif %}>About</a>
-        <a href="/contact/" class="nav-link px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-100 {% if currentUrl === '/contact/' %}active{% endif %}" {% if currentUrl === '/contact/' %}aria-current="page"{% endif %}>Contact</a>
+        <a href="/" class="nav-link px-4 py-2 rounded-lg {% if currentUrl === '/' and not isToolPage %}active{% endif %}" {% if currentUrl === '/' and not isToolPage %}aria-current="page"{% endif %}>Home</a>
+        <a href="/#tools-section" class="nav-link px-4 py-2 rounded-lg {% if isToolPage %}active{% endif %}" {% if isToolPage %}aria-current="page"{% endif %}>Tools</a>
+        <a href="/blog/" class="nav-link px-4 py-2 rounded-lg {% if isBlogPage %}active{% endif %}" {% if isBlogPage %}aria-current="page"{% endif %}>Blog</a>
+        <a href="/about/" class="nav-link px-4 py-2 rounded-lg {% if currentUrl === '/about/' %}active{% endif %}" {% if currentUrl === '/about/' %}aria-current="page"{% endif %}>About</a>
+        <a href="/contact/" class="nav-link px-4 py-2 rounded-lg {% if currentUrl === '/contact/' %}active{% endif %}" {% if currentUrl === '/contact/' %}aria-current="page"{% endif %}>Contact</a>
       </div>
       
-      {# Right side buttons (theme toggle + mobile menu) #}
+      {# Right side buttons (mobile menu) #}
       <div class="flex items-center space-x-2">
-        {# Theme Toggle Button #}
-        <button 
-          id="theme-toggle" 
-          class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-all duration-100"
-          aria-label="Toggle theme between light and dark mode"
-          title="Toggle theme"
-        >
-          <svg class="w-5 h-5 hidden dark:block text-yellow-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>
-          </svg>
-          <svg class="w-5 h-5 block dark:hidden text-gray-700" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
-          </svg>
-        </button>
-        
         {# Mobile Menu Toggle Button #}
         <button 
           id="mobile-menu-toggle"
-          class="md:hidden p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-all duration-100"
+          class="md:hidden p-2 rounded-lg"
+          style="background: var(--bg-tertiary); color: var(--text-primary);"
           aria-label="Toggle mobile navigation menu"
           aria-expanded="false"
           aria-controls="mobile-menu"
         >
-          <svg id="mobile-menu-icon" class="w-6 h-6 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg id="mobile-menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
           </svg>
-          <svg id="mobile-menu-close" class="w-6 h-6 text-gray-700 dark:text-gray-300 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg id="mobile-menu-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
           </svg>
         </button>
@@ -62,21 +48,21 @@
     </div>
     
     {# Mobile Navigation Menu #}
-    <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 border-t border-gray-200 dark:border-gray-700 pt-4">
+    <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 pt-4" style="border-top: 1px solid var(--accent-primary);">
       <div class="flex flex-col space-y-2">
         {% set currentUrl = page.url or '' %}
         {% set isToolPage = currentUrl !== '/' and currentUrl !== '/blog/' and '/blog/' not in currentUrl and currentUrl !== '/about/' and currentUrl !== '/contact/' and currentUrl !== '/privacy-policy/' and currentUrl !== '/terms-of-service/' and currentUrl != '' %}
         {% set isBlogPage = '/blog/' in currentUrl %}
-        <a href="/" class="mobile-nav-link px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-100 {% if currentUrl === '/' and not isToolPage %}active{% endif %}" {% if currentUrl === '/' and not isToolPage %}aria-current="page"{% endif %}>Home</a>
-        <a href="/#tools-section" class="mobile-nav-link px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-100 {% if isToolPage %}active{% endif %}" {% if isToolPage %}aria-current="page"{% endif %}>Tools</a>
-        <a href="/blog/" class="mobile-nav-link px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-100 {% if isBlogPage %}active{% endif %}" {% if isBlogPage %}aria-current="page"{% endif %}>Blog</a>
-        <a href="/about/" class="mobile-nav-link px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-100 {% if currentUrl === '/about/' %}active{% endif %}" {% if currentUrl === '/about/' %}aria-current="page"{% endif %}>About</a>
-        <a href="/contact/" class="mobile-nav-link px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-100 {% if currentUrl === '/contact/' %}active{% endif %}" {% if currentUrl === '/contact/' %}aria-current="page"{% endif %}>Contact</a>
+        <a href="/" class="mobile-nav-link px-4 py-3 rounded-lg {% if currentUrl === '/' and not isToolPage %}active{% endif %}" {% if currentUrl === '/' and not isToolPage %}aria-current="page"{% endif %}>Home</a>
+        <a href="/#tools-section" class="mobile-nav-link px-4 py-3 rounded-lg {% if isToolPage %}active{% endif %}" {% if isToolPage %}aria-current="page"{% endif %}>Tools</a>
+        <a href="/blog/" class="mobile-nav-link px-4 py-3 rounded-lg {% if isBlogPage %}active{% endif %}" {% if isBlogPage %}aria-current="page"{% endif %}>Blog</a>
+        <a href="/about/" class="mobile-nav-link px-4 py-3 rounded-lg {% if currentUrl === '/about/' %}active{% endif %}" {% if currentUrl === '/about/' %}aria-current="page"{% endif %}>About</a>
+        <a href="/contact/" class="mobile-nav-link px-4 py-3 rounded-lg {% if currentUrl === '/contact/' %}active{% endif %}" {% if currentUrl === '/contact/' %}aria-current="page"{% endif %}>Contact</a>
       </div>
     </div>
   </nav>
 </header>
 
 {# Mobile menu backdrop overlay #}
-<div id="mobile-menu-backdrop" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-150 md:hidden"></div>
+<div id="mobile-menu-backdrop" class="hidden fixed z-40 md:hidden" style="inset: 0; background: rgba(0, 0, 0, 0.5);"></div>
 

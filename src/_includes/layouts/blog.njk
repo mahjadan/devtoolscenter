@@ -6,27 +6,27 @@ layout: layouts/base.njk
   {# Article Header - Enhanced Design #}
   <header class="mb-12">
     {# Breadcrumb Navigation #}
-    <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-6">
-      <a href="/blog/" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+    <div class="flex items-center gap-2 text-sm mb-6" style="color: var(--text-secondary);">
+      <a href="/blog/" style="color: var(--accent-primary);">
         <svg class="inline w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
         </svg>
         Blog
       </a>
       <span>/</span>
-      <span class="text-primary-600 dark:text-primary-400 font-medium">{{ category }}</span>
+      <span style="color: var(--accent-primary);" class="font-medium">{{ category }}</span>
     </div>
     
     {# Hero Title with Gradient #}
     <div class="article-hero-gradient p-8 rounded-xl mb-6">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-primary-600 to-primary-400 dark:from-primary-500 dark:to-primary-300 bg-clip-text text-transparent leading-tight">
+      <h1 class="text-4xl font-bold mb-4 leading-tight" style="color: var(--accent-primary);">
         {{ title }}
       </h1>
-      <p class="text-xl md:text-2xl text-gray-900 dark:text-gray-300 leading-relaxed font-medium">{{ description }}</p>
+      <p class="text-xl leading-relaxed font-medium" style="color: var(--text-secondary);">{{ description }}</p>
     </div>
     
     {# Metadata with Icons #}
-    <div class="flex flex-wrap items-center gap-6 text-sm text-gray-600 dark:text-gray-400">
+    <div class="flex flex-wrap items-center gap-6 text-sm" style="color: var(--text-secondary);">
       <div class="flex items-center gap-2">
         <svg class="metadata-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
@@ -51,20 +51,7 @@ layout: layouts/base.njk
   </header>
 
   {# Article Content - Enhanced Typography with Better Contrast #}
-  <div class="prose dark:prose-invert max-w-none prose-lg code-block-enhanced
-    prose-headings:font-bold 
-    prose-h2:text-3xl prose-h2:mt-10 prose-h2:mb-4
-    prose-h3:text-2xl prose-h3:mt-6 prose-h3:mb-3
-    prose-p:text-base prose-p:leading-relaxed prose-p:mb-5
-    prose-a:transition-all
-    prose-strong:font-semibold
-    prose-code:font-mono prose-code:text-sm
-    prose-pre:p-6 prose-pre:my-8 prose-pre:overflow-x-auto
-    prose-ul:my-6 prose-ul:space-y-3
-    prose-ol:my-6 prose-ol:space-y-3
-    prose-li:leading-relaxed
-    prose-blockquote:not-italic
-    prose-img:rounded-xl prose-img:shadow-lg">
+  <div class="prose max-w-none code-block-enhanced">
     {{ content | safe }}
   </div>
 
@@ -123,15 +110,15 @@ layout: layouts/base.njk
 
   {# Related Articles #}
   {% if relatedArticles %}
-  <div class="mt-12 pt-8 border-t-2 border-gray-200 dark:border-gray-700">
-    <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Related Articles</h2>
+  <div class="mt-12 pt-8 border-t-2">
+    <h2 class="text-2xl font-bold mb-6">Related Articles</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       {% for articleUrl in relatedArticles %}
         {% for article in collections.blog %}
           {% if article.url == articleUrl %}
-      <a href="{{ article.url }}" class="group p-6 bg-white dark:bg-gray-800 rounded-lg border-2 border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors">
-        <h3 class="font-semibold text-lg mb-2 text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400">{{ article.data.title }}</h3>
-        <p class="text-sm text-gray-600 dark:text-gray-300">{{ article.data.description }}</p>
+      <a href="{{ article.url }}" class="group p-6 rounded-lg border-t-2 tool-card">
+        <h3 class="font-semibold text-lg mb-2">{{ article.data.title }}</h3>
+        <p class="text-sm" style="color: var(--text-secondary);">{{ article.data.description }}</p>
       </a>
           {% endif %}
         {% endfor %}

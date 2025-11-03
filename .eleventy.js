@@ -22,6 +22,7 @@ module.exports = function(eleventyConfig) {
   // Note: JS files are passed through here, then hashed in afterBuild
   eleventyConfig.addPassthroughCopy("src/assets/js");
   eleventyConfig.addPassthroughCopy("src/assets/images");
+  eleventyConfig.addPassthroughCopy("src/assets/css/themes");
   eleventyConfig.addPassthroughCopy("src/robots.txt");
   eleventyConfig.addPassthroughCopy("src/_headers");
 
@@ -83,6 +84,19 @@ module.exports = function(eleventyConfig) {
     const cssFullPath = path.join(outputDir, cssPath);
     if (fs.existsSync(cssFullPath)) {
       assetsToHash.push({ srcPath: cssFullPath, assetPath: cssPath });
+    }
+    
+    // Hash theme CSS files from source
+    const themesDir = path.join(srcDir, "assets/css/themes");
+    if (fs.existsSync(themesDir)) {
+      const themeFiles = fs.readdirSync(themesDir).filter(f => f.endsWith(".css"));
+      for (const themeFile of themeFiles) {
+        const themePath = `assets/css/themes/${themeFile}`;
+        const themeFullPath = path.join(srcDir, themePath);
+        if (fs.existsSync(themeFullPath)) {
+          assetsToHash.push({ srcPath: themeFullPath, assetPath: themePath });
+        }
+      }
     }
     
     if (assetsToHash.length > 0) {

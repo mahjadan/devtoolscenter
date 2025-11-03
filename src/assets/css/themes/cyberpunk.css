@@ -1,0 +1,610 @@
+/* ===================================
+   CYBERPUNK NEON THEME
+   File: assets/css/themes/cyberpunk.css
+   Alternative high-energy theme
+   =================================== */
+
+[data-theme="cyberpunk"] {
+  /* Cyberpunk Colors */
+  --bg-primary: #0A0E27;
+  --bg-secondary: #151932;
+  --bg-tertiary: #1F2547;
+  --bg-elevated: #2a3154;
+  
+  --accent-primary: #FF006E;
+  --accent-secondary: #00F5FF;
+  --accent-tertiary: #8338EC;
+  --accent-yellow: #FFD60A;
+  --accent-green: #00FF88;
+  
+  --text-primary: #FFFFFF;
+  --text-secondary: #B8C1EC;
+  --text-muted: #6B7AA1;
+  --text-inverse: #0A0E27;
+  
+  /* Shapes - Sharp & Angular */
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
+  --radius-full: 2px;
+  
+  /* Effects */
+  --border-width: 2px;
+  --glow-strength: 8px;
+  --shadow-sm: 0 0 10px rgba(255, 0, 110, 0.2);
+  --shadow-md: 0 0 20px rgba(255, 0, 110, 0.3);
+  --shadow-lg: 0 0 40px rgba(255, 0, 110, 0.4);
+  
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  
+  /* Animation - Fast & Snappy */
+  --transition: all 0.15s linear;
+  --transition-fast: all 0.1s linear;
+  
+  /* Typography */
+  --font-primary: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'Courier New', Courier, monospace;
+}
+
+/* Body & Base */
+[data-theme="cyberpunk"] body {
+  font-family: var(--font-primary);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* CRT Scan Lines Effect */
+[data-theme="cyberpunk"] body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 245, 255, 0.03) 0px,
+    transparent 2px,
+    transparent 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+  animation: scan 8s linear infinite;
+}
+
+@keyframes scan {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(20px); }
+}
+
+/* Grid Background */
+[data-theme="cyberpunk"] body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(131, 56, 236, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(131, 56, 236, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Typography */
+[data-theme="cyberpunk"] h1,
+[data-theme="cyberpunk"] h2,
+[data-theme="cyberpunk"] h3,
+[data-theme="cyberpunk"] h4,
+[data-theme="cyberpunk"] h5,
+[data-theme="cyberpunk"] h6 {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-primary);
+}
+
+[data-theme="cyberpunk"] h1 {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: 900;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 10px rgba(0, 245, 255, 0.5));
+  animation: glitch 3s infinite;
+}
+
+@keyframes glitch {
+  0%, 90%, 100% { transform: translate(0); }
+  92% { transform: translate(-2px, 2px); }
+  94% { transform: translate(2px, -2px); }
+  96% { transform: translate(-2px, -2px); }
+}
+
+/* Links */
+[data-theme="cyberpunk"] a {
+  color: var(--accent-secondary);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: var(--transition);
+}
+
+[data-theme="cyberpunk"] a:hover {
+  color: var(--accent-primary);
+  text-shadow: 0 0 10px var(--accent-primary);
+}
+
+/* Buttons */
+[data-theme="cyberpunk"] button,
+[data-theme="cyberpunk"] .btn {
+  background: transparent;
+  color: var(--text-primary);
+  border: var(--border-width) solid var(--accent-primary);
+  border-radius: 0;
+  padding: 12px 30px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  text-shadow: 0 0 5px rgba(255, 0, 110, 0.5);
+}
+
+[data-theme="cyberpunk"] button::before,
+[data-theme="cyberpunk"] .btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: var(--accent-primary);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease;
+  border-radius: 0;
+}
+
+[data-theme="cyberpunk"] button:hover,
+[data-theme="cyberpunk"] .btn:hover {
+  color: var(--bg-primary);
+  box-shadow: 0 0 30px var(--accent-primary);
+  transform: scale(1.05);
+  text-shadow: none;
+}
+
+[data-theme="cyberpunk"] button:hover::before,
+[data-theme="cyberpunk"] .btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Secondary Buttons */
+[data-theme="cyberpunk"] .btn-secondary {
+  border-color: var(--accent-secondary);
+}
+
+[data-theme="cyberpunk"] .btn-secondary:hover {
+  box-shadow: 0 0 30px var(--accent-secondary);
+}
+
+[data-theme="cyberpunk"] .btn-secondary::before {
+  background: var(--accent-secondary);
+}
+
+/* Input Fields */
+[data-theme="cyberpunk"] input,
+[data-theme="cyberpunk"] textarea,
+[data-theme="cyberpunk"] select {
+  background: var(--bg-primary);
+  border: var(--border-width) solid var(--accent-secondary);
+  border-radius: 0;
+  color: var(--text-primary);
+  padding: 15px;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+
+[data-theme="cyberpunk"] input:focus,
+[data-theme="cyberpunk"] textarea:focus,
+[data-theme="cyberpunk"] select:focus {
+  outline: none;
+  box-shadow: 0 0 20px var(--accent-secondary);
+  border-color: var(--accent-primary);
+}
+
+[data-theme="cyberpunk"] input::placeholder,
+[data-theme="cyberpunk"] textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/* Cards */
+[data-theme="cyberpunk"] .card,
+[data-theme="cyberpunk"] [class*="card"] {
+  background: var(--bg-secondary);
+  border: var(--border-width) solid var(--accent-tertiary);
+  border-radius: 0;
+  padding: 30px;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+}
+
+[data-theme="cyberpunk"] .card::before,
+[data-theme="cyberpunk"] [class*="card"]::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--accent-secondary), var(--accent-primary), var(--accent-tertiary));
+  z-index: -1;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+[data-theme="cyberpunk"] .card:hover,
+[data-theme="cyberpunk"] [class*="card"]:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 40px rgba(131, 56, 236, 0.4);
+}
+
+[data-theme="cyberpunk"] .card:hover::before,
+[data-theme="cyberpunk"] [class*="card"]:hover::before {
+  opacity: 1;
+}
+
+/* Code Blocks */
+[data-theme="cyberpunk"] code,
+[data-theme="cyberpunk"] pre {
+  font-family: var(--font-mono);
+  background: #000000;
+  color: var(--accent-green);
+  border-radius: 0;
+}
+
+[data-theme="cyberpunk"] .code-block-wrapper,
+[data-theme="cyberpunk"] .code-block {
+  background: #000000;
+  border: var(--border-width) solid var(--accent-yellow);
+  border-radius: 0;
+  padding: 20px;
+  position: relative;
+}
+
+[data-theme="cyberpunk"] .code-block-wrapper::before,
+[data-theme="cyberpunk"] .code-block::before {
+  content: '> TERMINAL';
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background: var(--bg-primary);
+  padding: 0 10px;
+  color: var(--accent-yellow);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+/* Navigation */
+[data-theme="cyberpunk"] nav a {
+  color: var(--text-primary);
+  background: transparent;
+  border: var(--border-width) solid var(--accent-secondary);
+  border-radius: 0;
+  padding: 10px 20px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="cyberpunk"] nav a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--accent-secondary), transparent);
+  transition: left 0.3s ease;
+}
+
+[data-theme="cyberpunk"] nav a:hover {
+  box-shadow: 0 0 20px var(--accent-secondary), inset 0 0 20px rgba(0, 245, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+[data-theme="cyberpunk"] nav a:hover::before {
+  left: 100%;
+}
+
+/* Header */
+[data-theme="cyberpunk"] header {
+  background: rgba(10, 14, 39, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: var(--border-width) solid var(--accent-secondary);
+  box-shadow: 0 0 var(--glow-strength) var(--accent-secondary);
+}
+
+/* Footer */
+[data-theme="cyberpunk"] footer {
+  border-top: var(--border-width) solid var(--accent-tertiary);
+  box-shadow: 0 0 var(--glow-strength) var(--accent-tertiary);
+  color: var(--text-muted);
+}
+
+/* Hero Section */
+[data-theme="cyberpunk"] .hero {
+  text-align: center;
+  margin-bottom: 80px;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, rgba(255, 0, 110, 0.1), rgba(131, 56, 236, 0.1));
+  border: var(--border-width) solid var(--accent-primary);
+  box-shadow: 0 0 30px rgba(255, 0, 110, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="cyberpunk"] .hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 0, 110, 0.1) 0%, transparent 70%);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+[data-theme="cyberpunk"] .hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+[data-theme="cyberpunk"] .hero h2 {
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 900;
+  margin-bottom: 20px;
+  position: relative;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+  text-shadow: 0 0 20px rgba(255, 0, 110, 0.8);
+}
+
+[data-theme="cyberpunk"] .hero p {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 30px;
+  position: relative;
+}
+
+/* Tools Grid */
+[data-theme="cyberpunk"] .tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+/* Tool Cards - Support both .tool-card and .zen-card */
+[data-theme="cyberpunk"] .tool-card,
+[data-theme="cyberpunk"] .zen-card {
+  background: var(--bg-secondary);
+  border: var(--border-width) solid var(--accent-tertiary);
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-fast) ease;
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+}
+
+[data-theme="cyberpunk"] .tool-card::before,
+[data-theme="cyberpunk"] .zen-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--accent-secondary), var(--accent-primary), var(--accent-tertiary));
+  z-index: -1;
+  opacity: 0;
+  transition: opacity var(--transition-fast) ease;
+}
+
+[data-theme="cyberpunk"] .tool-card:hover,
+[data-theme="cyberpunk"] .zen-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 40px rgba(131, 56, 236, 0.4);
+}
+
+[data-theme="cyberpunk"] .tool-card:hover::before,
+[data-theme="cyberpunk"] .zen-card:hover::before {
+  opacity: 1;
+}
+
+/* Tool Icon - Support both .tool-icon and .card-icon */
+[data-theme="cyberpunk"] .tool-icon,
+[data-theme="cyberpunk"] .card-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--accent-secondary), var(--accent-tertiary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+  animation: rotate 10s linear infinite;
+}
+
+[data-theme="cyberpunk"] .tool-card h3,
+[data-theme="cyberpunk"] .zen-card h3 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin-bottom: 15px;
+  color: var(--accent-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+[data-theme="cyberpunk"] .tool-card p,
+[data-theme="cyberpunk"] .zen-card p {
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+}
+
+/* Section Headers */
+[data-theme="cyberpunk"] .section-header {
+  text-align: center;
+  margin: 80px 0 50px;
+}
+
+[data-theme="cyberpunk"] .section-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 16px;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  text-shadow: 0 0 20px rgba(255, 0, 110, 0.5);
+  text-align: center;
+}
+
+[data-theme="cyberpunk"] .section-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  text-transform: none;
+}
+
+/* Tool Input - Support standard inputs */
+[data-theme="cyberpunk"] .tool-input,
+[data-theme="cyberpunk"] input[type="text"],
+[data-theme="cyberpunk"] input[type="email"],
+[data-theme="cyberpunk"] input[type="search"] {
+  width: 100%;
+  padding: 15px;
+  background: var(--bg-primary);
+  border: var(--border-width) solid var(--accent-secondary);
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+  transition: all var(--transition-fast) ease;
+}
+
+[data-theme="cyberpunk"] .tool-input:focus,
+[data-theme="cyberpunk"] input[type="text"]:focus,
+[data-theme="cyberpunk"] input[type="email"]:focus,
+[data-theme="cyberpunk"] input[type="search"]:focus {
+  outline: none;
+  box-shadow: 0 0 20px var(--accent-secondary);
+  border-color: var(--accent-primary);
+}
+
+[data-theme="cyberpunk"] .tool-input::placeholder,
+[data-theme="cyberpunk"] input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Code Block - Support .code-block */
+[data-theme="cyberpunk"] .code-block {
+  background: #000000;
+  border: var(--border-width) solid var(--accent-yellow);
+  padding: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  color: #00FF41;
+  margin: 20px 0;
+  position: relative;
+  overflow-x: auto;
+}
+
+[data-theme="cyberpunk"] .code-block::before {
+  content: '> TERMINAL';
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background: var(--bg-primary);
+  padding: 0 10px;
+  color: var(--accent-yellow);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+/* Button spans */
+[data-theme="cyberpunk"] button span,
+[data-theme="cyberpunk"] .btn span {
+  position: relative;
+  z-index: 1;
+}
+
+/* Special Icon Effects */
+[data-theme="cyberpunk"] .icon,
+[data-theme="cyberpunk"] [class*="icon"] {
+  animation: rotate 10s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  [data-theme="cyberpunk"] header {
+    padding: 20px 0;
+  }
+
+  [data-theme="cyberpunk"] .hero {
+    padding: 40px 20px;
+  }
+
+  [data-theme="cyberpunk"] .tools-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="cyberpunk"] *,
+  [data-theme="cyberpunk"] *::before,
+  [data-theme="cyberpunk"] *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
