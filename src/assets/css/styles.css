@@ -167,7 +167,7 @@ pre {
   }
 
   .md\:flex {
-    display: flex;
+    display: flex !important;
   }
 
   .md\:items-end {
@@ -608,6 +608,11 @@ header {
 header nav {
   display: block;
   width: 100%;
+  background: var(--bg-secondary);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--accent-primary);
+  box-shadow: var(--shadow-sm);
+  border-radius: 0 0 var(--radius-lg, 12px) var(--radius-lg, 12px);
 }
 
 header nav.container {
