@@ -409,7 +409,8 @@
 [data-theme="cyberpunk"] .hero {
   text-align: center;
   margin-bottom: 80px;
-  padding: 60px 20px;
+  padding-top: 60px;
+  padding-bottom: 60px;
   background: linear-gradient(
     135deg,
     rgba(255, 0, 110, 0.1),

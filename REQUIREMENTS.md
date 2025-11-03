@@ -35,7 +35,7 @@ The site should be fast, SEO-friendly, responsive, and easily deployable to Clou
   /layouts/         - Page templates (base, tool, etc.)
   /partials/        - Reusable components (header, footer, nav)
   /assets/
-    /css/           - Styles (Tailwind CSS)
+    /css/           - Styles (Custom CSS with CSS Variables)
     /js/            - Tool logic + utilities
     /images/        - Icons, logos
   /blog/            - Future blog posts (optional)
@@ -48,7 +48,7 @@ The site should be fast, SEO-friendly, responsive, and easily deployable to Clou
 
 - **Frontend:** Vanilla HTML/CSS/JS (no framework for tools)
 - **Build:** Eleventy (11ty) for static generation
-- **Styling:** Tailwind CSS
+- **Styling:** Custom CSS with CSS Variables
 - **Hosting:** Cloudflare Pages (connected to GitHub)
 - **Analytics:** Cloudflare Web Analytics (initially), GA4 optional
 - **Ads:** Google AdSense integration (future - not in initial build)
@@ -171,7 +171,7 @@ Each with clean design, consistent header/footer.
 
 ## ✅ Deliverable Checklist
 
-- [x] Static site built with Eleventy + Tailwind CSS
+- [x] Static site built with Eleventy + Custom CSS
 - [x] All 8 tools implemented and functional
 - [x] Homepage with tool directory
 - [x] Legal pages (Privacy, Terms, About, Contact)

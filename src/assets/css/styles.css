@@ -467,6 +467,10 @@ pre {
   max-width: none;
 }
 
+.max-w-4xl {
+  max-width: 56rem;
+}
+
 .max-w-6xl {
   max-width: 72rem;
 }
@@ -613,6 +617,46 @@ header nav {
   border-bottom: 1px solid var(--accent-primary);
   box-shadow: var(--shadow-sm);
   border-radius: 0 0 var(--radius-lg, 12px) var(--radius-lg, 12px);
+}
+
+/* Hero Section - Ensure container width matches tools section */
+.hero {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--spacing-sm, 1rem);
+  padding-right: var(--spacing-sm, 1rem);
+}
+
+/* Constrain hero to match container width at each breakpoint */
+@media (min-width: 640px) {
+  .hero {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .hero {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero {
+    max-width: 1280px;
+  }
+}
+
+.hero .container {
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 header nav.container {

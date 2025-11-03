@@ -10,7 +10,7 @@ All requirements have been successfully implemented. The DevTools Center website
 
 ### Core Infrastructure ✅
 - ✅ Static site generator (Eleventy 11ty)
-- ✅ Tailwind CSS styling framework
+- ✅ CSS Variable-Based Styling System
 - ✅ Build and development scripts
 - ✅ Dark/light mode with system preference detection
 - ✅ Responsive mobile-first design
@@ -67,8 +67,6 @@ devtoolscenter/
 │   ├── .nvmrc                    # Node version (18)
 │   ├── .gitignore                # Git ignore rules
 │   ├── package.json              # Dependencies & scripts
-│   ├── tailwind.config.js        # Tailwind configuration
-│   └── postcss.config.js         # PostCSS configuration
 │
 ├── Source Files (src/)
 │   ├── _includes/
@@ -82,7 +80,8 @@ devtoolscenter/
 │   │
 │   ├── assets/
 │   │   ├── css/
-│   │   │   └── styles.css        # Tailwind input
+│   │   │   └── styles.css        # Main CSS with utility classes
+│   │   │   └── themes/           # Theme CSS files
 │   │   ├── js/
 │   │   │   ├── theme-toggle.js   # Dark mode logic
 │   │   │   └── tools/            # 8 tool scripts
@@ -181,7 +180,7 @@ npm run dev
 
 - [ ] Update contact email in `src/pages/contact.md`
 - [ ] Add Google Analytics (if desired)
-- [ ] Customize colors in `tailwind.config.js`
+- [ ] Customize colors in theme CSS files (`src/assets/css/themes/`)
 - [ ] Add your own logo/branding
 - [ ] Modify footer links
 
@@ -273,7 +272,6 @@ npm run dev
     "autoprefixer": "^10.4.16",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.4.32",
-    "tailwindcss": "^3.4.0"
   }
 }
 ```

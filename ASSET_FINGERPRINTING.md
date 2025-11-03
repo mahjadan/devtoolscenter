@@ -22,7 +22,7 @@ Asset fingerprinting (also called "cache busting") adds a unique hash to filenam
 │  npm run build                          │
 └──────────────┬──────────────────────────┘
                │
-               ├─► 1. Tailwind builds CSS
+               ├─► 1. CSS files copied
                │   Output: _site/assets/css/styles.css
                │
                ├─► 2. Eleventy starts build
@@ -59,7 +59,7 @@ Three main components:
 
 1. **`eleventy.before` Hook**
    - Runs before templates are processed
-   - Hashes CSS (from `_site/` - already built by Tailwind)
+   - Hashes CSS (from `_site/` - already copied)
    - Hashes JS files (from `src/` - copies to `_site/` with hash)
    - Creates manifest mapping original → hashed paths
 
@@ -219,7 +219,7 @@ npm run build
 
 ### Adding a New CSS File
 
-1. Import in `src/assets/css/styles.css` (or Tailwind config)
+1. Import in `src/assets/css/styles.css` or add to theme files
 2. Build CSS first: `npm run build:css`
 3. Reference in template: `{{ '/assets/css/styles.css' | assetUrl }}`
 4. Build automatically fingerprints it!

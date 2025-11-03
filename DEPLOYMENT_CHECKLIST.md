@@ -90,7 +90,7 @@ git status
 git add .
 
 # First commit
-git commit -m "Initial commit: DevTools Center - 8 developer tools with Eleventy and Tailwind"
+git commit -m "Initial commit: DevTools Center - 8 developer tools with Eleventy"
 ```
 
 ### 2. Create GitHub Repository

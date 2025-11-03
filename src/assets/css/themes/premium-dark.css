@@ -391,7 +391,8 @@
 /* Hero Section */
 [data-theme="premium-dark"] .hero {
   text-align: center;
-  padding: 100px 32px;
+  padding-top: 100px;
+  padding-bottom: 100px;
   margin-bottom: 80px;
   background: linear-gradient(
     135deg,

@@ -10,8 +10,7 @@ npm install
 
 This will install:
 - Eleventy (static site generator)
-- Tailwind CSS (styling)
-- PostCSS & Autoprefixer
+- CSS Variable-Based Styling System
 - Sitemap plugin
 - Other build tools
 
@@ -23,7 +22,7 @@ npm run dev
 
 This runs two processes in parallel:
 - **Eleventy dev server** with live reload on `http://localhost:8080`
-- **Tailwind CSS watcher** to rebuild styles on changes
+- **CSS file copier** to copy styles on changes
 
 Open your browser to `http://localhost:8080` and you'll see the homepage with all 8 tools!
 
@@ -33,7 +32,7 @@ The dev server watches for file changes and automatically rebuilds:
 
 - **Edit templates:** `src/_includes/layouts/*.njk`
 - **Edit tool pages:** `src/tools/*.md`
-- **Edit styles:** `src/assets/css/styles.css` or `tailwind.config.js`
+- **Edit styles:** `src/assets/css/styles.css` or theme files in `src/assets/css/themes/`
 - **Edit JavaScript:** `src/assets/js/**/*.js`
 
 Changes will be reflected immediately in your browser.
@@ -76,7 +75,7 @@ Then visit `http://localhost:8000`
 | `npm run dev` | Start development with live reload |
 | `npm run build` | Build for production |
 | `npm run dev:eleventy` | Run only Eleventy dev server |
-| `npm run dev:css` | Run only Tailwind CSS watcher |
+| `npm run dev:css` | Copy CSS files to output directory |
 | `npm run build:css` | Build production CSS (minified) |
 | `npm run build:eleventy` | Build static HTML with Eleventy |
 
@@ -89,7 +88,7 @@ devtoolscenter/
 │   │   ├── layouts/        # Page layouts (base, tool)
 │   │   └── partials/       # Components (header, footer)
 │   ├── assets/             # Static assets
-│   │   ├── css/            # Tailwind CSS
+│   │   ├── css/            # Custom CSS with CSS Variables
 │   │   ├── js/             # JavaScript files
 │   │   └── images/         # Images and favicon
 │   ├── tools/              # Tool pages (8 tools)
@@ -97,7 +96,6 @@ devtoolscenter/
 │   └── index.njk           # Homepage
 ├── _site/                  # Build output (git-ignored)
 ├── .eleventy.js            # Eleventy config
-├── tailwind.config.js      # Tailwind config
 └── package.json            # Dependencies
 ```
 
@@ -116,16 +114,13 @@ devtoolscenter/
 
 ### Change Colors
 
-Edit `tailwind.config.js`:
+Edit theme CSS files in `src/assets/css/themes/`:
 
-```javascript
-colors: {
-  primary: {
-    // Your custom blue shades
-  },
-  accent: {
-    // Your custom green shades
-  }
+```css
+[data-theme="your-theme"] {
+  --accent-primary: #your-color;
+  --accent-secondary: #your-color;
+  /* Customize CSS variables */
 }
 ```
 
@@ -215,7 +210,7 @@ npm run build
 
 Make sure both processes are running with `npm run dev`:
 - Eleventy (generates HTML)
-- Tailwind (compiles CSS)
+- CSS (copied directly)
 
 ### Dark Mode Not Persisting
 
@@ -224,7 +219,7 @@ Check browser console for localStorage errors. Some browsers block localStorage 
 ## 📚 Learn More
 
 - [Eleventy Documentation](https://www.11ty.dev/docs/)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [CSS Custom Properties (Variables)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
 - [Cloudflare Pages Documentation](https://developers.cloudflare.com/pages/)
 
 ## 💡 Tips

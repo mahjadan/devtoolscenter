@@ -335,7 +335,8 @@
 /* Hero Section */
 [data-theme="zen-light"] .hero {
   text-align: center;
-  padding: var(--spacing-xxl) var(--spacing-lg);
+  padding-top: var(--spacing-xxl);
+  padding-bottom: var(--spacing-xxl);
   margin-bottom: var(--spacing-xl);
   background: linear-gradient(
     135deg,

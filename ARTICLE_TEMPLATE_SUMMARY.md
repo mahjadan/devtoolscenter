@@ -226,7 +226,7 @@ The enhanced styles will automatically apply!
 ### Technologies Used
 - **HTML5**: Semantic markup
 - **CSS3**: Custom properties, Grid, Flexbox, animations
-- **Tailwind CSS**: Utility-first styling (integrated version)
+- **CSS Variables**: Custom CSS with CSS variable-based theming
 - **Eleventy (11ty)**: Static site generator
 - **JavaScript**: Theme toggle, copy code functionality
 - **SVG**: Scalable icons and illustrations
@@ -385,7 +385,7 @@ npm run dev
 
 ### Understand the Code
 - **CSS Custom Properties**: Theme variables for easy customization
-- **Tailwind Utilities**: Modern utility-first CSS framework
+- **Custom Utilities**: Custom utility classes with CSS variables
 - **SVG Graphics**: Scalable vector graphics for icons
 - **CSS Animations**: Smooth transitions and effects
 - **Responsive Design**: Mobile-first approach with breakpoints
