@@ -156,8 +156,8 @@ permalink: /about/
         <div class="text-sm text-gray-600 dark:text-gray-400">Static Site Generation</div>
       </div>
       <div class="p-6 rounded-xl bg-gradient-to-br from-primary-50 to-primary-100/50 dark:from-gray-800 dark:to-gray-700 border border-primary-200 dark:border-gray-600 text-center">
-        <div class="text-3xl font-bold mb-2 text-primary-600 dark:text-primary-400">Tailwind</div>
-        <div class="text-sm text-gray-600 dark:text-gray-400">CSS Framework</div>
+        <div class="text-3xl font-bold mb-2 text-primary-600 dark:text-primary-400">CSS Variables</div>
+        <div class="text-sm text-gray-600 dark:text-gray-400">Theming System</div>
       </div>
       <div class="p-6 rounded-xl bg-gradient-to-br from-primary-50 to-primary-100/50 dark:from-gray-800 dark:to-gray-700 border border-primary-200 dark:border-gray-600 text-center">
         <div class="text-3xl font-bold mb-2 text-primary-600 dark:text-primary-400">JavaScript</div>
