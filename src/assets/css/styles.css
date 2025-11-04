@@ -611,11 +611,18 @@ header {
 
 header.header-glassy {
   width: 100%;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 header.header-glassy nav.header-nav {
   display: block;
   width: 100%;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 /* Header Content Layout - Base styles */
@@ -624,10 +631,16 @@ header.header-glassy nav.header-nav {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 .header-glassy-container {
   width: 100%;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 .header-logo-link {
@@ -689,12 +702,14 @@ header.header-glassy nav.header-nav {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  background: transparent;
 }
 
 .theme-switcher-wrapper {
   position: relative;
   display: flex;
   align-items: center;
+  background: transparent;
 }
 
 /* Mobile Menu Toggle - Base styles only (theme-specific styles will override) */

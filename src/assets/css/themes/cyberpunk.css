@@ -64,6 +64,17 @@
   overflow-x: hidden;
 }
 
+/* Main Content - Spacing after header */
+[data-theme="cyberpunk"] main#main-content {
+  padding-top: 4rem;
+}
+
+@media (max-width: 768px) {
+  [data-theme="cyberpunk"] main#main-content {
+    padding-top: 2rem;
+  }
+}
+
 /* CRT Scan Lines Effect */
 [data-theme="cyberpunk"] body::before {
   content: "";

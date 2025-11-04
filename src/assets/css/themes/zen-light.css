@@ -70,6 +70,17 @@
   font-weight: 300;
 }
 
+/* Main Content - Spacing after header */
+[data-theme="zen-light"] main#main-content {
+  padding-top: 4rem;
+}
+
+@media (max-width: 768px) {
+  [data-theme="zen-light"] main#main-content {
+    padding-top: 2rem;
+  }
+}
+
 /* Subtle organic texture overlay */
 [data-theme="zen-light"] body::before {
   content: "";
