@@ -6,7 +6,7 @@
   function updateActiveStates() {
     const currentPath = window.location.pathname;
     const currentHash = window.location.hash;
-    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link, .nav-link-glass, .mobile-nav-link-glass');
     
     // Remove active class from all links first
     navLinks.forEach(function(link) {
@@ -20,31 +20,17 @@
     // Check for hash-based navigation (Tools link) - highest priority
     if (currentHash === '#tools-section' && currentPath === '/') {
       activeLink = document.querySelector('a[href="/#tools-section"]');
-      if (activeLink) {
-        // Also remove active from Home link
-        const homeLink = document.querySelector('a[href="/"]');
-        if (homeLink) {
-          homeLink.classList.remove('active');
-          homeLink.removeAttribute('aria-current');
-        }
-      }
     } else if (currentPath.startsWith('/blog/')) {
       // Blog pages
       activeLink = document.querySelector('a[href="/blog/"]');
     } else if (currentPath === '/about/') {
       // About page
       activeLink = document.querySelector('a[href="/about/"]');
-    } else if (currentPath === '/contact/') {
-      // Contact page
-      activeLink = document.querySelector('a[href="/contact/"]');
     } else if (currentPath !== '/' && !currentPath.startsWith('/blog/') && 
                currentPath !== '/about/' && currentPath !== '/contact/' &&
                currentPath !== '/privacy-policy/' && currentPath !== '/terms-of-service/') {
       // Tool pages (any other page is likely a tool)
       activeLink = document.querySelector('a[href="/#tools-section"]');
-    } else if (currentPath === '/') {
-      // Homepage without hash
-      activeLink = document.querySelector('a[href="/"]');
     }
 
     // Set active state

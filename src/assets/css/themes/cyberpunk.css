@@ -389,6 +389,68 @@
   box-shadow: 0 0 var(--glow-strength) var(--accent-secondary);
 }
 
+[data-theme="cyberpunk"] header.header-glassy {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+[data-theme="cyberpunk"] header.header-glassy nav {
+  background: transparent !important;
+  border-bottom: none !important;
+}
+
+[data-theme="cyberpunk"]
+  header.header-glassy
+  a[aria-label="DevTools Center Home"] {
+  background: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+[data-theme="cyberpunk"]
+  header.header-glassy
+  a[aria-label="DevTools Center Home"]:hover,
+[data-theme="cyberpunk"]
+  header.header-glassy
+  a[aria-label="DevTools Center Home"]:focus {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Glassy nav links for cyberpunk theme */
+[data-theme="cyberpunk"] .nav-link-glass,
+[data-theme="cyberpunk"] .mobile-nav-link-glass {
+  color: var(--text-primary);
+  background: rgba(255, 0, 110, 0.1);
+  backdrop-filter: blur(10px);
+  border: var(--border-width) solid var(--accent-secondary);
+  box-shadow: 0 0 10px rgba(255, 0, 110, 0.3);
+}
+
+[data-theme="cyberpunk"] .nav-link-glass:hover,
+[data-theme="cyberpunk"] .mobile-nav-link-glass:hover {
+  background: rgba(255, 0, 110, 0.2);
+  box-shadow: 0 0 20px var(--accent-secondary);
+}
+
+[data-theme="cyberpunk"] .nav-link-glass.active,
+[data-theme="cyberpunk"] .mobile-nav-link-glass.active {
+  background: rgba(255, 0, 110, 0.25);
+  box-shadow: 0 0 20px var(--accent-secondary),
+    inset 0 0 20px rgba(0, 245, 255, 0.2);
+}
+
+/* Header title gradient for cyberpunk */
+[data-theme="cyberpunk"] .header-title-gradient {
+  background: linear-gradient(135deg, #00f5ff 0%, #ff006e 50%, #8338ec 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 /* Footer */
 [data-theme="cyberpunk"] footer {
   border-top: var(--border-width) solid var(--accent-tertiary);

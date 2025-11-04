@@ -266,6 +266,65 @@
   border-bottom: 1px solid rgba(183, 201, 165, 0.2);
 }
 
+[data-theme="zen-light"] header.header-glassy {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  border-bottom: none !important;
+}
+
+[data-theme="zen-light"] header.header-glassy nav {
+  background: transparent !important;
+  border-bottom: none !important;
+}
+
+[data-theme="zen-light"]
+  header.header-glassy
+  a[aria-label="DevTools Center Home"] {
+  background: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+[data-theme="zen-light"]
+  header.header-glassy
+  a[aria-label="DevTools Center Home"]:hover,
+[data-theme="zen-light"]
+  header.header-glassy
+  a[aria-label="DevTools Center Home"]:focus {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Glassy nav links for zen-light theme */
+[data-theme="zen-light"] .nav-link-glass,
+[data-theme="zen-light"] .mobile-nav-link-glass {
+  color: var(--text-primary);
+  background: rgba(183, 201, 165, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(183, 201, 165, 0.3);
+}
+
+[data-theme="zen-light"] .nav-link-glass:hover,
+[data-theme="zen-light"] .mobile-nav-link-glass:hover {
+  background: rgba(183, 201, 165, 0.25);
+  border-color: rgba(183, 201, 165, 0.5);
+}
+
+[data-theme="zen-light"] .nav-link-glass.active,
+[data-theme="zen-light"] .mobile-nav-link-glass.active {
+  background: rgba(183, 201, 165, 0.3);
+  border-color: var(--accent-primary);
+}
+
+/* Header title gradient for zen-light */
+[data-theme="zen-light"] .header-title-gradient {
+  background: linear-gradient(135deg, #8db3a3 0%, #a8dadc 50%, #c9b8a5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 /* Footer */
 [data-theme="zen-light"] footer {
   border-top: 1px solid rgba(183, 201, 165, 0.2);

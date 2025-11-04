@@ -382,6 +382,79 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+[data-theme="premium-dark"] header.header-glassy {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: none !important;
+}
+
+[data-theme="premium-dark"] header.header-glassy nav {
+  background: transparent !important;
+  border-bottom: none !important;
+}
+
+/* Glassy container for premium-dark theme */
+[data-theme="premium-dark"] .header-glassy-container {
+  background: rgba(255, 255, 255, 0.5) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+[data-theme="premium-dark"]
+  header.header-glassy
+  a[aria-label="DevTools Center Home"] {
+  background: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+[data-theme="premium-dark"]
+  header.header-glassy
+  a[aria-label="DevTools Center Home"]:hover,
+[data-theme="premium-dark"]
+  header.header-glassy
+  a[aria-label="DevTools Center Home"]:focus {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Glassy nav links for premium-dark theme */
+[data-theme="premium-dark"] .nav-link-glass,
+[data-theme="premium-dark"] .mobile-nav-link-glass {
+  color: rgba(240, 244, 248, 0.95);
+  background: rgba(255, 255, 255, 0.5) !important;
+  backdrop-filter: blur(12px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+[data-theme="premium-dark"] .nav-link-glass:hover,
+[data-theme="premium-dark"] .mobile-nav-link-glass:hover {
+  color: rgba(240, 244, 248, 1);
+  background: rgba(255, 255, 255, 0.6) !important;
+  border-color: rgba(93, 120, 255, 0.4) !important;
+}
+
+[data-theme="premium-dark"] .nav-link-glass.active,
+[data-theme="premium-dark"] .mobile-nav-link-glass.active {
+  color: rgba(240, 244, 248, 1);
+  background: rgba(93, 120, 255, 0.65) !important;
+  border-color: rgba(93, 120, 255, 0.5) !important;
+}
+
+/* Header title gradient for premium-dark */
+[data-theme="premium-dark"] .header-title-gradient {
+  background: linear-gradient(135deg, #00d9ff 0%, #5d78ff 50%, #9d4edd 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 /* Footer */
 [data-theme="premium-dark"] footer {
   border-top: 1px solid rgba(255, 255, 255, 0.06);

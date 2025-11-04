@@ -3,67 +3,61 @@
   Skip to main content
 </a>
 
-<header>
-  <nav class="px-4 py-4" role="navigation" aria-label="Main navigation">
-    <div class="flex items-center justify-between container mx-auto">
-      {# Logo/Brand #}
-      <a href="/" class="flex items-center space-x-2 rounded-lg p-1" aria-label="DevTools Center Home">
-        <svg class="w-8 h-8" style="color: var(--accent-primary);" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-        </svg>
-        <span class="text-xl font-bold">DevTools Center</span>
-      </a>
-      
-      {# Desktop Navigation Menu #}
-      <div class="hidden md:flex items-center space-x-2">
-        {% set currentUrl = page.url or '' %}
-        {% set isToolPage = currentUrl !== '/' and currentUrl !== '/blog/' and '/blog/' not in currentUrl and currentUrl !== '/about/' and currentUrl !== '/contact/' and currentUrl !== '/privacy-policy/' and currentUrl !== '/terms-of-service/' and currentUrl != '' %}
-        {% set isBlogPage = '/blog/' in currentUrl %}
-        <a href="/" class="nav-link px-4 py-2 rounded-lg {% if currentUrl === '/' and not isToolPage %}active{% endif %}" {% if currentUrl === '/' and not isToolPage %}aria-current="page"{% endif %}>Home</a>
-        <a href="/#tools-section" class="nav-link px-4 py-2 rounded-lg {% if isToolPage %}active{% endif %}" {% if isToolPage %}aria-current="page"{% endif %}>Tools</a>
-        <a href="/blog/" class="nav-link px-4 py-2 rounded-lg {% if isBlogPage %}active{% endif %}" {% if isBlogPage %}aria-current="page"{% endif %}>Blog</a>
-        <a href="/about/" class="nav-link px-4 py-2 rounded-lg {% if currentUrl === '/about/' %}active{% endif %}" {% if currentUrl === '/about/' %}aria-current="page"{% endif %}>About</a>
-        <a href="/contact/" class="nav-link px-4 py-2 rounded-lg {% if currentUrl === '/contact/' %}active{% endif %}" {% if currentUrl === '/contact/' %}aria-current="page"{% endif %}>Contact</a>
-      </div>
-      
-      {# Right side buttons (theme switcher + mobile menu) #}
-      <div class="flex items-center space-x-2">
-        <div id="theme-switcher-container" class="relative flex items-center"></div>
-        {# Mobile Menu Toggle Button #}
-        <button 
-          id="mobile-menu-toggle"
-          class="md:hidden p-2 rounded-lg"
-          style="background: var(--bg-tertiary); color: var(--text-primary);"
-          aria-label="Toggle mobile navigation menu"
-          aria-expanded="false"
-          aria-controls="mobile-menu"
-        >
-          <svg id="mobile-menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-          <svg id="mobile-menu-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-          </svg>
-        </button>
+<header class="header-glassy">
+  <nav class="header-nav" role="navigation" aria-label="Main navigation">
+    <div class="header-glassy-container">
+      <div class="header-content">
+        {# Logo/Brand with Gradient #}
+        <a href="/" class="header-logo-link" aria-label="DevTools Center Home">
+          <span class="header-title-gradient">DevTools Center</span>
+        </a>
+        
+        {# Desktop Navigation Menu #}
+        <div class="header-nav-links">
+          {% set currentUrl = page.url or '' %}
+          {% set isToolPage = currentUrl !== '/' and currentUrl !== '/blog/' and '/blog/' not in currentUrl and currentUrl !== '/about/' and currentUrl !== '/contact/' and currentUrl !== '/privacy-policy/' and currentUrl !== '/terms-of-service/' and currentUrl != '' %}
+          {% set isBlogPage = '/blog/' in currentUrl %}
+          <a href="/#tools-section" class="nav-link-glass {% if isToolPage %}active{% endif %}" {% if isToolPage %}aria-current="page"{% endif %}>Tools</a>
+          <a href="/blog/" class="nav-link-glass {% if isBlogPage %}active{% endif %}" {% if isBlogPage %}aria-current="page"{% endif %}>Blog</a>
+          <a href="/about/" class="nav-link-glass {% if currentUrl === '/about/' %}active{% endif %}" {% if currentUrl === '/about/' %}aria-current="page"{% endif %}>About</a>
+        </div>
+        
+        {# Right side buttons (theme switcher + mobile menu) #}
+        <div class="header-right-actions">
+          <div id="theme-switcher-container" class="theme-switcher-wrapper"></div>
+          {# Mobile Menu Toggle Button - Only visible on mobile #}
+          <button 
+            id="mobile-menu-toggle"
+            class="mobile-menu-toggle nav-link-glass"
+            aria-label="Toggle mobile navigation menu"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+          >
+            <svg id="mobile-menu-icon" class="mobile-menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+            <svg id="mobile-menu-close" class="mobile-menu-icon mobile-menu-close" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
     
     {# Mobile Navigation Menu #}
-    <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 pt-4 container mx-auto" style="border-top: 1px solid var(--accent-primary);">
-      <div class="flex flex-col space-y-2">
+    <div id="mobile-menu" class="mobile-menu">
+      <div class="mobile-menu-links">
         {% set currentUrl = page.url or '' %}
         {% set isToolPage = currentUrl !== '/' and currentUrl !== '/blog/' and '/blog/' not in currentUrl and currentUrl !== '/about/' and currentUrl !== '/contact/' and currentUrl !== '/privacy-policy/' and currentUrl !== '/terms-of-service/' and currentUrl != '' %}
         {% set isBlogPage = '/blog/' in currentUrl %}
-        <a href="/" class="mobile-nav-link px-4 py-3 rounded-lg {% if currentUrl === '/' and not isToolPage %}active{% endif %}" {% if currentUrl === '/' and not isToolPage %}aria-current="page"{% endif %}>Home</a>
-        <a href="/#tools-section" class="mobile-nav-link px-4 py-3 rounded-lg {% if isToolPage %}active{% endif %}" {% if isToolPage %}aria-current="page"{% endif %}>Tools</a>
-        <a href="/blog/" class="mobile-nav-link px-4 py-3 rounded-lg {% if isBlogPage %}active{% endif %}" {% if isBlogPage %}aria-current="page"{% endif %}>Blog</a>
-        <a href="/about/" class="mobile-nav-link px-4 py-3 rounded-lg {% if currentUrl === '/about/' %}active{% endif %}" {% if currentUrl === '/about/' %}aria-current="page"{% endif %}>About</a>
-        <a href="/contact/" class="mobile-nav-link px-4 py-3 rounded-lg {% if currentUrl === '/contact/' %}active{% endif %}" {% if currentUrl === '/contact/' %}aria-current="page"{% endif %}>Contact</a>
+        <a href="/#tools-section" class="mobile-nav-link-glass {% if isToolPage %}active{% endif %}" {% if isToolPage %}aria-current="page"{% endif %}>Tools</a>
+        <a href="/blog/" class="mobile-nav-link-glass {% if isBlogPage %}active{% endif %}" {% if isBlogPage %}aria-current="page"{% endif %}>Blog</a>
+        <a href="/about/" class="mobile-nav-link-glass {% if currentUrl === '/about/' %}active{% endif %}" {% if currentUrl === '/about/' %}aria-current="page"{% endif %}>About</a>
       </div>
     </div>
   </nav>
 </header>
 
 {# Mobile menu backdrop overlay #}
-<div id="mobile-menu-backdrop" class="hidden fixed z-40 md:hidden" style="inset: 0; background: rgba(0, 0, 0, 0.5);"></div>
+<div id="mobile-menu-backdrop" class="mobile-menu-backdrop"></div>
 
