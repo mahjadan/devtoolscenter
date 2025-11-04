@@ -26,8 +26,9 @@
         <a href="/contact/" class="nav-link px-4 py-2 rounded-lg {% if currentUrl === '/contact/' %}active{% endif %}" {% if currentUrl === '/contact/' %}aria-current="page"{% endif %}>Contact</a>
       </div>
       
-      {# Right side buttons (mobile menu) #}
+      {# Right side buttons (theme switcher + mobile menu) #}
       <div class="flex items-center space-x-2">
+        <div id="theme-switcher-container" class="relative flex items-center"></div>
         {# Mobile Menu Toggle Button #}
         <button 
           id="mobile-menu-toggle"
