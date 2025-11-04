@@ -401,6 +401,33 @@
   border-bottom: none !important;
 }
 
+/* Header layout for cyberpunk theme */
+[data-theme="cyberpunk"] header.header-glassy nav.header-nav {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+[data-theme="cyberpunk"] .header-glassy-container {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+[data-theme="cyberpunk"] .header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+
 [data-theme="cyberpunk"]
   header.header-glassy
   a[aria-label="DevTools Center Home"] {

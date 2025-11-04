@@ -610,39 +610,23 @@ header {
 }
 
 header.header-glassy {
-  background: transparent !important;
-  border-bottom: none !important;
   width: 100%;
 }
 
 header.header-glassy nav.header-nav {
   display: block;
   width: 100%;
-  background: transparent !important;
-  backdrop-filter: none !important;
-  border-bottom: none !important;
-  box-shadow: none !important;
-  border-radius: 0;
 }
 
-/* Glassy Container - Full width with padding, increased height */
-.header-glassy-container {
-  width: 100%;
-  padding: 2rem 2.5rem;
-  background: rgba(10, 14, 26, 0.8); !important;
-  backdrop-filter: blur(16px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.25) !important;
-  /* border-radius: 1rem; */
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
-}
-
-/* Header Content Layout */
+/* Header Content Layout - Base styles */
 .header-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
+}
+
+.header-glassy-container {
   width: 100%;
 }
 
@@ -661,6 +645,7 @@ header.header-glassy nav.header-nav {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
+  transform: none !important;
 }
 
 .header-title-gradient {
@@ -712,23 +697,15 @@ header.header-glassy nav.header-nav {
   align-items: center;
 }
 
-/* Mobile Menu Toggle */
+/* Mobile Menu Toggle - Base styles only (theme-specific styles will override) */
 .mobile-menu-toggle {
   display: block;
   padding: 0.625rem 1rem;
-  background: rgba(255, 255, 255, 0.5) !important;
-  backdrop-filter: blur(12px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  border-radius: 0.75rem;
-  color: rgba(255, 255, 255, 0.95) !important;
+  border-radius: 0.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
-}
-
-.mobile-menu-toggle:hover {
-  background: rgba(255, 255, 255, 0.6) !important;
-  border-color: rgba(255, 255, 255, 0.4) !important;
+  border: none;
+  background: transparent;
 }
 
 @media (min-width: 768px) {
@@ -907,22 +884,13 @@ header.header-glassy a[aria-label="DevTools Center Home"]:focus {
   }
 }
 
-/* Glassy Navigation Links - 50% opacity */
+/* Glassy Navigation Links - Default styles (will be overridden by theme-specific styles) */
 .nav-link-glass,
 .mobile-nav-link-glass {
-  color: rgba(255, 255, 255, 0.95) !important;
   text-decoration: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.75rem;
   transition: all 0.3s ease;
   display: inline-block;
   position: relative;
-  background: rgba(255, 255, 255, 0.5) !important;
-  backdrop-filter: blur(12px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
   font-weight: 500;
 }
 

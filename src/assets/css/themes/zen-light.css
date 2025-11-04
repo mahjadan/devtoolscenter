@@ -277,6 +277,33 @@
   border-bottom: none !important;
 }
 
+/* Header layout for zen-light theme */
+[data-theme="zen-light"] header.header-glassy nav.header-nav {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+[data-theme="zen-light"] .header-glassy-container {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+[data-theme="zen-light"] .header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+
 [data-theme="zen-light"]
   header.header-glassy
   a[aria-label="DevTools Center Home"] {
