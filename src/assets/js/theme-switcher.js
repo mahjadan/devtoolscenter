@@ -153,6 +153,9 @@ const ThemeManager = {
   
   // Create theme switcher UI
   createSwitcher() {
+    // Inject styles first to ensure they're available before creating elements
+    this.injectStyles();
+    
     const switcherHTML = `
       <div id="theme-switcher" class="theme-switcher" role="navigation" aria-label="Theme selector">
         <button 
@@ -204,13 +207,17 @@ const ThemeManager = {
       document.body.appendChild(switcherElement);
     }
 
-    // Add styles
-    this.injectStyles();
+    // Force reflow to ensure styles are applied
+    void switcherElement.offsetHeight;
   },
   
   // Inject switcher styles
   injectStyles() {
-    if (document.getElementById('theme-switcher-styles')) return;
+    // Remove existing styles if they exist to ensure fresh styles are applied
+    const existingStyle = document.getElementById('theme-switcher-styles');
+    if (existingStyle) {
+      existingStyle.remove();
+    }
     
     const style = document.createElement('style');
     style.id = 'theme-switcher-styles';
@@ -236,12 +243,14 @@ const ThemeManager = {
       }
 
       .theme-toggle-btn {
-        display: inline-flex;
+        display: inline-flex !important;
         align-items: center;
         justify-content: center;
-        width: 42px;
-        height: 42px;
-        padding: 8px;
+        width: 28px !important;
+        height: 28px !important;
+        min-width: 28px !important;
+        max-width: 28px !important;
+        padding: 4px !important;
         background: var(--bg-secondary, #ffffff);
         border: 2px solid var(--accent-primary, #b7c9a5);
         color: var(--text-primary, #3d3d3d);
@@ -254,8 +263,8 @@ const ThemeManager = {
 
       .theme-toggle-btn:hover,
       .theme-toggle-btn:focus-visible {
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-md, 0 6px 18px rgba(0,0,0,0.16));
+        transform: translateY(-2px) !important;
+        box-shadow: var(--shadow-md, 0 6px 18px rgba(0,0,0,0.16)) !important;
         border-color: var(--accent-primary, #b7c9a5);
       }
 
@@ -267,8 +276,142 @@ const ThemeManager = {
         border-radius: var(--radius-md, 14px);
       }
 
+      /* Override premium-dark theme button styles */
+      [data-theme="premium-dark"] .theme-toggle-btn,
+      [data-theme="premium-dark"] .theme-option {
+        padding: 4px !important;
+        background: var(--bg-secondary, #ffffff) !important;
+        border-radius: var(--radius-full, 50%) !important;
+        box-shadow: var(--shadow-sm, 0 2px 8px rgba(0,0,0,0.1)) !important;
+        font-weight: normal !important;
+        border: 2px solid var(--accent-primary, #b7c9a5) !important;
+      }
+
+      [data-theme="premium-dark"] .theme-toggle-btn {
+        width: 28px !important;
+        height: 28px !important;
+        min-width: 28px !important;
+        max-width: 28px !important;
+      }
+
+      [data-theme="premium-dark"] .theme-option {
+        width: 28px !important;
+        height: 28px !important;
+        min-width: 28px !important;
+        max-width: 28px !important;
+        min-height: 28px !important;
+        max-height: 28px !important;
+        border-radius: var(--radius-md, 14px) !important;
+        border: 2px solid transparent !important;
+      }
+
+      [data-theme="premium-dark"] .theme-toggle-btn:hover,
+      [data-theme="premium-dark"] .theme-option:hover {
+        transform: translateY(-2px) !important;
+        scale: 1 !important;
+        box-shadow: var(--shadow-md, 0 6px 18px rgba(0,0,0,0.16)) !important;
+        background: var(--bg-secondary, #ffffff) !important;
+      }
+
+      [data-theme="premium-dark"] .theme-option.active {
+        border-color: var(--accent-primary, #b7c9a5) !important;
+        background: var(--bg-secondary, #ffffff) !important;
+      }
+
+      /* Override zen-light theme button styles */
+      [data-theme="zen-light"] .theme-toggle-btn,
+      [data-theme="zen-light"] .theme-option {
+        padding: 4px !important;
+        background: var(--bg-secondary, #ffffff) !important;
+        border-radius: var(--radius-full, 50%) !important;
+        box-shadow: var(--shadow-sm, 0 2px 8px rgba(0,0,0,0.1)) !important;
+        font-weight: normal !important;
+        border: 2px solid var(--accent-primary, #b7c9a5) !important;
+      }
+
+      [data-theme="zen-light"] .theme-toggle-btn {
+        width: 28px !important;
+        height: 28px !important;
+        min-width: 28px !important;
+        max-width: 28px !important;
+      }
+
+      [data-theme="zen-light"] .theme-option {
+        width: 28px !important;
+        height: 28px !important;
+        min-width: 28px !important;
+        max-width: 28px !important;
+        min-height: 28px !important;
+        max-height: 28px !important;
+        border-radius: var(--radius-md, 14px) !important;
+        border: 2px solid transparent !important;
+      }
+
+      [data-theme="zen-light"] .theme-toggle-btn:hover,
+      [data-theme="zen-light"] .theme-option:hover {
+        transform: translateY(-2px) !important;
+        scale: 1 !important;
+        box-shadow: var(--shadow-md, 0 6px 18px rgba(0,0,0,0.16)) !important;
+        background: var(--bg-secondary, #ffffff) !important;
+      }
+
+      [data-theme="zen-light"] .theme-option.active {
+        border-color: var(--accent-primary, #b7c9a5) !important;
+        background: var(--bg-secondary, #ffffff) !important;
+      }
+
+      /* Override cyberpunk theme button styles */
+      [data-theme="cyberpunk"] .theme-toggle-btn,
+      [data-theme="cyberpunk"] .theme-option {
+        padding: 4px !important;
+        background: var(--bg-secondary, #ffffff) !important;
+        border-radius: var(--radius-full, 50%) !important;
+        box-shadow: var(--shadow-sm, 0 2px 8px rgba(0,0,0,0.1)) !important;
+        font-weight: normal !important;
+        text-transform: none !important;
+        letter-spacing: normal !important;
+        border: 2px solid var(--accent-primary, #b7c9a5) !important;
+      }
+
+      [data-theme="cyberpunk"] .theme-toggle-btn {
+        width: 28px !important;
+        height: 28px !important;
+        min-width: 28px !important;
+        max-width: 28px !important;
+      }
+
+      [data-theme="cyberpunk"] .theme-option {
+        width: 28px !important;
+        height: 28px !important;
+        min-width: 28px !important;
+        max-width: 28px !important;
+        min-height: 28px !important;
+        max-height: 28px !important;
+        border-radius: var(--radius-md, 14px) !important;
+        border: 2px solid transparent !important;
+      }
+
+      [data-theme="cyberpunk"] .theme-toggle-btn:hover,
+      [data-theme="cyberpunk"] .theme-option:hover {
+        transform: translateY(-2px) !important;
+        scale: 1 !important;
+        box-shadow: var(--shadow-md, 0 6px 18px rgba(0,0,0,0.16)) !important;
+        background: var(--bg-secondary, #ffffff) !important;
+        text-shadow: none !important;
+      }
+
+      [data-theme="cyberpunk"] .theme-toggle-btn::before,
+      [data-theme="cyberpunk"] .theme-option::before {
+        display: none !important;
+      }
+
+      [data-theme="cyberpunk"] .theme-option.active {
+        border-color: var(--accent-primary, #b7c9a5) !important;
+        background: var(--bg-secondary, #ffffff) !important;
+      }
+
       .theme-icon {
-        font-size: 1.2rem;
+        font-size: 1rem;
         line-height: 1;
         display: flex;
         align-items: center;
@@ -280,8 +423,8 @@ const ThemeManager = {
         top: calc(100% + 8px);
         right: 0;
         display: flex;
-        gap: 8px;
-        padding: 10px;
+        gap: 6px !important;
+        padding: 6px !important;
         background: var(--bg-secondary, #ffffff);
         border: 2px solid var(--accent-primary, #b7c9a5);
         border-radius: var(--radius-lg, 16px);
@@ -302,8 +445,12 @@ const ThemeManager = {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 44px;
-        height: 44px;
+        width: 28px !important;
+        height: 28px !important;
+        min-width: 28px !important;
+        max-width: 28px !important;
+        min-height: 28px !important;
+        max-height: 28px !important;
         border-radius: var(--radius-md, 14px);
         border: 2px solid transparent;
         background: var(--bg-tertiary, rgba(0, 0, 0, 0.04));
@@ -314,10 +461,11 @@ const ThemeManager = {
 
       .theme-option:hover,
       .theme-option:focus-visible {
-        transform: translateY(-2px);
+        transform: translateY(-2px) !important;
         background: var(--bg-secondary, #ffffff);
         border-color: rgba(183, 201, 165, 0.4);
         outline: none;
+        scale: 1 !important;
       }
 
       .theme-option.active {
@@ -327,21 +475,21 @@ const ThemeManager = {
       }
 
       .theme-option .theme-icon {
-        font-size: 1.25rem;
+        font-size: 1rem;
       }
 
       .check-mark {
         position: absolute;
         bottom: -6px;
         right: -6px;
-        width: 18px;
-        height: 18px;
+        width: 14px;
+        height: 14px;
         border-radius: 9999px;
         background: var(--bg-secondary, #ffffff);
         border: 1px solid var(--accent-primary, #b7c9a5);
         color: var(--accent-primary, #b7c9a5);
         font-weight: 700;
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -418,12 +566,12 @@ const ThemeManager = {
 
         .theme-dropdown {
           gap: 6px;
-          padding: 8px;
+          padding: 6px;
         }
 
         .theme-option {
-          width: 40px;
-          height: 40px;
+          width: 28px;
+          height: 28px;
         }
       }
 
@@ -438,6 +586,7 @@ const ThemeManager = {
       }
     `;
     document.head.appendChild(style);
+    console.log('🎨 Theme switcher styles injected with compact sizes (28px)');
   },
   
   // Update switcher UI after theme change
