@@ -272,6 +272,11 @@
 
 /* Header */
 [data-theme="zen-light"] header {
+  padding: 2rem 0;
+  margin-bottom: 4rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
   background: rgba(247, 243, 240, 0.95);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(183, 201, 165, 0.2);

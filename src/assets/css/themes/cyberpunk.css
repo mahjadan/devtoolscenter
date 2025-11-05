@@ -394,6 +394,11 @@
 
 /* Header */
 [data-theme="cyberpunk"] header {
+  padding: 2rem 0;
+  margin-bottom: 4rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
   background: rgba(10, 14, 39, 0.8);
   backdrop-filter: blur(10px);
   border-bottom: var(--border-width) solid var(--accent-secondary);
