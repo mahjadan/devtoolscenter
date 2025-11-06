@@ -5,22 +5,31 @@
    =================================== */
 
 [data-theme="zen-light"] {
-  /* Colors - Soft & Natural */
-  --bg-primary: #f7f3f0;
+  /* Colors - Enhanced Contrast & Natural Harmony */
+  --bg-primary: #faf8f5;
   --bg-secondary: #ffffff;
-  --bg-tertiary: #faf8f6;
+  --bg-tertiary: #f5f2ee;
   --bg-elevated: #ffffff;
+  --bg-input: #f9f7f4;
+  --bg-input-focus: #ffffff;
 
-  --accent-primary: #b7c9a5;
-  --accent-secondary: #a8dadc;
-  --accent-tertiary: #e8d5c4;
-  --accent-warm: #c9b8a5;
-  --accent-soft-blue: #a8dadc;
+  /* Enhanced accent colors with better contrast */
+  /* #abef94, #a7dcd2  */
+  /* #7a9471  , #5b8a8f */
+  --accent-primary: #7a9471;
+  --accent-secondary: #5b8a8f;
+  --accent-tertiary: #d4b896;
+  --accent-warm: #b59d85;
+  --accent-soft-blue: #6ba3a8;
+  --accent-hover: #6b8462;
+  --accent-light: #e8f0e5;
 
-  --text-primary: #3d3d3d;
-  --text-secondary: #6b6b6b;
-  --text-muted: #9a9a9a;
+  /* Improved text contrast for better readability */
+  --text-primary: #2c3e30;
+  --text-secondary: #4a5d52;
+  --text-muted: #708872;
   --text-inverse: #ffffff;
+  --text-on-accent: #ffffff;
 
   /* Shapes - Organic & Rounded */
   --radius-sm: 12px;
@@ -132,7 +141,7 @@
   color: var(--accent-soft-blue);
 }
 
-/* Buttons */
+/* Buttons - Enhanced visual appeal and interaction */
 [data-theme="zen-light"] button,
 [data-theme="zen-light"] .btn {
   background: linear-gradient(
@@ -140,34 +149,69 @@
     var(--accent-primary),
     var(--accent-soft-blue)
   );
-  color: var(--text-inverse);
+  color: var(--text-on-accent);
   border: none;
   border-radius: var(--radius-full);
   padding: 14px 32px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: var(--transition);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 12px rgba(122, 148, 113, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="zen-light"] button::before,
+[data-theme="zen-light"] .btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.6s ease;
 }
 
 [data-theme="zen-light"] button:hover,
 [data-theme="zen-light"] .btn:hover {
   transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 8px 25px rgba(122, 148, 113, 0.35);
+  background: linear-gradient(
+    135deg,
+    var(--accent-hover),
+    var(--accent-primary)
+  );
 }
 
-/* Input Fields */
+[data-theme="zen-light"] button:hover::before,
+[data-theme="zen-light"] .btn:hover::before {
+  left: 100%;
+}
+
+[data-theme="zen-light"] button:active,
+[data-theme="zen-light"] .btn:active {
+  transform: translateY(-1px);
+}
+
+/* Input Fields - Enhanced visibility and contrast */
 [data-theme="zen-light"] input,
 [data-theme="zen-light"] textarea,
 [data-theme="zen-light"] select {
-  background: var(--bg-tertiary);
-  border: 2px solid transparent;
+  background: var(--bg-input);
+  border: 2px solid rgba(122, 148, 113, 0.2);
   border-radius: var(--radius-md);
   color: var(--text-primary);
   padding: 16px 20px;
   font-family: var(--font-primary);
+  font-weight: 400;
   transition: var(--transition);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 [data-theme="zen-light"] input:focus,
@@ -175,27 +219,59 @@
 [data-theme="zen-light"] select:focus {
   outline: none;
   border-color: var(--accent-primary);
-  background: var(--bg-secondary);
-  box-shadow: 0 0 0 4px rgba(183, 201, 165, 0.1);
+  background: var(--bg-input-focus);
+  box-shadow: 0 0 0 4px rgba(122, 148, 113, 0.15),
+    inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+}
+
+[data-theme="zen-light"] input:hover,
+[data-theme="zen-light"] textarea:hover,
+[data-theme="zen-light"] select:hover {
+  border-color: rgba(122, 148, 113, 0.3);
+  background: var(--bg-input-focus);
 }
 
 [data-theme="zen-light"] input::placeholder,
 [data-theme="zen-light"] textarea::placeholder {
   color: var(--text-muted);
+  font-weight: 300;
 }
 
-/* Cards */
+/* Cards - Enhanced visual hierarchy with zen animations */
 [data-theme="zen-light"] .card,
 [data-theme="zen-light"] [class*="card"],
 [data-theme="zen-light"] .tool-card,
 [data-theme="zen-light"] .zen-card {
   background: var(--bg-secondary);
+  border: 1px solid rgba(122, 148, 113, 0.12);
   border-radius: var(--radius-lg);
   padding: var(--spacing-lg);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 12px rgba(44, 62, 48, 0.08);
   transition: var(--transition);
   position: relative;
   overflow: visible;
+  animation: fade-in-up 0.8s ease-out;
+}
+
+/* Staggered animation delay for multiple cards */
+[data-theme="zen-light"] .zen-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+[data-theme="zen-light"] .zen-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+[data-theme="zen-light"] .zen-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+[data-theme="zen-light"] .zen-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+[data-theme="zen-light"] .zen-card:nth-child(5) {
+  animation-delay: 0.5s;
+}
+[data-theme="zen-light"] .zen-card:nth-child(6) {
+  animation-delay: 0.6s;
 }
 
 /* Gradient top border on hover */
@@ -224,7 +300,8 @@
 [data-theme="zen-light"] .tool-card:hover,
 [data-theme="zen-light"] .zen-card:hover {
   transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 12px 32px rgba(44, 62, 48, 0.15);
+  border-color: rgba(122, 148, 113, 0.25);
 }
 
 [data-theme="zen-light"] .card:hover::before,
@@ -234,52 +311,78 @@
   opacity: 1;
 }
 
-/* Code Blocks */
+/* Code Blocks - Enhanced readability */
 [data-theme="zen-light"] code,
 [data-theme="zen-light"] pre {
   font-family: var(--font-mono);
   background: var(--bg-tertiary);
-  color: var(--text-secondary);
+  color: var(--text-primary);
   border-radius: var(--radius-md);
+  padding: 0.25em 0.5em;
+  font-size: 0.9em;
+  font-weight: 500;
 }
 
 [data-theme="zen-light"] .code-block-wrapper,
 [data-theme="zen-light"] .code-block {
   background: var(--bg-tertiary);
+  border: 1px solid rgba(122, 148, 113, 0.2);
   border-left: 4px solid var(--accent-primary);
   border-radius: var(--radius-md);
   padding: var(--spacing-md);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
 }
 
-/* Navigation */
+[data-theme="zen-light"] pre code {
+  background: transparent;
+  padding: 0;
+  color: var(--text-primary);
+}
+
+/* Navigation - Enhanced contrast and interaction */
 [data-theme="zen-light"] nav a {
-  color: var(--text-secondary);
+  color: var(--text-primary);
   background: var(--bg-secondary);
+  border: 1px solid rgba(122, 148, 113, 0.15);
   border-radius: var(--radius-full);
   padding: 12px 24px;
   text-decoration: none;
-  box-shadow: var(--shadow-sm);
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(44, 62, 48, 0.08);
   transition: var(--transition-fast);
 }
 
 [data-theme="zen-light"] nav a:hover {
   background: var(--accent-primary);
-  color: var(--text-inverse);
+  color: var(--text-on-accent);
+  border-color: var(--accent-primary);
   transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 6px 20px rgba(122, 148, 113, 0.25);
 }
 
-/* Header */
+[data-theme="zen-light"] nav a.active {
+  background: var(--accent-primary);
+  color: var(--text-on-accent);
+  border-color: var(--accent-primary);
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(122, 148, 113, 0.3);
+}
+
+/* Header - Enhanced with subtle zen effects */
 [data-theme="zen-light"] header {
   padding: 2rem 0;
-  margin-bottom: 4rem;
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(247, 243, 240, 0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(183, 201, 165, 0.2);
+  background: rgba(250, 248, 245, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(122, 148, 113, 0.15);
+  transition: all 0.3s ease;
+}
+
+[data-theme="zen-light"] header:hover {
+  background: rgba(250, 248, 245, 0.98);
+  border-bottom-color: rgba(122, 148, 113, 0.25);
 }
 
 [data-theme="zen-light"] header.header-glassy {
@@ -339,25 +442,37 @@
   box-shadow: none !important;
 }
 
-/* Glassy nav links for zen-light theme */
+/* Glassy nav links for zen-light theme - Override base styles */
 [data-theme="zen-light"] .nav-link-glass,
 [data-theme="zen-light"] .mobile-nav-link-glass {
-  color: var(--text-primary);
-  background: rgba(183, 201, 165, 0.15);
+  color: var(--text-primary) !important;
+  background: rgba(122, 148, 113, 0.15) !important;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(183, 201, 165, 0.3);
+  border: 1px solid rgba(122, 148, 113, 0.3) !important;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-full);
+  font-weight: 500;
+  text-decoration: none;
+  transition: var(--transition-fast);
+  box-shadow: 0 2px 8px rgba(44, 62, 48, 0.08) !important;
 }
 
 [data-theme="zen-light"] .nav-link-glass:hover,
 [data-theme="zen-light"] .mobile-nav-link-glass:hover {
-  background: rgba(183, 201, 165, 0.25);
-  border-color: rgba(183, 201, 165, 0.5);
+  color: var(--text-on-accent) !important;
+  background: var(--accent-primary) !important;
+  border-color: var(--accent-primary) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(122, 148, 113, 0.25) !important;
 }
 
 [data-theme="zen-light"] .nav-link-glass.active,
 [data-theme="zen-light"] .mobile-nav-link-glass.active {
-  background: rgba(183, 201, 165, 0.3);
-  border-color: var(--accent-primary);
+  color: var(--text-on-accent) !important;
+  background: var(--accent-primary) !important;
+  border-color: var(--accent-primary) !important;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(122, 148, 113, 0.3) !important;
 }
 
 /* Header title gradient for zen-light */
@@ -374,14 +489,16 @@
   color: var(--text-secondary);
 }
 
-/* Animations - Breathing, Floating, Pulse */
+/* Animations - Enhanced zen-like movements */
 @keyframes breathe {
   0%,
   100% {
     opacity: 1;
+    transform: scale(1);
   }
   50% {
     opacity: 0.9;
+    transform: scale(1.02);
   }
 }
 
@@ -389,19 +506,19 @@
   0%,
   100% {
     transform: translate(0, 0) rotate(0deg);
-    opacity: 0.1;
-  }
-  25% {
-    transform: translate(20px, -30px) rotate(90deg);
     opacity: 0.15;
   }
+  25% {
+    transform: translate(15px, -25px) rotate(90deg);
+    opacity: 0.25;
+  }
   50% {
-    transform: translate(0, -50px) rotate(180deg);
-    opacity: 0.08;
+    transform: translate(0, -40px) rotate(180deg);
+    opacity: 0.12;
   }
   75% {
-    transform: translate(-20px, -30px) rotate(270deg);
-    opacity: 0.12;
+    transform: translate(-15px, -25px) rotate(270deg);
+    opacity: 0.18;
   }
 }
 
@@ -409,11 +526,13 @@
   0%,
   100% {
     transform: scale(1);
-    opacity: 0.6;
+    opacity: 0.7;
+    border-color: var(--accent-primary);
   }
   50% {
     transform: scale(1.1);
     opacity: 1;
+    border-color: var(--accent-secondary);
   }
 }
 
@@ -421,11 +540,32 @@
   0%,
   100% {
     transform: scale(1);
-    opacity: 0.5;
+    opacity: 0.6;
   }
   50% {
     transform: scale(1.05);
-    opacity: 0.7;
+    opacity: 0.8;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gentle-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(122, 148, 113, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(122, 148, 113, 0.2);
   }
 }
 
@@ -554,6 +694,7 @@
   text-align: center;
   margin-top: var(--spacing-md);
   font-weight: 300;
+  margin-bottom: var(--spacing-lg);
 }
 
 /* Tools Grid */
@@ -644,6 +785,37 @@
   }
 }
 
+/* Focus states with zen glow effects */
+[data-theme="zen-light"] *:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+  animation: gentle-glow 2s ease-in-out infinite;
+}
+
+[data-theme="zen-light"] button:focus-visible,
+[data-theme="zen-light"] .btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(122, 148, 113, 0.3),
+    0 8px 25px rgba(122, 148, 113, 0.35);
+}
+
+[data-theme="zen-light"] input:focus-visible,
+[data-theme="zen-light"] textarea:focus-visible,
+[data-theme="zen-light"] select:focus-visible {
+  outline: none;
+  animation: gentle-glow 3s ease-in-out infinite;
+}
+
+/* Smooth scrolling for zen experience */
+[data-theme="zen-light"] html {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced typography with subtle breathing */
+[data-theme="zen-light"] .section-title {
+  animation: breathe 6s ease-in-out infinite;
+}
+
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   [data-theme="zen-light"] *,
@@ -652,5 +824,9 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  [data-theme="zen-light"] html {
+    scroll-behavior: auto;
   }
 }
