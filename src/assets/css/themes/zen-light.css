@@ -81,12 +81,22 @@
 
 /* Main Content - Spacing after header */
 [data-theme="zen-light"] main#main-content {
+  display: block;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 100%;
   padding-top: 4rem;
+  padding-left: var(--spacing-md, 2rem);
+  padding-right: var(--spacing-md, 2rem);
+  box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
   [data-theme="zen-light"] main#main-content {
     padding-top: 2rem;
+    padding-left: var(--spacing-sm, 1rem);
+    padding-right: var(--spacing-sm, 1rem);
   }
 }
 
@@ -405,18 +415,6 @@
 
 [data-theme="zen-light"] .header-glassy-container {
   width: 100%;
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  padding: 0;
-}
-
-[data-theme="zen-light"] .header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
   background: transparent;
   border: none;
   border-radius: 0;

@@ -2,45 +2,45 @@
 layout: layouts/base.njk
 ---
 
-<article class="container mx-auto px-4 py-8 max-w-4xl article-animate">
+<article class="content-container article-animate">
   {# Article Header - Enhanced Design #}
-  <header class="mb-12">
+  <header class="blog-header">
     {# Breadcrumb Navigation #}
-    <div class="flex items-center gap-2 text-sm mb-6" style="color: var(--text-secondary);">
-      <a href="/blog/" style="color: var(--accent-primary);">
-        <svg class="inline w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div class="breadcrumb-nav">
+      <a href="/blog/" class="breadcrumb-link">
+        <svg class="breadcrumb-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
         </svg>
         Blog
       </a>
-      <span>/</span>
-      <span style="color: var(--accent-primary);" class="font-medium">{{ category }}</span>
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-category">{{ category }}</span>
     </div>
     
     {# Hero Title with Gradient #}
-    <div class="article-hero-gradient p-8 rounded-xl mb-6">
-      <h1 class="text-4xl font-bold mb-4 leading-tight" style="color: var(--accent-primary);">
+    <div class="article-hero-gradient blog-hero">
+      <h1 class="article-title">
         {{ title }}
       </h1>
-      <p class="text-xl leading-relaxed font-medium" style="color: var(--text-secondary);">{{ description }}</p>
+      <p class="article-description">{{ description }}</p>
     </div>
     
     {# Metadata with Icons #}
-    <div class="flex flex-wrap items-center gap-6 text-sm" style="color: var(--text-secondary);">
-      <div class="flex items-center gap-2">
+    <div class="article-metadata">
+      <div class="metadata-item">
         <svg class="metadata-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
         </svg>
-        <span class="font-medium">DevToolsCenter Team</span>
+        <span>DevToolsCenter Team</span>
       </div>
-      <div class="flex items-center gap-2">
+      <div class="metadata-item">
         <svg class="metadata-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
         </svg>
         <time datetime="{{ date }}">{{ date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }}</time>
       </div>
       {% if readTime %}
-      <div class="flex items-center gap-2">
+      <div class="metadata-item">
         <svg class="metadata-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
         </svg>
@@ -51,54 +51,52 @@ layout: layouts/base.njk
   </header>
 
   {# Article Content - Enhanced Typography with Better Contrast #}
-  <div class="prose max-w-none code-block-enhanced">
+  <div class="article-content prose code-block-enhanced">
     {{ content | safe }}
   </div>
 
   {# Related Tool CTA - Enhanced Design #}
   {% if relatedTool %}
-  <div class="mt-16 mb-12 relative overflow-hidden rounded-2xl shadow-xl">
-    {# Light theme gradient - Blue/primary colors #}
-    <div class="absolute inset-0 bg-gradient-to-r from-primary-500 via-primary-600 to-primary-700 dark:hidden"></div>
-    {# Dark theme gradient - Dark slate with subtle blue accent #}
-    <div class="hidden dark:block absolute inset-0 bg-gradient-to-r from-slate-800 via-slate-700/90 to-slate-800"></div>
-    <div class="hidden dark:block absolute inset-0 bg-gradient-to-br from-primary-500/10 via-transparent to-primary-400/5"></div>
-    <div class="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-white/10 dark:hidden"></div>
-    <div class="relative p-8 md:p-12 text-center">
+  <div class="related-tool-cta">
+    <div class="cta-background">
+      <div class="cta-overlay-light"></div>
+      <div class="cta-overlay-dark"></div>
+    </div>
+    <div class="cta-content">
       {# Icon #}
-      <div class="inline-flex items-center justify-center w-16 h-16 mb-6 bg-white/20 dark:bg-white/20 backdrop-blur-lg rounded-full">
-        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="cta-icon">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
         </svg>
       </div>
       
-      <h3 class="text-2xl md:text-3xl font-bold mb-4 text-white">Try {{ relatedToolName }} Now</h3>
-      <p class="text-lg text-white opacity-95 mb-8 max-w-2xl mx-auto leading-relaxed">
+      <h3 class="cta-title">Try {{ relatedToolName }} Now</h3>
+      <p class="cta-description">
         Ready to put this into practice? Use our free {{ relatedToolName }} tool. It works entirely in your browser with no signup required.
       </p>
       
-      <a href="{{ relatedTool }}" class="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary-600 dark:text-primary-400 font-semibold rounded-xl hover:bg-gray-50 dark:hover:bg-gray-50 transition-all hover:scale-105 hover:shadow-2xl">
+      <a href="{{ relatedTool }}" class="cta-button">
         <span>Launch {{ relatedToolName }}</span>
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
         </svg>
       </a>
       
-      <div class="mt-6 flex flex-wrap items-center justify-center gap-6 text-sm text-white opacity-90">
-        <span class="flex items-center gap-1">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+      <div class="cta-features">
+        <span class="feature-item">
+          <svg fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
           </svg>
           Free Forever
         </span>
-        <span class="flex items-center gap-1">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+        <span class="feature-item">
+          <svg fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
           </svg>
           No Signup
         </span>
-        <span class="flex items-center gap-1">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+        <span class="feature-item">
+          <svg fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
           </svg>
           Browser-Based
@@ -110,15 +108,15 @@ layout: layouts/base.njk
 
   {# Related Articles #}
   {% if relatedArticles %}
-  <div class="mt-12 pt-8 border-t-2">
-    <h2 class="text-2xl font-bold mb-6">Related Articles</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="related-articles">
+    <h2 class="related-title">Related Articles</h2>
+    <div class="related-grid">
       {% for articleUrl in relatedArticles %}
         {% for article in collections.blog %}
           {% if article.url == articleUrl %}
-      <a href="{{ article.url }}" class="group p-6 rounded-lg border-t-2 tool-card">
-        <h3 class="font-semibold text-lg mb-2">{{ article.data.title }}</h3>
-        <p class="text-sm" style="color: var(--text-secondary);">{{ article.data.description }}</p>
+      <a href="{{ article.url }}" class="related-article-card">
+        <h3 class="related-article-title">{{ article.data.title }}</h3>
+        <p class="related-article-description">{{ article.data.description }}</p>
       </a>
           {% endif %}
         {% endfor %}

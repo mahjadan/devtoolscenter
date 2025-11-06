@@ -2,29 +2,29 @@
 layout: layouts/base.njk
 ---
 
-<div class="container mx-auto px-4 py-8 max-w-6xl">
+<div class="content-container">
   {# Tool Header #}
-  <div class="mb-8">
-    <h1 class="text-4xl font-bold mb-4">{{ title }}</h1>
-    <p class="text-lg" style="color: var(--text-secondary);">{{ description }}</p>
+  <div class="tool-header">
+    <h1 class="tool-title">{{ title }}</h1>
+    <p class="tool-description">{{ description }}</p>
   </div>
   
   {# Tool Interface #}
-  <div class="space-y-6">
+  <div class="tool-interface">
     {{ content | safe }}
   </div>
   
   {# Related Tools Section #}
   {% if relatedTools %}
-  <div class="mt-12 pt-8 border-t-2">
-    <h2 class="text-2xl font-bold mb-4">Related Tools</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+  <div class="related-tools-section">
+    <h2 class="section-title">Related Tools</h2>
+    <div class="related-tools-grid">
       {% for toolUrl in relatedTools %}
         {% for tool in collections.tools %}
           {% if tool.url == toolUrl %}
-        <a href="{{ tool.url }}" class="tool-card block">
-          <h3 class="font-semibold text-lg mb-2">{{ tool.data.title }}</h3>
-          <p class="text-sm" style="color: var(--text-secondary);">{{ tool.data.description }}</p>
+        <a href="{{ tool.url }}" class="tool-card">
+          <h3 class="tool-card-title">{{ tool.data.title }}</h3>
+          <p class="tool-card-description">{{ tool.data.description }}</p>
         </a>
           {% endif %}
         {% endfor %}
@@ -35,8 +35,8 @@ layout: layouts/base.njk
   
   {# SEO Content Section #}
   {% if seoContent %}
-  <div class="mt-12 pt-8 border-t-2">
-    <div class="prose max-w-none">
+  <div class="seo-content-section">
+    <div class="prose">
       {{ seoContent | safe }}
     </div>
   </div>

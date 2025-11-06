@@ -5,20 +5,20 @@ description: Get in touch with DevTools Center - We'd love to hear your feedback
 permalink: /contact/
 ---
 
-<div class="container mx-auto px-4 py-12 max-w-4xl">
-  <h1 class="text-4xl font-bold mb-8 text-gray-900 dark:text-white">Contact Us</h1>
+<div class="content-container contact-page">
+  <h1 class="contact-title">Contact Us</h1>
   
-  <div class="prose dark:prose-invert max-w-none">
-    <p class="text-lg">
-      We'd love to hear from you! Whether you have questions, feedback, feature requests, or bug reports, 
+  <div class="prose contact-prose">
+    <p class="contact-intro">
+      We'd love to hear from you! Whether you have questions, feedback, feature requests, or bug reports,
       please don't hesitate to reach out.
     </p>
     
-    <div class="my-8 p-6 bg-gray-100 dark:bg-gray-800 rounded-lg border-2 border-gray-300 dark:border-gray-600">
-      <h2 class="mt-0">📧 Email</h2>
-      <p class="mb-0">
-        Send us an email at: 
-        <a href="mailto:hello@devtoolscenter.com" class="text-primary-600 dark:text-primary-400 font-medium">
+    <div class="contact-email-card">
+      <h2 class="contact-email-title">📧 Email</h2>
+      <p class="contact-email-text">
+        Send us an email at:
+        <a href="mailto:hello@devtoolscenter.com" class="contact-email-link">
           hello@devtoolscenter.com
         </a>
       </p>
@@ -70,12 +70,12 @@ permalink: /contact/
       <li>Follow us on Twitter (coming soon)</li>
     </ul>
     
-    <div class="mt-12 p-6 bg-primary-50 dark:bg-primary-900/20 rounded-lg border-2 border-primary-300 dark:border-primary-600">
-      <h3 class="mt-0 text-primary-900 dark:text-primary-100">
+    <div class="contact-thanks-card">
+      <h3 class="contact-thanks-title">
         Thank You!
       </h3>
-      <p class="mb-0 text-primary-800 dark:text-primary-200">
-        Thank you for using DevTools Center. Your support and feedback mean the world to us. 
+      <p class="contact-thanks-text">
+        Thank you for using DevTools Center. Your support and feedback mean the world to us.
         Together, we're building better tools for developers everywhere.
       </p>
     </div>
