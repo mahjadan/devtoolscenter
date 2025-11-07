@@ -2,16 +2,26 @@
 layout: layouts/base.njk
 ---
 
+{# Include tool shell CSS #}
+<link rel="stylesheet" href="/assets/css/tool-shell.css">
+
+{# Include tool-specific CSS if defined #}
+{% if toolStyles %}
+<link rel="stylesheet" href="/assets/css/tools/{{ toolStyles }}">
+{% endif %}
+
 <div class="container mx-auto px-4 py-8 max-w-6xl">
-  {# Tool Header #}
-  <div class="mb-8">
-    <h1 class="text-4xl font-bold mb-4 text-gray-900 dark:text-white">{{ title }}</h1>
-    <p class="text-lg text-gray-600 dark:text-gray-300">{{ description }}</p>
-  </div>
-  
-  {# Tool Interface #}
-  <div class="space-y-6">
-    {{ content | safe }}
+  <div class="tool-shell{% if toolClass %} {{ toolClass }}{% endif %}">
+    {# Tool Header #}
+    <div class="tool-shell__header">
+      <h1 class="tool-shell__title">{{ title }}</h1>
+      <p class="tool-shell__description">{{ description }}</p>
+    </div>
+    
+    {# Tool Interface #}
+    <div class="tool-shell__interface">
+      {{ content | safe }}
+    </div>
   </div>
   
   {# Related Tools Section #}

@@ -6,6 +6,8 @@ permalink: /json-formatter/
 icon: 📋
 order: 1
 pageScript: /assets/js/tools/json-formatter.js
+toolStyles: tool-json-formatter.css
+toolClass: tool-shell--json-formatter
 keywords: json formatter, json validator, json beautifier, format json, validate json
 relatedTools:
   - /yaml-to-json/
@@ -37,39 +39,37 @@ breadcrumbSchema:
       item: "https://devtoolscenter.com/json-formatter/"
 ---
 
-<div class="space-y-6">
-  <div>
-    <label for="json-input" class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-      Input JSON
-    </label>
-    <textarea 
-      id="json-input" 
-      class="tool-textarea"
-      placeholder='{"name":"John","age":30,"city":"New York"}'
-    ></textarea>
-  </div>
-  
-  <div class="flex flex-wrap gap-3">
-    <button id="format-btn" class="btn btn-primary">Format JSON</button>
-    <button id="minify-btn" class="btn btn-secondary">Minify</button>
-    <button id="validate-btn" class="btn btn-secondary">Validate Only</button>
-    <button id="copy-btn" class="btn btn-accent">Copy Result</button>
-    <button id="clear-btn" class="btn btn-secondary">Clear</button>
-  </div>
-  
-  <div id="error-message" class="hidden p-4 bg-red-100 dark:bg-red-900/30 border-2 border-red-500 rounded-lg">
-    <p class="text-red-700 dark:text-red-400 font-medium"></p>
-  </div>
-  
-  <div>
-    <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-      Formatted Output
-    </label>
-    <div 
-      id="json-output" 
-      class="w-full min-h-[200px] p-4 font-mono text-sm border-2 border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 overflow-auto whitespace-pre-wrap break-words"
-    ></div>
-  </div>
+<div class="tool-shell__panel tool-shell__panel--input">
+  <label for="json-input" class="tool-shell__label">
+    Input JSON
+  </label>
+  <textarea 
+    id="json-input" 
+    class="tool-shell__textarea"
+    placeholder='{"name":"John","age":30,"city":"New York"}'
+  ></textarea>
+  <div class="char-count" id="char-count">0 characters</div>
+</div>
+
+<div class="tool-shell__actions">
+  <button id="format-btn" class="tool-shell__btn tool-shell__btn--primary">Format JSON</button>
+  <button id="minify-btn" class="tool-shell__btn tool-shell__btn--secondary">Minify</button>
+  <button id="validate-btn" class="tool-shell__btn tool-shell__btn--secondary">Validate Only</button>
+  <button id="copy-btn" class="tool-shell__btn tool-shell__btn--accent">Copy Result</button>
+  <button id="clear-btn" class="tool-shell__btn tool-shell__btn--secondary">Clear</button>
+</div>
+
+<div id="status-message" class="tool-shell__message hidden"></div>
+
+<div class="tool-shell__panel tool-shell__panel--output">
+  <label class="tool-shell__label">
+    Formatted Output
+    <span id="validation-badge" class="tool-shell__badge hidden"></span>
+  </label>
+  <div 
+    id="json-output" 
+    class="tool-shell__output"
+  ></div>
 </div>
 
 <div class="mt-12 p-6 bg-gradient-to-r from-primary-50 via-primary-100/50 to-accent-50 dark:from-gray-800 dark:via-primary-900/30 dark:to-gray-800 rounded-lg border-2 border-primary-300 dark:border-primary-500/50 shadow-md dark:shadow-lg dark:shadow-primary-900/20">

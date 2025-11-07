@@ -1,9 +1,10 @@
-// JSON Formatter & Validator
+// JSON Formatter & Validator - Tool Shell Version
 (function() {
   const inputEl = document.getElementById('json-input');
   const outputEl = document.getElementById('json-output');
-  const errorEl = document.getElementById('error-message');
-  const errorText = errorEl.querySelector('p');
+  const statusEl = document.getElementById('status-message');
+  const charCountEl = document.getElementById('char-count');
+  const validationBadgeEl = document.getElementById('validation-badge');
   
   const formatBtn = document.getElementById('format-btn');
   const minifyBtn = document.getElementById('minify-btn');
@@ -11,13 +12,41 @@
   const copyBtn = document.getElementById('copy-btn');
   const clearBtn = document.getElementById('clear-btn');
   
-  function showError(message) {
-    errorText.innerHTML = message; // Changed to innerHTML to support formatting
-    errorEl.classList.remove('hidden');
+  function showMessage(message, type = 'info') {
+    statusEl.className = `tool-shell__message tool-shell__message--${type}`;
+    statusEl.innerHTML = message;
+    statusEl.classList.remove('hidden');
   }
   
-  function hideError() {
-    errorEl.classList.add('hidden');
+  function hideMessage() {
+    statusEl.classList.add('hidden');
+  }
+  
+  function updateValidationBadge(isValid, text = '') {
+    if (text) {
+      validationBadgeEl.className = `tool-shell__badge tool-shell__badge--${isValid ? 'json-valid' : 'json-invalid'}`;
+      validationBadgeEl.textContent = text;
+      validationBadgeEl.classList.remove('hidden');
+    } else {
+      validationBadgeEl.classList.add('hidden');
+    }
+  }
+  
+  function updateCharCount(count) {
+    charCountEl.textContent = `${count.toLocaleString()} characters`;
+  }
+  
+  function showCopyFeedback() {
+    const feedback = document.createElement('div');
+    feedback.className = 'copy-feedback';
+    feedback.textContent = 'Copied to clipboard!';
+    document.body.appendChild(feedback);
+    
+    setTimeout(() => {
+      if (feedback.parentNode) {
+        feedback.parentNode.removeChild(feedback);
+      }
+    }, 2000);
   }
   
   // Find line and column from character position
@@ -52,6 +81,17 @@
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
+  }
+  
+  // Apply JSON syntax highlighting using CSS classes
+  function applySyntaxHighlighting(json) {
+    return json
+      .replace(/"([^"]+)":/g, '<span class="json-key">"$1"</span>:')
+      .replace(/"([^"]*)"(?=\s*[,\}\]])/g, '<span class="json-string">"$1"</span>')
+      .replace(/:\s*(true|false)/g, ': <span class="json-boolean">$1</span>')
+      .replace(/:\s*(null)/g, ': <span class="json-null">$1</span>')
+      .replace(/:\s*(-?\d+\.?\d*)/g, ': <span class="json-number">$1</span>')
+      .replace(/([{}[\],])/g, '<span class="json-punctuation">$1</span>');
   }
   
   // Try to format JSON by fixing the error temporarily
@@ -211,106 +251,136 @@
   }
   
   function formatJSON() {
-    hideError();
+    hideMessage();
     const input = inputEl.value.trim();
     
     if (!input) {
-      showError('Please enter some JSON data');
+      showMessage('Please enter some JSON data', 'warning');
       return;
     }
     
     try {
       const parsed = JSON.parse(input);
       const formatted = JSON.stringify(parsed, null, 2);
-      // Show success with green checkmark
-      outputEl.innerHTML = `<span style="color: #16a34a; font-weight: bold;">✓ Valid JSON</span>\n\n` + escapeHtml(formatted);
       
-      // Show temporary success message
-      showError('<span style="color: #16a34a;">✓ JSON is valid and formatted successfully!</span>');
-      setTimeout(hideError, 2000);
+      // Update output with syntax highlighting
+      outputEl.innerHTML = applySyntaxHighlighting(formatted);
+      outputEl.classList.add('json-valid');
+      outputEl.classList.remove('json-invalid');
+      
+      // Update validation badge
+      updateValidationBadge(true, 'Valid');
+      
+      // Show success message
+      showMessage('✓ JSON formatted successfully!', 'success');
+      setTimeout(hideMessage, 3000);
     } catch (e) {
-      // Format with error highlighting
+      // Handle invalid JSON
       const {output, errorMessage} = formatWithError(input, e);
       outputEl.innerHTML = output;
-      showError(errorMessage);
+      outputEl.classList.add('json-invalid');
+      outputEl.classList.remove('json-valid');
+      
+      // Update validation badge
+      updateValidationBadge(false, 'Invalid');
+      
+      // Show error message
+      showMessage(errorMessage, 'error');
     }
   }
   
   function minifyJSON() {
-    hideError();
+    hideMessage();
     const input = inputEl.value.trim();
     
     if (!input) {
-      showError('Please enter some JSON data');
+      showMessage('Please enter some JSON data', 'warning');
       return;
     }
     
     try {
       const parsed = JSON.parse(input);
       const minified = JSON.stringify(parsed);
-      outputEl.innerHTML = `<span style="color: #16a34a; font-weight: bold;">✓ Valid JSON (Minified)</span>\n\n` + escapeHtml(minified);
       
-      showError('<span style="color: #16a34a;">✓ JSON is valid and minified successfully!</span>');
-      setTimeout(hideError, 2000);
+      outputEl.textContent = minified;
+      outputEl.classList.add('json-valid');
+      outputEl.classList.remove('json-invalid');
+      
+      updateValidationBadge(true, 'Valid (Minified)');
+      showMessage('✓ JSON minified successfully!', 'success');
+      setTimeout(hideMessage, 3000);
     } catch (e) {
-      // Show error with highlighting
       const {output, errorMessage} = formatWithError(input, e);
       outputEl.innerHTML = output;
-      showError(errorMessage);
+      outputEl.classList.add('json-invalid');
+      outputEl.classList.remove('json-valid');
+      
+      updateValidationBadge(false, 'Invalid');
+      showMessage(errorMessage, 'error');
     }
   }
   
   function validateJSON() {
-    hideError();
+    hideMessage();
     const input = inputEl.value.trim();
     
     if (!input) {
-      showError('Please enter some JSON data');
+      showMessage('Please enter some JSON data', 'warning');
       return;
     }
     
     try {
       JSON.parse(input);
-      outputEl.innerHTML = '<span style="color: #16a34a; font-size: 1.5rem; font-weight: bold;">✓ Valid JSON</span>';
-      showError('<span style="color: #16a34a;">✓ Your JSON is valid!</span>');
+      outputEl.innerHTML = '<div style="text-align: center; font-size: 1.2rem; color: var(--color-success); margin: 2rem 0;">✓ Valid JSON</div>';
+      outputEl.classList.add('json-valid');
+      outputEl.classList.remove('json-invalid');
+      
+      updateValidationBadge(true, 'Valid');
+      showMessage('✓ Your JSON is valid!', 'success');
+      
       setTimeout(() => {
         outputEl.innerHTML = '';
-        hideError();
+        hideMessage();
+        updateValidationBadge(false);
       }, 3000);
     } catch (e) {
-      // Show error with highlighting
       const {output, errorMessage} = formatWithError(input, e);
       outputEl.innerHTML = output;
-      showError(errorMessage);
+      outputEl.classList.add('json-invalid');
+      outputEl.classList.remove('json-valid');
+      
+      updateValidationBadge(false, 'Invalid');
+      showMessage(errorMessage, 'error');
     }
   }
   
   function copyResult() {
-    const output = outputEl.textContent; // Get text content instead of value
+    const output = outputEl.textContent;
     
     if (!output) {
-      showError('Nothing to copy');
+      showMessage('Nothing to copy', 'warning');
       return;
     }
     
-    // Remove the success indicator if present
-    const cleanOutput = output.replace(/^✓ Valid JSON.*?\n\n/s, '');
+    // Clean output for copying
+    const cleanOutput = output.replace(/^✓.*?\n\n/s, '').trim();
     
     navigator.clipboard.writeText(cleanOutput).then(() => {
-      const originalText = copyBtn.textContent;
-      copyBtn.textContent = '✓ Copied!';
-      setTimeout(() => {
-        copyBtn.textContent = originalText;
-      }, 2000);
+      showCopyFeedback();
+      showMessage('✓ Copied to clipboard!', 'success');
+      setTimeout(hideMessage, 2000);
     }).catch(() => {
-      showError('Failed to copy to clipboard');
+      showMessage('Failed to copy to clipboard', 'error');
     });
   }
   
   function clearAll() {
     inputEl.value = '';
     outputEl.innerHTML = '';
-    hideError();
+    outputEl.classList.remove('json-valid', 'json-invalid');
+    hideMessage();
+    updateValidationBadge(false);
+    updateCharCount(0);
   }
   
   // Event listeners
@@ -320,11 +390,19 @@
   copyBtn.addEventListener('click', copyResult);
   clearBtn.addEventListener('click', clearAll);
   
+  // Update character count on input
+  inputEl.addEventListener('input', (e) => {
+    updateCharCount(e.target.value.length);
+  });
+  
   // Format on Enter (Ctrl/Cmd + Enter)
   inputEl.addEventListener('keydown', (e) => {
     if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
       formatJSON();
     }
   });
+  
+  // Initialize character count
+  updateCharCount(inputEl.value.length);
 })();
 
