@@ -2,7 +2,7 @@
 (function() {
   const inputEl = document.getElementById('json-input');
   const outputEl = document.getElementById('json-output');
-  const statusEl = document.getElementById('status-message');
+  const statusEl = document.getElementById('error-message');
   const charCountEl = document.getElementById('char-count');
   const validationBadgeEl = document.getElementById('validation-badge');
   
@@ -13,7 +13,7 @@
   const clearBtn = document.getElementById('clear-btn');
   
   function showMessage(message, type = 'info') {
-    statusEl.className = `tool-shell__message tool-shell__message--${type}`;
+    statusEl.className = `notification notification--${type}`;
     statusEl.innerHTML = message;
     statusEl.classList.remove('hidden');
   }

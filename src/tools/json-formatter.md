@@ -59,7 +59,7 @@ breadcrumbSchema:
   <button id="clear-btn" class="tool-shell__btn tool-shell__btn--secondary">Clear</button>
 </div>
 
-<div id="status-message" class="tool-shell__message hidden"></div>
+<div id="error-message" class="notification hidden"></div>
 
 <div class="tool-shell__panel tool-shell__panel--output">
   <label class="tool-shell__label">
