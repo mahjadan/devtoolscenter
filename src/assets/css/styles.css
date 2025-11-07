@@ -1513,7 +1513,7 @@ footer a {
 
 .cta-content {
   position: relative;
-  padding: var(--spacing-xl) var(--spacing-3xl);
+  padding: var(--spacing-xl);
   text-align: center;
 }
 
@@ -2081,7 +2081,6 @@ footer a {
 
 @media (min-width: 768px) {
   .cta-content {
-    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     text-align: left;
