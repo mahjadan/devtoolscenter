@@ -38,13 +38,11 @@ permalink: /blog/
   <h2 class="all-articles-title">All Articles</h2>
   <div class="articles-grid">
     {% for article in collections.blog | reverse %}
-    <article class="article-card">
+    <a href="{{ article.url }}" class="article-card">
       <div class="article-category">
         <span>{{ article.data.category }}</span>
       </div>
-      <h3 class="article-title">
-        <a href="{{ article.url }}" class="article-link">{{ article.data.title }}</a>
-      </h3>
+      <h3 class="article-title">{{ article.data.title }}</h3>
       <p class="article-description">{{ article.data.description }}</p>
       <div class="article-meta">
         <time datetime="{{ article.date }}">{{ article.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) }}</time>
@@ -53,7 +51,7 @@ permalink: /blog/
         <span>{{ article.data.readTime }} min</span>
         {% endif %}
       </div>
-    </article>
+    </a>
     {% endfor %}
   </div>
 </div>
