@@ -5,6 +5,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // Existing color palette (preserved for compatibility)
         primary: {
           50: '#f0f9ff',
           100: '#e0f2fe',
@@ -29,9 +30,59 @@ module.exports = {
           800: '#166534',
           900: '#14532d',
         },
+        // Design token integration
+        'token-bg': 'var(--color-bg)',
+        'token-surface': 'var(--color-surface)',
+        'token-subtle': 'var(--color-subtle)',
+        'token-border': 'var(--color-border)',
+        'token-text': 'var(--color-text)',
+        'token-text-muted': 'var(--color-text-muted)',
+        'token-primary': 'var(--color-primary)',
+        'token-primary-contrast': 'var(--color-primary-contrast)',
+        'token-accent': 'var(--color-accent)',
+        'token-success': 'var(--color-success)',
+        'token-warning': 'var(--color-warning)',
+        'token-danger': 'var(--color-danger)',
       },
       fontFamily: {
         mono: ['Fira Code', 'Courier New', 'monospace'],
+        sans: 'var(--font-sans)',
+      },
+      fontSize: {
+        'token-xs': 'var(--font-size-xs)',
+        'token-sm': 'var(--font-size-sm)',
+        'token-base': 'var(--font-size-base)',
+        'token-lg': 'var(--font-size-lg)',
+        'token-xl': 'var(--font-size-xl)',
+        'token-2xl': 'var(--font-size-2xl)',
+        'token-3xl': 'var(--font-size-3xl)',
+      },
+      fontWeight: {
+        'token-regular': 'var(--font-weight-regular)',
+        'token-medium': 'var(--font-weight-medium)',
+        'token-semibold': 'var(--font-weight-semibold)',
+        'token-bold': 'var(--font-weight-bold)',
+      },
+      borderRadius: {
+        'token-xs': 'var(--radius-xs)',
+        'token-sm': 'var(--radius-sm)',
+        'token-md': 'var(--radius-md)',
+        'token-lg': 'var(--radius-lg)',
+        'token-full': 'var(--radius-full)',
+      },
+      boxShadow: {
+        'token-xs': 'var(--shadow-xs)',
+        'token-sm': 'var(--shadow-sm)',
+        'token-md': 'var(--shadow-md)',
+      },
+      transitionDuration: {
+        'token-quick': 'var(--motion-duration-quick)',
+        'token-normal': 'var(--motion-duration-normal)',
+        'token-slow': 'var(--motion-duration-slow)',
+      },
+      transitionTimingFunction: {
+        'token-standard': 'var(--motion-ease-standard)',
+        'token-emphasized': 'var(--motion-ease-emphasized)',
       },
     },
   },
