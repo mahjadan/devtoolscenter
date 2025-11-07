@@ -603,13 +603,13 @@ pre {
 
 /* Header & Navigation */
 header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
   width: 100%;
 }
 
 header.header-glassy {
+  position: sticky;
+  top: 0;
+  z-index: 50;
   width: 100%;
   border: none !important;
   border-bottom: none !important;
@@ -1320,6 +1320,11 @@ article.content-container .article-content,
   max-width: 70ch !important;
   margin-left: auto !important;
   margin-right: auto !important;
+}
+
+.article-shell .blog-header {
+  position: static !important;
+  top: auto !important;
 }
 
 .article-hero-gradient {
