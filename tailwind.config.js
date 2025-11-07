@@ -84,6 +84,25 @@ module.exports = {
         'token-standard': 'var(--motion-ease-standard)',
         'token-emphasized': 'var(--motion-ease-emphasized)',
       },
+      animation: {
+        'motion-fade-in': 'motionFadeIn var(--motion-duration-normal) var(--motion-ease-standard)',
+        'motion-slide-in-y-8': 'motionSlideInY8 var(--motion-duration-normal) var(--motion-ease-emphasized)',
+        'motion-pulse-soft': 'motionPulseSoft 2s var(--motion-ease-standard) infinite',
+      },
+      keyframes: {
+        motionFadeIn: {
+          'from': { opacity: '0' },
+          'to': { opacity: '1' },
+        },
+        motionSlideInY8: {
+          'from': { opacity: '0', transform: 'translateY(2rem)' },
+          'to': { opacity: '1', transform: 'translateY(0)' },
+        },
+        motionPulseSoft: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.8' },
+        },
+      },
     },
   },
   plugins: [],
