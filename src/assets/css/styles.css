@@ -1293,6 +1293,35 @@ header.header-glassy #mobile-menu {
   position: static !important;
 }
 
+/* Article containers */
+main#main-content > .content-container,
+article.content-container,
+.article-shell {
+  width: 100%;
+  max-width: 70rem !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: var(--spacing-md, 1.5rem);
+  padding-right: var(--spacing-md, 1.5rem);
+  box-sizing: border-box;
+}
+
+article.content-container > *,
+.article-shell > * {
+  width: 100%;
+  max-width: 62rem !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+article.content-container .article-content,
+.article-shell .article-body,
+.article-shell .article-content {
+  max-width: 70ch !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
 .article-hero-gradient {
   background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
   box-shadow: var(--shadow-md);
