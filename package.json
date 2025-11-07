@@ -8,7 +8,10 @@
     "dev:css": "tailwindcss -i src/assets/css/styles.css -o _site/assets/css/styles.css --watch",
     "build": "npm run build:css && npm run build:eleventy",
     "build:css": "mkdir -p _site/assets/css && tailwindcss -i src/assets/css/styles.css -o _site/assets/css/styles.css --minify",
-    "build:eleventy": "eleventy"
+    "build:eleventy": "eleventy",
+    "test": "playwright test",
+    "test:verify-theme": "node tmp_rovodev_verify_theme.js",
+    "test:update-snapshots": "playwright test --update-snapshots"
   },
   "keywords": [
     "developer-tools",
