@@ -80,6 +80,18 @@ Then visit `http://localhost:8000`
 | `npm run build:css` | Build production CSS (minified) |
 | `npm run build:eleventy` | Build static HTML with Eleventy |
 
+## 📈 Analytics Setup
+
+Enable Google Tag Manager site-wide:
+
+1. Create a `.env` file in the project root (if it doesn't already exist).
+2. Add your container ID:
+   ```bash
+   GTM_ID=GTM-XXXXXXX
+   ```
+3. Restart `npm run dev` so Eleventy reloads the environment variables.
+4. For deployments (e.g., Cloudflare Pages), define the same `GTM_ID` environment variable in the hosting environment.
+
 ## 🎯 Project Structure at a Glance
 
 ```

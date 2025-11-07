@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const sitemap = require("@quasibit/eleventy-plugin-sitemap");
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const path = require("path");

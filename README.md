@@ -148,6 +148,19 @@ Use this template structure:
 </div>
 ```
 
+### Google Tag Manager
+
+1. Create a `.env` file at the project root if it doesn't exist:
+   ```bash
+   touch .env
+   ```
+2. Add your Tag Manager container ID:
+   ```bash
+   GTM_ID=GTM-XXXXXXX
+   ```
+3. Restart the dev server so Eleventy can pick up the new environment variable.
+4. In production (e.g., Cloudflare Pages), configure `GTM_ID` as an environment variable. The base layout injects the Tag Manager script automatically whenever the value is present.
+
 ## 🎯 Key Features
 
 ### Responsive Design
