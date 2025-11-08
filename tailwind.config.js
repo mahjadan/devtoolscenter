@@ -39,6 +39,8 @@ module.exports = {
         'token-text-muted': 'var(--color-text-muted)',
         'token-primary': 'var(--color-primary)',
         'token-primary-contrast': 'var(--color-primary-contrast)',
+        'token-primary-soft': 'var(--color-primary-soft)',
+        'token-halo': 'var(--color-halo)',
         'token-accent': 'var(--color-accent)',
         'token-success': 'var(--color-success)',
         'token-warning': 'var(--color-warning)',

@@ -16,22 +16,24 @@ schema:
 ---
 
 {# Hero Section #}
-<section class="bg-gradient-to-br from-primary-50 to-primary-100 dark:from-gray-800 dark:to-gray-900 py-20">
-  <div class="container mx-auto px-4 text-center">
-    <h1 class="motion-fade-in text-5xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-white">
+<section class="hero-banner">
+  <div class="hero-banner__halo hero-banner__halo--primary" aria-hidden="true"></div>
+  <div class="hero-banner__halo hero-banner__halo--accent" aria-hidden="true"></div>
+  <div class="container mx-auto px-4 text-center hero-banner__body">
+    <h1 class="hero-banner__title motion-fade-in text-5xl md:text-6xl font-bold mb-6">
       Free Developer Tools
     </h1>
-    <p class="motion-slide-in-y-8 text-xl md:text-2xl text-gray-700 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+    <p class="hero-banner__subtitle motion-slide-in-y-8 text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
       Professional developer utilities that work right in your browser. Fast, secure, and completely free.
     </p>
-    <div class="motion-fade-in flex flex-wrap justify-center gap-4">
-      <span class="px-4 py-2 bg-white dark:bg-gray-800 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 border-2 border-gray-200 dark:border-gray-600">
+    <div class="hero-banner__pills motion-fade-in">
+      <span class="hero-banner__pill">
         ✨ No Sign-up Required
       </span>
-      <span class="px-4 py-2 bg-white dark:bg-gray-800 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 border-2 border-gray-200 dark:border-gray-600">
+      <span class="hero-banner__pill">
         🔒 100% Client-Side
       </span>
-      <span class="px-4 py-2 bg-white dark:bg-gray-800 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 border-2 border-gray-200 dark:border-gray-600">
+      <span class="hero-banner__pill">
         ⚡ Lightning Fast
       </span>
     </div>
@@ -47,17 +49,15 @@ schema:
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     {% for tool in collections.tools %}
     <a href="{{ tool.url }}" class="tool-card motion-elevate group">
-      <div class="flex items-start space-x-4">
-        <div class="flex-shrink-0">
-          <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center group-hover:bg-primary-200 dark:group-hover:bg-primary-800 transition-colors">
-            <span class="text-2xl">{{ tool.data.icon or '🔧' }}</span>
-          </div>
+      <div class="tool-card__grid">
+        <div class="tool-card__icon">
+          <span aria-hidden="true">{{ tool.data.icon or '🔧' }}</span>
         </div>
-        <div class="flex-1">
-          <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+        <div class="tool-card__copy">
+          <h3 class="tool-card__title text-xl font-semibold mb-2 transition-colors">
             {{ tool.data.title }}
           </h3>
-          <p class="text-gray-600 dark:text-gray-300 text-sm">
+          <p class="tool-card__subtitle text-sm">
             {{ tool.data.description }}
           </p>
         </div>
