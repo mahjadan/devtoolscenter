@@ -728,6 +728,13 @@
       linear-gradient(180deg, var(--color-surface) 0%, var(--color-subtle) 100%);
   }
 
+  :root[data-theme="light"] .tool-card {
+    background:
+      linear-gradient(165deg, rgba(255, 255, 255, 0.96) 0%, rgba(238, 244, 255, 0.96) 65%, rgba(230, 237, 247, 0.98) 100%);
+    border-color: rgba(var(--shadow-color-base-rgb), 0.2);
+    box-shadow: 0 18px 34px rgba(var(--shadow-color-base-rgb), 0.12);
+  }
+
   .tool-card::after {
     content: "";
     position: absolute;
@@ -744,9 +751,19 @@
     transform: translateY(-2px);
   }
 
+  :root[data-theme="light"] .tool-card:hover,
+  :root[data-theme="light"] .tool-card:focus-within {
+    box-shadow: 0 22px 40px rgba(var(--shadow-color-base-rgb), 0.16);
+  }
+
   .tool-card:hover::after,
   .tool-card:focus-within::after {
     border-color: rgba(var(--shadow-color-base-rgb), 0.12);
+  }
+
+  :root[data-theme="light"] .tool-card:hover::after,
+  :root[data-theme="light"] .tool-card:focus-within::after {
+    border-color: rgba(var(--shadow-color-base-rgb), 0.22);
   }
 
   .tool-card:focus-visible {
@@ -775,6 +792,16 @@
       color var(--motion-duration-quick) var(--motion-ease-standard),
       transform var(--motion-duration-quick) var(--motion-ease-emphasized),
       box-shadow var(--motion-duration-quick) var(--motion-ease-standard);
+  }
+
+  :root[data-theme="light"] .tool-card__icon {
+    background:
+      linear-gradient(180deg, rgba(28, 99, 213, 0.14) 0%, rgba(28, 99, 213, 0.1) 100%);
+    border: 1px solid rgba(28, 99, 213, 0.22);
+  }
+
+  :root[data-theme="light"] .tool-card__subtitle {
+    color: rgba(12, 20, 36, 0.75);
   }
 
   .tool-card__title {
@@ -947,8 +974,7 @@
     }
     
     :root[data-theme="dark"] .hero-banner::after,
-    :root[data-theme="dark"] .article-hero::after,
-    :root[data-theme="dark"] .tool-shell::after {
+    :root[data-theme="dark"] .article-hero::after {
       animation: none;
       transform: none;
     }
@@ -1081,42 +1107,57 @@
     border-radius: var(--radius-lg);
     border: 1px solid rgba(var(--shadow-color-base-rgb), 0.16);
     background:
-      radial-gradient(120% 120% at 0% -30%, var(--color-primary-soft) 0%, transparent 65%),
-      linear-gradient(200deg, rgba(var(--shadow-color-base-rgb), 0.1) 0%, transparent 90%),
+      linear-gradient(200deg, rgba(var(--shadow-color-base-rgb), 0.08) 0%, transparent 85%),
+      radial-gradient(120% 120% at 0% -30%, var(--color-primary-soft) 0%, transparent 70%),
       var(--color-surface);
     box-shadow: var(--shadow-sm);
     overflow: hidden;
   }
 
-  .tool-shell::after {
-    content: "";
-    position: absolute;
-    inset: -40% -25%;
+  :root[data-theme="dark"] .tool-shell {
+    border-color: rgba(var(--shadow-color-base-rgb), 0.32);
     background:
-      radial-gradient(55% 55% at 10% 20%, rgba(var(--shadow-color-base-rgb), 0.12), transparent 70%),
-      conic-gradient(from 180deg at 50% 50%, rgba(74, 179, 255, 0.2), transparent 58%, rgba(31, 158, 95, 0.16));
-    background-size: 170% 170%;
-    background-position: 0% 60%;
-    opacity: 0.18;
-    pointer-events: none;
-    transition: opacity var(--motion-duration-slow) var(--motion-ease-standard);
-    z-index: 0;
+      linear-gradient(185deg, rgba(74, 179, 255, 0.12) 0%, transparent 55%),
+      radial-gradient(120% 120% at 110% -20%, rgba(74, 179, 255, 0.18) 0%, transparent 70%),
+      radial-gradient(140% 120% at -10% 120%, rgba(31, 158, 95, 0.16) 0%, transparent 80%),
+      linear-gradient(160deg, rgba(var(--shadow-color-base-rgb), 0.45) 0%, rgba(var(--shadow-color-base-rgb), 0.18) 65%),
+      var(--color-surface);
+    background-blend-mode: lighten, screen, screen, normal;
   }
 
   .tool-shell--accent {
     background:
+      linear-gradient(200deg, rgba(var(--shadow-color-base-rgb), 0.12) 0%, transparent 85%),
       radial-gradient(120% 120% at 12% -20%, var(--color-primary-soft) 0%, transparent 60%),
       radial-gradient(110% 110% at 100% 120%, rgba(var(--shadow-color-base-rgb), 0.18) 0%, transparent 70%),
       var(--color-surface);
     border-color: rgba(var(--shadow-color-base-rgb), 0.22);
   }
 
+  :root[data-theme="dark"] .tool-shell--accent {
+    background:
+      linear-gradient(200deg, rgba(74, 179, 255, 0.16) 0%, transparent 90%),
+      radial-gradient(120% 120% at 20% -30%, rgba(74, 179, 255, 0.22) 0%, transparent 70%),
+      linear-gradient(150deg, rgba(var(--shadow-color-base-rgb), 0.42) 0%, rgba(var(--shadow-color-base-rgb), 0.18) 65%),
+      var(--color-surface);
+    border-color: rgba(74, 179, 255, 0.32);
+  }
+
   .tool-shell--signal {
     background:
+      linear-gradient(200deg, rgba(31, 158, 95, 0.18) 0%, transparent 90%),
       radial-gradient(110% 110% at 90% -20%, rgba(31, 158, 95, 0.22) 0%, transparent 70%),
-      linear-gradient(190deg, rgba(var(--shadow-color-base-rgb), 0.1) 0%, transparent 90%),
       var(--color-surface);
     border-color: rgba(31, 158, 95, 0.28);
+  }
+
+  :root[data-theme="dark"] .tool-shell--signal {
+    background:
+      linear-gradient(195deg, rgba(69, 212, 138, 0.24) 0%, transparent 75%),
+      radial-gradient(110% 110% at 95% -25%, rgba(69, 212, 138, 0.22) 0%, transparent 70%),
+      linear-gradient(150deg, rgba(var(--shadow-color-base-rgb), 0.4) 0%, rgba(var(--shadow-color-base-rgb), 0.2) 70%),
+      var(--color-surface);
+    border-color: rgba(69, 212, 138, 0.35);
   }
 
   .tool-shell__header {
@@ -1173,11 +1214,6 @@
       border-color var(--motion-duration-normal) var(--motion-ease-standard),
       box-shadow var(--motion-duration-normal) var(--motion-ease-standard),
       transform var(--motion-duration-quick) var(--motion-ease-standard);
-  }
-
-  :root[data-theme="dark"] .tool-shell::after {
-    opacity: 0.4;
-    animation: auroraShift 30s linear infinite alternate;
   }
 
   .tool-shell__panel:focus-within {
