@@ -3,24 +3,28 @@ layout: layouts/base.njk
 ---
 
 <article class="article-shell">
-  <section class="article-hero">
+<section class="article-hero">
+  <span class="article-hero__halo article-hero__halo--primary" aria-hidden="true"></span>
+  <span class="article-hero__halo article-hero__halo--secondary" aria-hidden="true"></span>
     <div class="article-hero__container">
-      <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_320px]">
-        <div>
+      <div class="article-hero__grid grid gap-12 lg:grid-cols-[minmax(0,1fr)_320px]">
+        <div class="article-hero__content">
           <div class="article-hero__badge">
-            <svg aria-hidden="true" class="h-4 w-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24">
+            <span class="article-hero__badge-icon" aria-hidden="true">
+              <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24">
               <path d="M9 2l.867 1.802a2 2 0 001.736 1.115l1.918.11a2 2 0 011.128.367l1.618 1.19a2 2 0 00.966.351l1.93.173a2 2 0 011.642 2.591l-.598 1.888a2 2 0 00.286 1.72l1.071 1.64a2 2 0 01-.381 2.62l-1.496 1.246a2 2 0 00-.646 1.964l.412 1.93a2 2 0 01-2.176 2.422l-1.95-.26a2 2 0 00-1.503.408l-1.584 1.274a2 2 0 01-2.512 0l-1.584-1.274a2 2 0 00-1.503-.408l-1.95.26a2 2 0 01-2.176-2.422l.411-1.93a2 2 0 00-.646-1.964L2.81 16.33a2 2 0 01-.381-2.62l1.071-1.64a2 2 0 00.286-1.72l-.598-1.889a2 2 0 011.642-2.59l1.93-.173a2 2 0 00.966-.352l1.618-1.19a2 2 0 011.128-.367l1.918-.11A2 2 0 008.133 3.802L9 2z" />
-            </svg>
-            <span>Developer Insights</span>
+              </svg>
+            </span>
+            <span class="article-hero__badge-label">Developer Insights</span>
           </div>
 
-          <h1 class="article-hero__title">{{ title }}</h1>
+          <h1 class="article-hero__title motion-fade-in">{{ title }}</h1>
 
           {% if description %}
-          <p class="article-hero__subtitle">{{ description }}</p>
+          <p class="article-hero__subtitle motion-slide-in-y-8">{{ description }}</p>
           {% endif %}
 
-          <div class="article-meta">
+          <div class="article-meta motion-fade-in">
             {% if author %}
             <span class="article-meta__item">
               <span class="article-meta__icon" aria-hidden="true">
@@ -30,7 +34,7 @@ layout: layouts/base.njk
                 </svg>
               </span>
               <span class="sr-only">Author</span>
-              {{ author }}
+              <span class="article-meta__text">{{ author }}</span>
             </span>
             {% endif %}
 
@@ -45,7 +49,7 @@ layout: layouts/base.njk
                 </svg>
               </span>
               <span class="sr-only">Published</span>
-              <time datetime="{{ date | date('yyyy-MM-dd') }}">{{ date | date('MMMM d, yyyy') }}</time>
+              <time class="article-meta__text" datetime="{{ date | date('yyyy-MM-dd') }}">{{ date | date('MMMM d, yyyy') }}</time>
             </span>
             {% endif %}
 
@@ -58,14 +62,14 @@ layout: layouts/base.njk
                 </svg>
               </span>
               <span class="sr-only">Estimated read time</span>
-              {{ readTime }} min read
+              <span class="article-meta__text">{{ readTime }} min read</span>
             </span>
             {% endif %}
           </div>
         </div>
 
         <div class="article-hero__media">
-          <figure class="article-hero__figure">
+          <figure class="article-hero__figure motion-fade-in">
             {% if heroIllustration %}
               <img src="{{ heroIllustration }}" alt="{{ heroIllustrationAlt or 'Hero illustration for this article' }}">
             {% else %}
@@ -88,12 +92,14 @@ layout: layouts/base.njk
 
   {% if jsonExample or apiExample or terminalExample %}
   <section class="article-code-gallery">
-    <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-      <div>
-        <p class="text-xs font-semibold uppercase tracking-[0.4em] text-slate-500 dark:text-slate-400">Implementation Ready</p>
-        <h2 class="mt-2 text-3xl font-semibold text-slate-900 dark:text-white">Reference Snippets</h2>
+    <div class="article-code-gallery__header flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+      <div class="article-code-gallery__intro">
+        <p class="article-code-gallery__eyebrow">Implementation Ready</p>
+        <h2 class="article-code-gallery__headline">Reference Snippets</h2>
       </div>
-      <p class="max-w-xl text-sm text-slate-600 dark:text-slate-300">Copy, adapt, and ship faster with pre-formatted JSON payloads, API requests, and terminal commands tailored for tooling workflows.</p>
+      <p class="article-code-gallery__support max-w-xl">
+        Copy, adapt, and ship faster with pre-formatted JSON payloads, API requests, and terminal commands tailored for tooling workflows.
+      </p>
     </div>
 
     <div class="article-code-gallery__grid">
