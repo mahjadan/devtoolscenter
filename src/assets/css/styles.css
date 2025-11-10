@@ -1548,9 +1548,6 @@
   }
 
   /* Legacy notification override - replaces old hard-coded styles */
-  div[id*="error-message"],
-  div[id*="success-message"], 
-  div[id*="warning-message"],
   .error-message,
   .success-message,
   .warning-message,
