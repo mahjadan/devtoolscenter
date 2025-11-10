@@ -17,6 +17,17 @@
     statusEl.innerHTML = message;
     statusEl.classList.remove('hidden');
   }
+
+  function scrollToOutput() {
+    // Scroll to the output section smoothly
+    const outputSection = document.getElementById('json-output');
+    if (outputSection) {
+      outputSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+  }
   
   function hideMessage() {
     statusEl.classList.add('hidden');
@@ -274,6 +285,9 @@
       // Show success message
       showMessage('✓ JSON formatted successfully!', 'success');
       setTimeout(hideMessage, 3000);
+      
+      // Scroll to output
+      scrollToOutput();
     } catch (e) {
       // Handle invalid JSON
       const {output, errorMessage} = formatWithError(input, e);
@@ -286,6 +300,9 @@
       
       // Show error message
       showMessage(errorMessage, 'error');
+      
+      // Scroll to output
+      scrollToOutput();
     }
   }
   
@@ -309,6 +326,9 @@
       updateValidationBadge(true, 'Valid (Minified)');
       showMessage('✓ JSON minified successfully!', 'success');
       setTimeout(hideMessage, 3000);
+      
+      // Scroll to output
+      scrollToOutput();
     } catch (e) {
       const {output, errorMessage} = formatWithError(input, e);
       outputEl.innerHTML = output;
@@ -317,6 +337,9 @@
       
       updateValidationBadge(false, 'Invalid');
       showMessage(errorMessage, 'error');
+      
+      // Scroll to output
+      scrollToOutput();
     }
   }
   
@@ -338,6 +361,9 @@
       updateValidationBadge(true, 'Valid');
       showMessage('✓ Your JSON is valid!', 'success');
       
+      // Scroll to output
+      scrollToOutput();
+      
       setTimeout(() => {
         outputEl.innerHTML = '';
         hideMessage();
@@ -351,6 +377,9 @@
       
       updateValidationBadge(false, 'Invalid');
       showMessage(errorMessage, 'error');
+      
+      // Scroll to output
+      scrollToOutput();
     }
   }
   
