@@ -53,7 +53,7 @@ breadcrumbSchema:
   <div class="char-count" id="char-count">0 characters</div>
 </div>
 
-<div class="tool-shell__actions">
+<div id="tool-shell-actions" class="tool-shell__actions">
   <button id="format-btn" class="tool-shell__btn tool-shell__btn--primary">Format JSON</button>
   <button id="minify-btn" class="tool-shell__btn tool-shell__btn--secondary">Minify</button>
   <button id="validate-btn" class="tool-shell__btn tool-shell__btn--secondary">Validate Only</button>

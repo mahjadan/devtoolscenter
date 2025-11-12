@@ -112,12 +112,12 @@
   }
 
   function scrollToOutput() {
-    const targetElement = document.getElementById('tree-view-panel');
+    const targetElement = document.getElementById('tool-shell-actions');
       
     if (targetElement) {
       targetElement.scrollIntoView({
         behavior: 'smooth',
-        block: 'center'
+        block: 'start'
       });
     }
   }
@@ -354,7 +354,6 @@
     }
     
     navigator.clipboard.writeText(output).then(() => {
-      showCopyFeedback();
       const message = currentDisplayMode === 'minified' ? 
         '✓ Minified JSON copied to clipboard!' : 
         '✓ Formatted JSON copied to clipboard!';
