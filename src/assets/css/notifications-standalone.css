@@ -1,0 +1,57 @@
+/* Standalone Notification System - Not processed by Tailwind */
+.notification {
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid;
+  /* margin: 1rem 0; */
+  font-size: 0.875rem;
+  line-height: 1.5;
+  transition: opacity 200ms ease;
+  max-width: 400px;
+}
+
+/* Light mode colors */
+:root {
+  --notification-bg: #f8f9fa;
+  --notification-success: #157347;
+  --notification-danger: #c62828;
+  --notification-warning: #a16207;
+  --notification-primary: #3b82f6;
+}
+
+/* Dark mode colors */
+:root.dark {
+  --notification-bg: #1f2937;
+  --notification-success: #37cf7e;
+  --notification-danger: #f47171;
+  --notification-warning: #f2a950;
+  --notification-primary: #60a5fa;
+}
+
+.notification {
+  background: var(--notification-bg);
+}
+
+.notification--success {
+  background: var(--notification-bg);
+  border-left-color: var(--notification-success);
+  color: var(--notification-success);
+}
+
+.notification--error {
+  background: var(--notification-bg);
+  border-left-color: var(--notification-danger);
+  color: var(--notification-danger);
+}
+
+.notification--warning {
+  background: var(--notification-bg);
+  border-left-color: var(--notification-warning);
+  color: var(--notification-warning);
+}
+
+.notification--info {
+  background: var(--notification-bg);
+  border-left-color: var(--notification-primary);
+  color: var(--notification-primary);
+}

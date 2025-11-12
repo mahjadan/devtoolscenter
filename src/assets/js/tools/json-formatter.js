@@ -1,10 +1,8 @@
-// JSON Formatter & Validator - Tool Shell Version
+// Enhanced JSON Formatter with Tree View - Tool Shell Version
 (function() {
   const inputEl = document.getElementById('json-input');
-  const outputEl = document.getElementById('json-output');
   const statusEl = document.getElementById('error-message');
   const charCountEl = document.getElementById('char-count');
-  const validationBadgeEl = document.getElementById('validation-badge');
   
   const formatBtn = document.getElementById('format-btn');
   const minifyBtn = document.getElementById('minify-btn');
@@ -12,25 +10,122 @@
   const copyBtn = document.getElementById('copy-btn');
   const clearBtn = document.getElementById('clear-btn');
   
+  // Tree view container
+  let treeViewContainer;
+  let treeViewInstance = null;
+  let currentData = null;
+  let currentDisplayMode = 'tree'; // 'tree' | 'minified'
+  let minifiedText = null;
+
+  // Initialize enhanced UI
+  function initializeEnhancedUI() {
+    // Get reference to existing tree view container
+    treeViewContainer = document.getElementById('json-tree-container');
+    
+    // Ensure tree view panel is visible (it should be by default now)
+    const treePanel = document.getElementById('tree-view-panel');
+    if (treePanel) {
+      treePanel.classList.remove('hidden');
+    }
+  }
+
+
+
+  function renderTreeView(data) {
+    if (!window.JsonTreeView) {
+      console.error('JsonTreeView component not loaded');
+      return;
+    }
+    
+    // Clear existing content
+    treeViewContainer.innerHTML = '';
+    treeViewContainer.className = 'tool-shell__output';
+    
+    // Create new tree view instance
+    treeViewInstance = new JsonTreeView(treeViewContainer, {
+      collapsed: false,
+      showTypes: false,
+      showLength: false,
+      indent: 16
+    });
+    
+    // Apply dark theme if needed
+    const isDark = document.documentElement.classList.contains('dark') || 
+                   document.body.classList.contains('dark') ||
+                   document.querySelector('html').getAttribute('data-theme') === 'dark';
+    
+    if (isDark) {
+      treeViewContainer.classList.add('dark');
+    } else {
+      treeViewContainer.classList.remove('dark');
+    }
+    
+    // Render the data
+    treeViewInstance.render(data);
+    
+    // Update tree validation badge
+    updateTreeValidationBadge(true, 'Valid');
+  }
+
+  function showMinifiedText(minifiedJson) {
+    // Clear existing content and external controls
+    treeViewContainer.innerHTML = '';
+    const externalControls = document.getElementById('tree-controls-container');
+    if (externalControls) {
+      externalControls.innerHTML = '';
+    }
+    
+    // Reset container class to just output
+    treeViewContainer.className = 'tool-shell__output';
+    
+    // Create text display
+    const textDisplay = document.createElement('div');
+    textDisplay.style.cssText = `
+      font-family: var(--font-mono);
+      font-size: var(--font-size-sm);
+      line-height: 1.6;
+      background: var(--color-subtle);
+      border: 1px solid rgba(var(--shadow-color-base-rgb), 0.16);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      color: var(--color-text);
+      white-space: pre-wrap;
+      word-break: break-all;
+      overflow-wrap: break-word;
+      max-height: 500px;
+      overflow-y: auto;
+    `;
+    textDisplay.textContent = minifiedJson;
+    
+    treeViewContainer.appendChild(textDisplay);
+  }
+
+  function updateTreeValidationBadge(isValid, text = '') {
+    // Tree validation badge has been replaced with controls
+    // This function is kept for compatibility but does nothing
+  }
+
   function showMessage(message, type = 'info') {
     statusEl.className = `notification notification--${type}`;
     statusEl.innerHTML = message;
     statusEl.classList.remove('hidden');
+  }
+
+  function scrollToOutput() {
+    const targetElement = document.getElementById('tool-shell-actions');
+      
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
   }
   
   function hideMessage() {
     statusEl.classList.add('hidden');
   }
   
-  function updateValidationBadge(isValid, text = '') {
-    if (text) {
-      validationBadgeEl.className = `tool-shell__badge tool-shell__badge--${isValid ? 'json-valid' : 'json-invalid'}`;
-      validationBadgeEl.textContent = text;
-      validationBadgeEl.classList.remove('hidden');
-    } else {
-      validationBadgeEl.classList.add('hidden');
-    }
-  }
   
   function updateCharCount(count) {
     charCountEl.textContent = `${count.toLocaleString()} characters`;
@@ -60,17 +155,14 @@
   
   // Extract position from error message
   function extractPosition(errorMessage) {
-    // Try to find position in error message
-    // Chrome: "position 123" or "Unexpected token at position 123"
     let posMatch = errorMessage.match(/position (\d+)/i);
     if (posMatch) {
       return parseInt(posMatch[1]);
     }
     
-    // Firefox: "at line 1 column 123"
     posMatch = errorMessage.match(/line \d+ column (\d+)/i);
     if (posMatch) {
-      return parseInt(posMatch[1]) - 1; // Firefox uses 1-based, we need 0-based
+      return parseInt(posMatch[1]) - 1;
     }
     
     return null;
@@ -83,148 +175,6 @@
     return div.innerHTML;
   }
   
-  // Apply JSON syntax highlighting using CSS classes
-  function applySyntaxHighlighting(json) {
-    return json
-      .replace(/"([^"]+)":/g, '<span class="json-key">"$1"</span>:')
-      .replace(/"([^"]*)"(?=\s*[,\}\]])/g, '<span class="json-string">"$1"</span>')
-      .replace(/:\s*(true|false)/g, ': <span class="json-boolean">$1</span>')
-      .replace(/:\s*(null)/g, ': <span class="json-null">$1</span>')
-      .replace(/:\s*(-?\d+\.?\d*)/g, ': <span class="json-number">$1</span>')
-      .replace(/([{}[\],])/g, '<span class="json-punctuation">$1</span>');
-  }
-  
-  // Try to format JSON by fixing the error temporarily
-  function formatInvalidJSON(input, errorPosition) {
-    // Try to fix the JSON by removing the error character
-    const fixedInput = input.slice(0, errorPosition) + input.slice(errorPosition + 1);
-    
-    let formatted = '';
-    let currentPos = 0;
-    let indent = 0;
-    const indentStr = '  ';
-    let inString = false;
-    let escape = false;
-    
-    try {
-      // Try to parse and format the fixed version
-      const parsed = JSON.parse(fixedInput);
-      const validFormatted = JSON.stringify(parsed, null, 2);
-      
-      // Now we need to insert the error character back into the formatted version
-      // This is tricky - we need to map positions
-      // Simpler approach: format manually with error highlighting
-      
-      for (let i = 0; i < input.length; i++) {
-        const char = input[i];
-        const prevChar = input[i - 1];
-        const nextChar = input[i + 1];
-        
-        // Handle string state
-        if (char === '"' && !escape) {
-          inString = !inString;
-        }
-        escape = (char === '\\' && !escape);
-        
-        // Skip whitespace outside strings
-        if (!inString && (char === ' ' || char === '\t' || char === '\n' || char === '\r')) {
-          continue;
-        }
-        
-        // Highlight error character
-        if (i === errorPosition) {
-          formatted += `<span style="background-color: #ef4444; color: white; padding: 2px 4px; font-weight: bold; border-radius: 3px;">${escapeHtml(char)}</span>`;
-          continue;
-        }
-        
-        // Format structural characters
-        if (!inString) {
-          if (char === '{' || char === '[') {
-            formatted += escapeHtml(char);
-            if (nextChar && nextChar !== '}' && nextChar !== ']') {
-              indent++;
-              formatted += '\n' + indentStr.repeat(indent);
-            }
-          } else if (char === '}' || char === ']') {
-            const prevNonSpace = input.slice(0, i).replace(/\s/g, '').slice(-1);
-            if (prevNonSpace !== '{' && prevNonSpace !== '[' && prevNonSpace !== ',') {
-              indent = Math.max(0, indent - 1);
-              formatted += '\n' + indentStr.repeat(indent);
-            } else {
-              indent = Math.max(0, indent - 1);
-            }
-            formatted += escapeHtml(char);
-          } else if (char === ',') {
-            formatted += escapeHtml(char);
-            // Add newline after comma (unless we just highlighted an error)
-            if (i !== errorPosition - 1 && i !== errorPosition + 1) {
-              formatted += '\n' + indentStr.repeat(indent);
-            }
-          } else if (char === ':') {
-            formatted += escapeHtml(char) + ' ';
-          } else {
-            formatted += escapeHtml(char);
-          }
-        } else {
-          formatted += escapeHtml(char);
-        }
-      }
-      
-      return formatted;
-      
-    } catch (e) {
-      // If fixing didn't work, just format as-is with basic indentation
-      for (let i = 0; i < input.length; i++) {
-        const char = input[i];
-        const nextChar = input[i + 1];
-        
-        // Handle string state
-        if (char === '"' && !escape) {
-          inString = !inString;
-        }
-        escape = (char === '\\' && !escape);
-        
-        // Skip whitespace outside strings
-        if (!inString && (char === ' ' || char === '\t' || char === '\n' || char === '\r')) {
-          continue;
-        }
-        
-        // Highlight error character
-        if (i === errorPosition) {
-          formatted += `<span style="background-color: #ef4444; color: white; padding: 2px 4px; font-weight: bold; border-radius: 3px;">${escapeHtml(char)}</span>`;
-          continue;
-        }
-        
-        // Format structural characters
-        if (!inString) {
-          if (char === '{' || char === '[') {
-            formatted += escapeHtml(char);
-            if (nextChar && nextChar !== '}' && nextChar !== ']') {
-              indent++;
-              formatted += '\n' + indentStr.repeat(indent);
-            }
-          } else if (char === '}' || char === ']') {
-            if (indent > 0) {
-              indent--;
-              formatted += '\n' + indentStr.repeat(indent);
-            }
-            formatted += escapeHtml(char);
-          } else if (char === ',') {
-            formatted += escapeHtml(char);
-            formatted += '\n' + indentStr.repeat(indent);
-          } else if (char === ':') {
-            formatted += escapeHtml(char) + ' ';
-          } else {
-            formatted += escapeHtml(char);
-          }
-        } else {
-          formatted += escapeHtml(char);
-        }
-      }
-      
-      return formatted;
-    }
-  }
   
   // Format with error highlighting (returns HTML)
   function formatWithError(input, error) {
@@ -232,16 +182,20 @@
     const position = extractPosition(errorMsg);
     
     if (position !== null) {
-      // Format the JSON with the error character highlighted
-      const formattedWithError = formatInvalidJSON(input, position);
+      const beforeError = escapeHtml(input.slice(0, position));
+      const errorChar = escapeHtml(input.slice(position, position + 1));
+      const afterError = escapeHtml(input.slice(position + 1));
+      
+      const formattedWithError = beforeError + 
+        `<span style="background-color: #ef4444; color: white; padding: 2px 4px; font-weight: bold; border-radius: 3px;">${errorChar}</span>` + 
+        afterError;
       
       return {
-        output: '<span style="color: #f59e0b; font-weight: bold;">⚠️ JSON with Error (formatted):</span>\n\n' + formattedWithError,
+        output: '<span style="color: #f59e0b; font-weight: bold;">⚠️ JSON with Error:</span>\n\n' + formattedWithError,
         errorMessage: `<strong>Error at position ${position + 1}:</strong> ${errorMsg}<br><small>The error character is highlighted in red above.</small>`,
         isHtml: true
       };
     } else {
-      // No position info, just show the input formatted
       return {
         output: '<span style="color: #f59e0b;">⚠️ Invalid JSON:</span>\n\n' + escapeHtml(input),
         errorMessage: `<strong>Error:</strong> ${errorMsg}`,
@@ -263,29 +217,41 @@
       const parsed = JSON.parse(input);
       const formatted = JSON.stringify(parsed, null, 2);
       
-      // Update output with syntax highlighting
-      outputEl.innerHTML = applySyntaxHighlighting(formatted);
-      outputEl.classList.add('json-valid');
-      outputEl.classList.remove('json-invalid');
+      // Store parsed data for tree view
+      currentData = parsed;
       
-      // Update validation badge
-      updateValidationBadge(true, 'Valid');
+      // Update validation badges
+      updateTreeValidationBadge(true, 'Valid');
+      
+      // Always render tree view
+      renderTreeView(parsed);
+      currentDisplayMode = 'tree';
+      minifiedText = null;
       
       // Show success message
       showMessage('✓ JSON formatted successfully!', 'success');
       setTimeout(hideMessage, 3000);
+      
+      // Scroll to output
+      scrollToOutput();
     } catch (e) {
       // Handle invalid JSON
-      const {output, errorMessage} = formatWithError(input, e);
-      outputEl.innerHTML = output;
-      outputEl.classList.add('json-invalid');
-      outputEl.classList.remove('json-valid');
+      currentData = null;
       
-      // Update validation badge
-      updateValidationBadge(false, 'Invalid');
+      // Update validation badges
+      updateTreeValidationBadge(false, 'Invalid');
+      
+      // Clear tree view
+      if (treeViewContainer) {
+        treeViewContainer.innerHTML = '<div style="text-align: center; color: #e53e3e; padding: 2rem;">Invalid JSON - cannot display tree view</div>';
+      }
       
       // Show error message
+      const {errorMessage} = formatWithError(input, e);
       showMessage(errorMessage, 'error');
+      
+      // Scroll to output
+      scrollToOutput();
     }
   }
   
@@ -302,21 +268,32 @@
       const parsed = JSON.parse(input);
       const minified = JSON.stringify(parsed);
       
-      outputEl.textContent = minified;
-      outputEl.classList.add('json-valid');
-      outputEl.classList.remove('json-invalid');
+      // Store parsed data for tree view
+      currentData = parsed;
       
-      updateValidationBadge(true, 'Valid (Minified)');
+      updateTreeValidationBadge(true, 'Valid');
+      
+      // Show minified text instead of tree view
+      showMinifiedText(minified);
+      currentDisplayMode = 'minified';
+      minifiedText = minified;
+      
       showMessage('✓ JSON minified successfully!', 'success');
       setTimeout(hideMessage, 3000);
-    } catch (e) {
-      const {output, errorMessage} = formatWithError(input, e);
-      outputEl.innerHTML = output;
-      outputEl.classList.add('json-invalid');
-      outputEl.classList.remove('json-valid');
       
-      updateValidationBadge(false, 'Invalid');
+      scrollToOutput();
+    } catch (e) {
+      currentData = null;
+      
+      updateTreeValidationBadge(false, 'Invalid');
+      
+      if (treeViewContainer) {
+        treeViewContainer.innerHTML = '<div style="text-align: center; color: #e53e3e; padding: 2rem;">Invalid JSON - cannot display tree view</div>';
+      }
+      
+      const {errorMessage} = formatWithError(input, e);
       showMessage(errorMessage, 'error');
+      scrollToOutput();
     }
   }
   
@@ -330,44 +307,57 @@
     }
     
     try {
-      JSON.parse(input);
-      outputEl.innerHTML = '<div style="text-align: center; font-size: 1.2rem; color: var(--color-success); margin: 2rem 0;">✓ Valid JSON</div>';
-      outputEl.classList.add('json-valid');
-      outputEl.classList.remove('json-invalid');
+      const parsed = JSON.parse(input);
+      currentData = parsed;
       
-      updateValidationBadge(true, 'Valid');
+      updateTreeValidationBadge(true, 'Valid');
+      
+      // Always render tree view
+      renderTreeView(parsed);
+      currentDisplayMode = 'tree';
+      minifiedText = null;
+      
       showMessage('✓ Your JSON is valid!', 'success');
+      scrollToOutput();
       
       setTimeout(() => {
-        outputEl.innerHTML = '';
         hideMessage();
-        updateValidationBadge(false);
       }, 3000);
     } catch (e) {
-      const {output, errorMessage} = formatWithError(input, e);
-      outputEl.innerHTML = output;
-      outputEl.classList.add('json-invalid');
-      outputEl.classList.remove('json-valid');
+      currentData = null;
       
-      updateValidationBadge(false, 'Invalid');
+      updateTreeValidationBadge(false, 'Invalid');
+      
+      if (treeViewContainer) {
+        treeViewContainer.innerHTML = '<div style="text-align: center; color: #e53e3e; padding: 2rem;">Invalid JSON - cannot display tree view</div>';
+      }
+      
+      const {errorMessage} = formatWithError(input, e);
       showMessage(errorMessage, 'error');
+      scrollToOutput();
     }
   }
   
   function copyResult() {
-    const output = outputEl.textContent;
-    
-    if (!output) {
+    if (!currentData) {
       showMessage('Nothing to copy', 'warning');
       return;
     }
     
-    // Clean output for copying
-    const cleanOutput = output.replace(/^✓.*?\n\n/s, '').trim();
+    // Copy the appropriate format based on current display mode
+    let output;
+    if (currentDisplayMode === 'minified' && minifiedText) {
+      output = minifiedText;
+    } else {
+      // Default to formatted JSON for tree view
+      output = JSON.stringify(currentData, null, 2);
+    }
     
-    navigator.clipboard.writeText(cleanOutput).then(() => {
-      showCopyFeedback();
-      showMessage('✓ Copied to clipboard!', 'success');
+    navigator.clipboard.writeText(output).then(() => {
+      const message = currentDisplayMode === 'minified' ? 
+        '✓ Minified JSON copied to clipboard!' : 
+        '✓ Formatted JSON copied to clipboard!';
+      showMessage(message, 'success');
       setTimeout(hideMessage, 2000);
     }).catch(() => {
       showMessage('Failed to copy to clipboard', 'error');
@@ -376,11 +366,19 @@
   
   function clearAll() {
     inputEl.value = '';
-    outputEl.innerHTML = '';
-    outputEl.classList.remove('json-valid', 'json-invalid');
+    if (treeViewContainer) {
+      treeViewContainer.innerHTML = '';
+    }
+    // Clear external controls as well
+    const externalControls = document.getElementById('tree-controls-container');
+    if (externalControls) {
+      externalControls.innerHTML = '';
+    }
     hideMessage();
-    updateValidationBadge(false);
     updateCharCount(0);
+    currentData = null;
+    currentDisplayMode = 'tree';
+    minifiedText = null;
   }
   
   // Event listeners
@@ -402,7 +400,13 @@
     }
   });
   
+  // Initialize enhanced UI when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeEnhancedUI);
+  } else {
+    initializeEnhancedUI();
+  }
+  
   // Initialize character count
   updateCharCount(inputEl.value.length);
 })();
-

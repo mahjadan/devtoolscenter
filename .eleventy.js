@@ -24,6 +24,8 @@ module.exports = function(eleventyConfig) {
   // Note: JS files are passed through here, then hashed in afterBuild
   eleventyConfig.addPassthroughCopy("src/assets/js");
   eleventyConfig.addPassthroughCopy("src/assets/images");
+  eleventyConfig.addPassthroughCopy("src/assets/css/notifications-standalone.css");
+  eleventyConfig.addPassthroughCopy("src/assets/css/tools/json-tree-view.css");
   eleventyConfig.addPassthroughCopy("src/robots.txt");
   eleventyConfig.addPassthroughCopy("src/_headers");
 
