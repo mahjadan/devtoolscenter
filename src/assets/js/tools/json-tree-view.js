@@ -346,6 +346,9 @@ class JsonTreeView {
     this.container.classList.add('json-tree-fullscreen');
     document.body.style.overflow = 'hidden';
     
+    // Add floating exit button
+    this.addFloatingExitButton();
+    
     // Add escape key listener
     this.escapeHandler = (e) => {
       if (e.key === 'Escape') {
@@ -362,16 +365,89 @@ class JsonTreeView {
     this.container.classList.remove('json-tree-fullscreen');
     document.body.style.overflow = '';
     
+    // Remove floating exit button
+    this.removeFloatingExitButton();
+    
     // Remove escape key listener
     if (this.escapeHandler) {
       document.removeEventListener('keydown', this.escapeHandler);
       this.escapeHandler = null;
     }
     
-    // Update button text
-    const fullscreenBtn = this.container.querySelector('.json-tree-btn');
+    // Update button text - look in both container and external controls
+    let fullscreenBtn = this.container.querySelector('.json-tree-btn--primary');
+    if (!fullscreenBtn) {
+      // Check external controls container
+      const externalContainer = document.getElementById('tree-controls-container');
+      if (externalContainer) {
+        fullscreenBtn = externalContainer.querySelector('.json-tree-btn--primary');
+      }
+    }
     if (fullscreenBtn) {
       fullscreenBtn.textContent = '⛶ Fullscreen';
+    }
+  }
+
+  /**
+   * Add floating exit button for fullscreen mode
+   */
+  addFloatingExitButton() {
+    // Remove any existing floating exit button
+    this.removeFloatingExitButton();
+    
+    // Create floating exit button
+    const exitBtn = document.createElement('button');
+    exitBtn.className = 'json-tree-exit-fullscreen';
+    exitBtn.innerHTML = '✕ Exit Fullscreen (ESC)';
+    exitBtn.title = 'Exit fullscreen mode (or press ESC)';
+    
+    // Style the button - position relative to fullscreen container, not viewport
+    exitBtn.style.cssText = `
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 10000;
+      background: #dc2626;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: all 0.2s ease;
+      font-family: inherit;
+    `;
+    
+    // Add hover effect
+    exitBtn.addEventListener('mouseenter', () => {
+      exitBtn.style.background = '#b91c1c';
+      exitBtn.style.transform = 'scale(1.05)';
+    });
+    
+    exitBtn.addEventListener('mouseleave', () => {
+      exitBtn.style.background = '#dc2626';
+      exitBtn.style.transform = 'scale(1)';
+    });
+    
+    // Add click handler
+    exitBtn.addEventListener('click', () => {
+      this.exitFullscreen();
+    });
+    
+    // Store reference and add to fullscreen container (not body)
+    this.floatingExitBtn = exitBtn;
+    this.container.appendChild(exitBtn);
+  }
+
+  /**
+   * Remove floating exit button
+   */
+  removeFloatingExitButton() {
+    if (this.floatingExitBtn && this.floatingExitBtn.parentNode) {
+      this.floatingExitBtn.parentNode.removeChild(this.floatingExitBtn);
+      this.floatingExitBtn = null;
     }
   }
 

@@ -46,7 +46,7 @@
       collapsed: false,
       showTypes: false,
       showLength: false,
-      indent: 20
+      indent: 16
     });
     
     // Apply dark theme if needed

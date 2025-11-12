@@ -65,7 +65,6 @@ breadcrumbSchema:
 
 <div class="tool-shell__panel tool-shell__panel--output" id="tree-view-panel">
   <label class="tool-shell__label">
-    JSON Tree View
     <div id="tree-controls-container" class="tree-controls-external"></div>
   </label>
   <div 
