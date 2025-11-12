@@ -1329,6 +1329,20 @@
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
   }
 
+  :root[data-theme="dark"] .tool-shell__interface {
+    border-color: rgba(var(--shadow-color-base-rgb), 0.36);
+    background: linear-gradient(
+        165deg,
+        rgba(var(--shadow-color-base-rgb), 0.32) 0%,
+        rgba(var(--shadow-color-base-rgb), 0.18) 55%,
+        rgba(var(--shadow-color-base-rgb), 0.12) 85%,
+        transparent 100%
+      ),
+      rgba(var(--shadow-color-base-rgb), 0.22);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 14px 36px rgba(0, 0, 0, 0.45);
+  }
+
   .tool-shell__interface--split {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   }
@@ -1343,6 +1357,41 @@
         var(--motion-ease-standard),
       box-shadow var(--motion-duration-normal) var(--motion-ease-standard),
       transform var(--motion-duration-quick) var(--motion-ease-standard);
+  }
+
+  :root[data-theme="dark"] .tool-shell__panel {
+    background: linear-gradient(
+        170deg,
+        rgba(var(--shadow-color-base-rgb), 0.18) 0%,
+        rgba(var(--shadow-color-base-rgb), 0.12) 55%,
+        rgba(var(--shadow-color-base-rgb), 0.08) 100%
+      ),
+      rgba(var(--shadow-color-base-rgb), 0.06);
+    border-color: rgba(var(--shadow-color-base-rgb), 0.22);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 10px 26px rgba(0, 0, 0, 0.42);
+  }
+
+  :root[data-theme="dark"] .tool-shell__panel--input {
+    background: linear-gradient(
+        160deg,
+        rgba(74, 179, 255, 0.16) 0%,
+        rgba(74, 179, 255, 0.08) 60%,
+        transparent 100%
+      ),
+      rgba(var(--shadow-color-base-rgb), 0.06);
+    border-color: rgba(74, 179, 255, 0.28);
+  }
+
+  :root[data-theme="dark"] .tool-shell__panel--output {
+    background: linear-gradient(
+        160deg,
+        rgba(74, 179, 255, 0.16) 0%,
+        rgba(74, 179, 255, 0.08) 60%,
+        transparent 100%
+      ),
+      rgba(var(--shadow-color-base-rgb), 0.06);
+    border-color: rgba(31, 158, 95, 0.26);
   }
 
   .tool-shell__panel:focus-within {
