@@ -6,7 +6,9 @@ permalink: /json-formatter/
 icon: 📋
 order: 1
 pageScript: /assets/js/tools/json-formatter.js
-toolStyles: tool-json-formatter.css
+additionalScripts:
+  - /assets/js/tools/json-tree-view.js
+toolStyles: json-tree-view.css
 toolClass: tool-shell--json-formatter
 keywords: json formatter, json validator, json beautifier, format json, validate json
 relatedTools:
@@ -61,13 +63,13 @@ breadcrumbSchema:
 
 <div id="error-message" class="notification hidden"></div>
 
-<div class="tool-shell__panel tool-shell__panel--output">
+<div class="tool-shell__panel tool-shell__panel--output" id="tree-view-panel">
   <label class="tool-shell__label">
-    Formatted Output
-    <span id="validation-badge" class="tool-shell__badge hidden"></span>
+    JSON Tree View
+    <div id="tree-controls-container" class="tree-controls-external"></div>
   </label>
   <div 
-    id="json-output" 
+    id="json-tree-container" 
     class="tool-shell__output"
   ></div>
 </div>

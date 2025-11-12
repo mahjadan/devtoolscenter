@@ -44,6 +44,11 @@
   {# Styles #}
   <link rel="stylesheet" href="{{ '/assets/css/styles.css' | assetUrl }}">
   <link rel="stylesheet" href="/assets/css/notifications-standalone.css">
+  {% if toolStyles %}
+  {% for styleFile in toolStyles.split(',') %}
+  <link rel="stylesheet" href="{{ ('/assets/css/tools/' + styleFile.trim()) | assetUrl }}">
+  {% endfor %}
+  {% endif %}
   
   {# Theme Toggle - Inline to prevent flash #}
   <script>
@@ -105,6 +110,11 @@
   <script src="{{ '/assets/js/nav-active-state.js' | assetUrl }}"></script>
   
   {# Page-specific scripts #}
+  {% if additionalScripts %}
+  {% for script in additionalScripts %}
+  <script src="{{ script | assetUrl }}" defer></script>
+  {% endfor %}
+  {% endif %}
   {% if pageScript %}
   <script src="{{ pageScript | assetUrl }}" defer></script>
   {% endif %}
