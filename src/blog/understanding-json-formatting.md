@@ -15,6 +15,7 @@ tags:
   - formatting
   - validation
   - data-structures
+keywords: json formatting, json validator, json beautifier, format json, validate json, json tutorial, json guide, json best practices, json syntax, json structure
 schema:
   "@context": "https://schema.org"
   "@type": "Article"

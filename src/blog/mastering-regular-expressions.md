@@ -15,6 +15,7 @@ tags:
   - regular-expressions
   - pattern-matching
   - validation
+keywords: regular expressions, regex, regex tutorial, regex patterns, regex guide, pattern matching, regex examples, regex cheat sheet, regex validator, regex tester
 schema:
   "@context": "https://schema.org"
   "@type": "Article"

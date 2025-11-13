@@ -15,6 +15,7 @@ tags:
   - encoding
   - binary
   - data-encoding
+keywords: base64 encoding, base64 decoder, base64 encoder, encode base64, decode base64, base64 tutorial, base64 explained, base64 converter, binary encoding, base64 guide
 schema:
   "@context": "https://schema.org"
   "@type": "Article"

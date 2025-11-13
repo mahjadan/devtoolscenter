@@ -14,6 +14,7 @@ tags:
   - json
   - configuration
   - data-formats
+keywords: yaml vs json, yaml json comparison, yaml format, json format, configuration files, data serialization, yaml tutorial, json tutorial, yaml vs json when to use
 schema:
   "@context": "https://schema.org"
   "@type": "Article"

@@ -14,6 +14,7 @@ tags:
   - json
   - data-query
   - api
+keywords: jsonpath, jsonpath expressions, jsonpath query, json query, jsonpath tutorial, jsonpath guide, query json, extract json data, jsonpath syntax, jsonpath examples
 schema:
   "@context": "https://schema.org"
   "@type": "Article"

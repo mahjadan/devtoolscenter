@@ -15,6 +15,7 @@ tags:
   - percent-encoding
   - uris
   - web-development
+keywords: url encoding, percent encoding, uri encoding, url encode, url decode, percent encode, url encoding tutorial, url encoding explained, uri encoding guide, url escape
 schema:
   "@context": "https://schema.org"
   "@type": "Article"
