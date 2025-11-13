@@ -11,10 +11,14 @@ relatedArticles:
   - /blog/understanding-base64-encoding/
   - /blog/understanding-json-formatting/
 tags:
+  - blog
   - uuid
   - unique-identifiers
   - database
   - development
+faq:
+  - question: Which UUID version should I use?
+    answer: Use v4 for random IDs; use v1 if you need time-ordered IDs and accept metadata leakage risks.
 keywords: uuid, uuid generator, unique identifier, uuid v4, uuid tutorial, generate uuid, uuid explained, unique id, guid, uuid best practices
 schema:
   "@context": "https://schema.org"

@@ -3,6 +3,49 @@ layout: layouts/base.njk
 ---
 
 <article class="container mx-auto px-4 py-8 max-w-4xl article-animate">
+  {# JSON-LD: Article + Breadcrumbs (auto) #}
+  {% set __pageUrl = 'https://devtoolscenter.com' + (page.url or '') %}
+  {% set __image = image or '/assets/images/favicon.svg' %}
+  {% set schema = schema or {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": title,
+    "datePublished": date,
+    "dateModified": date,
+    "author": author or "DevToolsCenter Team",
+    "image": __image,
+    "url": __pageUrl,
+    "description": description
+  } %}
+  {% set breadcrumbSchema = breadcrumbSchema or {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://devtoolscenter.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://devtoolscenter.com/blog/" },
+      { "@type": "ListItem", "position": 3, "name": title, "item": __pageUrl }
+    ]
+  } %}
+  {% if faq and faq | size %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {% for item in faq %}
+      {
+        "@type": "Question",
+        "name": {{ item.question | dump }},
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": {{ item.answer | dump }}
+        }
+      }{% if not loop.last %},{% endif %}
+      {% endfor %}
+    ]
+  }
+  </script>
+  {% endif %}
   {# Article Header - Enhanced Design #}
   <header class="mb-12">
     {# Breadcrumb Navigation #}

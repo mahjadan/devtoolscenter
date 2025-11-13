@@ -7,6 +7,9 @@ icon: 🔐
 order: 4
 pageScript: /assets/js/tools/jwt-decoder.js
 keywords: jwt decoder, jwt parser, decode jwt, json web token, jwt debugger
+tags:
+  - tools
+  - jwt
 relatedTools:
   - /json-formatter/
   - /base64-encode-decode/

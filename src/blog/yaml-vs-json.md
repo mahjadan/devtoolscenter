@@ -10,10 +10,14 @@ relatedToolName: YAML to JSON Converter
 relatedArticles:
   - /blog/understanding-json-formatting/
 tags:
+  - blog
   - yaml
   - json
   - configuration
   - data-formats
+faq:
+  - question: Is YAML always better for config files?
+    answer: YAML is more human-friendly, but JSON is faster and stricter; choose based on team preference and tooling.
 keywords: yaml vs json, yaml json comparison, yaml format, json format, configuration files, data serialization, yaml tutorial, json tutorial, yaml vs json when to use
 schema:
   "@context": "https://schema.org"

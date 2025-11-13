@@ -3,7 +3,58 @@ layout: layouts/base.njk
 ---
 
 <div class="container mx-auto px-4 py-8 max-w-6xl">
+  {# JSON-LD: WebApplication + Breadcrumbs (auto) #}
+  {% set __pageUrl = 'https://devtoolscenter.com' + (page.url or '') %}
+  {% set __image = image or '/assets/images/favicon.svg' %}
+  {% set schema = schema or {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": (title ~ " | DevTools Center"),
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web",
+    "url": __pageUrl,
+    "image": __image,
+    "description": description,
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  } %}
+  {% set breadcrumbSchema = breadcrumbSchema or {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://devtoolscenter.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://devtoolscenter.com/#tools-section" },
+      { "@type": "ListItem", "position": 3, "name": title, "item": __pageUrl }
+    ]
+  } %}
+  {% if faq and faq | size %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {% for item in faq %}
+      {
+        "@type": "Question",
+        "name": {{ item.question | dump }},
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": {{ item.answer | dump }}
+        }
+      }{% if not loop.last %},{% endif %}
+      {% endfor %}
+    ]
+  }
+  </script>
+  {% endif %}
   <div class="tool-shell{% if toolClass %} {{ toolClass }}{% endif %}">
+    {# Breadcrumb Navigation #}
+    <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
+      <a href="/" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Home</a>
+      <span class="mx-1">/</span>
+      <a href="/#tools-section" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Tools</a>
+      <span class="mx-1">/</span>
+      <span class="text-primary-600 dark:text-primary-400 font-medium">{{ title }}</span>
+    </div>
     {# Tool Header #}
     <div class="tool-shell__header motion-fade-in">
       <h1 class="tool-shell__title">{{ title }}</h1>
@@ -40,6 +91,33 @@ layout: layouts/base.njk
   <div class="tool-shell__seo">
     <div class="prose dark:prose-invert max-w-none">
       {{ seoContent | safe }}
+    </div>
+  </div>
+  {% endif %}
+
+  {# Related Articles by Shared Tag #}
+  {% if tags and collections.blog and (collections.blog | size) %}
+  <div class="mt-16">
+    <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Related Articles</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {% set shown = 0 %}
+      {% for post in collections.blog %}
+        {% if shown < 4 and post.data.tags %}
+          {% set hasShared = false %}
+          {% for t in post.data.tags %}
+            {% if t in tags and t != 'blog' %}
+              {% set hasShared = true %}
+            {% endif %}
+          {% endfor %}
+          {% if hasShared %}
+            <a href="{{ post.url }}" class="group p-6 bg-white dark:bg-gray-800 rounded-lg border-2 border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors">
+              <h3 class="font-semibold text-lg mb-2 text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400">{{ post.data.title }}</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-300">{{ post.data.description }}</p>
+            </a>
+            {% set shown = shown + 1 %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
     </div>
   </div>
   {% endif %}

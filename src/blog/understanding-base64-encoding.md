@@ -11,10 +11,14 @@ relatedArticles:
   - /blog/understanding-url-encoding/
   - /blog/understanding-json-formatting/
 tags:
+  - blog
   - base64
   - encoding
   - binary
   - data-encoding
+faq:
+  - question: Is Base64 encryption?
+    answer: No. Base64 is an encoding scheme, not encryption; it’s easily reversible and provides no confidentiality.
 keywords: base64 encoding, base64 decoder, base64 encoder, encode base64, decode base64, base64 tutorial, base64 explained, base64 converter, binary encoding, base64 guide
 schema:
   "@context": "https://schema.org"

@@ -13,18 +13,19 @@
   <link rel="canonical" href="https://devtoolscenter.com{{ page.url }}">
   
   {# Open Graph Tags #}
+  {% set ogImage = image or '/assets/images/favicon.svg' %}
   <meta property="og:type" content="website">
   <meta property="og:title" content="{{ title }}{% if title %} | {% endif %}DevTools Center">
   <meta property="og:description" content="{{ description or 'Free online developer tools for JSON formatting, JWT decoding, Base64 encoding, and more.' }}">
   <meta property="og:url" content="https://devtoolscenter.com{{ page.url }}">
   <meta property="og:site_name" content="DevTools Center">
-  {% if image %}<meta property="og:image" content="{{ image }}">{% endif %}
+  <meta property="og:image" content="{{ ogImage }}">
   
   {# Twitter Card Tags #}
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ title }}{% if title %} | {% endif %}DevTools Center">
   <meta name="twitter:description" content="{{ description or 'Free online developer tools for JSON formatting, JWT decoding, Base64 encoding, and more.' }}">
-  {% if image %}<meta name="twitter:image" content="{{ image }}">{% endif %}
+  <meta name="twitter:image" content="{{ ogImage }}">
   
   {# Favicon #}
   <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
@@ -118,6 +119,56 @@
   {% if pageScript %}
   <script src="{{ pageScript | assetUrl }}" defer></script>
   {% endif %}
+  
+  {# GTM Events: blog→tool clicks and tool interactions #}
+  <script>
+    (function() {
+      function pushEvent(evt) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(evt);
+      }
+      // Blog → Tool navigation
+      document.addEventListener('click', function(e) {
+        var anchor = e.target && e.target.closest && e.target.closest('a');
+        if (!anchor) return;
+        try {
+          var href = anchor.getAttribute('href') || '';
+          // Only internal links
+          if (!href || href.indexOf('http') === 0 || href.indexOf('mailto:') === 0 || href.indexOf('tel:') === 0) return;
+          // From blog to a tool page (heuristic: not a blog URL)
+          if ((location.pathname || '').indexOf('/blog/') === 0 && href.indexOf('/blog/') !== 0) {
+            pushEvent({
+              event: 'blog_to_tool_click',
+              link: href,
+              page: location.pathname
+            });
+          }
+        } catch (_) {}
+      }, true);
+      // Tool actions: button clicks inside tool shell
+      document.addEventListener('click', function(e) {
+        var btn = e.target && e.target.closest && e.target.closest('.tool-shell button, .btn');
+        if (!btn) return;
+        var toolShell = e.target.closest('.tool-shell');
+        if (!toolShell) return;
+        pushEvent({
+          event: 'tool_action',
+          action: (btn.textContent || '').trim(),
+          tool: location.pathname
+        });
+      }, true);
+      // Tool actions: paste into any tool textarea
+      document.addEventListener('paste', function(e) {
+        var ta = e.target && e.target.closest && e.target.closest('.tool-shell textarea');
+        if (!ta) return;
+        pushEvent({
+          event: 'tool_paste',
+          fieldId: ta.id || '',
+          tool: location.pathname
+        });
+      }, true);
+    })();
+  </script>
 </body>
 </html>
 

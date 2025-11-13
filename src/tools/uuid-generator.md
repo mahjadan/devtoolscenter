@@ -7,6 +7,9 @@ icon: 🆔
 order: 8
 pageScript: /assets/js/tools/uuid-generator.js
 keywords: uuid generator, generate uuid, random uuid, uuid v4, unique id generator
+tags:
+  - tools
+  - uuid
 relatedTools:
   - /json-formatter/
   - /base64-encode-decode/

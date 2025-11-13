@@ -11,10 +11,14 @@ relatedArticles:
   - /blog/yaml-vs-json/
   - /blog/jsonpath-expressions-guide/
 tags:
+  - blog
   - json
   - formatting
   - validation
   - data-structures
+faq:
+  - question: What’s the difference between formatting and minifying JSON?
+    answer: Formatting adds whitespace for readability; minifying removes whitespace to reduce size for transmission.
 keywords: json formatting, json validator, json beautifier, format json, validate json, json tutorial, json guide, json best practices, json syntax, json structure
 schema:
   "@context": "https://schema.org"

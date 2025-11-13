@@ -10,10 +10,14 @@ relatedToolName: JWT Decoder
 relatedArticles:
   - /blog/understanding-json-formatting/
 tags:
+  - blog
   - jwt
   - authentication
   - security
   - tokens
+faq:
+  - question: Does decoding a JWT verify its signature?
+    answer: No. Decoding only parses the header and payload. Verification checks the signature against a trusted key.
 keywords: jwt tokens, json web tokens, jwt authentication, jwt security, jwt explained, jwt tutorial, jwt best practices, jwt implementation, jwt vs sessions, jwt claims, jwt algorithms
 schema:
   "@context": "https://schema.org"

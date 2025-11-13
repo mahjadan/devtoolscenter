@@ -7,6 +7,9 @@ icon: 🔤
 order: 7
 pageScript: /assets/js/tools/base64-encoder.js
 keywords: base64 encoder, base64 decoder, encode base64, decode base64, base64 converter
+tags:
+  - tools
+  - base64
 relatedTools:
   - /url-encode-decode/
   - /json-formatter/

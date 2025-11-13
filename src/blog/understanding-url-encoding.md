@@ -11,10 +11,14 @@ relatedArticles:
   - /blog/understanding-base64-encoding/
   - /blog/understanding-json-formatting/
 tags:
+  - blog
   - url-encoding
   - percent-encoding
   - uris
   - web-development
+faq:
+  - question: Should I use encodeURI or encodeURIComponent?
+    answer: Use encodeURI for full URLs and encodeURIComponent for individual components like query values.
 keywords: url encoding, percent encoding, uri encoding, url encode, url decode, percent encode, url encoding tutorial, url encoding explained, uri encoding guide, url escape
 schema:
   "@context": "https://schema.org"
