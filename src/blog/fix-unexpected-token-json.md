@@ -17,7 +17,7 @@ faq:
 
 Run suspicious payloads through a formatter/validator to spot syntax issues instantly.
 
-[Try the JSON Formatter](/json-formatter/)
+ 
 
 
 

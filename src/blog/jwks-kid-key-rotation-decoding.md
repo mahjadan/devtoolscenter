@@ -16,8 +16,32 @@ faq:
 ---
 
 When verification fails after key rotation, fetch the latest JWKS and ensure your verifier selects the correct key by `kid`.
+ 
+## How JWKS works
+- Issuer exposes `/.well-known/jwks.json`.
+- Each entry contains `kid`, `kty`, `alg`, and key material (`n`, `e` for RSA).
+ 
+## Rotation scenarios
+- New key added with a new `kid`; old key remains until all tokens expire.
+- Old key removed; tokens signed with it will fail verification.
+ 
+## Verifier behavior
+- Cache JWKS with reasonable TTL; on verification failure, refresh cache.
+- Select key strictly by `kid`; do not try arbitrary keys.
+ 
+## Node sketch
+```js
+if (verificationFails) {
+  refreshJwks();
+  retryVerification();
+}
+```
+ 
+## Troubleshooting
+- Multiple issuers/tenants: ensure you fetch the correct JWKS per issuer.
+- Stale caches in serverless: reinitialize on cold starts or keep a small TTL.
 
-[Try the JWT Decoder](/jwt-decoder/)
+ 
 
 
 

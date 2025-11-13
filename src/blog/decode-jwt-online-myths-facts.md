@@ -16,8 +16,21 @@ faq:
 ---
 
 Online decoders vary. Prefer client-side tools, anonymize sensitive tokens, and never share production secrets in third-party tools.
+ 
+## Myths vs facts
+- Myth: “Decoding proves a token is valid.”  
+  Fact: Only signature verification and claim checks prove validity.
+- Myth: “All online decoders are the same.”  
+  Fact: Some send tokens to servers; prefer offline/client‑side tools.
+- Myth: “Padding or URL chars don’t matter.”  
+  Fact: Base64URL normalization is often required for raw decoders.
+ 
+## Safer practices
+- Mask or truncate sensitive parts when sharing examples.
+- Use non‑production tokens in demos.
+- Verify in your application environment with pinned algorithms.
 
-[Try the JWT Decoder](/jwt-decoder/)
+ 
 
 
 

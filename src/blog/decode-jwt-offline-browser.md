@@ -16,8 +16,27 @@ faq:
 ---
 
 Use privacy-first tools to decode tokens offline. This reduces risk while debugging sensitive issues.
+ 
+## Offline approaches
+- Client‑side decoders (this site runs entirely in your browser)
+- Local scripts with Node/Python
+ 
+## Example: browser-only decode
+```html
+<script>
+  function b64url(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return atob(s)}
+  function decode(token){
+    const [h,p]=token.split('.');
+    return { header: JSON.parse(b64url(h)), payload: JSON.parse(b64url(p)) };
+  }
+</script>
+```
+ 
+## Operational guidance
+- Never paste production secrets into third‑party tools.
+- Redact tokens when sharing logs or tickets.
 
-[Try the JWT Decoder](/jwt-decoder/)
+ 
 
 
 

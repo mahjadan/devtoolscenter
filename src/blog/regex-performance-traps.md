@@ -17,7 +17,7 @@ faq:
 
 Measure before you optimize. Test your patterns interactively and iterate.
 
-[Try the Regex Tester](/regex-tester/)
+ 
 
 
 

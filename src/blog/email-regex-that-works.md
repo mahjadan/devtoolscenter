@@ -17,7 +17,7 @@ faq:
 
 Test patterns safely in the browser before integrating into your codebase.
 
-[Try the Regex Tester](/regex-tester/)
+ 
 
 
 

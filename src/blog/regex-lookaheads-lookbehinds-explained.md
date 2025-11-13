@@ -17,7 +17,7 @@ faq:
 
 Lookarounds are powerful for context-sensitive matches. Try them live before shipping.
 
-[Try the Regex Tester](/regex-tester/)
+ 
 
 
 

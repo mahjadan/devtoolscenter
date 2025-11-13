@@ -17,7 +17,7 @@ faq:
 
 Parsing turns JSON into objects; validation ensures syntactic correctness (and optionally structure). Use both appropriately.
 
-[Try the JSON Formatter](/json-formatter/)
+ 
 
 
 

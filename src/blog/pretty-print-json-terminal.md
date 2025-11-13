@@ -17,7 +17,7 @@ faq:
 
 Use jq for on-the-fly formatting; when you’re in the browser, our JSON Formatter is fastest for quick checks.
 
-[Try the JSON Formatter](/json-formatter/)
+ 
 
 
 
