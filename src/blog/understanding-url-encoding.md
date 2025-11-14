@@ -10,6 +10,8 @@ relatedToolName: URL Encoder / Decoder
 relatedArticles:
   - /blog/understanding-base64-encoding/
   - /blog/understanding-json-formatting/
+  - /blog/jwt-tokens-explained/
+  - /blog/mastering-regular-expressions/
 tags:
   - blog
   - url-encoding
@@ -204,6 +206,17 @@ const endpoint = `/api/users/${encodeURIComponent(userId)}`;
 | `/` | `%2F` | Forward slash |
 | `:` | `%3A` | Colon |
 | `@` | `%40` | At symbol |
+
+## Internationalization Tips
+
+- Non-ASCII characters (e.g., emojis, CJK) must be percent-encoded in URLs
+- Example: "café ☕" → encodeURIComponent("café ☕") → "caf%C3%A9%20%E2%98%95"
+
+## Server-side Pitfalls
+
+- Avoid double-encoding: many frameworks auto-encode query strings
+- Always decode once at the boundary; validate inputs before use
+- Normalize encodings (UTF-8) to avoid mismatches
 
 ## JavaScript Methods
 

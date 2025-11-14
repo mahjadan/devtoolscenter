@@ -9,6 +9,8 @@ relatedTool: /yaml-to-json/
 relatedToolName: YAML to JSON Converter
 relatedArticles:
   - /blog/understanding-json-formatting/
+  - /blog/jsonpath-expressions-guide/
+  - /blog/understanding-base64-encoding/
 tags:
   - blog
   - yaml
@@ -525,6 +527,18 @@ age: 30  // 20 bytes (with newlines)
 - **Converters**: yq, js-yaml
 - **Parsers**: PyYAML, SnakeYAML, yaml-cpp
 - **Editors**: Most modern editors with YAML plugins
+
+## Decision Guide
+
+- Team hand-edits configs frequently → Prefer YAML for readability and comments
+- Configs are machine-generated and strictly validated → Prefer JSON, enforce with JSON Schema
+- Need rich inline docs and anchors/aliases → YAML
+- Need maximum parsing performance and tooling ubiquity → JSON
+- Mixed stacks (common in practice) → YAML for infra/config, JSON for API payloads
+
+### Try it: YAML ⇄ JSON
+- Convert between formats instantly with our YAML to JSON Converter (/yaml-to-json/)
+- Validate and format JSON with the JSON Formatter & Validator (/json-formatter/)
 
 ## Conclusion
 

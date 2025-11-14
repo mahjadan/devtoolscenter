@@ -9,6 +9,9 @@ relatedTool: /jsonpath-tester/
 relatedToolName: JSONPath Tester
 relatedArticles:
   - /blog/understanding-json-formatting/
+  - /blog/mastering-regular-expressions/
+  - /blog/understanding-url-encoding/
+  - /blog/understanding-base64-encoding/
 tags:
   - blog
   - jsonpath

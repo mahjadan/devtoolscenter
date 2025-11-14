@@ -164,6 +164,27 @@ layout: layouts/base.njk
   </div>
   {% endif %}
 
+  {# FAQ Section #}
+  {% if faq and faq | size %}
+  <div class="mt-16 pt-8 border-t-2 border-gray-200 dark:border-gray-700">
+    <h2 class="text-3xl font-bold mb-8 text-gray-900 dark:text-white">Frequently Asked Questions</h2>
+    <div class="space-y-6">
+      {% for item in faq %}
+      <div class="faq-item p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 rounded-xl border border-blue-200 dark:border-gray-600">
+        <h3 class="faq-question text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-start">
+          <span class="inline-flex items-center justify-center w-8 h-8 bg-blue-600 dark:bg-blue-500 text-white rounded-full text-sm font-bold mr-3 mt-0.5 flex-shrink-0">Q</span>
+          {{ item.question }}
+        </h3>
+        <div class="faq-answer text-gray-700 dark:text-gray-300 leading-relaxed ml-11">
+          <span class="inline-flex items-center justify-center w-8 h-8 bg-green-600 dark:bg-green-500 text-white rounded-full text-sm font-bold mr-3 mb-1 float-left">A</span>
+          <p class="pl-11">{{ item.answer }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
   {# Related Articles #}
   {% if relatedArticles %}
   <div class="mt-12 pt-8 border-t-2 border-gray-200 dark:border-gray-700">

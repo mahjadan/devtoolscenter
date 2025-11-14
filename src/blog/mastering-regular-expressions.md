@@ -10,6 +10,8 @@ relatedToolName: Regex Tester
 relatedArticles:
   - /blog/understanding-json-formatting/
   - /blog/understanding-url-encoding/
+  - /blog/jsonpath-expressions-guide/
+  - /blog/jwt-tokens-explained/
 tags:
   - blog
   - regex
@@ -285,6 +287,12 @@ Similar to lookahead but checks what comes before:
 (?<=\$)\d+     # Digits preceded by $
 (?<!\$)\d+     # Digits NOT preceded by $
 ```
+
+## Unicode and Flags
+
+- Use the `u` flag for proper Unicode handling
+- Be careful when matching emojis or surrogate pairs; prefer `\p{Emoji}` classes where supported
+- Normalize text (NFC) when comparing composed/accented characters
 
 ## Best Practices
 

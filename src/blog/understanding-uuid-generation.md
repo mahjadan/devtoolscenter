@@ -10,6 +10,8 @@ relatedToolName: UUID Generator
 relatedArticles:
   - /blog/understanding-base64-encoding/
   - /blog/understanding-json-formatting/
+  - /blog/understanding-url-encoding/
+  - /blog/jwt-tokens-explained/
 tags:
   - blog
   - uuid
@@ -109,6 +111,21 @@ Generated using random or pseudo-random numbers:
 Similar to v3, but uses SHA-1 hashing:
 - **Better Security**: SHA-1 is more secure than MD5
 - **Use Case**: Creating deterministic UUIDs from names
+
+```javascript
+// JavaScript (uuid library)
+import { v5 as uuidv5 } from 'uuid';
+const ns = uuidv5.DNS; // or a custom namespace UUID
+const id = uuidv5('example.com', ns);
+```
+
+```python
+# Python
+import uuid
+ns = uuid.NAMESPACE_DNS
+id = uuid.uuid5(ns, 'example.com')
+```
+
 
 ## UUID Structure
 
@@ -227,12 +244,30 @@ SELECT NEWID();
 
 ### URL-Safe UUIDs
 
-For use in URLs, remove hyphens and use Base64URL:
+Prefer encoding the 16-byte UUID into Base64URL for compact, URL-safe IDs.
 
 ```javascript
+// Convert hyphenated UUID string -> Uint8Array (16 bytes)
+function uuidToBytes(uuid) {
+  const hex = uuid.replace(/-/g, '');
+  const bytes = new Uint8Array(16);
+  for (let i = 0; i < 16; i++) {
+    bytes[i] = parseInt(hex.substr(i * 2, 2), 16);
+  }
+  return bytes;
+}
+
+// Uint8Array -> Base64URL string
+function bytesToBase64Url(bytes) {
+  let binary = '';
+  for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+  const b64 = btoa(binary);
+  return b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+}
+
 const uuid = "550e8400-e29b-41d4-a716-446655440000";
-const urlSafe = uuid.replace(/-/g, '');
-// → "550e8400e29b41d4a716446655440000"
+const b64url = bytesToBase64Url(uuidToBytes(uuid));
+// Example → "VQ6EAOKbQdSnFkZmVURAQA"
 ```
 
 ### Shortened UUIDs

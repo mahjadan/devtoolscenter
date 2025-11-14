@@ -10,6 +10,8 @@ relatedToolName: Base64 Encoder / Decoder
 relatedArticles:
   - /blog/understanding-url-encoding/
   - /blog/understanding-json-formatting/
+  - /blog/jwt-tokens-explained/
+  - /blog/understanding-uuid-generation/
 tags:
   - blog
   - base64
@@ -19,7 +21,7 @@ tags:
 faq:
   - question: Is Base64 encryption?
     answer: No. Base64 is an encoding scheme, not encryption; it’s easily reversible and provides no confidentiality.
-keywords: base64 encoding, base64 decoder, base64 encoder, encode base64, decode base64, base64 tutorial, base64 explained, base64 converter, binary encoding, base64 guide
+keywords: base64 encoding, base64 decoder, base64 encoder, encode base64, decode base64, base64 tutorial, base64 explained, base64 converter, binary encoding, base64 guide, base64url vs base64, base64 data uri
 schema:
   "@context": "https://schema.org"
   "@type": "Article"
@@ -86,9 +88,25 @@ Encoded: SGVsbG8=
 - Most common variant
 
 ### Base64URL
-- Characters: `A-Z`, `a-z`, `0-9`, `-`, `_`
-- No padding or uses `-` instead of `=`
+- Characters: `A-Z`, `a-z`, `0-9`, `-`, `_` (replaces `+` with `-` and `/` with `_`)
+- Padding `=` is typically omitted
 - URL-safe variant for use in URLs and filenames
+
+#### Converting between Base64 and Base64URL (JavaScript)
+```javascript
+// Standard Base64 -> Base64URL (assumes input is standard Base64 string)
+function toBase64Url(b64) {
+  return b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+}
+
+// Base64URL -> Standard Base64
+function fromBase64Url(b64url) {
+  let b64 = b64url.replace(/-/g, '+').replace(/_/g, '/');
+  // pad to length multiple of 4
+  while (b64.length % 4) b64 += '=';
+  return b64;
+}
+```
 
 ## Common Use Cases
 
@@ -132,6 +150,11 @@ Since JSON only supports text, binary data must be Base64-encoded:
 ```
 
 ## Base64 Encoding Best Practices
+
+### Security Reminder
+- Base64 is not encryption; never rely on it for confidentiality
+- Store and transmit secrets using proper encryption and KMS/secret managers
+
 
 ### When to Use Base64
 

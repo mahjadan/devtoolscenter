@@ -10,6 +10,8 @@ relatedToolName: JSON Formatter & Validator
 relatedArticles:
   - /blog/yaml-vs-json/
   - /blog/jsonpath-expressions-guide/
+  - /blog/understanding-base64-encoding/
+  - /blog/understanding-url-encoding/
 tags:
   - blog
   - json
@@ -205,6 +207,35 @@ Validation ensures your JSON is syntactically correct and can be parsed without 
    ```
 
 ### Schema Validation
+
+End-to-end example using a minimal schema:
+
+```json
+// schema.json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "age": { "type": "integer", "minimum": 0 }
+  },
+  "required": ["name"],
+  "additionalProperties": false
+}
+```
+
+```json
+// data.json (valid)
+{ "name": "Alice", "age": 30 }
+```
+
+```json
+// data.json (invalid)
+{ "age": -5 }
+```
+
+Many validators will report: missing required property "name" and "age" must be >= 0.
+
 
 Beyond syntax validation, JSON Schema allows you to validate:
 - Data types
