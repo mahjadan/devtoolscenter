@@ -9,11 +9,19 @@ relatedTool: /jsonpath-tester/
 relatedToolName: JSONPath Tester
 relatedArticles:
   - /blog/understanding-json-formatting/
+  - /blog/mastering-regular-expressions/
+  - /blog/understanding-url-encoding/
+  - /blog/understanding-base64-encoding/
 tags:
+  - blog
   - jsonpath
   - json
   - data-query
   - api
+faq:
+  - question: Is JSONPath part of the JSON spec?
+    answer: No. JSONPath is a separate query language; implementations differ slightly between libraries.
+keywords: jsonpath, jsonpath expressions, jsonpath query, json query, jsonpath tutorial, jsonpath guide, query json, extract json data, jsonpath syntax, jsonpath examples
 schema:
   "@context": "https://schema.org"
   "@type": "Article"

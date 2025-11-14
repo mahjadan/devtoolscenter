@@ -1,0 +1,35 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: collections.tagList
+  size: 1
+  alias: tag
+permalink: "/blog/tags/{{ tag | slug }}/"
+eleventyComputed:
+  title: "Posts tagged '{{ tag }}'"
+  description: "Articles in the '{{ tag }}' topic."
+---
+
+<section class="container mx-auto px-4 py-12 max-w-4xl">
+  <div class="mb-6 text-sm text-gray-600 dark:text-gray-400">
+    <a href="/blog/" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Blog</a>
+    <span class="mx-1">/</span>
+    <a href="/blog/tags/" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Tags</a>
+    <span class="mx-1">/</span>
+    <span class="text-primary-600 dark:text-primary-400 font-medium">#{{ tag }}</span>
+  </div>
+
+  <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">#{{ tag }}</h1>
+
+  <div class="space-y-4">
+    {% for post in collections[ tag ] %}
+    <a href="{{ post.url }}" class="block p-5 bg-white dark:bg-gray-800 rounded-lg border-2 border-gray-200 dark:border-gray-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors">
+      <h2 class="text-xl font-semibold mb-1 text-gray-900 dark:text-white">{{ post.data.title }}</h2>
+      <p class="text-sm text-gray-600 dark:text-gray-300">{{ post.data.description }}</p>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+
+

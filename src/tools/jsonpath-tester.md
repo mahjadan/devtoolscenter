@@ -7,6 +7,9 @@ icon: 🎯
 order: 6
 pageScript: /assets/js/tools/jsonpath-tester.js
 keywords: jsonpath tester, jsonpath query, json query, test jsonpath, jsonpath expression
+tags:
+  - tools
+  - jsonpath
 relatedTools:
   - /json-formatter/
   - /regex-tester/

@@ -10,11 +10,18 @@ relatedToolName: Regex Tester
 relatedArticles:
   - /blog/understanding-json-formatting/
   - /blog/understanding-url-encoding/
+  - /blog/jsonpath-expressions-guide/
+  - /blog/jwt-tokens-explained/
 tags:
+  - blog
   - regex
   - regular-expressions
   - pattern-matching
   - validation
+faq:
+  - question: Why does my regex seem slow?
+    answer: Patterns with excessive backtracking (like nested quantifiers) can cause performance issues; simplify and anchor your regex.
+keywords: regular expressions, regex, regex tutorial, regex patterns, regex guide, pattern matching, regex examples, regex cheat sheet, regex validator, regex tester
 schema:
   "@context": "https://schema.org"
   "@type": "Article"
@@ -280,6 +287,12 @@ Similar to lookahead but checks what comes before:
 (?<=\$)\d+     # Digits preceded by $
 (?<!\$)\d+     # Digits NOT preceded by $
 ```
+
+## Unicode and Flags
+
+- Use the `u` flag for proper Unicode handling
+- Be careful when matching emojis or surrogate pairs; prefer `\p{Emoji}` classes where supported
+- Normalize text (NFC) when comparing composed/accented characters
 
 ## Best Practices
 

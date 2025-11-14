@@ -1810,7 +1810,30 @@
     margin-top: 0;
   }
 
+  .prose ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .prose ol {
+    list-style-type: decimal;
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .prose li {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+
   .prose ul > li::marker {
+    color: var(--color-text-muted);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .prose ol > li::marker {
     color: var(--color-text-muted);
     font-weight: var(--font-weight-bold);
   }
@@ -1950,6 +1973,191 @@
   .prose pre code .token.attr-name,
   .prose pre code .token.selector {
     color: #005cc5; /* blue for attribute names */
+  }
+
+  /* Tool Link Inline Styles */
+  .tool-link,
+  a.tool-link,
+  .prose a.tool-link {
+    display: inline-flex !important;
+    align-items: center;
+    padding: 0.6rem 1.2rem;
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+    color: white !important;
+    text-decoration: none !important;
+    text-underline-offset: 0 !important;
+    text-decoration-line: none !important;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    margin-left: 1rem;
+  }
+
+  .tool-link::before {
+    content: "🔒";
+    margin-right: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .tool-link::after {
+    content: "✓ Client-Side";
+    margin-left: 0.75rem;
+    background: #065f46;
+    color: white;
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.25rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .tool-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+    background: linear-gradient(135deg, #059669, #047857);
+    color: white !important;
+    text-decoration: none !important;
+  }
+
+  .tool-link:focus {
+    outline: none;
+    text-decoration: none !important;
+  }
+
+  .tool-link:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  }
+
+  :root[data-theme="dark"] .tool-link {
+    background: linear-gradient(135deg, #10b981, #059669);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  :root[data-theme="dark"] .tool-link:hover {
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.5);
+    background: linear-gradient(135deg, #059669, #047857);
+  }
+
+  /* Related Links Inline Styles */
+  .related-links {
+    margin: 1.5rem 0;
+    padding: 0.75rem 1rem;
+    background: var(--color-background-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .related-label {
+    font-weight: 600;
+    color: var(--color-text);
+    margin-right: 0.5rem;
+  }
+
+  .related-links a {
+    color: var(--color-primary);
+    text-decoration: none;
+    margin: 0 0.25rem;
+    transition: color 0.2s ease;
+  }
+
+  .related-links a:hover {
+    color: var(--color-primary-hover);
+    text-decoration: underline;
+  }
+
+  :root[data-theme="dark"] .related-links {
+    background: rgba(55, 65, 81, 0.5);
+    border-color: rgba(75, 85, 99, 0.5);
+  }
+
+  /* FAQ Section Styles */
+  .faq-item {
+    transition: all 0.2s ease;
+  }
+
+  .faq-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .faq-question {
+    line-height: 1.4;
+  }
+
+  .faq-answer p {
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  :root[data-theme="dark"] .faq-item:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Dark theme syntax tokens */
+  :root[data-theme="dark"] .prose pre {
+    background: #0b1222;
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  :root[data-theme="dark"] .prose pre code {
+    color: #e6edf7;
+  }
+
+  :root[data-theme="dark"] .prose pre code .token.comment,
+  :root[data-theme="dark"] .prose pre code .token.prolog,
+  :root[data-theme="dark"] .prose pre code .token.doctype,
+  :root[data-theme="dark"] .prose pre code .token.cdata {
+    color: #8b949e; /* dim for comments */
+  }
+
+  :root[data-theme="dark"] .prose pre code .token.property,
+  :root[data-theme="dark"] .prose pre code .token.tag,
+  :root[data-theme="dark"] .prose pre code .token.constant,
+  :root[data-theme="dark"] .prose pre code .token.symbol,
+  :root[data-theme="dark"] .prose pre code .token.deleted {
+    color: #79c0ff; /* blue accents */
+  }
+
+  :root[data-theme="dark"] .prose pre code .token.string,
+  :root[data-theme="dark"] .prose pre code .token.char,
+  :root[data-theme="dark"] .prose pre code .token.attr-value,
+  :root[data-theme="dark"] .prose pre code .token.builtin,
+  :root[data-theme="dark"] .prose pre code .token.inserted {
+    color: #7ee787; /* green for strings */
+  }
+
+  :root[data-theme="dark"] .prose pre code .token.keyword,
+  :root[data-theme="dark"] .prose pre code .token.boolean,
+  :root[data-theme="dark"] .prose pre code .token.null {
+    color: #ff7b72; /* salmon for keywords */
+  }
+
+  :root[data-theme="dark"] .prose pre code .token.number {
+    color: #ffa657; /* orange for numbers */
+  }
+
+  :root[data-theme="dark"] .prose pre code .token.function,
+  :root[data-theme="dark"] .prose pre code .token.class-name {
+    color: #d2a8ff; /* purple for functions */
+  }
+
+  :root[data-theme="dark"] .prose pre code .token.punctuation,
+  :root[data-theme="dark"] .prose pre code .token.operator {
+    color: #e6edf7; /* bright punctuation for visibility */
+  }
+
+  :root[data-theme="dark"] .prose pre code .token.attr-name,
+  :root[data-theme="dark"] .prose pre code .token.selector {
+    color: #79c0ff; /* blue for attribute names */
   }
 
   /* Alert components for inline feedback */

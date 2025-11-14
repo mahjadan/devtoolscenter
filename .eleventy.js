@@ -43,6 +43,20 @@ module.exports = function(eleventyConfig) {
     });
   });
 
+  // Tag list collection (unique tags from blog posts, excluding system tags)
+  eleventyConfig.addCollection("tagList", function(collectionApi) {
+    const tagSet = new Set();
+    const posts = collectionApi.getFilteredByGlob("src/blog/*.md");
+    for (const post of posts) {
+      const tags = post.data.tags || [];
+      for (const tag of tags) {
+        if (["blog"].includes(tag)) continue;
+        tagSet.add(tag);
+      }
+    }
+    return Array.from(tagSet).sort();
+  });
+
   // Custom filter for JSON-LD structured data
   eleventyConfig.addFilter("jsonld", function(obj) {
     return JSON.stringify(obj);

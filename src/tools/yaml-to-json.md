@@ -7,6 +7,9 @@ icon: 🔄
 order: 2
 pageScript: /assets/js/tools/yaml-converter.js
 keywords: yaml to json, json to yaml, yaml converter, convert yaml, yaml parser
+tags:
+  - tools
+  - yaml
 relatedTools:
   - /json-formatter/
   - /base64-encode-decode/

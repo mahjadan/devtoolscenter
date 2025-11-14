@@ -11,6 +11,9 @@ additionalScripts:
 toolStyles: json-tree-view.css
 toolClass: tool-shell--json-formatter
 keywords: json formatter, json validator, json beautifier, format json, validate json
+tags:
+  - tools
+  - json
 relatedTools:
   - /yaml-to-json/
   - /base64-encode-decode/

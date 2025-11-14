@@ -10,11 +10,18 @@ relatedToolName: URL Encoder / Decoder
 relatedArticles:
   - /blog/understanding-base64-encoding/
   - /blog/understanding-json-formatting/
+  - /blog/jwt-tokens-explained/
+  - /blog/mastering-regular-expressions/
 tags:
+  - blog
   - url-encoding
   - percent-encoding
   - uris
   - web-development
+faq:
+  - question: Should I use encodeURI or encodeURIComponent?
+    answer: Use encodeURI for full URLs and encodeURIComponent for individual components like query values.
+keywords: url encoding, percent encoding, uri encoding, url encode, url decode, percent encode, url encoding tutorial, url encoding explained, uri encoding guide, url escape
 schema:
   "@context": "https://schema.org"
   "@type": "Article"
@@ -199,6 +206,17 @@ const endpoint = `/api/users/${encodeURIComponent(userId)}`;
 | `/` | `%2F` | Forward slash |
 | `:` | `%3A` | Colon |
 | `@` | `%40` | At symbol |
+
+## Internationalization Tips
+
+- Non-ASCII characters (e.g., emojis, CJK) must be percent-encoded in URLs
+- Example: "café ☕" → encodeURIComponent("café ☕") → "caf%C3%A9%20%E2%98%95"
+
+## Server-side Pitfalls
+
+- Avoid double-encoding: many frameworks auto-encode query strings
+- Always decode once at the boundary; validate inputs before use
+- Normalize encodings (UTF-8) to avoid mismatches
 
 ## JavaScript Methods
 

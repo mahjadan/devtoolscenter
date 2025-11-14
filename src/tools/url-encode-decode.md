@@ -7,6 +7,9 @@ icon: 🔗
 order: 3
 pageScript: /assets/js/tools/url-encoder.js
 keywords: url encoder, url decoder, uri encode, percent encoding, url escape
+tags:
+  - tools
+  - url
 relatedTools:
   - /base64-encode-decode/
   - /json-formatter/

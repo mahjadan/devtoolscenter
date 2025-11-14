@@ -9,11 +9,19 @@ relatedTool: /jwt-decoder/
 relatedToolName: JWT Decoder
 relatedArticles:
   - /blog/understanding-json-formatting/
+  - /blog/understanding-base64-encoding/
+  - /blog/mastering-regular-expressions/
+  - /blog/jwks-kid-key-rotation-decoding/
 tags:
+  - blog
   - jwt
   - authentication
   - security
   - tokens
+faq:
+  - question: Does decoding a JWT verify its signature?
+    answer: No. Decoding only parses the header and payload. Verification checks the signature against a trusted key.
+keywords: jwt tokens, json web tokens, jwt authentication, jwt security, jwt explained, jwt tutorial, jwt best practices, jwt implementation, jwt vs sessions, jwt claims, jwt algorithms
 schema:
   "@context": "https://schema.org"
   "@type": "Article"
@@ -87,6 +95,10 @@ HMACSHA256(
   secret
 )
 ```
+
+## Base64URL Note
+
+JWT header and payload are Base64URL-encoded (URL-safe, no padding). Do not assume standard Base64; convert if necessary before decoding.
 
 ## Standard Claims
 
@@ -177,7 +189,8 @@ The server:
 ✓ **HttpOnly Cookies**
 - Protected from XSS
 - Automatically sent with requests
-- Requires CSRF protection
+- Requires CSRF protection (use SameSite=Lax/Strict when possible and CSRF tokens for state-changing requests)
+- Always set Secure; consider rotating refresh tokens
 
 ✗ **Local Storage**
 - Vulnerable to XSS attacks
@@ -202,6 +215,20 @@ The server:
    Access Token: Short-lived (15 min)
    Refresh Token: Long-lived (7 days)
    ```
+
+## JWKS and Key Rotation
+
+Many providers expose a JWKS (JSON Web Key Set) endpoint to publish public keys. Use the `kid` in the token header to select the correct key.
+
+```javascript
+// Pseudo-code
+const jwks = await fetch('https://issuer.example.com/.well-known/jwks.json').then(r => r.json());
+const { kid } = JSON.parse(atob(token.split('.')[0].replace(/-/g, '+').replace(/_/g, '/')));
+const key = jwks.keys.find(k => k.kid === kid);
+// Use key.n/key.e (RSA) or x/y (EC) with your JWT library to verify
+```
+
+Rotate keys periodically and support overlapping validity during rotation.
 
 ## Common JWT Algorithms
 

@@ -7,6 +7,9 @@ icon: 🔍
 order: 5
 pageScript: /assets/js/tools/regex-tester.js
 keywords: regex tester, regular expression, regex debugger, test regex, regex validator
+tags:
+  - tools
+  - regex
 relatedTools:
   - /json-formatter/
   - /url-encode-decode/
