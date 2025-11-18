@@ -7,7 +7,7 @@ date: 2025-11-12
 readTime: 7
 tags: ["blog", "jwt"]
 relatedTool: /jwt-decoder/
-relatedToolName: JWT Decoder
+relatedToolName: JWT Encoder/Decoder
 relatedArticles:
   - /blog/jwt-tokens-explained/
   - /blog/understanding-base64-encoding/
@@ -221,7 +221,7 @@ const decoded = Buffer.from(normalized, 'base64');
 ```
 
 **Prevention:**
-Always normalize Base64URL before decoding, or use our [JWT Decoder](/jwt-decoder/) which handles this automatically.
+Always normalize Base64URL before decoding, or use our [JWT Encoder/Decoder](/jwt-decoder/) which handles this automatically.
 
 ### Symptom: "Incorrect padding" error
 
@@ -303,7 +303,7 @@ function safeDecode(segment) {
 
 ### 3. Test with real tokens
 
-Use our [JWT Decoder](/jwt-decoder/) to see how real tokens decode, then replicate that logic in your code.
+Use our [JWT Encoder/Decoder](/jwt-decoder/) to see how real tokens decode, then replicate that logic in your code.
 
 ### 4. Handle errors gracefully
 
@@ -329,7 +329,7 @@ function decodeSegment(segment) {
 
 When you encounter Base64URL decode errors:
 
-1. **Inspect the segment** - Use our [JWT Decoder](/jwt-decoder/) to see if it decodes there
+1. **Inspect the segment** - Use our [JWT Encoder/Decoder](/jwt-decoder/) to see if it decodes there
 2. **Check character set** - Look for `-` or `_` that need conversion
 3. **Verify padding** - Ensure length is multiple of 4
 4. **Normalize consistently** - Apply same normalization to all segments
@@ -339,7 +339,7 @@ When you encounter Base64URL decode errors:
 
 ### Browser tool
 
-Our [JWT Decoder](/jwt-decoder/) handles Base64URL normalization automatically:
+Our [JWT Encoder/Decoder](/jwt-decoder/) handles Base64URL normalization automatically:
 - No manual conversion needed
 - Instant decoding with error highlighting
 - Client-side processing (your tokens stay private)
@@ -356,7 +356,7 @@ echo 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9' | \
 
 ## Next steps
 
-1. Try decoding a token with our [JWT Decoder](/jwt-decoder/) to see Base64URL in action
+1. Try decoding a token with our [JWT Encoder/Decoder](/jwt-decoder/) to see Base64URL in action
 2. Learn about [safe JWT decoding practices](/blog/jwt-decode-safely/) before verification
 3. Read our [troubleshooting guide](/blog/invalid-jwt-errors-fixes/) for common decode errors
 4. Understand [Base64 encoding basics](/blog/understanding-base64-encoding/) for deeper context

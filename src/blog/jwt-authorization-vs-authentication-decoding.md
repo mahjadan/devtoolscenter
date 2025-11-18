@@ -7,7 +7,7 @@ date: 2025-11-12
 readTime: 7
 tags: ["blog", "jwt"]
 relatedTool: /jwt-decoder/
-relatedToolName: JWT Decoder
+relatedToolName: JWT Encoder/Decoder
 relatedArticles:
   - /blog/jwt-tokens-explained/
   - /blog/dont-trust-decoded-jwt/
@@ -130,7 +130,7 @@ console.log('Expires:', new Date(decoded.payload.exp * 1000));
 - Debug why verification might fail
 - Understand token contents
 
-**Use our [JWT Decoder](/jwt-decoder/) for safe, client-side inspection.**
+**Use our [JWT Encoder/Decoder](/jwt-decoder/) for safe, client-side inspection.**
 
 #### 2. Support and Troubleshooting
 
@@ -713,7 +713,7 @@ function authorizeTenant(user, resource) {
 
 ## Next Steps
 
-1. Use our [JWT Decoder](/jwt-decoder/) to safely inspect tokens
+1. Use our [JWT Encoder/Decoder](/jwt-decoder/) to safely inspect tokens
 2. Read [Don't Trust Decoded JWTs](/blog/dont-trust-decoded-jwt/) for security warnings
 3. Learn [How to Decode JWTs Safely](/blog/jwt-decode-safely/) for best practices
 4. Understand [JWT Tokens Explained](/blog/jwt-tokens-explained/) for fundamentals

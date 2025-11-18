@@ -207,7 +207,7 @@ breadcrumbSchema:
   
   <!-- Signature Verification Section -->
   <div id="signature-verification" class="border border-gray-300 dark:border-gray-600 rounded-lg">
-    <button id="verify-toggle" class="w-full p-4 text-left font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors flex items-center justify-between">
+    <button id="verify-toggle" class="w-full p-4 text-left font-medium text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors flex items-center justify-between">
       <span>🔒 Verify Signature (Optional)</span>
       <span id="verify-chevron" class="transform transition-transform">▼</span>
     </button>
@@ -429,21 +429,21 @@ breadcrumbSchema:
 <div class="mt-12 p-6 bg-gradient-to-r from-primary-50 via-primary-100/50 to-accent-50 dark:from-gray-800 dark:via-primary-900/30 dark:to-gray-800 rounded-lg border-2 border-primary-300 dark:border-primary-500/50 shadow-md dark:shadow-lg dark:shadow-primary-900/20">
   <h2 class="text-2xl font-bold mb-3 text-gray-900 dark:text-white">About JWT Encoder/Decoder</h2>
   <p class="text-gray-700 dark:text-gray-300 mb-3">
-    Encode and decode JSON Web Tokens (JWT) with support for multiple algorithms including HMAC (HS256/384/512) and RSA (RS256/384/512). 
-    This comprehensive tool allows you to create new tokens, decode existing ones, and optionally verify signatures. All operations run entirely 
+    Encode and decode JSON Web Tokens (JWT) with support for multiple algorithms including HMAC (HS256/384/512), RSA (RS256/384/512), and ECDSA (ES256/384/512). 
+    This comprehensive tool allows you to encode new tokens with custom headers and payloads, decode existing tokens to view their contents, and optionally verify signatures. All operations run entirely 
     in your browser, ensuring your tokens and keys remain private and secure.
   </p>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
     <div class="p-3 bg-blue-50 dark:bg-blue-900/20 rounded border border-blue-200 dark:border-blue-800">
       <h3 class="font-semibold text-blue-900 dark:text-blue-100 mb-2">🔍 Decode Mode</h3>
       <p class="text-sm text-blue-800 dark:text-blue-200">
-        Paste any JWT token to view its header, payload, and token information. Optionally verify signatures with your secret or public key.
+        Decode any JWT token to view its header, payload, and token information. Optionally verify signatures with your secret or public key (HMAC, RSA, or EC).
       </p>
     </div>
     <div class="p-3 bg-green-50 dark:bg-green-900/20 rounded border border-green-200 dark:border-green-800">
       <h3 class="font-semibold text-green-900 dark:text-green-100 mb-2">⚙️ Encode Mode</h3>
       <p class="text-sm text-green-800 dark:text-green-200">
-        Create new JWT tokens by defining custom headers and payloads. Supports symmetric (HMAC) and asymmetric (RSA) signing algorithms.
+        Encode new JWT tokens by defining custom headers and payloads. Supports symmetric (HMAC) and asymmetric (RSA, ECDSA) signing algorithms with text secrets, PEM, or JWK keys.
       </p>
     </div>
   </div>

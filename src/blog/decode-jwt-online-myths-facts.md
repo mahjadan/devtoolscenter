@@ -7,7 +7,7 @@ date: 2025-11-12
 readTime: 6
 tags: ["blog", "jwt"]
 relatedTool: /jwt-decoder/
-relatedToolName: JWT Decoder
+relatedToolName: JWT Encoder/Decoder
 relatedArticles:
   - /blog/jwt-tokens-explained/
   - /blog/decode-jwt-offline-browser/
@@ -96,7 +96,7 @@ Developers assume all online decoders work the same way and have the same securi
 - Processing happens entirely in your browser
 - No network requests when decoding
 - Tokens never leave your device
-- Example: Our [JWT Decoder](/jwt-decoder/)
+- Example: Our [JWT Encoder/Decoder](/jwt-decoder/)
 
 **2. Server-side decoders (risky)**
 - Tokens are sent to a server for processing
@@ -169,7 +169,7 @@ Buffer.from(normalized, 'base64'); // Works!
 ```
 
 **Good decoders handle this automatically:**
-- Our [JWT Decoder](/jwt-decoder/) normalizes Base64URL automatically
+- Our [JWT Encoder/Decoder](/jwt-decoder/) normalizes Base64URL automatically
 - No manual conversion needed
 - Clear error messages if normalization fails
 
@@ -276,7 +276,7 @@ const testToken = jwt.sign(
 ### Practice 3: Decode locally when possible
 
 **Prefer offline tools:**
-- Our [JWT Decoder](/jwt-decoder/) runs client-side
+- Our [JWT Encoder/Decoder](/jwt-decoder/) runs client-side
 - No data transmission
 - Maximum privacy
 
@@ -311,7 +311,7 @@ const testToken = jwt.sign(
 
 **Solution:**
 1. Extract token from server logs (redacted)
-2. Use client-side decoder (our [JWT Decoder](/jwt-decoder/))
+2. Use client-side decoder (our [JWT Encoder/Decoder](/jwt-decoder/))
 3. Inspect claims without exposing to third parties
 4. Verify in your application environment
 
@@ -387,13 +387,13 @@ Make authorization decisions based on decoded claims
 4. **Prefer offline tools** - Maximum privacy and security
 5. **Verify after decoding** - Never trust decoded content alone
 6. **Check privacy policies** - Understand data handling
-7. **Use our tools** - Our [JWT Decoder](/jwt-decoder/) is client-side and secure
+7. **Use our tools** - Our [JWT Encoder/Decoder](/jwt-decoder/) is client-side and secure
 
 ## Recommended workflow
 
 ### Step 1: Decode privately
 
-Use our [JWT Decoder](/jwt-decoder/) to inspect tokens:
+Use our [JWT Encoder/Decoder](/jwt-decoder/) to inspect tokens:
 - Client-side processing
 - No data transmission
 - Instant results
@@ -421,7 +421,7 @@ If verification fails:
 
 ## Next steps
 
-1. Try decoding a token with our [JWT Decoder](/jwt-decoder/) - verify it's client-side
+1. Try decoding a token with our [JWT Encoder/Decoder](/jwt-decoder/) - verify it's client-side
 2. Learn about [offline browser decoding](/blog/decode-jwt-offline-browser/) for maximum privacy
 3. Understand [why decoding isn't verification](/blog/dont-trust-decoded-jwt/)
 4. Read about [safe decoding practices](/blog/jwt-decode-safely/) before verification

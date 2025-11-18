@@ -7,7 +7,7 @@ date: 2025-11-12
 readTime: 6
 tags: ["blog", "jwt"]
 relatedTool: /jwt-decoder/
-relatedToolName: JWT Decoder
+relatedToolName: JWT Encoder/Decoder
 relatedArticles:
   - /blog/jwt-tokens-explained/
   - /blog/jwt-decode-safely/
@@ -520,7 +520,7 @@ console.log('Algorithm:', decoded.header.alg);
 console.log('Expires:', new Date(decoded.payload.exp * 1000));
 console.log('User:', decoded.payload.sub);
 
-// Use our JWT Decoder tool for quick inspection
+// Use our JWT Encoder/Decoder tool for quick inspection
 // /jwt-decoder/
 ```
 
@@ -707,20 +707,20 @@ async function isAdmin(token, publicKey) {
 5. **Use secure JWKS fetching** - HTTPS only, verify certificates
 6. **Select keys by `kid`** - Don't try all keys
 7. **Handle errors gracefully** - Don't expose internal details
-8. **Decode for debugging** - Use our [JWT Decoder](/jwt-decoder/) for inspection
+8. **Decode for debugging** - Use our [JWT Encoder/Decoder](/jwt-decoder/) for inspection
 
 ## Debugging workflow
 
 When debugging authentication issues:
 
-1. **Decode first** - Use our [JWT Decoder](/jwt-decoder/) to inspect structure
+1. **Decode first** - Use our [JWT Encoder/Decoder](/jwt-decoder/) to inspect structure
 2. **Check claims** - Verify `iss`, `aud`, `exp` match expectations
 3. **Verify in code** - Use proper verification with all checks
 4. **Debug failures** - See our [troubleshooting guide](/blog/invalid-jwt-errors-fixes/)
 
 ## Next steps
 
-1. Try decoding a token with our [JWT Decoder](/jwt-decoder/) to see structure
+1. Try decoding a token with our [JWT Encoder/Decoder](/jwt-decoder/) to see structure
 2. Learn about [safe decoding practices](/blog/jwt-decode-safely/) before verification
 3. Understand [authentication vs authorization](/blog/jwt-authorization-vs-authentication-decoding/) in JWT flows
 4. Read our [troubleshooting guide](/blog/invalid-jwt-errors-fixes/) for verification issues

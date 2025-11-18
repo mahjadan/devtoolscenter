@@ -7,7 +7,7 @@ date: 2025-11-12
 readTime: 7
 tags: ["blog", "jwt"]
 relatedTool: /jwt-decoder/
-relatedToolName: JWT Decoder
+relatedToolName: JWT Encoder/Decoder
 relatedArticles:
   - /blog/jwt-tokens-explained/
   - /blog/decode-jwt-offline-browser/
@@ -92,7 +92,7 @@ When you need to see what's inside a token for debugging, here are secure approa
 3. Click on the request → Headers tab
 4. Find `Set-Cookie` header
 5. Copy the JWT value (everything after `token=`)
-6. Paste into our [JWT Decoder](/jwt-decoder/)
+6. Paste into our [JWT Encoder/Decoder](/jwt-decoder/)
 
 **Using curl:**
 ```bash
@@ -117,7 +117,7 @@ echo "$TOKEN" | cut -d. -f2 | base64 -d  # Payload
 1. Send request that sets cookie
 2. Check Cookies tab (Postman shows all cookies)
 3. Copy token value
-4. Use our [JWT Decoder](/jwt-decoder/) to decode
+4. Use our [JWT Encoder/Decoder](/jwt-decoder/) to decode
 
 ### Method 2: Backend extraction endpoint (for development)
 
@@ -196,7 +196,7 @@ Extract token from server logs or headers, then decode using our client-side too
 
 **Workflow:**
 1. Get token from server logs (redacted) or Set-Cookie header
-2. Paste into our [JWT Decoder](/jwt-decoder/)
+2. Paste into our [JWT Encoder/Decoder](/jwt-decoder/)
 3. Inspect header and payload
 4. Never paste production tokens with real secrets
 
@@ -290,7 +290,7 @@ echo "$TOKEN"
 
 ### Step 3: Decode locally
 
-Use our [JWT Decoder](/jwt-decoder/) to inspect:
+Use our [JWT Encoder/Decoder](/jwt-decoder/) to inspect:
 - Header (`alg`, `kid`, `typ`)
 - Payload (`iss`, `aud`, `exp`, `nbf`, custom claims)
 
@@ -376,7 +376,7 @@ localStorage.setItem('token', token);
 
 - ✅ Use development-only debug endpoints
 - ✅ Extract tokens from Set-Cookie headers
-- ✅ Decode using client-side tools (our [JWT Decoder](/jwt-decoder/))
+- ✅ Decode using client-side tools (our [JWT Encoder/Decoder](/jwt-decoder/))
 - ✅ Never commit tokens to version control
 - ✅ Use test tokens, not production tokens
 
@@ -389,7 +389,7 @@ localStorage.setItem('token', token);
 **Solution:**
 1. Check server logs for token info (redacted)
 2. Capture Set-Cookie header from login response
-3. Decode token using [JWT Decoder](/jwt-decoder/)
+3. Decode token using [JWT Encoder/Decoder](/jwt-decoder/)
 4. Verify `iss`, `aud`, `exp` match expectations
 5. Check if token expired or claims mismatch
 
@@ -431,12 +431,12 @@ app.get('/api/debug/claims', (req, res) => {
 1. **Never expose tokens to client-side code** - Use HttpOnly cookies
 2. **Extract tokens server-side** - For debugging, use server endpoints
 3. **Redact sensitive data** - Never log full tokens or user identifiers
-4. **Use development tools** - Our [JWT Decoder](/jwt-decoder/) for safe inspection
+4. **Use development tools** - Our [JWT Encoder/Decoder](/jwt-decoder/) for safe inspection
 5. **Test with non-production tokens** - Never use real production tokens for testing
 
 ## Next steps
 
-1. Try decoding a token with our [JWT Decoder](/jwt-decoder/) to see the structure
+1. Try decoding a token with our [JWT Encoder/Decoder](/jwt-decoder/) to see the structure
 2. Learn about [offline browser decoding](/blog/decode-jwt-offline-browser/) for privacy
 3. Understand [safe decoding practices](/blog/jwt-decode-safely/) before verification
 4. Read about [online decoder security](/blog/decode-jwt-online-myths-facts/) when choosing tools
