@@ -6,6 +6,7 @@ permalink: /jwt-decoder/
 icon: 🔐
 order: 4
 pageScript: /assets/js/tools/jwt-decoder.js
+pageScriptModule: true
 keywords: jwt decoder, jwt encoder, jwt parser, decode jwt, encode jwt, json web token, jwt debugger, jwt generator
 tags:
   - tools
@@ -314,16 +315,51 @@ breadcrumbSchema:
           No signature required (algorithm: none)
         </div>
         
-        <div id="secret-key-section" class="space-y-2">
-          <label for="encode-secret" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Secret Key <span class="text-red-500">*</span>
-          </label>
-          <input 
-            type="password" 
-            id="encode-secret" 
-            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-            placeholder="Enter your secret key..."
-          >
+        <div id="secret-key-section" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+              Key Type <span class="text-red-500">*</span>
+            </label>
+            <div class="flex gap-4">
+              <label class="flex items-center">
+                <input type="radio" name="secretKeyType" value="text" class="mr-2" checked>
+                <span class="text-sm">HMAC (Text)</span>
+              </label>
+              <label class="flex items-center">
+                <input type="radio" name="secretKeyType" value="pem" class="mr-2">
+                <span class="text-sm">PEM</span>
+              </label>
+              <label class="flex items-center">
+                <input type="radio" name="secretKeyType" value="jwk" class="mr-2">
+                <span class="text-sm">JWK</span>
+              </label>
+            </div>
+          </div>
+          
+          <!-- HMAC Text Input -->
+          <div id="secret-text-input" class="space-y-2">
+            <label for="encode-secret" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Secret Key <span class="text-red-500">*</span>
+            </label>
+            <input 
+              type="password" 
+              id="encode-secret" 
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+              placeholder="Enter your secret key..."
+            >
+          </div>
+          
+          <!-- PEM/JWK Textarea -->
+          <div id="secret-pem-jwk-input" class="hidden space-y-2">
+            <label for="encode-secret-key" id="secret-key-label" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Secret Key (PEM format) <span class="text-red-500">*</span>
+            </label>
+            <textarea 
+              id="encode-secret-key" 
+              class="tool-textarea min-h-[120px] font-mono text-sm"
+              placeholder="-----BEGIN PRIVATE KEY-----&#10;...&#10;-----END PRIVATE KEY-----"
+            ></textarea>
+          </div>
         </div>
         
         <div id="private-key-section" class="hidden space-y-4">
