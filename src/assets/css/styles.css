@@ -1401,6 +1401,13 @@
 
   .tool-shell__panel--output {
     min-height: 220px;
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+  #tree-view-panel {
+    max-width: 100%;
+    overflow: hidden;
   }
 
   .tool-shell__label {
@@ -1416,6 +1423,7 @@
   .tool-shell__textarea,
   .tool-shell__output {
     width: 100%;
+    max-width: 100%;
     min-height: 220px;
     padding: 1.25rem;
     font-family: var(--font-mono);
@@ -1432,6 +1440,7 @@
     color: var(--color-text);
     outline: none;
     resize: vertical;
+    box-sizing: border-box;
     transition: border-color var(--motion-duration-normal)
         var(--motion-ease-standard),
       box-shadow var(--motion-duration-normal) var(--motion-ease-standard);
@@ -1454,8 +1463,11 @@
 
   .tool-shell__output {
     overflow: auto;
+    overflow-x: auto;
     white-space: pre-wrap;
     word-break: break-word;
+    box-sizing: border-box;
+    max-width: 100%;
   }
 
   .tool-shell__actions {
