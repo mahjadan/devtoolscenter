@@ -7,7 +7,7 @@ date: 2025-11-12
 readTime: 7
 tags: ["blog", "jwt"]
 relatedTool: /jwt-decoder/
-relatedToolName: JWT Decoder
+relatedToolName: JWT Encoder/Decoder
 relatedArticles:
   - /blog/jwt-tokens-explained/
   - /blog/jwt-authorization-vs-authentication-decoding/
@@ -17,7 +17,7 @@ faq:
     answer: Small time differences between systems can cause failures; allow a few seconds of leeway when validating.
 ---
 
-JWT claims are the data stored inside a token's payload. Understanding what each claim means, how to validate it, and common pitfalls helps you build secure applications. Use our [JWT Decoder](/jwt-decoder/) to inspect claims, but always verify signatures before trusting them.
+JWT claims are the data stored inside a token's payload. Understanding what each claim means, how to validate it, and common pitfalls helps you build secure applications. Use our [JWT Encoder/Decoder](/jwt-decoder/) to inspect claims, but always verify signatures before trusting them.
 
 ## Standard Claims (RFC 7519)
 
@@ -651,9 +651,9 @@ function validateScopeToken(token, requiredScope) {
 
 ## Debugging Claims
 
-### Using JWT Decoder
+### Using JWT Encoder/Decoder
 
-Our [JWT Decoder](/jwt-decoder/) helps you:
+Our [JWT Encoder/Decoder](/jwt-decoder/) helps you:
 - Inspect all claims without verification
 - See expiration times in human-readable format
 - Check issuer and audience
@@ -715,7 +715,7 @@ if (Array.isArray(actual)) {
 
 ## Next Steps
 
-1. Decode tokens with our [JWT Decoder](/jwt-decoder/) to inspect claims
+1. Decode tokens with our [JWT Encoder/Decoder](/jwt-decoder/) to inspect claims
 2. Learn [JWT tokens explained](/blog/jwt-tokens-explained/) for fundamentals
 3. Understand [authentication vs authorization](/blog/jwt-authorization-vs-authentication-decoding/) for security
 4. Fix [common JWT errors](/blog/invalid-jwt-errors-fixes/) with troubleshooting guide

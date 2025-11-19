@@ -7,7 +7,7 @@ date: 2025-11-12
 readTime: 7
 tags: ["blog", "jwt"]
 relatedTool: /jwt-decoder/
-relatedToolName: JWT Decoder
+relatedToolName: JWT Encoder/Decoder
 relatedArticles:
   - /blog/jwt-tokens-explained/
   - /blog/dont-trust-decoded-jwt/
@@ -47,7 +47,7 @@ header.payload.signature
 ## Safe decoding checklist
 
 1. **Decode client-side/offline when possible**  
-   Use tools that run entirely in your browser, like our [JWT Decoder](/jwt-decoder/), so tokens never leave your device.
+   Use tools that run entirely in your browser, like our [JWT Encoder/Decoder](/jwt-decoder/), so tokens never leave your device.
 
 2. **Normalize Base64URL before raw base64 decodes**  
    Base64URL uses `-` and `_` instead of `+` and `/`, and often omits padding. Convert these characters before decoding if your library expects standard Base64.
@@ -65,7 +65,7 @@ header.payload.signature
 
 ### Browser-based (recommended)
 
-The fastest and safest way is using our [JWT Decoder tool](/jwt-decoder/), which runs entirely in your browser. Paste a token and instantly see the header and payload without sending data anywhere.
+The fastest and safest way is using our [JWT Encoder/Decoder tool](/jwt-decoder/), which runs entirely in your browser. Paste a token and instantly see the header and payload without sending data anywhere.
 
 ### Quick decode (Node.js)
 
@@ -174,7 +174,7 @@ Never make authorization decisions based on decoded content alone. See our guide
 
 ## Next steps
 
-1. Try decoding a token with our [JWT Decoder](/jwt-decoder/) to see the structure
+1. Try decoding a token with our [JWT Encoder/Decoder](/jwt-decoder/) to see the structure
 2. Learn about [Base64URL encoding differences](/blog/base64url-vs-base64-jwt-decoding/) that cause decode failures
 3. Understand [why decoding isn't verification](/blog/dont-trust-decoded-jwt/)
 4. Read our [JWT troubleshooting guide](/blog/invalid-jwt-errors-fixes/) for common errors

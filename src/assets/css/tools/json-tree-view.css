@@ -13,10 +13,14 @@
   padding: 1.25rem;
   max-height: 500px;
   overflow-y: auto;
+  overflow-x: auto;
   position: relative;
   color: var(--color-text);
   min-height: 220px;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .json-tree-view.dark {
@@ -113,6 +117,8 @@
 .json-tree-item {
   margin: 2px 0;
   white-space: nowrap;
+  display: block;
+  overflow: visible;
 }
 
 .json-tree-header {
@@ -121,6 +127,8 @@
   padding: 2px 0;
   border-radius: 3px;
   transition: background-color 0.2s ease;
+  min-width: 0;
+  overflow: visible;
 }
 
 .json-tree-header:hover {
@@ -280,9 +288,30 @@
   box-shadow: 0 4px 12px rgba(var(--shadow-color-base-rgb), 0.1);
 }
 
+/* Container styling to ensure proper overflow */
+#json-tree-container {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow-x: auto !important;
+  overflow-y: auto !important;
+  position: relative;
+}
+
+#json-tree-container.json-tree-view,
+#json-tree-container.tool-shell__output {
+  overflow-x: auto !important;
+  overflow-y: auto !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
 /* Scrollbar styling */
 .json-tree-view::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 
 .json-tree-view::-webkit-scrollbar-track {
@@ -297,6 +326,13 @@
 
 .json-tree-view::-webkit-scrollbar-thumb:hover {
   background: rgba(var(--shadow-color-base-rgb), 0.3);
+}
+
+/* Firefox scrollbar styling */
+.json-tree-view {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--shadow-color-base-rgb), 0.2)
+    rgba(var(--shadow-color-base-rgb), 0.05);
 }
 
 /* Responsive design */
@@ -343,6 +379,11 @@
   transition: background-color 0.2s ease;
   padding: 1px 3px;
   border-radius: 3px;
+  white-space: nowrap;
+  display: inline-block;
+  vertical-align: top;
+  overflow: visible;
+  max-width: none;
 }
 
 .json-tree-value:hover {

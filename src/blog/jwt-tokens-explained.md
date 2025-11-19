@@ -6,7 +6,7 @@ category: Security
 date: 2025-10-20
 readTime: 10
 relatedTool: /jwt-decoder/
-relatedToolName: JWT Decoder
+relatedToolName: JWT Encoder/Decoder
 relatedArticles:
   - /blog/understanding-json-formatting/
   - /blog/understanding-base64-encoding/

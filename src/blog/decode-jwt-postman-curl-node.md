@@ -7,7 +7,7 @@ date: 2025-11-12
 readTime: 8
 tags: ["blog", "jwt"]
 relatedTool: /jwt-decoder/
-relatedToolName: JWT Decoder
+relatedToolName: JWT Encoder/Decoder
 relatedArticles:
   - /blog/jwt-tokens-explained/
   - /blog/base64url-vs-base64-jwt-decoding/
@@ -17,7 +17,7 @@ faq:
     answer: Postman can decode tokens; signature verification must be implemented in your backend or scripts.
 ---
 
-Use our in-browser [JWT Decoder](/jwt-decoder/) for quick inspection, then automate decoding and verification with Postman tests, curl, or Node.js scripts for reproducible workflows. Understanding how to decode in different environments helps you debug authentication issues efficiently.
+Use our in-browser [JWT Encoder/Decoder](/jwt-decoder/) for quick inspection, then automate decoding and verification with Postman tests, curl, or Node.js scripts for reproducible workflows. Understanding how to decode in different environments helps you debug authentication issues efficiently.
 
 ## Why automate JWT decoding
 
@@ -283,7 +283,7 @@ curl -H "Authorization: Bearer $TOKEN" https://api.example.com/protected
 **What to use instead:**
 - Node.js or Python scripts for verification
 - Backend verification endpoints
-- Our [JWT Decoder](/jwt-decoder/) for quick checks
+- Our [JWT Encoder/Decoder](/jwt-decoder/) for quick checks
 
 ## Node.js: Full decoding and verification
 
@@ -714,7 +714,7 @@ jwt.verify(token, key, {
 
 ## Next steps
 
-1. Try quick decoding with our [JWT Decoder](/jwt-decoder/) for instant inspection
+1. Try quick decoding with our [JWT Encoder/Decoder](/jwt-decoder/) for instant inspection
 2. Learn about [Base64URL encoding](/blog/base64url-vs-base64-jwt-decoding/) for manual decodes
 3. Understand [JWKS and key rotation](/blog/jwks-kid-key-rotation-decoding/) for RS256 verification
 4. Read our [troubleshooting guide](/blog/invalid-jwt-errors-fixes/) for common issues

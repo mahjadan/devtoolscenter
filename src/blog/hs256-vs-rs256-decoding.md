@@ -7,7 +7,7 @@ date: 2025-11-12
 readTime: 7
 tags: ["blog", "jwt"]
 relatedTool: /jwt-decoder/
-relatedToolName: JWT Decoder
+relatedToolName: JWT Encoder/Decoder
 relatedArticles:
   - /blog/jwt-tokens-explained/
   - /blog/jwks-kid-key-rotation-decoding/
@@ -85,7 +85,7 @@ When you decode a JWT header, you see:
 - Essential for key rotation scenarios
 - Only present for RS256/ES256 (asymmetric algorithms)
 
-Use our [JWT Decoder](/jwt-decoder/) to quickly inspect the header and see which algorithm a token uses.
+Use our [JWT Encoder/Decoder](/jwt-decoder/) to quickly inspect the header and see which algorithm a token uses.
 
 ## Verification differences explained
 
@@ -164,7 +164,7 @@ const decoded = jwt.verify(token, publicKey, {
 - Or vice versa
 
 **How to fix:**
-1. Decode the header to see `alg` field using [JWT Decoder](/jwt-decoder/)
+1. Decode the header to see `alg` field using [JWT Encoder/Decoder](/jwt-decoder/)
 2. Match your verification code to the algorithm in the header
 3. For RS256, ensure you're fetching JWKS and using public key
 4. For HS256, ensure you're using the correct shared secret
@@ -283,7 +283,7 @@ const client = jwksClient({
 
 ## Debugging tips
 
-1. **Decode first** - Use [JWT Decoder](/jwt-decoder/) to see `alg` and `kid` before debugging verification
+1. **Decode first** - Use [JWT Encoder/Decoder](/jwt-decoder/) to see `alg` and `kid` before debugging verification
 2. **Check algorithm match** - Ensure your verification code uses the same algorithm as the token header
 3. **Verify JWKS access** - For RS256, ensure you can fetch `/.well-known/jwks.json` from the issuer
 4. **Check key selection** - For RS256, verify `kid` in header matches a key in JWKS
@@ -291,7 +291,7 @@ const client = jwksClient({
 
 ## Next steps
 
-1. Decode a token with our [JWT Decoder](/jwt-decoder/) to see the `alg` field
+1. Decode a token with our [JWT Encoder/Decoder](/jwt-decoder/) to see the `alg` field
 2. Learn about [JWKS and key rotation](/blog/jwks-kid-key-rotation-decoding/) for RS256
 3. Understand [safe decoding practices](/blog/jwt-decode-safely/) before verification
 4. Read our [troubleshooting guide](/blog/invalid-jwt-errors-fixes/) for common errors

@@ -7,7 +7,7 @@ date: 2025-11-12
 readTime: 7
 tags: ["blog", "jwt"]
 relatedTool: /jwt-decoder/
-relatedToolName: JWT Decoder
+relatedToolName: JWT Encoder/Decoder
 relatedArticles:
   - /blog/jwt-tokens-explained/
   - /blog/hs256-vs-rs256-decoding/
@@ -630,9 +630,9 @@ function verifyToken(token) {
 7. **Validate issuer** - Ensure `iss` claim matches expected
 8. **Use libraries** - `jwks-rsa`, `PyJWT` handle edge cases
 
-## Debugging with JWT Decoder
+## Debugging with JWT Encoder/Decoder
 
-Our [JWT Decoder](/jwt-decoder/) helps you:
+Our [JWT Encoder/Decoder](/jwt-decoder/) helps you:
 - Inspect `kid` in token header
 - View `iss` claim to identify issuer
 - Check `alg` to verify algorithm
@@ -647,7 +647,7 @@ Our [JWT Decoder](/jwt-decoder/) helps you:
 
 ## Next steps
 
-1. Decode tokens with our [JWT Decoder](/jwt-decoder/) to inspect `kid` and `iss`
+1. Decode tokens with our [JWT Encoder/Decoder](/jwt-decoder/) to inspect `kid` and `iss`
 2. Learn about [HS256 vs RS256](/blog/hs256-vs-rs256-decoding/) algorithms
 3. Understand [JWT errors and fixes](/blog/invalid-jwt-errors-fixes/) for common issues
 4. Read [JWT tokens explained](/blog/jwt-tokens-explained/) for fundamentals

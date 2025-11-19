@@ -7,7 +7,7 @@ date: 2025-11-12
 readTime: 7
 tags: ["blog", "jwt"]
 relatedTool: /jwt-decoder/
-relatedToolName: JWT Decoder
+relatedToolName: JWT Encoder/Decoder
 relatedArticles:
   - /blog/jwt-tokens-explained/
   - /blog/base64url-vs-base64-jwt-decoding/
@@ -26,7 +26,7 @@ JWT validation can fail at two stages:
 1. **Decoding stage** - Can't parse the token structure (syntax errors)
 2. **Verification stage** - Token structure is valid but signature or claims are invalid (semantic errors)
 
-Understanding which stage fails helps you fix issues faster. Use our [JWT Decoder](/jwt-decoder/) to quickly see if decoding succeeds—if it does, the problem is in verification.
+Understanding which stage fails helps you fix issues faster. Use our [JWT Encoder/Decoder](/jwt-decoder/) to quickly see if decoding succeeds—if it does, the problem is in verification.
 
 ## Error category 1: Parse/Decode errors
 
@@ -66,7 +66,7 @@ if (segments.length !== 3) {
 
 **Prevention:**
 - Always trim and validate token format before processing
-- Use our [JWT Decoder](/jwt-decoder/) to verify token structure
+- Use our [JWT Encoder/Decoder](/jwt-decoder/) to verify token structure
 - Log token length and segment count for debugging
 
 ### Symptom: "Invalid character" or "Incorrect padding"
@@ -135,7 +135,7 @@ The signature doesn't match what's expected for the given algorithm and key.
 
 1. **Wrong algorithm**
    - Token signed with RS256 but verifying with HS256 secret
-   - Solution: Decode header to see `alg` field using [JWT Decoder](/jwt-decoder/)
+   - Solution: Decode header to see `alg` field using [JWT Encoder/Decoder](/jwt-decoder/)
 
 2. **Wrong key**
    - Using dev secret for prod token (or vice versa)
@@ -284,7 +284,7 @@ When a JWT fails, follow this order:
 
 ### Step 1: Can you decode it?
 
-Use our [JWT Decoder](/jwt-decoder/) to see if the token structure is valid.
+Use our [JWT Encoder/Decoder](/jwt-decoder/) to see if the token structure is valid.
 
 **If decoding fails:**
 - Check token format (three segments?)
@@ -356,7 +356,7 @@ try {
 
 **Scenario:** Token works in Postman but fails in your application
 
-1. **Decode both tokens** using [JWT Decoder](/jwt-decoder/)
+1. **Decode both tokens** using [JWT Encoder/Decoder](/jwt-decoder/)
    - Compare headers (alg, kid)
    - Compare payloads (iss, aud, exp)
 
@@ -381,11 +381,11 @@ try {
 4. **Handle clock skew** - Add tolerance for time-based claims
 5. **Cache JWKS properly** - Refresh on failure, not on every request
 6. **Log token details** - Decode and log (redacted) for debugging
-7. **Use our tools** - [JWT Decoder](/jwt-decoder/) for quick inspection
+7. **Use our tools** - [JWT Encoder/Decoder](/jwt-decoder/) for quick inspection
 
 ## Next steps
 
-1. Try decoding your token with [JWT Decoder](/jwt-decoder/) to see structure
+1. Try decoding your token with [JWT Encoder/Decoder](/jwt-decoder/) to see structure
 2. Learn about [Base64URL encoding](/blog/base64url-vs-base64-jwt-decoding/) if decode fails
 3. Understand [algorithm differences](/blog/hs256-vs-rs256-decoding/) if verification fails
 4. Read about [JWKS and key rotation](/blog/jwks-kid-key-rotation-decoding/) for RS256 issues

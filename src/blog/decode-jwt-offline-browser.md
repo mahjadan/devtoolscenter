@@ -7,7 +7,7 @@ date: 2025-11-12
 readTime: 6
 tags: ["blog", "jwt"]
 relatedTool: /jwt-decoder/
-relatedToolName: JWT Decoder
+relatedToolName: JWT Encoder/Decoder
 relatedArticles:
   - /blog/jwt-tokens-explained/
   - /blog/decode-jwt-online-myths-facts/
@@ -182,7 +182,7 @@ console.log(decodeJWT(token));
 
 ## Using our offline tool
 
-Our [JWT Decoder](/jwt-decoder/) runs entirely in your browser:
+Our [JWT Encoder/Decoder](/jwt-decoder/) runs entirely in your browser:
 
 **Features:**
 - ✅ **100% client-side** - No server requests
@@ -229,7 +229,7 @@ Our [JWT Decoder](/jwt-decoder/) runs entirely in your browser:
 
 **Solution:**
 1. Extract token from server logs (redacted)
-2. Use offline decoder (our [JWT Decoder](/jwt-decoder/))
+2. Use offline decoder (our [JWT Encoder/Decoder](/jwt-decoder/))
 3. Inspect claims without sending token anywhere
 4. Fix configuration based on decoded information
 
@@ -252,7 +252,7 @@ Our [JWT Decoder](/jwt-decoder/) runs entirely in your browser:
 **Problem:** Working in isolated network without internet
 
 **Solution:**
-1. Save our [JWT Decoder](/jwt-decoder/) page locally
+1. Save our [JWT Encoder/Decoder](/jwt-decoder/) page locally
 2. Open saved HTML file
 3. Decode tokens without network access
 
@@ -425,7 +425,7 @@ console.log('Is expired:', decoded.isExpired);
 
 ## Next steps
 
-1. Try decoding a token with our [JWT Decoder](/jwt-decoder/) - verify it's offline
+1. Try decoding a token with our [JWT Encoder/Decoder](/jwt-decoder/) - verify it's offline
 2. Learn about [online decoder security myths](/blog/decode-jwt-online-myths-facts/) when choosing tools
 3. Understand [why decoding isn't verification](/blog/dont-trust-decoded-jwt/)
 4. Read about [safe decoding practices](/blog/jwt-decode-safely/) before verification
