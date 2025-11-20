@@ -230,10 +230,12 @@ function hideTokenInfo() {
 // Mode Switching
 function switchToDecodeMode() {
   currentMode = 'decode';
-  decodeModeBtn.classList.add('text-white', 'bg-primary-600', 'shadow-sm');
-  decodeModeBtn.classList.remove('text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-200', 'dark:hover:bg-gray-700');
-  encodeModeBtn.classList.remove('text-white', 'bg-primary-600', 'shadow-sm');
-  encodeModeBtn.classList.add('text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-200', 'dark:hover:bg-gray-700');
+  // Update decode button to active state
+  decodeModeBtn.classList.add('text-white', 'bg-gradient-to-r', 'from-primary-600', 'to-primary-700', 'shadow-md');
+  decodeModeBtn.classList.remove('text-gray-700', 'dark:text-gray-200', 'hover:bg-gray-200', 'dark:hover:bg-gray-700', 'hover:shadow-md');
+  // Update encode button to inactive state
+  encodeModeBtn.classList.remove('text-white', 'bg-gradient-to-r', 'from-primary-600', 'to-primary-700', 'shadow-md');
+  encodeModeBtn.classList.add('text-gray-700', 'dark:text-gray-200', 'hover:bg-gray-200', 'dark:hover:bg-gray-700', 'hover:shadow-md');
 
   decodeMode.classList.remove('hidden');
   encodeMode.classList.add('hidden');
@@ -242,10 +244,12 @@ function switchToDecodeMode() {
 
 function switchToEncodeMode() {
   currentMode = 'encode';
-  encodeModeBtn.classList.add('text-white', 'bg-primary-600', 'shadow-sm');
-  encodeModeBtn.classList.remove('text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-200', 'dark:hover:bg-gray-700');
-  decodeModeBtn.classList.remove('text-white', 'bg-primary-600', 'shadow-sm');
-  decodeModeBtn.classList.add('text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-200', 'dark:hover:bg-gray-700');
+  // Update encode button to active state
+  encodeModeBtn.classList.add('text-white', 'bg-gradient-to-r', 'from-primary-600', 'to-primary-700', 'shadow-md');
+  encodeModeBtn.classList.remove('text-gray-700', 'dark:text-gray-200', 'hover:bg-gray-200', 'dark:hover:bg-gray-700', 'hover:shadow-md');
+  // Update decode button to inactive state
+  decodeModeBtn.classList.remove('text-white', 'bg-gradient-to-r', 'from-primary-600', 'to-primary-700', 'shadow-md');
+  decodeModeBtn.classList.add('text-gray-700', 'dark:text-gray-200', 'hover:bg-gray-200', 'dark:hover:bg-gray-700', 'hover:shadow-md');
 
   encodeMode.classList.remove('hidden');
   decodeMode.classList.add('hidden');

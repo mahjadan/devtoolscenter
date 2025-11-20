@@ -43,11 +43,24 @@ breadcrumbSchema:
 <!-- Mode Switcher -->
 <div class="mb-8">
   <div class="flex border-2 border-gray-300 dark:border-gray-600 rounded-lg p-1 bg-gray-100 dark:bg-gray-800 w-fit">
-    <button id="decode-mode-btn" class="px-6 py-2 rounded-md font-medium transition-all duration-200 text-white bg-primary-600 shadow-sm">
-      🔍 Decode
+    <button id="decode-mode-btn" class="group relative px-6 py-2.5 rounded-md font-medium transition-all duration-300 text-white bg-gradient-to-r from-primary-600 to-primary-700 shadow-md hover:shadow-lg overflow-hidden">
+      <span class="relative z-10 flex items-center gap-2">
+        <svg class="w-4 h-4 transition-all duration-300 group-hover:scale-150 group-active:scale-125" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+        <span>Decode</span>
+      </span>
+      <div class="absolute inset-0 bg-gradient-to-r from-primary-500 to-primary-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
     </button>
-    <button id="encode-mode-btn" class="px-6 py-2 rounded-md font-medium transition-all duration-200 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">
-      ⚙️ Encode
+    <button id="encode-mode-btn" class="group relative px-6 py-2.5 rounded-md font-medium transition-all duration-300 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 hover:shadow-md">
+      <span class="flex items-center gap-2">
+        <svg class="w-5 h-5 transition-transform duration-700 ease-in-out group-hover:rotate-180 group-active:rotate-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2.69l1.45 1.45A2 2 0 0 0 15 4.9V6a2 2 0 0 0 2 2h1.1a2 2 0 0 0 1.76-1.45L21.31 12l-1.45 1.45A2 2 0 0 0 19.1 15H18a2 2 0 0 0-2 2v1.1a2 2 0 0 0 1.45 1.76L12 21.31l-1.45-1.45A2 2 0 0 0 9 19.1V18a2 2 0 0 0-2-2H5.9a2 2 0 0 0-1.76 1.45L2.69 12l1.45-1.45A2 2 0 0 0 4.9 9H6a2 2 0 0 0 2-2V5.9a2 2 0 0 0-1.45-1.76z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+        <span>Encode</span>
+      </span>
     </button>
   </div>
 </div>
