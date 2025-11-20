@@ -136,12 +136,12 @@ function base64UrlEncode(str) {
 function base64UrlDecode(str) {
   // Replace URL-safe characters
   str = str.replace(/-/g, '+').replace(/_/g, '/');
-  
+
   // Pad with '=' to make length multiple of 4
   while (str.length % 4) {
     str += '=';
   }
-  
+
   try {
     return decodeURIComponent(
       atob(str)
@@ -174,15 +174,15 @@ function getTimeRemaining(timestamp) {
   const now = new Date();
   const expiry = new Date(timestamp * 1000);
   const diff = expiry.getTime() - now.getTime();
-  
+
   if (diff <= 0) {
     return { expired: true, text: 'Expired' };
   }
-  
+
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
   const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  
+
   if (days > 0) {
     return { expired: false, text: `${days}d ${hours}h` };
   } else if (hours > 0) {
@@ -234,7 +234,7 @@ function switchToDecodeMode() {
   decodeModeBtn.classList.remove('text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-200', 'dark:hover:bg-gray-700');
   encodeModeBtn.classList.remove('text-white', 'bg-primary-600', 'shadow-sm');
   encodeModeBtn.classList.add('text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-200', 'dark:hover:bg-gray-700');
-  
+
   decodeMode.classList.remove('hidden');
   encodeMode.classList.add('hidden');
   hideGlobalError();
@@ -246,7 +246,7 @@ function switchToEncodeMode() {
   encodeModeBtn.classList.remove('text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-200', 'dark:hover:bg-gray-700');
   decodeModeBtn.classList.remove('text-white', 'bg-primary-600', 'shadow-sm');
   decodeModeBtn.classList.add('text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-200', 'dark:hover:bg-gray-700');
-  
+
   encodeMode.classList.remove('hidden');
   decodeMode.classList.add('hidden');
   hideGlobalError();
@@ -264,70 +264,70 @@ function decodeJWT() {
   hideDecodeError();
   hideGlobalError();
   const token = jwtInput.value.trim();
-  
+
   // Clear previous results
   jwtHeader.textContent = '';
   jwtPayload.textContent = '';
-  
+
   // Clear token info values
   tokenAlg.textContent = '';
   tokenTyp.textContent = '';
   tokenAlgMobile.textContent = '';
   tokenTypMobile.textContent = '';
-  
+
   // Hide token info by default - will be shown only if token is valid
   hideTokenInfo();
-  
+
   if (!token) {
     // Ensure token info is hidden when input is empty
     hideTokenInfo();
     return;
   }
-  
+
   // JWT should have 3 parts separated by dots
   const parts = token.split('.');
-  
+
   if (parts.length !== 3) {
     showDecodeError('Invalid JWT format. A JWT should have 3 parts separated by dots (header.payload.signature)');
     // Hide token info when format is invalid
     hideTokenInfo();
     return;
   }
-  
+
   try {
     // Decode header
     const headerJson = base64UrlDecode(parts[0]);
     const header = JSON.parse(headerJson);
-    
+
     // Decode payload
     const payloadJson = base64UrlDecode(parts[1]);
     const payload = JSON.parse(payloadJson);
-    
+
     // Validate that header and payload are objects and not empty
-    const isValidToken = header && typeof header === 'object' && 
-                        payload && typeof payload === 'object' &&
-                        Object.keys(header).length > 0 &&
-                        Object.keys(payload).length > 0;
-    
+    const isValidToken = header && typeof header === 'object' &&
+      payload && typeof payload === 'object' &&
+      Object.keys(header).length > 0 &&
+      Object.keys(payload).length > 0;
+
     if (!isValidToken) {
       showDecodeError('Invalid JWT: Header and payload must be valid JSON objects');
       // Hide token info when validation fails
       hideTokenInfo();
       return;
     }
-    
+
     jwtHeader.textContent = JSON.stringify(header, null, 2);
     jwtPayload.textContent = JSON.stringify(payload, null, 2);
-    
+
     // Display token info (both desktop and mobile) - only show if token is valid
     const algValue = header.alg || 'N/A';
     const typValue = header.typ || 'JWT';
-    
+
     tokenAlg.textContent = algValue;
     tokenTyp.textContent = typValue;
     tokenAlgMobile.textContent = algValue;
     tokenTypMobile.textContent = typValue;
-    
+
     // Show issued at if present
     if (payload.iat) {
       const iatTime = formatTimestamp(payload.iat);
@@ -339,20 +339,20 @@ function decodeJWT() {
       tokenIatPill.classList.add('hidden');
       tokenIatPillMobile.classList.add('hidden');
     }
-    
+
     // Show expiration if present
     if (payload.exp) {
       const expTime = formatTimestamp(payload.exp);
       const remaining = getTimeRemaining(payload.exp);
-      
+
       tokenExp.textContent = expTime;
       tokenExpMobile.textContent = expTime;
-      
+
       if (remaining.expired) {
         const expiredClass = 'px-2 py-0.5 rounded-full text-xs font-semibold bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400';
         const expiredPillClass = 'px-3 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg border-l-4 border-l-red-500';
         const expiredPillMobileClass = 'flex items-center gap-1 px-2 py-1 bg-red-100 dark:bg-red-900/30 rounded text-sm';
-        
+
         tokenExpStatus.textContent = 'Expired';
         tokenExpStatusMobile.textContent = 'Expired';
         tokenExpStatus.className = expiredClass + ' inline-block';
@@ -363,7 +363,7 @@ function decodeJWT() {
         const validClass = 'px-2 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400';
         const validPillClass = 'px-3 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg border-l-4 border-l-green-500';
         const validPillMobileClass = 'flex items-center gap-1 px-2 py-1 bg-green-100 dark:bg-green-900/30 rounded text-sm';
-        
+
         tokenExpStatus.textContent = remaining.text;
         tokenExpStatusMobile.textContent = remaining.text;
         tokenExpStatus.className = validClass + ' inline-block';
@@ -371,14 +371,14 @@ function decodeJWT() {
         tokenExpPill.className = validPillClass;
         tokenExpPillMobile.className = validPillMobileClass;
       }
-      
+
       tokenExpPill.classList.remove('hidden');
       tokenExpPillMobile.classList.remove('hidden');
     } else {
       tokenExpPill.classList.add('hidden');
       tokenExpPillMobile.classList.add('hidden');
     }
-    
+
     // Show subject if present
     if (payload.sub) {
       const subValue = payload.sub.length > 20 ? payload.sub.substring(0, 20) + '...' : payload.sub;
@@ -390,7 +390,7 @@ function decodeJWT() {
       tokenSubPill.classList.add('hidden');
       tokenSubPillMobile.classList.add('hidden');
     }
-    
+
     // Show issuer if present
     if (payload.iss) {
       const issValue = payload.iss.length > 20 ? payload.iss.substring(0, 20) + '...' : payload.iss;
@@ -402,10 +402,10 @@ function decodeJWT() {
       tokenIssPill.classList.add('hidden');
       tokenIssPillMobile.classList.add('hidden');
     }
-    
+
     // Show token info since token is valid and header/payload are properly populated
     showTokenInfo();
-    
+
   } catch (e) {
     showDecodeError(`Error decoding JWT: ${e.message}`);
     // Hide token info on error
@@ -420,7 +420,7 @@ async function verifySignature() {
     showVerifyResult(false, 'No token to verify');
     return;
   }
-  
+
   // Show loading state
   const verifyBtn = document.getElementById('verify-btn');
   const originalBtnText = verifyBtn ? verifyBtn.textContent : '';
@@ -428,7 +428,7 @@ async function verifySignature() {
     verifyBtn.disabled = true;
     verifyBtn.textContent = 'Verifying...';
   }
-  
+
   try {
     // Parse token
     let header, algorithm, parts;
@@ -445,7 +445,7 @@ async function verifySignature() {
       showVerifyResult(false, `This is not a valid JWT, the header and payload must be base64url encoded. Error: ${e.message}`);
       return;
     }
-    
+
     // Check for alg: none
     if (algorithm === 'none') {
       if (parts.length === 3 && parts[2] === '') {
@@ -453,44 +453,46 @@ async function verifySignature() {
         return;
       }
     }
-    
+
     // Check if alg is missing
     if (!algorithm) {
       showVerifyResult(false, "The header does not contain an 'alg' field, this is unusual for standard JWTs.");
       return;
     }
-    
+
     const keyType = document.querySelector('input[name="keyType"]:checked')?.value || 'secret';
     const key = verifyKey.value.trim();
-    
+
     if (!key) {
       showVerifyResult(false, 'Please provide a key for verification');
       return;
     }
-    
+
     let cryptoKey;
     let verificationOptions = {
       algorithms: [algorithm]
     };
-    
+
     // Import key based on type
     if (keyType === 'secret') {
       // Secret key for HMAC
       if (!algorithm || !algorithm.startsWith('HS')) {
-        const suggestedFormat = algorithm && (algorithm.startsWith('RS') || algorithm.startsWith('PS')) 
-          ? 'PEM (Public Key) or JWK (RSA)' 
+        const suggestedFormat = algorithm && (algorithm.startsWith('RS') || algorithm.startsWith('PS'))
+          ? 'PEM (Public Key) or JWK (RSA)'
           : algorithm && algorithm.startsWith('ES')
-          ? 'PEM (Public Key) or JWK (EC)'
-          : 'the appropriate key format';
+            ? 'PEM (Public Key) or JWK (EC)'
+            : 'the appropriate key format';
         showVerifyResult(false, `Secret key is only valid for HMAC algorithms (HS256, HS384, HS512). This token uses ${algorithm || 'unknown'} algorithm. For ${algorithm || 'this algorithm'}, use ${suggestedFormat}.`);
         return;
       }
-      
+
+      // Convert text secret to Uint8Array
       // Convert text secret to Uint8Array
       const encoder = new TextEncoder();
       const secretBytes = encoder.encode(key);
-      cryptoKey = await jose.importRaw(secretBytes, algorithm);
-      
+      // For HMAC, we can pass the Uint8Array directly to jose functions
+      cryptoKey = secretBytes;
+
     } else if (keyType === 'pem') {
       // PEM verification
       const pemPattern = /-----BEGIN .+ KEY-----[\s\S]*-----END .+ KEY-----/;
@@ -498,13 +500,13 @@ async function verifySignature() {
         showVerifyResult(false, 'Invalid PEM format. PEM keys should start with "-----BEGIN" and end with "-----END".');
         return;
       }
-      
+
       // Detect key type
       const isPublicKey = /BEGIN PUBLIC KEY/.test(key);
       const isPrivateKey = /BEGIN (RSA )?PRIVATE KEY|BEGIN EC PRIVATE KEY/.test(key);
       const isRSA = /RSA|BEGIN (PUBLIC|PRIVATE) KEY/.test(key);
       const isEC = /EC PRIVATE KEY|BEGIN (PUBLIC|PRIVATE) KEY.*EC/.test(key);
-      
+
       if (algorithm && algorithm.startsWith('HS')) {
         showVerifyResult(false, `The token uses an HMAC algorithm '${algorithm}', which expects a shared secret, PEM keys are used for RSA or EC algorithms, use the original HMAC secret instead.`);
         return;
@@ -515,7 +517,7 @@ async function verifySignature() {
         showVerifyResult(false, `The token uses algorithm '${algorithm}', which is an EC algorithm, you must verify it with an EC PEM key.`);
         return;
       }
-      
+
       // Import PEM key
       try {
         if (isPublicKey) {
@@ -531,7 +533,7 @@ async function verifySignature() {
         showVerifyResult(false, `Failed to import PEM key: ${e.message}. Please check that the PEM format is correct.`);
         return;
       }
-      
+
     } else if (keyType === 'jwk') {
       // JWK verification
       let jwk;
@@ -541,12 +543,12 @@ async function verifySignature() {
         showVerifyResult(false, `JWK is not valid JSON, please paste a valid JWK object. Error: ${e.message}`);
         return;
       }
-      
+
       if (!jwk.kty) {
         showVerifyResult(false, 'Invalid JWK format. JWK must have a "kty" (key type) property.');
         return;
       }
-      
+
       // Check algorithm compatibility
       if (algorithm && algorithm.startsWith('HS')) {
         if (jwk.kty !== 'oct') {
@@ -575,7 +577,7 @@ async function verifySignature() {
           showVerifyResult(false, `The EC JWK is incomplete, it must contain 'crv', 'x', and 'y' fields for verification.`);
           return;
         }
-        
+
         // Check curve/algorithm match
         const curveAlgMap = {
           'P-256': 'ES256',
@@ -587,7 +589,7 @@ async function verifySignature() {
           showVerifyResult(false, `The token uses algorithm '${algorithm}' but the JWK curve is '${jwk.crv}', use ES256 with P-256, ES384 with P-384, and ES512 with P-521.`);
           return;
         }
-        
+
         // For verification, we only need the public key components (x, y)
         // Remove the private key (d) if present, as it's not needed for verification
         const publicJwk = {
@@ -600,7 +602,7 @@ async function verifySignature() {
         if (jwk.kid) publicJwk.kid = jwk.kid;
         if (jwk.use) publicJwk.use = jwk.use;
         if (jwk.alg) publicJwk.alg = jwk.alg;
-        
+
         // Import JWK (using public key only)
         try {
           cryptoKey = await jose.importJWK(publicJwk, algorithm);
@@ -616,7 +618,7 @@ async function verifySignature() {
         showVerifyResult(false, `Unsupported algorithm '${algorithm || 'missing'}'.`);
         return;
       }
-      
+
       // Import JWK (for HMAC and RSA - EC is handled above)
       if (!cryptoKey) {
         try {
@@ -628,14 +630,14 @@ async function verifySignature() {
         }
       }
     }
-    
+
     // Perform actual signature verification
     try {
       const { payload, protectedHeader } = await jose.jwtVerify(token, cryptoKey, verificationOptions);
-      
+
       // Success - signature is valid
       showVerifyResult(true, `Signature verified successfully with the provided key. Token is valid and signed correctly.`);
-      
+
     } catch (e) {
       // Verification failed
       if (e.code === 'ERR_JWT_EXPIRED') {
@@ -648,7 +650,7 @@ async function verifySignature() {
         showVerifyResult(false, `Signature verification failed: ${e.message}`);
       }
     }
-    
+
   } catch (e) {
     // General error
     showVerifyResult(false, `Verification error: ${e.message}`);
@@ -663,7 +665,7 @@ async function verifySignature() {
 
 function showVerifyResult(isValid, message) {
   verifyResult.classList.remove('hidden');
-  
+
   if (isValid) {
     verifyResult.className = 'p-3 rounded border bg-green-100 dark:bg-green-900/30 border-green-300 dark:border-green-600 text-green-700 dark:text-green-400';
     verifyResult.innerHTML = `<div class="flex items-center gap-2"><span>✅</span><span class="font-medium">Signature Valid</span></div><p class="text-sm mt-1">${message}</p>`;
@@ -676,10 +678,10 @@ function showVerifyResult(isValid, message) {
 // Encode Functionality
 function validateJSON(input, validationDiv, iconEl, textEl) {
   const value = input.value.trim();
-  
+
   // Ensure validation div is visible
   validationDiv.classList.remove('hidden');
-  
+
   if (!value) {
     validationDiv.className = 'flex items-center gap-1 px-2 py-1 rounded text-xs font-semibold bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400';
     iconEl.textContent = '⚪';
@@ -687,7 +689,7 @@ function validateJSON(input, validationDiv, iconEl, textEl) {
     input.className = input.className.replace(/border-red-500|border-green-500/g, 'border-gray-300 dark:border-gray-600');
     return { valid: false, json: null };
   }
-  
+
   try {
     const parsed = JSON.parse(value);
     validationDiv.className = 'flex items-center gap-1 px-2 py-1 rounded text-xs font-semibold bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400';
@@ -730,78 +732,78 @@ function updateSigningSection(algorithm) {
 // JWK Validation Helper Functions
 function validateJWKForEncode(jwk, algorithm) {
   const errors = [];
-  
+
   if (!jwk.kty) {
     errors.push("The JWK must contain the 'kty' field, which defines the key type like oct, RSA, or EC.");
     return { valid: false, errors };
   }
-  
+
   if (jwk.kty === 'oct') {
     // HMAC - symmetric
     if (!jwk.k) {
       errors.push("This JWK is missing the 'k' field, which contains the secret key material, you cannot sign tokens without it.");
       return { valid: false, errors };
     }
-    
+
     if (!algorithm || !algorithm.startsWith('HS')) {
       errors.push(`Algorithm '${algorithm || 'missing'}' is not compatible with an oct (symmetric) JWK, use HS256, HS384, or HS512 when signing with a symmetric JWK.`);
       return { valid: false, errors };
     }
-    
+
     return { valid: true, errors: [] };
-    
+
   } else if (jwk.kty === 'RSA') {
     // RSA
     if (!jwk.n || !jwk.e) {
       errors.push("This RSA JWK is incomplete, it must contain 'n' and 'e' fields for the public key.");
       return { valid: false, errors };
     }
-    
+
     if (!jwk.d) {
       errors.push("This JWK only contains the RSA public key, signing a token requires the private part of the key, which is the 'd' field.");
       return { valid: false, errors };
     }
-    
+
     const allowedAlgs = ['RS256', 'RS384', 'RS512', 'PS256', 'PS384', 'PS512'];
     if (!algorithm || !allowedAlgs.includes(algorithm)) {
       errors.push(`Algorithm '${algorithm || 'missing'}' is not compatible with an RSA JWK, use RS256, RS384, RS512, PS256, PS384, or PS512 when signing with RSA keys.`);
       return { valid: false, errors };
     }
-    
+
     return { valid: true, errors: [] };
-    
+
   } else if (jwk.kty === 'EC') {
     // ECDSA
     if (!jwk.crv || !jwk.x || !jwk.y) {
       errors.push("This EC JWK is incomplete, it must contain 'crv', 'x', and 'y' fields for the public key.");
       return { valid: false, errors };
     }
-    
+
     if (!jwk.d) {
       errors.push("This JWK only contains the EC public key, signing a token requires the private part of the key, which is the 'd' field.");
       return { valid: false, errors };
     }
-    
+
     if (!algorithm || !algorithm.startsWith('ES')) {
       errors.push(`Algorithm '${algorithm || 'missing'}' is not compatible with an EC JWK, use ES256, ES384, or ES512 when signing with EC keys.`);
       return { valid: false, errors };
     }
-    
+
     // Check curve/algorithm match
     const curveAlgMap = {
       'P-256': 'ES256',
       'P-384': 'ES384',
       'P-521': 'ES512'
     };
-    
+
     const expectedAlg = curveAlgMap[jwk.crv];
     if (expectedAlg && algorithm !== expectedAlg) {
       errors.push(`Algorithm '${algorithm}' does not match the EC curve '${jwk.crv}', use ES256 with P-256, ES384 with P-384, or ES512 with P-521.`);
       return { valid: false, errors };
     }
-    
+
     return { valid: true, errors: [] };
-    
+
   } else {
     errors.push(`The JWK key type '${jwk.kty}' is not supported by this tool for signing.`);
     return { valid: false, errors };
@@ -810,16 +812,16 @@ function validateJWKForEncode(jwk, algorithm) {
 
 function validatePEMForEncode(pem, algorithm) {
   const errors = [];
-  
+
   // Check if it's a public key only
   const publicKeyPattern = /-----BEGIN PUBLIC KEY-----/;
   const privateKeyPattern = /-----BEGIN (RSA PRIVATE KEY|PRIVATE KEY|EC PRIVATE KEY)-----/;
-  
+
   if (publicKeyPattern.test(pem) && !privateKeyPattern.test(pem)) {
     errors.push("You pasted a public key PEM, to sign a JWT you must use a private key PEM, public keys are only for verification.");
     return { valid: false, errors };
   }
-  
+
   // Basic PEM format check
   const pemPattern = /-----BEGIN .+ KEY-----[\s\S]*-----END .+ KEY-----/;
   if (!pemPattern.test(pem)) {
@@ -827,15 +829,15 @@ function validatePEMForEncode(pem, algorithm) {
     errors.push("The PEM key could not be parsed, check that you pasted a valid RSA or EC private key.");
     return { valid: false, errors };
   }
-  
+
   // Detect key type
   // PKCS#1 format (legacy)
   const isPKCS1RSA = /-----BEGIN RSA PRIVATE KEY-----/.test(pem);
   const isPKCS1EC = /-----BEGIN EC PRIVATE KEY-----/.test(pem);
-  
+
   // PKCS#8 format (modern) - doesn't specify key type in header
   const isPKCS8 = /-----BEGIN PRIVATE KEY-----/.test(pem);
-  
+
   if (isPKCS1RSA) {
     // PKCS#1 RSA key
     const allowedAlgs = ['RS256', 'RS384', 'RS512', 'PS256', 'PS384', 'PS512'];
@@ -873,18 +875,18 @@ function validatePEMForEncode(pem, algorithm) {
 function validateEncodeInputs() {
   const headerResult = validateJSON(encodeHeader, headerValidation, headerValidationIcon, headerValidationText);
   const payloadResult = validateJSON(encodePayload, payloadValidation, payloadValidationIcon, payloadValidationText);
-  
+
   // Update signing section based on algorithm
   if (headerResult.valid && headerResult.json.alg) {
     updateSigningSection(headerResult.json.alg);
   }
-  
+
   generateToken(headerResult, payloadResult);
 }
 
 async function generateToken(headerResult, payloadResult) {
   const errors = [];
-  
+
   // Hide all output states first
   tokenPlaceholder.classList.add('hidden');
   tokenErrors.classList.add('hidden');
@@ -892,21 +894,21 @@ async function generateToken(headerResult, payloadResult) {
   if (encodeTokenDisplay) {
     encodeTokenDisplay.classList.add('hidden');
   }
-  
+
   // Reset mobile preview
   if (mobileTokenSuccess && mobileTokenPlaceholder) {
     mobileTokenSuccess.classList.add('hidden');
     mobileTokenPlaceholder.classList.remove('hidden');
   }
-  
+
   if (!headerResult.valid) {
     errors.push('Header is not valid JSON, please fix the JSON format before encoding.');
   }
-  
+
   if (!payloadResult.valid) {
     errors.push('Payload must be valid JSON');
   }
-  
+
   if (!headerResult.valid || !payloadResult.valid) {
     if (errors.length > 0) {
       tokenErrorList.innerHTML = errors.map(error => `<li>${error}</li>`).join('');
@@ -916,11 +918,11 @@ async function generateToken(headerResult, payloadResult) {
     }
     return;
   }
-  
+
   const header = headerResult.json;
   const payload = payloadResult.json;
   const algorithm = header.alg;
-  
+
   // Check if alg is required
   if (!algorithm) {
     errors.push("The header must contain an 'alg' field, select a signing algorithm that matches the key you are using.");
@@ -935,25 +937,25 @@ async function generateToken(headerResult, payloadResult) {
     }
     return;
   }
-  
+
   // Auto-set typ if missing
   if (!header.typ) {
     header.typ = 'JWT';
   }
-  
+
   // Check algorithm requirements
   if (algorithm === 'none') {
     // No signature needed
     const headerB64 = base64UrlEncode(JSON.stringify(header));
     const payloadB64 = base64UrlEncode(JSON.stringify(payload));
     const token = `${headerB64}.${payloadB64}.`;
-    
+
     showGeneratedToken(token);
   } else if (algorithm && algorithm.startsWith('HS')) {
     // HMAC algorithms
     // Get the selected key type
     const secretKeyType = document.querySelector('input[name="secretKeyType"]:checked')?.value || 'text';
-    
+
     // Validate based on key type
     if (secretKeyType === 'text') {
       // Text secret - sign with actual HMAC
@@ -967,17 +969,18 @@ async function generateToken(headerResult, payloadResult) {
         showGeneratedToken(token);
         return;
       }
-      
+
       try {
         // Import secret key and sign
         const encoder = new TextEncoder();
         const secretBytes = encoder.encode(secret);
-        const key = await jose.importRaw(secretBytes, algorithm);
-        
+        // For HMAC, we can pass the Uint8Array directly to jose functions
+        const key = secretBytes;
+
         const token = await new jose.SignJWT(payload)
           .setProtectedHeader(header)
           .sign(key);
-        
+
         showGeneratedToken(token);
       } catch (e) {
         errors.push(`Failed to sign token: ${e.message}`);
@@ -1020,7 +1023,7 @@ async function generateToken(headerResult, payloadResult) {
         }
         return;
       }
-      
+
       try {
         const jwk = JSON.parse(jwkText);
         const validation = validateJWKForEncode(jwk, algorithm);
@@ -1037,14 +1040,14 @@ async function generateToken(headerResult, payloadResult) {
           }
           return;
         }
-        
+
         // Valid JWK - sign token
         try {
           const key = await jose.importJWK(jwk, algorithm);
           const token = await new jose.SignJWT(payload)
             .setProtectedHeader(header)
             .sign(key);
-          
+
           showGeneratedToken(token);
         } catch (e) {
           errors.push(`Failed to sign token with JWK: ${e.message}`);
@@ -1072,12 +1075,12 @@ async function generateToken(headerResult, payloadResult) {
         return;
       }
     }
-    
+
   } else if (algorithm && (algorithm.startsWith('RS') || algorithm.startsWith('ES') || algorithm.startsWith('PS'))) {
     // RSA/ECDSA/PSS algorithms
     const privateKeyType = document.querySelector('input[name="privateKeyType"]:checked')?.value || 'pem';
     const privateKey = encodePrivateKey ? encodePrivateKey.value.trim() : '';
-    
+
     if (!privateKey) {
       errors.push('Private key is required for RSA/ECDSA algorithms');
       tokenErrorList.innerHTML = errors.map(error => `<li>${error}</li>`).join('');
@@ -1091,7 +1094,7 @@ async function generateToken(headerResult, payloadResult) {
       }
       return;
     }
-    
+
     // Validate based on key type
     if (privateKeyType === 'pem') {
       const validation = validatePEMForEncode(privateKey, algorithm);
@@ -1139,11 +1142,11 @@ async function generateToken(headerResult, payloadResult) {
         return;
       }
     }
-    
+
     // Valid key - sign token
     try {
       let key;
-      
+
       if (privateKeyType === 'pem') {
         // Import PEM private key
         const isPrivateKey = /BEGIN (RSA )?PRIVATE KEY|BEGIN EC PRIVATE KEY/.test(privateKey);
@@ -1160,7 +1163,7 @@ async function generateToken(headerResult, payloadResult) {
           }
           return;
         }
-        
+
         // Import PKCS8 private key
         key = await jose.importPKCS8(privateKey, algorithm);
       } else if (privateKeyType === 'jwk') {
@@ -1168,12 +1171,12 @@ async function generateToken(headerResult, payloadResult) {
         const jwk = JSON.parse(privateKey);
         key = await jose.importJWK(jwk, algorithm);
       }
-      
+
       // Sign the token
       const token = await new jose.SignJWT(payload)
         .setProtectedHeader(header)
         .sign(key);
-      
+
       showGeneratedToken(token);
     } catch (e) {
       errors.push(`Failed to sign token: ${e.message}`);
@@ -1207,14 +1210,14 @@ function showGeneratedToken(token) {
     generatedToken.textContent = token;
     tokenSuccess.classList.remove('hidden');
   }
-  
+
   // Update mobile token preview
   if (mobileGeneratedToken && mobileTokenPlaceholder && mobileTokenSuccess) {
     mobileGeneratedToken.textContent = token;
     mobileTokenPlaceholder.classList.add('hidden');
     mobileTokenSuccess.classList.remove('hidden');
   }
-  
+
   // Decode and display token info
   try {
     const parts = token.split('.');
@@ -1223,21 +1226,21 @@ function showGeneratedToken(token) {
       const headerJson = base64UrlDecode(parts[0]);
       const header = JSON.parse(headerJson);
       encodeJwtHeader.textContent = JSON.stringify(header, null, 2);
-      
+
       // Decode payload
       const payloadJson = base64UrlDecode(parts[1]);
       const payload = JSON.parse(payloadJson);
       encodeJwtPayload.textContent = JSON.stringify(payload, null, 2);
-      
+
       // Display token info (both desktop and mobile)
       const algValue = header.alg || 'N/A';
       const typValue = header.typ || 'JWT';
-      
+
       encodeTokenAlg.textContent = algValue;
       encodeTokenTyp.textContent = typValue;
       encodeTokenAlgMobile.textContent = algValue;
       encodeTokenTypMobile.textContent = typValue;
-      
+
       // Show issued at if present
       if (payload.iat) {
         const iatTime = formatTimestamp(payload.iat);
@@ -1249,20 +1252,20 @@ function showGeneratedToken(token) {
         encodeTokenIatPill.classList.add('hidden');
         encodeTokenIatPillMobile.classList.add('hidden');
       }
-      
+
       // Show expiration if present
       if (payload.exp) {
         const expTime = formatTimestamp(payload.exp);
         const remaining = getTimeRemaining(payload.exp);
-        
+
         encodeTokenExp.textContent = expTime;
         encodeTokenExpMobile.textContent = expTime;
-        
+
         if (remaining.expired) {
           const expiredClass = 'px-2 py-0.5 rounded-full text-xs font-semibold bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400';
           const expiredPillClass = 'px-3 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg border-l-4 border-l-red-500';
           const expiredPillMobileClass = 'flex items-center gap-1 px-2 py-1 bg-red-100 dark:bg-red-900/30 rounded text-sm';
-          
+
           encodeTokenExpStatus.textContent = 'Expired';
           encodeTokenExpStatusMobile.textContent = 'Expired';
           encodeTokenExpStatus.className = expiredClass + ' inline-block';
@@ -1273,7 +1276,7 @@ function showGeneratedToken(token) {
           const validClass = 'px-2 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400';
           const validPillClass = 'px-3 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg border-l-4 border-l-green-500';
           const validPillMobileClass = 'flex items-center gap-1 px-2 py-1 bg-green-100 dark:bg-green-900/30 rounded text-sm';
-          
+
           encodeTokenExpStatus.textContent = remaining.text;
           encodeTokenExpStatusMobile.textContent = remaining.text;
           encodeTokenExpStatus.className = validClass + ' inline-block';
@@ -1281,14 +1284,14 @@ function showGeneratedToken(token) {
           encodeTokenExpPill.className = validPillClass;
           encodeTokenExpPillMobile.className = validPillMobileClass;
         }
-        
+
         encodeTokenExpPill.classList.remove('hidden');
         encodeTokenExpPillMobile.classList.remove('hidden');
       } else {
         encodeTokenExpPill.classList.add('hidden');
         encodeTokenExpPillMobile.classList.add('hidden');
       }
-      
+
       // Show subject if present
       if (payload.sub) {
         const subValue = payload.sub.length > 20 ? payload.sub.substring(0, 20) + '...' : payload.sub;
@@ -1300,7 +1303,7 @@ function showGeneratedToken(token) {
         encodeTokenSubPill.classList.add('hidden');
         encodeTokenSubPillMobile.classList.add('hidden');
       }
-      
+
       // Show issuer if present
       if (payload.iss) {
         const issValue = payload.iss.length > 20 ? payload.iss.substring(0, 20) + '...' : payload.iss;
@@ -1312,7 +1315,7 @@ function showGeneratedToken(token) {
         encodeTokenIssPill.classList.add('hidden');
         encodeTokenIssPillMobile.classList.add('hidden');
       }
-      
+
       // Show token display container
       if (encodeTokenDisplay) {
         encodeTokenDisplay.classList.remove('hidden');
@@ -1337,7 +1340,7 @@ function showGeneratedToken(token) {
 // Copy functionality
 function copyToken() {
   const token = generatedToken.textContent;
-  
+
   if (navigator.clipboard) {
     navigator.clipboard.writeText(token).then(() => {
       const originalText = copyTokenBtn.textContent;
@@ -1378,7 +1381,7 @@ encodeModeBtn.addEventListener('click', switchToEncodeMode);
 // Decode mode events
 jwtInput.addEventListener('input', () => {
   const token = jwtInput.value.trim();
-  
+
   // Immediately hide token info if input is empty
   if (!token) {
     hideTokenInfo();
@@ -1391,7 +1394,7 @@ jwtInput.addEventListener('input', () => {
     tokenTypMobile.textContent = '';
     hideDecodeError();
   }
-  
+
   clearTimeout(jwtInput.decodeTimeout);
   jwtInput.decodeTimeout = setTimeout(decodeJWT, 300);
 });
@@ -1459,7 +1462,7 @@ document.querySelectorAll('input[name="secretKeyType"]').forEach(radio => {
       // Show textarea, hide text input
       if (secretTextInput) secretTextInput.classList.add('hidden');
       if (secretPemJwkInput) secretPemJwkInput.classList.remove('hidden');
-      
+
       // Update label and placeholder based on type
       if (secretKeyLabel) {
         if (keyType === 'pem') {
@@ -1534,5 +1537,5 @@ if (document.readyState === 'loading') {
 
 // Auto-decode the example token on page load if in decode mode
 if (jwtInput.value.trim()) {
-decodeJWT();
+  decodeJWT();
 }
