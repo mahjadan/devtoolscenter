@@ -1,26 +1,42 @@
 ---
 layout: layouts/tool.njk
-title: UUID Generator
-description: Generate random UUIDs (Universally Unique Identifiers). Free online UUID v4 generator with bulk generation support.
+title: Professional UUID/GUID Generator - All Versions Supported
+description: Generate UUIDs and GUIDs with comprehensive support for all versions (v1, v3, v4, v7, GUID, nil). Enterprise-grade UUID generator with orbital interface, bulk generation, and multiple output formats.
 permalink: /uuid-generator/
 icon: 🆔
 order: 8
 pageScript: /assets/js/tools/uuid-generator.js
-keywords: uuid generator, generate uuid, random uuid, uuid v4, unique id generator
+keywords: uuid generator, guid generator, uuid v1, uuid v3, uuid v4, uuid v7, microsoft guid, nil uuid, bulk uuid generation, time-based uuid, random uuid, name-based uuid, unix epoch uuid, json uuid, csv uuid, enterprise uuid generator, orbital interface, cryptographically secure
 tags:
   - tools
   - uuid
+  - guid
+  - microsoft
+  - enterprise
 relatedTools:
   - /json-formatter/
   - /base64-encode-decode/
+  - /jwt-decoder/
 schema:
   "@context": "https://schema.org"
   "@type": "SoftwareApplication"
-  name: "UUID Generator"
+  name: "Professional UUID/GUID Generator"
   operatingSystem: "Web"
   applicationCategory: "DeveloperApplication"
   url: "https://devtoolscenter.com/uuid-generator/"
-  description: "Generate random UUIDs (v4) with support for bulk generation"
+  description: "Enterprise-grade UUID and GUID generator supporting all major versions (v1 Time-based, v3 Name-based MD5, v4 Random, v7 Unix Epoch, Microsoft GUID, Nil UUID) with advanced formatting options, bulk generation, and intuitive orbital interface"
+  features: [
+    "UUID v1 (Time-based with MAC address)",
+    "UUID v3 (Name-based with MD5 hashing)",
+    "UUID v4 (Cryptographically secure random)",
+    "UUID v7 (Unix epoch for database optimization)",
+    "Microsoft GUID (.NET compatibility)",
+    "Nil UUID (Testing and placeholders)",
+    "Bulk generation up to 100 UUIDs",
+    "Multiple output formats (JSON, CSV, JavaScript)",
+    "Advanced formatting (uppercase, hyphens, braces)",
+    "Orbital interface for easy version selection"
+  ]
   offers:
     "@type": "Offer"
     price: "0"
@@ -40,30 +56,227 @@ breadcrumbSchema:
 ---
 
 <div class="space-y-6">
-  <div class="flex items-center space-x-4">
-    <div class="flex-1">
-      <label for="uuid-count" class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-        Number of UUIDs to Generate
-      </label>
-      <input 
-        type="number" 
-        id="uuid-count" 
-        min="1" 
-        max="100" 
-        value="1"
-        class="w-full p-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-      />
+  <!-- UUID Version Selection with Visual Orbit -->
+  <div class="p-6 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl border border-gray-300 dark:border-gray-600">
+    <div class="flex items-center justify-between mb-4">
+      <div>
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white">UUID Version</h2>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Choose the type of UUID to generate</p>
+      </div>
+      <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+        <div class="w-2 h-2 rounded-full bg-green-400"></div>
+        <span>Cryptographically secure</span>
+      </div>
     </div>
     
-    <div class="flex-1 flex items-center space-x-2 pt-6">
-      <label class="flex items-center space-x-2">
-        <input type="checkbox" id="uppercase-check" class="w-4 h-4">
-        <span class="text-sm text-gray-700 dark:text-gray-300">Uppercase</span>
-      </label>
-      <label class="flex items-center space-x-2">
-        <input type="checkbox" id="hyphens-check" class="w-4 h-4" checked>
-        <span class="text-sm text-gray-700 dark:text-gray-300">Include Hyphens</span>
-      </label>
+    <!-- UUID Constellation/Orbit Visualization -->
+    <div class="relative h-48 mb-4">
+      <!-- Center UUID hub -->
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="relative">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-primary-400 to-primary-600 shadow-lg flex items-center justify-center">
+            <span class="text-xs font-semibold text-white tracking-tight">UUID</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Orbit rings -->
+      <div class="absolute inset-0">
+        <div class="absolute inset-4 rounded-full border border-dashed border-gray-300 dark:border-gray-600"></div>
+        <div class="absolute inset-8 rounded-full border border-dashed border-gray-300 dark:border-gray-600 opacity-60"></div>
+        <div class="absolute inset-12 rounded-full border border-dashed border-gray-300 dark:border-gray-600 opacity-40"></div>
+      </div>
+      
+      <!-- Version nodes -->
+      <button data-version="v4" class="uuid-version-btn absolute right-4 top-1/2 transform -translate-y-1/2 flex flex-col items-center gap-1 group">
+        <div class="w-10 h-10 rounded-full bg-blue-500/20 border-2 border-blue-400 flex items-center justify-center shadow-lg hover:shadow-blue-400/50 transition-all duration-200 hover:scale-110">
+          <span class="text-xs font-semibold text-blue-600 dark:text-blue-400">v4</span>
+        </div>
+        <span class="text-xs text-gray-600 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400">Random</span>
+      </button>
+      
+      <button data-version="v1" class="uuid-version-btn absolute left-4 top-1/4 flex flex-col items-center gap-1 group">
+        <div class="w-8 h-8 rounded-full bg-green-500/20 border-2 border-green-400 flex items-center justify-center hover:shadow-green-400/50 transition-all duration-200 hover:scale-110">
+          <span class="text-xs font-semibold text-green-600 dark:text-green-400">v1</span>
+        </div>
+        <span class="text-xs text-gray-600 dark:text-gray-300 group-hover:text-green-600 dark:group-hover:text-green-400">Time</span>
+      </button>
+      
+      <button data-version="v3" class="uuid-version-btn absolute left-1/4 top-2 flex flex-col items-center gap-1 group">
+        <div class="w-8 h-8 rounded-full bg-yellow-500/20 border-2 border-yellow-400 flex items-center justify-center hover:shadow-yellow-400/50 transition-all duration-200 hover:scale-110">
+          <span class="text-xs font-semibold text-yellow-600 dark:text-yellow-400">v3</span>
+        </div>
+        <span class="text-xs text-gray-600 dark:text-gray-300 group-hover:text-yellow-600 dark:group-hover:text-yellow-400">MD5</span>
+      </button>
+      
+      <button data-version="v7" class="uuid-version-btn absolute left-1/4 bottom-2 flex flex-col items-center gap-1 group">
+        <div class="w-8 h-8 rounded-full bg-purple-500/20 border-2 border-purple-400 flex items-center justify-center hover:shadow-purple-400/50 transition-all duration-200 hover:scale-110">
+          <span class="text-xs font-semibold text-purple-600 dark:text-purple-400">v7</span>
+        </div>
+        <span class="text-xs text-gray-600 dark:text-gray-300 group-hover:text-purple-600 dark:group-hover:text-purple-400">Unix</span>
+      </button>
+      
+      <button data-version="guid" class="uuid-version-btn absolute right-20 top-2 flex flex-col items-center gap-1 group">
+        <div class="w-10 h-10 rounded-full bg-indigo-500/20 border-2 border-indigo-400 flex items-center justify-center shadow-lg hover:shadow-indigo-400/50 transition-all duration-200 hover:scale-110">
+          <span class="text-xs font-semibold text-indigo-600 dark:text-indigo-400">GUID</span>
+        </div>
+        <span class="text-xs text-gray-600 dark:text-gray-300 group-hover:text-indigo-600 dark:group-hover:text-indigo-400">GUID</span>
+      </button>
+      
+      <button data-version="nil" class="uuid-version-btn absolute right-1/4 bottom-2 flex flex-col items-center gap-1 group">
+        <div class="w-8 h-8 rounded-full bg-orange-500/20 border-2 border-orange-400 flex items-center justify-center hover:shadow-orange-400/50 transition-all duration-200 hover:scale-110">
+          <span class="text-xs font-semibold text-orange-600 dark:text-orange-400">nil</span>
+        </div>
+        <span class="text-xs text-gray-600 dark:text-gray-300 group-hover:text-orange-600 dark:group-hover:text-orange-400">Zero</span>
+      </button>
+    </div>
+    
+    <!-- Version Pills (alternative selection method) -->
+    <div class="flex flex-wrap gap-2">
+      <button data-version="v4" class="version-pill inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border-2 border-blue-400 bg-blue-500/20 text-blue-600 dark:text-blue-400 transition-all">
+        <span class="w-4 h-4 rounded-full bg-blue-500/40 text-[0.6rem] flex items-center justify-center text-white">v4</span>
+        <span>Random (Recommended)</span>
+      </button>
+      <button data-version="v1" class="version-pill inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:border-green-400 hover:text-green-600 transition-all">
+        <span class="w-4 h-4 rounded-full bg-green-500/40 text-[0.6rem] flex items-center justify-center text-white">v1</span>
+        <span>Time-based</span>
+      </button>
+      <button data-version="v3" class="version-pill inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:border-yellow-400 hover:text-yellow-600 transition-all">
+        <span class="w-4 h-4 rounded-full bg-yellow-500/40 text-[0.6rem] flex items-center justify-center text-white">v3</span>
+        <span>Name-based MD5</span>
+      </button>
+      <button data-version="v7" class="version-pill inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:border-purple-400 hover:text-purple-600 transition-all">
+        <span class="w-4 h-4 rounded-full bg-purple-500/40 text-[0.6rem] flex items-center justify-center text-white">v7</span>
+        <span>Unix Epoch</span>
+      </button>
+      <button data-version="guid" class="version-pill inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:border-indigo-400 hover:text-indigo-600 transition-all">
+        <span class="w-4 h-4 rounded-full bg-indigo-500/40 text-[0.6rem] flex items-center justify-center text-white">G</span>
+        <span>GUID</span>
+      </button>
+      <button data-version="nil" class="version-pill inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:border-orange-400 hover:text-orange-600 transition-all">
+        <span class="w-4 h-4 rounded-full bg-orange-500/40 text-[0.6rem] flex items-center justify-center text-white">0</span>
+        <span>Nil UUID</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Output Format Selection -->
+  <div class="p-4 border border-gray-300 dark:border-gray-600 rounded-lg">
+    <label class="block text-sm font-medium mb-3 text-gray-700 dark:text-gray-300">Output Format</label>
+    <div class="flex flex-wrap gap-2">
+      <button data-format="list" class="format-btn inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium border-2 border-primary-400 bg-primary-500/20 text-primary-600 dark:text-primary-400 transition-all">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+        </svg>
+        <span>Line-separated</span>
+      </button>
+      <button data-format="json" class="format-btn inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:border-primary-400 hover:text-primary-600 transition-all">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3"></path>
+        </svg>
+        <span>JSON Array</span>
+      </button>
+      <button data-format="csv" class="format-btn inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:border-primary-400 hover:text-primary-600 transition-all">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+        </svg>
+        <span>CSV</span>
+      </button>
+      <button data-format="array" class="format-btn inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:border-primary-400 hover:text-primary-600 transition-all">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path>
+        </svg>
+        <span>JS Array</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Generation Controls -->
+  <div class="p-4 border border-gray-300 dark:border-gray-600 rounded-lg">
+    <div class="space-y-4">
+      <!-- Count Selection -->
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Number of UUIDs</label>
+          <span id="count-label" class="text-xs text-gray-500 dark:text-gray-400">Generating <span class="font-medium text-primary-600">1 UUID</span></span>
+        </div>
+        
+        <!-- Count chips -->
+        <div class="flex items-center gap-3 mb-3">
+          <div class="inline-flex items-center gap-1 rounded-full border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 p-0.5">
+            <button data-count="1" class="count-chip inline-flex items-center justify-center rounded-full bg-primary-500 text-white text-xs font-medium px-2 py-1 transition-all">
+              1
+            </button>
+            <button data-count="5" class="count-chip inline-flex items-center justify-center rounded-full text-gray-600 dark:text-gray-300 text-xs px-2 py-1 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all">
+              5
+            </button>
+            <button data-count="10" class="count-chip inline-flex items-center justify-center rounded-full text-gray-600 dark:text-gray-300 text-xs px-2 py-1 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all">
+              10
+            </button>
+            <button data-count="25" class="count-chip inline-flex items-center justify-center rounded-full text-gray-600 dark:text-gray-300 text-xs px-2 py-1 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all">
+              25
+            </button>
+            <button data-count="50" class="count-chip inline-flex items-center justify-center rounded-full text-gray-600 dark:text-gray-300 text-xs px-2 py-1 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all">
+              50
+            </button>
+          </div>
+          
+          <!-- Range slider -->
+          <div class="flex-1 flex items-center gap-2">
+            <input 
+              id="uuid-count" 
+              type="range" 
+              min="1" 
+              max="100" 
+              value="1" 
+              class="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-primary-500"
+            >
+            <span class="text-xs text-gray-500 dark:text-gray-400 w-10 text-right">
+              <span id="count-value">1</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Formatting Options -->
+      <div class="flex flex-wrap items-center gap-4">
+        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Format Options</span>
+        
+        <!-- Custom Toggle for Uppercase -->
+        <button id="uppercase-toggle" class="toggle-btn inline-flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:border-blue-400 hover:text-blue-600 transition-all duration-200" data-state="false">
+          <div class="toggle-indicator w-4 h-4 rounded border-2 border-current flex items-center justify-center transition-all duration-200">
+            <svg class="toggle-check w-2.5 h-2.5 opacity-0 transition-opacity duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+          <span class="text-xs font-medium">Uppercase</span>
+        </button>
+        
+        <!-- Custom Toggle for Hyphens -->
+        <button id="hyphens-toggle" class="toggle-btn inline-flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-green-400 bg-green-500/20 text-green-600 dark:text-green-400 transition-all duration-200" data-state="true">
+          <div class="toggle-indicator w-4 h-4 rounded border-2 border-current flex items-center justify-center bg-green-500/30 transition-all duration-200">
+            <svg class="toggle-check w-2.5 h-2.5 opacity-100 transition-opacity duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+          <span class="text-xs font-medium">Include Hyphens</span>
+        </button>
+        
+        <!-- Custom Toggle for Braces -->
+        <button id="braces-toggle" class="toggle-btn inline-flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:border-purple-400 hover:text-purple-600 transition-all duration-200" data-state="false">
+          <div class="toggle-indicator w-4 h-4 rounded border-2 border-current flex items-center justify-center transition-all duration-200">
+            <svg class="toggle-check w-2.5 h-2.5 opacity-0 transition-opacity duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+          <span class="text-xs font-medium">Wrap Braces {}</span>
+        </button>
+        
+        <!-- Hidden checkboxes for backward compatibility -->
+        <input type="checkbox" id="uppercase-check" class="hidden">
+        <input type="checkbox" id="hyphens-check" class="hidden" checked>
+        <input type="checkbox" id="braces-check" class="hidden">
+      </div>
     </div>
   </div>
   
@@ -77,26 +290,117 @@ breadcrumbSchema:
     <p class="text-red-700 dark:text-red-400 font-medium"></p>
   </div>
   
+  
   <div>
     <label for="uuid-output" class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
       Generated UUIDs
     </label>
     <textarea 
       id="uuid-output" 
-      class="tool-textarea font-mono"
+      class="tool-textarea font-mono transition-all duration-300 ease-in-out"
       readonly
+      placeholder="Generated UUIDs will appear here..."
     ></textarea>
   </div>
 </div>
 
-<div class="mt-12 p-6 bg-gradient-to-r from-primary-50 via-primary-100/50 to-accent-50 dark:from-gray-800 dark:via-primary-900/30 dark:to-gray-800 rounded-lg border-2 border-primary-300 dark:border-primary-500/50 shadow-md dark:shadow-lg dark:shadow-primary-900/20">
-  <h2 class="text-2xl font-bold mb-3 text-gray-900 dark:text-white">About UUID Generator</h2>
-  <p class="text-gray-700 dark:text-gray-300 mb-4">
-    Generate cryptographically strong random UUIDs (Version 4) for database keys, session IDs, file names, and unique identifiers. 
-    Generate single or bulk UUIDs with options for formatting.
-  </p>
-  <a href="/blog/understanding-uuid-generation/" class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold hover:underline">
-    Learn more about UUID generation and best practices →
-  </a>
+<div class="mt-12 space-y-8">
+  <div class="p-6 bg-gradient-to-r from-primary-50 via-primary-100/50 to-accent-50 dark:from-gray-800 dark:via-primary-900/30 dark:to-gray-800 rounded-lg border-2 border-primary-300 dark:border-primary-500/50 shadow-md dark:shadow-lg dark:shadow-primary-900/20">
+    <h2 class="text-2xl font-bold mb-3 text-gray-900 dark:text-white">Professional UUID/GUID Generator</h2>
+    <p class="text-gray-700 dark:text-gray-300 mb-4">
+      Generate cryptographically secure UUIDs and GUIDs with comprehensive support for all major versions. This enterprise-grade tool supports 
+      <strong>UUID v1 (Time-based)</strong>, <strong>UUID v3 (Name-based MD5)</strong>, <strong>UUID v4 (Random)</strong>, 
+      <strong>UUID v7 (Unix Epoch)</strong>, <strong>Microsoft GUID</strong>, and <strong>Nil UUID</strong> for testing. 
+      Perfect for databases, APIs, session management, distributed systems, and enterprise applications requiring unique identifiers.
+    </p>
+    <p class="text-gray-700 dark:text-gray-300 mb-4">
+      Features bulk generation (up to 100 UUIDs), multiple output formats (JSON, CSV, JavaScript arrays), 
+      advanced formatting options (uppercase, hyphens, braces), and an intuitive orbital interface for easy version selection.
+    </p>
+    <a href="/blog/understanding-uuid-generation/" class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold hover:underline">
+      Learn more about UUID generation and best practices →
+    </a>
+  </div>
+
+  <div class="grid lg:grid-cols-2 gap-6">
+    <div class="p-5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800/50">
+      <h3 class="text-lg font-semibold mb-3 text-gray-900 dark:text-white flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+        UUID/GUID Versions Supported
+      </h3>
+      <ul class="space-y-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3">
+          <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-semibold mt-0.5">v4</span>
+          <div>
+            <strong>Version 4 (Random) - Recommended:</strong> Most widely used, generates truly random UUIDs using cryptographically secure random number generators. Perfect for general use.
+          </div>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-500/20 text-green-600 dark:text-green-400 text-xs font-semibold mt-0.5">v1</span>
+          <div>
+            <strong>Version 1 (Time-based):</strong> Combines timestamp with MAC address for guaranteed uniqueness. Ideal for distributed systems where time-ordering matters.
+          </div>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 text-xs font-semibold mt-0.5">v3</span>
+          <div>
+            <strong>Version 3 (Name-based MD5):</strong> Deterministic UUIDs generated from namespace and name using MD5 hashing. Same input always produces same UUID.
+          </div>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-purple-500/20 text-purple-600 dark:text-purple-400 text-xs font-semibold mt-0.5">v7</span>
+          <div>
+            <strong>Version 7 (Unix Epoch):</strong> Modern time-based UUIDs with Unix timestamp for excellent database sorting and indexing performance.
+          </div>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-semibold mt-0.5">G</span>
+          <div>
+            <strong>Microsoft GUID:</strong> Globally Unique Identifier, functionally equivalent to UUID v4 but uses Microsoft terminology. Essential for .NET and Windows environments.
+          </div>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-orange-500/20 text-orange-600 dark:text-orange-400 text-xs font-semibold mt-0.5">0</span>
+          <div>
+            <strong>Nil UUID:</strong> Special all-zeros UUID (00000000-0000-0000-0000-000000000000) used for testing, null values, and placeholder purposes.
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="p-5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800/50">
+      <h3 class="text-lg font-semibold mb-3 text-gray-900 dark:text-white flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-green-500"></span>
+        Output Formats & Options
+      </h3>
+      <div class="space-y-4">
+        <div>
+          <h4 class="font-medium text-gray-900 dark:text-white mb-2">Output Formats:</h4>
+          <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+            <li><strong>Line-separated:</strong> One UUID per line for easy copying and processing</li>
+            <li><strong>JSON Array:</strong> Valid JSON format perfect for REST APIs and web applications</li>
+            <li><strong>CSV Format:</strong> Comma-separated for spreadsheets and data import/export</li>
+            <li><strong>JavaScript Array:</strong> Ready-to-use JavaScript code with proper string formatting</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-medium text-gray-900 dark:text-white mb-2">Formatting Options:</h4>
+          <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+            <li><strong>Uppercase/Lowercase:</strong> Control letter case for different coding standards</li>
+            <li><strong>Hyphens:</strong> Include or remove hyphens for different application requirements</li>
+            <li><strong>Braces:</strong> Wrap UUIDs in curly braces {} for Microsoft/Windows compatibility</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-medium text-gray-900 dark:text-white mb-2">Bulk Generation:</h4>
+          <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+            <li><strong>Quantity:</strong> Generate 1 to 100 UUIDs in a single operation</li>
+            <li><strong>Quick Select:</strong> Instant buttons for common quantities (1, 5, 10, 25, 50)</li>
+            <li><strong>Precision Slider:</strong> Fine-tune exact quantities with the range slider</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
