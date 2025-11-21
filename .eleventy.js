@@ -166,7 +166,19 @@ module.exports = function (eleventyConfig) {
       // Save manifest to output directory for reference
       const manifestPath = path.join(outputDir, "asset-manifest.json");
       fs.writeFileSync(manifestPath, JSON.stringify(assetManifest, null, 2));
-      console.log(`✓ Asset manifest saved to ${manifestPath}\n`);
+      console.log(`✓ Asset manifest saved to ${manifestPath}`);
+
+      // Clean up: Remove non-hashed originals (keep only hashed versions)
+      console.log("\n🧹 Cleaning up non-hashed files...");
+      for (const [original, hashed] of Object.entries(assetManifest)) {
+        const originalPath = path.join(outputDir, original);
+        // Only delete if the hashed version is different from original
+        if (original !== hashed && fs.existsSync(originalPath)) {
+          fs.unlinkSync(originalPath);
+          console.log(`✓ Removed: ${original}`);
+        }
+      }
+      console.log("");
     }
   });
 
