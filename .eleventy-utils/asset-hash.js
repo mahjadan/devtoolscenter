@@ -1,6 +1,34 @@
 const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
+const { minify } = require("terser");
+
+/**
+ * Minify a JavaScript file using Terser
+ * @param {string} srcPath - Source file path
+ * @param {string} outputPath - Output file path
+ * @returns {Promise<void>}
+ */
+async function minifyJsFile(srcPath, outputPath) {
+  const code = fs.readFileSync(srcPath, "utf8");
+  const result = await minify(code, {
+    compress: {
+      dead_code: true,
+      drop_console: false, // Keep console logs for debugging
+      passes: 2
+    },
+    mangle: true,
+    format: {
+      comments: false
+    }
+  });
+
+  if (result.code) {
+    fs.writeFileSync(outputPath, result.code);
+  } else {
+    throw new Error(`Failed to minify ${srcPath}`);
+  }
+}
 
 /**
  * Generate a content hash for a file
@@ -39,7 +67,7 @@ function hashAssets(srcDir, outputDir, assetPaths) {
 
   for (const assetPath of assetPaths) {
     const srcPath = path.join(srcDir, assetPath);
-    
+
     // Skip if file doesn't exist (e.g., CSS might not be built yet in dev mode)
     if (!fs.existsSync(srcPath)) {
       continue;
@@ -99,5 +127,6 @@ module.exports = {
   createHashedPath,
   hashAssets,
   getJsFiles,
+  minifyJsFile,
 };
 
