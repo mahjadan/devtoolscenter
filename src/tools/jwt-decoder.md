@@ -43,11 +43,24 @@ breadcrumbSchema:
 <!-- Mode Switcher -->
 <div class="mb-8">
   <div class="flex border-2 border-gray-300 dark:border-gray-600 rounded-lg p-1 bg-gray-100 dark:bg-gray-800 w-fit">
-    <button id="decode-mode-btn" class="px-6 py-2 rounded-md font-medium transition-all duration-200 text-white bg-primary-600 shadow-sm">
-      🔍 Decode
+    <button id="decode-mode-btn" class="group relative px-6 py-2.5 rounded-md font-medium transition-all duration-300 text-white bg-gradient-to-r from-primary-600 to-primary-700 shadow-md hover:shadow-lg overflow-hidden">
+      <span class="relative z-10 flex items-center gap-2">
+        <svg class="w-4 h-4 transition-all duration-300 group-hover:scale-150 group-active:scale-125" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+        <span>Decode</span>
+      </span>
+      <div class="absolute inset-0 bg-gradient-to-r from-primary-500 to-primary-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
     </button>
-    <button id="encode-mode-btn" class="px-6 py-2 rounded-md font-medium transition-all duration-200 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">
-      ⚙️ Encode
+    <button id="encode-mode-btn" class="group relative px-6 py-2.5 rounded-md font-medium transition-all duration-300 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 hover:shadow-md">
+      <span class="flex items-center gap-2">
+        <svg class="w-5 h-5 transition-transform duration-700 ease-in-out group-hover:rotate-180 group-active:rotate-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2.69l1.45 1.45A2 2 0 0 0 15 4.9V6a2 2 0 0 0 2 2h1.1a2 2 0 0 0 1.76-1.45L21.31 12l-1.45 1.45A2 2 0 0 0 19.1 15H18a2 2 0 0 0-2 2v1.1a2 2 0 0 0 1.45 1.76L12 21.31l-1.45-1.45A2 2 0 0 0 9 19.1V18a2 2 0 0 0-2-2H5.9a2 2 0 0 0-1.76 1.45L2.69 12l1.45-1.45A2 2 0 0 0 4.9 9H6a2 2 0 0 0 2-2V5.9a2 2 0 0 0-1.45-1.76z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+        <span>Encode</span>
+      </span>
     </button>
   </div>
 </div>
@@ -206,26 +219,26 @@ breadcrumbSchema:
   </div>
   
   <!-- Signature Verification Section -->
-  <div id="signature-verification" class="border border-gray-300 dark:border-gray-600 rounded-lg">
-    <button id="verify-toggle" class="w-full p-4 text-left font-medium text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors flex items-center justify-between">
+  <div id="signature-verification" class="bg-white dark:bg-gray-900 shadow-sm ring-1 ring-gray-200 dark:ring-0 dark:border dark:border-gray-600 rounded-lg">
+    <button id="verify-toggle" class="w-full p-4 text-left font-medium text-gray-900 dark:text-white bg-transparent hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors flex items-center justify-between">
       <span>🔒 Verify Signature (Optional)</span>
       <span id="verify-chevron" class="transform transition-transform">▼</span>
     </button>
     <div id="verify-content" class="hidden p-4 border-t border-gray-300 dark:border-gray-600 space-y-4">
       <div>
         <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Key Type</label>
-        <div class="flex gap-4">
-          <label class="flex items-center">
-            <input type="radio" name="keyType" value="secret" class="mr-2" checked>
-            <span class="text-sm">Secret (HMAC)</span>
+        <div class="flex p-1 bg-gray-100 dark:bg-gray-700 rounded-lg w-fit">
+          <label class="cursor-pointer">
+            <input type="radio" name="keyType" value="secret" class="peer hidden" checked>
+            <span class="block px-4 py-2 rounded-md text-sm font-medium text-gray-500 dark:text-gray-400 transition-all duration-200 ease-in-out active:scale-95 peer-checked:bg-white dark:peer-checked:bg-gray-600 peer-checked:text-gray-900 dark:peer-checked:text-white peer-checked:shadow-sm">Secret (HMAC)</span>
           </label>
-          <label class="flex items-center">
-            <input type="radio" name="keyType" value="pem" class="mr-2">
-            <span class="text-sm">PEM (Public Key)</span>
+          <label class="cursor-pointer">
+            <input type="radio" name="keyType" value="pem" class="peer hidden">
+            <span class="block px-4 py-2 rounded-md text-sm font-medium text-gray-500 dark:text-gray-400 transition-all duration-200 ease-in-out active:scale-95 peer-checked:bg-white dark:peer-checked:bg-gray-600 peer-checked:text-gray-900 dark:peer-checked:text-white peer-checked:shadow-sm">PEM (Public Key)</span>
           </label>
-          <label class="flex items-center">
-            <input type="radio" name="keyType" value="jwk" class="mr-2">
-            <span class="text-sm">JWK (JSON Web Key)</span>
+          <label class="cursor-pointer">
+            <input type="radio" name="keyType" value="jwk" class="peer hidden">
+            <span class="block px-4 py-2 rounded-md text-sm font-medium text-gray-500 dark:text-gray-400 transition-all duration-200 ease-in-out active:scale-95 peer-checked:bg-white dark:peer-checked:bg-gray-600 peer-checked:text-gray-900 dark:peer-checked:text-white peer-checked:shadow-sm">JWK</span>
           </label>
         </div>
       </div>
@@ -276,7 +289,7 @@ breadcrumbSchema:
     <!-- Left Section: Header, Payload, and Signing Configuration -->
     <div class="flex-1 space-y-6">
       <!-- Header Input -->
-      <div class="space-y-2">
+      <div class="bg-white dark:bg-gray-900 shadow-sm ring-1 ring-gray-200 dark:ring-0 dark:border dark:border-gray-600 rounded-lg p-4 space-y-2">
         <div class="flex items-center justify-between">
           <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Header</h3>
           <div id="header-validation" class="flex items-center gap-1 px-2 py-1 rounded text-xs font-semibold">
@@ -292,7 +305,7 @@ breadcrumbSchema:
       </div>
       
       <!-- Payload Input -->
-      <div class="space-y-2">
+      <div class="bg-white dark:bg-gray-900 shadow-sm ring-1 ring-gray-200 dark:ring-0 dark:border dark:border-gray-600 rounded-lg p-4 space-y-2">
         <div class="flex items-center justify-between">
           <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Payload</h3>
           <div id="payload-validation" class="flex items-center gap-1 px-2 py-1 rounded text-xs font-semibold">
@@ -308,7 +321,7 @@ breadcrumbSchema:
       </div>
       
       <!-- Signing Configuration -->
-      <div id="signing-section" class="border border-gray-300 dark:border-gray-600 rounded-lg p-4 space-y-4">
+      <div id="signing-section" class="bg-white dark:bg-gray-900 shadow-sm ring-1 ring-gray-200 dark:ring-0 dark:border dark:border-gray-600 rounded-lg p-4 space-y-4">
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">🔐 Signing Configuration</h3>
         
         <div id="no-signature-message" class="hidden p-3 bg-gray-100 dark:bg-gray-800 rounded border text-sm text-gray-600 dark:text-gray-400">
@@ -320,18 +333,18 @@ breadcrumbSchema:
             <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
               Key Type <span class="text-red-500">*</span>
             </label>
-            <div class="flex gap-4">
-              <label class="flex items-center">
-                <input type="radio" name="secretKeyType" value="text" class="mr-2" checked>
-                <span class="text-sm">HMAC (Text)</span>
+            <div class="flex p-1 bg-gray-100 dark:bg-gray-700 rounded-lg w-fit">
+              <label class="cursor-pointer">
+                <input type="radio" name="secretKeyType" value="text" class="peer hidden" checked>
+                <span class="block px-4 py-2 rounded-md text-sm font-medium text-gray-500 dark:text-gray-400 transition-all duration-200 ease-in-out active:scale-95 peer-checked:bg-white dark:peer-checked:bg-gray-600 peer-checked:text-gray-900 dark:peer-checked:text-white peer-checked:shadow-sm">HMAC (Text)</span>
               </label>
-              <label class="flex items-center">
-                <input type="radio" name="secretKeyType" value="pem" class="mr-2">
-                <span class="text-sm">PEM</span>
+              <label class="cursor-pointer">
+                <input type="radio" name="secretKeyType" value="pem" class="peer hidden">
+                <span class="block px-4 py-2 rounded-md text-sm font-medium text-gray-500 dark:text-gray-400 transition-all duration-200 ease-in-out active:scale-95 peer-checked:bg-white dark:peer-checked:bg-gray-600 peer-checked:text-gray-900 dark:peer-checked:text-white peer-checked:shadow-sm">PEM</span>
               </label>
-              <label class="flex items-center">
-                <input type="radio" name="secretKeyType" value="jwk" class="mr-2">
-                <span class="text-sm">JWK</span>
+              <label class="cursor-pointer">
+                <input type="radio" name="secretKeyType" value="jwk" class="peer hidden">
+                <span class="block px-4 py-2 rounded-md text-sm font-medium text-gray-500 dark:text-gray-400 transition-all duration-200 ease-in-out active:scale-95 peer-checked:bg-white dark:peer-checked:bg-gray-600 peer-checked:text-gray-900 dark:peer-checked:text-white peer-checked:shadow-sm">JWK</span>
               </label>
             </div>
           </div>
@@ -367,14 +380,14 @@ breadcrumbSchema:
             <label class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
               Key Type <span class="text-red-500">*</span>
             </label>
-            <div class="flex gap-4">
-              <label class="flex items-center">
-                <input type="radio" name="privateKeyType" value="pem" class="mr-2" checked>
-                <span class="text-sm">PEM (Private Key)</span>
+            <div class="flex p-1 bg-gray-100 dark:bg-gray-700 rounded-lg w-fit">
+              <label class="cursor-pointer">
+                <input type="radio" name="privateKeyType" value="pem" class="peer hidden" checked>
+                <span class="block px-4 py-2 rounded-md text-sm font-medium text-gray-500 dark:text-gray-400 transition-all duration-200 ease-in-out active:scale-95 peer-checked:bg-white dark:peer-checked:bg-gray-600 peer-checked:text-gray-900 dark:peer-checked:text-white peer-checked:shadow-sm">PEM (Private Key)</span>
               </label>
-              <label class="flex items-center">
-                <input type="radio" name="privateKeyType" value="jwk" class="mr-2">
-                <span class="text-sm">JWK (JSON Web Key)</span>
+              <label class="cursor-pointer">
+                <input type="radio" name="privateKeyType" value="jwk" class="peer hidden">
+                <span class="block px-4 py-2 rounded-md text-sm font-medium text-gray-500 dark:text-gray-400 transition-all duration-200 ease-in-out active:scale-95 peer-checked:bg-white dark:peer-checked:bg-gray-600 peer-checked:text-gray-900 dark:peer-checked:text-white peer-checked:shadow-sm">JWK (JSON Web Key)</span>
               </label>
             </div>
           </div>
@@ -395,7 +408,7 @@ breadcrumbSchema:
     
     <!-- Right Section: Generated Token Sidebar (fixed width 400px) -->
     <div class="hidden lg:block lg:w-[400px] flex-shrink-0">
-      <div class="bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg p-4 sticky top-4">
+      <div class="bg-white dark:bg-gray-900 shadow-sm ring-1 ring-gray-200 dark:ring-0 dark:border dark:border-gray-600 rounded-lg p-4 sticky top-4">
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Generated JWT Token</h3>
         <div id="token-output" class="min-h-[500px] flex flex-col">
           <div id="token-placeholder" class="text-gray-500 dark:text-gray-400 text-sm flex-1 flex items-center justify-center text-center">
