@@ -143,6 +143,16 @@
     });
   }
 
+  function flashOutput() {
+    if (!outputEl) return;
+    outputEl.classList.remove('base64-output-flash');
+    // Force reflow so the animation can restart
+    void outputEl.offsetWidth;
+    outputEl.classList.add('base64-output-flash');
+    outputEl.focus({ preventScroll: true });
+    setTimeout(() => outputEl.classList.remove('base64-output-flash'), 1200);
+  }
+
   function bytesToBase64(bytes) {
     let binary = '';
     const len = bytes.length;
@@ -378,6 +388,7 @@
         `Encoded length: ${finalOutput.length} chars`,
       ]);
       clearDetected();
+      flashOutput();
     } catch (e) {
       showError(e.message);
       setStatus('Encoding failed.');
@@ -430,6 +441,7 @@
       ]);
 
       updateDetections(bytes, clean);
+      flashOutput();
     } catch (e) {
       showError('Decode failed. Make sure the Base64 is valid for the selected variant.');
       setStatus('Decode failed.');
