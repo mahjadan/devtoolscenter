@@ -50,12 +50,18 @@ breadcrumbSchema:
       </div>
       <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Toggle Simple or Expert mode to reveal more controls and diagnostics.</p>
     </div>
-    <div class="inline-flex items-center rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-1 shadow-sm">
-      <button id="mode-simple" data-mode="simple" class="mode-toggle active px-3 md:px-4 py-1.5 rounded-lg text-sm font-semibold text-gray-800 dark:text-gray-100 bg-white dark:bg-gray-900 shadow">
-        Simple
+    <div class="base64-mode-switcher">
+      <button id="mode-simple" data-mode="simple" class="mode-toggle active">
+        <span class="mode-toggle__content">
+          <span class="mode-toggle__icon" aria-hidden="true">◎</span>
+          <span>Simple</span>
+        </span>
       </button>
-      <button id="mode-expert" data-mode="expert" class="mode-toggle px-3 md:px-4 py-1.5 rounded-lg text-sm font-semibold text-gray-700 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-300">
-        Expert
+      <button id="mode-expert" data-mode="expert" class="mode-toggle">
+        <span class="mode-toggle__content">
+          <span class="mode-toggle__icon" aria-hidden="true">⚡</span>
+          <span>Expert</span>
+        </span>
       </button>
     </div>
   </div>
