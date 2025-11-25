@@ -10,6 +10,7 @@ keywords: base64 encoder, base64 decoder, encode base64, decode base64, base64 c
 tags:
   - tools
   - base64
+templateEngineOverride: njk
 relatedTools:
   - /url-encode-decode/
   - /json-formatter/
@@ -59,130 +60,124 @@ breadcrumbSchema:
     </div>
   </div>
 
-  <div class="grid grid-cols-1 gap-4 lg:gap-6 lg:grid-cols-2 items-start w-full">
-    <!-- Left pane: Input + Options -->
-    <div class="space-y-4 w-full">
-      <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/70 shadow-sm p-4 md:p-5 space-y-3">
-        <div class="flex items-center justify-between gap-2">
-          <div>
-            <label for="base64-input" class="text-base font-semibold text-gray-900 dark:text-white">Input</label>
-            <p class="text-xs text-gray-500 dark:text-gray-400">Type text, hex, or binary. Decode expects Base64.</p>
+  <div class="space-y-4 w-full">
+    <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/70 shadow-sm p-4 md:p-5 space-y-3">
+      <div class="flex items-center justify-between gap-2">
+        <div>
+          <label for="base64-input" class="text-base font-semibold text-gray-900 dark:text-white">Input</label>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Type text, hex, or binary. Decode expects Base64.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="hidden sm:flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+            <span class="lucide lucide-info w-4 h-4" aria-hidden="true"></span>
+            <span>Base64 encodes, not encrypts.</span>
           </div>
+        </div>
+      </div>
+
+      <!-- Interpretation tabs -->
+      <div class="flex flex-wrap gap-2">
+        <button class="interpretation-tab active" data-interpretation="text">Text ⇄ Base64</button>
+        <button class="interpretation-tab" data-interpretation="hex">Hex ⇄ Base64</button>
+        <button class="interpretation-tab" data-interpretation="binary">Binary ⇄ Base64</button>
+      </div>
+
+      <textarea 
+        id="base64-input" 
+        class="tool-textarea h-44"
+        placeholder="Enter text to encode or Base64 to decode. In Hex mode, use pairs like 4d5a..."
+      ></textarea>
+
+      <!-- Expert-only options -->
+      <div class="space-y-3 expert-only">
+        <div class="flex flex-wrap gap-2">
+          <div class="inline-flex items-center gap-2 rounded-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/80 px-3 py-1.5 text-xs font-semibold text-gray-700 dark:text-gray-200">
+            Encoding
+          </div>
+          <button class="variant-chip active" data-variant="standard">Standard</button>
+          <button class="variant-chip" data-variant="urlsafe">URL-safe</button>
+          <button id="padding-toggle" class="option-chip" data-state="on">Padding on</button>
+          <button id="wrap-toggle" class="option-chip" data-state="off">Wrap 76 chars</button>
+        </div>
+
+        <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
           <div class="flex items-center gap-2">
-            <div class="hidden sm:flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
-              <span class="lucide lucide-info w-4 h-4" aria-hidden="true"></span>
-              <span>Base64 encodes, not encrypts.</span>
-            </div>
+            <label for="charset-select" class="text-sm font-semibold text-gray-800 dark:text-gray-200">Charset</label>
+            <select id="charset-select" class="text-sm font-semibold rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 px-3 py-2">
+              <option value="utf-8" selected>UTF-8 (default)</option>
+              <option value="iso-8859-1">ISO-8859-1</option>
+            </select>
+          </div>
+          <div class="flex items-center gap-1 text-xs text-amber-600 dark:text-amber-300">
+            <span class="lucide lucide-alert-triangle w-4 h-4" aria-hidden="true"></span>
+            <span id="charset-warning" class="hidden">Invalid sequence detected for chosen charset.</span>
           </div>
         </div>
 
-        <!-- Interpretation tabs -->
-        <div class="flex flex-wrap gap-2">
-          <button class="interpretation-tab active" data-interpretation="text">Text ⇄ Base64</button>
-          <button class="interpretation-tab" data-interpretation="hex">Hex ⇄ Base64</button>
-          <button class="interpretation-tab" data-interpretation="binary">Binary ⇄ Base64</button>
-        </div>
-
-        <textarea 
-          id="base64-input" 
-          class="tool-textarea h-44"
-          placeholder="Enter text to encode or Base64 to decode. In Hex mode, use pairs like 4d5a..."
-        ></textarea>
-
-        <!-- Expert-only options -->
-        <div class="space-y-3 expert-only">
-          <div class="flex flex-wrap gap-2">
-            <div class="inline-flex items-center gap-2 rounded-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/80 px-3 py-1.5 text-xs font-semibold text-gray-700 dark:text-gray-200">
-              Encoding
-            </div>
-            <button class="variant-chip active" data-variant="standard">Standard</button>
-            <button class="variant-chip" data-variant="urlsafe">URL-safe</button>
-            <button id="padding-toggle" class="option-chip" data-state="on">Padding on</button>
-            <button id="wrap-toggle" class="option-chip" data-state="off">Wrap 76 chars</button>
-          </div>
-
-          <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
-            <div class="flex items-center gap-2">
-              <label for="charset-select" class="text-sm font-semibold text-gray-800 dark:text-gray-200">Charset</label>
-              <select id="charset-select" class="text-sm font-semibold rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 px-3 py-2">
-                <option value="utf-8" selected>UTF-8 (default)</option>
-                <option value="iso-8859-1">ISO-8859-1</option>
-              </select>
-            </div>
-            <div class="flex items-center gap-1 text-xs text-amber-600 dark:text-amber-300">
-              <span class="lucide lucide-alert-triangle w-4 h-4" aria-hidden="true"></span>
-              <span id="charset-warning" class="hidden">Invalid sequence detected for chosen charset.</span>
-            </div>
-          </div>
-
-          <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/60 p-3 text-xs text-gray-600 dark:text-gray-300 flex items-center gap-2">
-            <span class="lucide lucide-pipeline w-4 h-4" aria-hidden="true"></span>
-            <div class="space-y-0.5">
-              <div class="font-semibold text-gray-800 dark:text-gray-100 text-sm">Pipeline</div>
-              <p id="pipeline-text" class="text-xs">Raw bytes → [UTF-8] → Base64 (Standard, padding on)</p>
-            </div>
+        <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/60 p-3 text-xs text-gray-600 dark:text-gray-300 flex items-center gap-2">
+          <span class="lucide lucide-pipeline w-4 h-4" aria-hidden="true"></span>
+          <div class="space-y-0.5">
+            <div class="font-semibold text-gray-800 dark:text-gray-100 text-sm">Pipeline</div>
+            <p id="pipeline-text" class="text-xs">Raw bytes → [UTF-8] → Base64 (Standard, padding on)</p>
           </div>
         </div>
+      </div>
 
-        <!-- Actions -->
-        <div class="flex flex-wrap gap-2">
-          <button id="encode-btn" class="btn btn-primary flex-1 min-w-[140px]">Encode</button>
-          <button id="decode-btn" class="btn btn-primary flex-1 min-w-[140px]">Decode</button>
-          <button id="copy-btn" class="btn btn-accent flex-1 min-w-[140px]">Copy output</button>
-          <button id="clear-btn" class="btn btn-secondary flex-1 min-w-[120px]">Clear</button>
-        </div>
+      <!-- Actions -->
+      <div class="flex flex-wrap gap-2">
+        <button id="encode-btn" class="btn btn-primary flex-1 min-w-[140px]">Encode</button>
+        <button id="decode-btn" class="btn btn-primary flex-1 min-w-[140px]">Decode</button>
+        <button id="copy-btn" class="btn btn-accent flex-1 min-w-[140px]">Copy output</button>
+        <button id="clear-btn" class="btn btn-secondary flex-1 min-w-[120px]">Clear</button>
+      </div>
 
-        <div id="error-message" class="hidden p-3 bg-red-50 dark:bg-red-900/30 border border-red-400 dark:border-red-700 rounded-lg">
-          <p class="text-sm text-red-700 dark:text-red-300 font-medium"></p>
-        </div>
+      <div id="error-message" class="hidden p-3 bg-red-50 dark:bg-red-900/30 border border-red-400 dark:border-red-700 rounded-lg">
+        <p class="text-sm text-red-700 dark:text-red-300 font-medium"></p>
       </div>
     </div>
 
-    <!-- Right pane: Output + Details -->
-    <div class="space-y-4 w-full">
-      <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/70 shadow-sm p-4 md:p-5 space-y-3">
-        <div class="flex items-center justify-between gap-2">
-          <label for="base64-output" class="text-base font-semibold text-gray-900 dark:text-white">Output</label>
-          <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-            <span class="lucide lucide-shield-check w-4 h-4" aria-hidden="true"></span>
-            <span id="status-bar">Ready.</span>
-          </div>
+    <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/70 shadow-sm p-4 md:p-5 space-y-3">
+      <div class="flex items-center justify-between gap-2">
+        <label for="base64-output" class="text-base font-semibold text-gray-900 dark:text-white">Output</label>
+        <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+          <span class="lucide lucide-shield-check w-4 h-4" aria-hidden="true"></span>
+          <span id="status-bar">Ready.</span>
         </div>
-        <textarea 
-          id="base64-output" 
-          class="tool-textarea h-44 font-mono"
-          readonly
-          placeholder="Result will appear here."
-        ></textarea>
+      </div>
+      <textarea 
+        id="base64-output" 
+        class="tool-textarea h-44 font-mono"
+        readonly
+        placeholder="Result will appear here."
+      ></textarea>
 
-        <div class="expert-only grid gap-3 md:grid-cols-2">
-          <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/70 p-3 space-y-2">
-            <div class="flex items-center justify-between">
-              <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100">Insights</h3>
-              <span class="text-xs text-gray-500 dark:text-gray-400">Validation & metadata</span>
-            </div>
-            <ul id="insights-list" class="space-y-1 text-xs text-gray-700 dark:text-gray-300"></ul>
+      <div class="expert-only grid gap-3 md:grid-cols-2">
+        <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/70 p-3 space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100">Insights</h3>
+            <span class="text-xs text-gray-500 dark:text-gray-400">Validation & metadata</span>
           </div>
-          <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/70 p-3 space-y-2">
-            <div class="flex items-center justify-between">
-              <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100">Detected content</h3>
-              <span class="text-xs text-gray-500 dark:text-gray-400">JSON / JWT / Image</span>
-            </div>
-            <div id="detected-json" class="hidden">
-              <p class="text-[0.75rem] font-semibold text-primary-700 dark:text-primary-300 mb-1">JSON</p>
-              <pre class="text-[0.7rem] bg-white/60 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700 rounded-lg p-2 overflow-auto max-h-28"></pre>
-            </div>
-            <div id="detected-jwt" class="hidden space-y-1">
-              <p class="text-[0.75rem] font-semibold text-indigo-700 dark:text-indigo-300">JWT decoded</p>
-              <pre class="text-[0.7rem] bg-white/60 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700 rounded-lg p-2 overflow-auto max-h-28"></pre>
-            </div>
-            <div id="detected-image" class="hidden space-y-1">
-              <p class="text-[0.75rem] font-semibold text-emerald-700 dark:text-emerald-300">Image</p>
-              <button id="show-image" class="text-xs text-emerald-700 dark:text-emerald-300 font-semibold underline">Show preview</button>
-              <img id="image-preview" alt="Decoded preview" class="hidden w-24 h-24 rounded-lg border border-gray-200 dark:border-gray-700 object-cover shadow-sm" />
-            </div>
-            <p id="detected-none" class="text-xs text-gray-500 dark:text-gray-400">No special content detected yet.</p>
+          <ul id="insights-list" class="space-y-1 text-xs text-gray-700 dark:text-gray-300"></ul>
+        </div>
+        <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/70 p-3 space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100">Detected content</h3>
+            <span class="text-xs text-gray-500 dark:text-gray-400">JSON / JWT / Image</span>
           </div>
+          <div id="detected-json" class="hidden">
+            <p class="text-[0.75rem] font-semibold text-primary-700 dark:text-primary-300 mb-1">JSON</p>
+            <pre class="text-[0.7rem] bg-white/60 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700 rounded-lg p-2 overflow-auto max-h-28"></pre>
+          </div>
+          <div id="detected-jwt" class="hidden space-y-1">
+            <p class="text-[0.75rem] font-semibold text-indigo-700 dark:text-indigo-300">JWT decoded</p>
+            <pre class="text-[0.7rem] bg-white/60 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700 rounded-lg p-2 overflow-auto max-h-28"></pre>
+          </div>
+          <div id="detected-image" class="hidden space-y-1">
+            <p class="text-[0.75rem] font-semibold text-emerald-700 dark:text-emerald-300">Image</p>
+            <button id="show-image" class="text-xs text-emerald-700 dark:text-emerald-300 font-semibold underline">Show preview</button>
+            <img id="image-preview" alt="Decoded preview" class="hidden w-24 h-24 rounded-lg border border-gray-200 dark:border-gray-700 object-cover shadow-sm" />
+          </div>
+          <p id="detected-none" class="text-xs text-gray-500 dark:text-gray-400">No special content detected yet.</p>
         </div>
       </div>
     </div>

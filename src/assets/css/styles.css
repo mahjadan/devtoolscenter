@@ -1393,9 +1393,10 @@
       0 14px 36px rgba(0, 0, 0, 0.45);
   }
 
-  .tool-shell__interface--split {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  }
+.tool-shell__interface--split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
 
   .tool-shell__panel {
     background: var(--color-surface);
