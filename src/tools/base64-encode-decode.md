@@ -40,49 +40,158 @@ breadcrumbSchema:
       item: "https://devtoolscenter.com/base64-encode-decode/"
 ---
 
-<div class="space-y-6">
-  <div>
-    <label for="base64-input" class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-      Input Text
-    </label>
-    <textarea 
-      id="base64-input" 
-      class="tool-textarea"
-      placeholder="Enter text to encode or Base64 string to decode..."
-    ></textarea>
+<div class="space-y-5 md:space-y-6 w-full">
+  <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+    <div>
+      <div class="inline-flex items-center gap-2 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-1 text-xs font-semibold text-gray-700 dark:text-gray-200 shadow-sm">
+        <span class="inline-flex h-2 w-2 rounded-full bg-primary-500"></span>
+        Minimal, premium Base64 lab
+      </div>
+      <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Toggle Simple or Expert mode to reveal more controls and diagnostics.</p>
+    </div>
+    <div class="inline-flex items-center rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-1 shadow-sm">
+      <button id="mode-simple" data-mode="simple" class="mode-toggle active px-3 md:px-4 py-1.5 rounded-lg text-sm font-semibold text-gray-800 dark:text-gray-100 bg-white dark:bg-gray-900 shadow">
+        Simple
+      </button>
+      <button id="mode-expert" data-mode="expert" class="mode-toggle px-3 md:px-4 py-1.5 rounded-lg text-sm font-semibold text-gray-700 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-300">
+        Expert
+      </button>
+    </div>
   </div>
-  
-  <div class="flex flex-wrap gap-3">
-    <button id="encode-btn" class="btn btn-primary">Encode to Base64</button>
-    <button id="decode-btn" class="btn btn-primary">Decode from Base64</button>
-    <button id="copy-btn" class="btn btn-accent">Copy Result</button>
-    <button id="clear-btn" class="btn btn-secondary">Clear</button>
+
+  <div class="grid grid-cols-1 gap-4 lg:gap-6 lg:grid-cols-2 items-start w-full">
+    <!-- Left pane: Input + Options -->
+    <div class="space-y-4 w-full">
+      <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/70 shadow-sm p-4 md:p-5 space-y-3">
+        <div class="flex items-center justify-between gap-2">
+          <div>
+            <label for="base64-input" class="text-base font-semibold text-gray-900 dark:text-white">Input</label>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Type text, hex, or binary. Decode expects Base64.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="hidden sm:flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+              <span class="lucide lucide-info w-4 h-4" aria-hidden="true"></span>
+              <span>Base64 encodes, not encrypts.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interpretation tabs -->
+        <div class="flex flex-wrap gap-2">
+          <button class="interpretation-tab active" data-interpretation="text">Text ⇄ Base64</button>
+          <button class="interpretation-tab" data-interpretation="hex">Hex ⇄ Base64</button>
+          <button class="interpretation-tab" data-interpretation="binary">Binary ⇄ Base64</button>
+        </div>
+
+        <textarea 
+          id="base64-input" 
+          class="tool-textarea h-44"
+          placeholder="Enter text to encode or Base64 to decode. In Hex mode, use pairs like 4d5a..."
+        ></textarea>
+
+        <!-- Expert-only options -->
+        <div class="space-y-3 expert-only">
+          <div class="flex flex-wrap gap-2">
+            <div class="inline-flex items-center gap-2 rounded-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/80 px-3 py-1.5 text-xs font-semibold text-gray-700 dark:text-gray-200">
+              Encoding
+            </div>
+            <button class="variant-chip active" data-variant="standard">Standard</button>
+            <button class="variant-chip" data-variant="urlsafe">URL-safe</button>
+            <button id="padding-toggle" class="option-chip" data-state="on">Padding on</button>
+            <button id="wrap-toggle" class="option-chip" data-state="off">Wrap 76 chars</button>
+          </div>
+
+          <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+            <div class="flex items-center gap-2">
+              <label for="charset-select" class="text-sm font-semibold text-gray-800 dark:text-gray-200">Charset</label>
+              <select id="charset-select" class="text-sm font-semibold rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 px-3 py-2">
+                <option value="utf-8" selected>UTF-8 (default)</option>
+                <option value="iso-8859-1">ISO-8859-1</option>
+              </select>
+            </div>
+            <div class="flex items-center gap-1 text-xs text-amber-600 dark:text-amber-300">
+              <span class="lucide lucide-alert-triangle w-4 h-4" aria-hidden="true"></span>
+              <span id="charset-warning" class="hidden">Invalid sequence detected for chosen charset.</span>
+            </div>
+          </div>
+
+          <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/60 p-3 text-xs text-gray-600 dark:text-gray-300 flex items-center gap-2">
+            <span class="lucide lucide-pipeline w-4 h-4" aria-hidden="true"></span>
+            <div class="space-y-0.5">
+              <div class="font-semibold text-gray-800 dark:text-gray-100 text-sm">Pipeline</div>
+              <p id="pipeline-text" class="text-xs">Raw bytes → [UTF-8] → Base64 (Standard, padding on)</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-wrap gap-2">
+          <button id="encode-btn" class="btn btn-primary flex-1 min-w-[140px]">Encode</button>
+          <button id="decode-btn" class="btn btn-primary flex-1 min-w-[140px]">Decode</button>
+          <button id="copy-btn" class="btn btn-accent flex-1 min-w-[140px]">Copy output</button>
+          <button id="clear-btn" class="btn btn-secondary flex-1 min-w-[120px]">Clear</button>
+        </div>
+
+        <div id="error-message" class="hidden p-3 bg-red-50 dark:bg-red-900/30 border border-red-400 dark:border-red-700 rounded-lg">
+          <p class="text-sm text-red-700 dark:text-red-300 font-medium"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right pane: Output + Details -->
+    <div class="space-y-4 w-full">
+      <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/70 shadow-sm p-4 md:p-5 space-y-3">
+        <div class="flex items-center justify-between gap-2">
+          <label for="base64-output" class="text-base font-semibold text-gray-900 dark:text-white">Output</label>
+          <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+            <span class="lucide lucide-shield-check w-4 h-4" aria-hidden="true"></span>
+            <span id="status-bar">Ready.</span>
+          </div>
+        </div>
+        <textarea 
+          id="base64-output" 
+          class="tool-textarea h-44 font-mono"
+          readonly
+          placeholder="Result will appear here."
+        ></textarea>
+
+        <div class="expert-only grid gap-3 md:grid-cols-2">
+          <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/70 p-3 space-y-2">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100">Insights</h3>
+              <span class="text-xs text-gray-500 dark:text-gray-400">Validation & metadata</span>
+            </div>
+            <ul id="insights-list" class="space-y-1 text-xs text-gray-700 dark:text-gray-300"></ul>
+          </div>
+          <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/70 p-3 space-y-2">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100">Detected content</h3>
+              <span class="text-xs text-gray-500 dark:text-gray-400">JSON / JWT / Image</span>
+            </div>
+            <div id="detected-json" class="hidden">
+              <p class="text-[0.75rem] font-semibold text-primary-700 dark:text-primary-300 mb-1">JSON</p>
+              <pre class="text-[0.7rem] bg-white/60 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700 rounded-lg p-2 overflow-auto max-h-28"></pre>
+            </div>
+            <div id="detected-jwt" class="hidden space-y-1">
+              <p class="text-[0.75rem] font-semibold text-indigo-700 dark:text-indigo-300">JWT decoded</p>
+              <pre class="text-[0.7rem] bg-white/60 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700 rounded-lg p-2 overflow-auto max-h-28"></pre>
+            </div>
+            <div id="detected-image" class="hidden space-y-1">
+              <p class="text-[0.75rem] font-semibold text-emerald-700 dark:text-emerald-300">Image</p>
+              <button id="show-image" class="text-xs text-emerald-700 dark:text-emerald-300 font-semibold underline">Show preview</button>
+              <img id="image-preview" alt="Decoded preview" class="hidden w-24 h-24 rounded-lg border border-gray-200 dark:border-gray-700 object-cover shadow-sm" />
+            </div>
+            <p id="detected-none" class="text-xs text-gray-500 dark:text-gray-400">No special content detected yet.</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  
-  <div id="error-message" class="hidden p-4 bg-red-100 dark:bg-red-900/30 border-2 border-red-500 rounded-lg">
-    <p class="text-red-700 dark:text-red-400 font-medium"></p>
-  </div>
-  
-  <div>
-    <label for="base64-output" class="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-      Output
-    </label>
-    <textarea 
-      id="base64-output" 
-      class="tool-textarea"
-      readonly
-    ></textarea>
+
+  <div class="rounded-2xl p-5 bg-gradient-to-r from-primary-50 via-primary-100/50 to-accent-50 dark:from-gray-800 dark:via-primary-900/30 dark:to-gray-800 border-2 border-primary-200 dark:border-primary-700 shadow-sm">
+    <h2 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Base64 at a glance</h2>
+    <p class="text-sm text-gray-700 dark:text-gray-300">
+      Base64 is a binary-to-text encoding scheme for safe transport of bytes across systems that expect text. It is not encryption. Use Expert mode to tune URL-safe variants, padding, charset, MIME line wrapping, and to view diagnostics on invalid characters or padding issues.
+    </p>
   </div>
 </div>
-
-<div class="mt-12 p-6 bg-gradient-to-r from-primary-50 via-primary-100/50 to-accent-50 dark:from-gray-800 dark:via-primary-900/30 dark:to-gray-800 rounded-lg border-2 border-primary-300 dark:border-primary-500/50 shadow-md dark:shadow-lg dark:shadow-primary-900/20">
-  <h2 class="text-2xl font-bold mb-3 text-gray-900 dark:text-white">About Base64 Encoding</h2>
-  <p class="text-gray-700 dark:text-gray-300 mb-4">
-    Base64 is a binary-to-text encoding scheme commonly used for email attachments, data URIs, authentication, 
-    and storing binary data in text-only systems. This tool supports UTF-8 encoding and handles special characters.
-  </p>
-  <a href="/blog/understanding-base64-encoding/" class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold hover:underline">
-    Learn more about Base64 encoding and best practices →
-  </a>
-</div>
-

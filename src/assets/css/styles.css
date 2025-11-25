@@ -758,6 +758,56 @@
     cursor: not-allowed;
   }
 
+  /* Base64 tool controls */
+  .mode-toggle {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all var(--motion-duration-quick) var(--motion-ease-standard);
+  }
+
+  .mode-toggle.active {
+    color: var(--color-text);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .interpretation-tab,
+  .variant-chip,
+  .option-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.6rem 0.9rem;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all var(--motion-duration-quick) var(--motion-ease-standard);
+  }
+
+  .interpretation-tab.active,
+  .variant-chip.active,
+  .option-chip[data-state='on'] {
+    border-color: var(--color-primary);
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    box-shadow: var(--shadow-xs);
+  }
+
+  .option-chip[data-state='off'] {
+    opacity: 0.7;
+  }
+
+  .interpretation-tab:hover,
+  .variant-chip:hover,
+  .option-chip:hover {
+    border-color: var(--color-primary);
+  }
+
+
   .tool-card {
     position: relative;
     display: block;
