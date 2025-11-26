@@ -157,7 +157,8 @@ breadcrumbSchema:
         placeholder="Result will appear here."
       ></textarea>
 
-      <div class="expert-only grid gap-3 md:grid-cols-2">
+      <!-- Expert-only Insights section -->
+      <div class="expert-only">
         <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/70 p-3 space-y-2">
           <div class="flex items-center justify-between">
             <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100">Insights</h3>
@@ -165,26 +166,33 @@ breadcrumbSchema:
           </div>
           <ul id="insights-list" class="space-y-1 text-xs text-gray-700 dark:text-gray-300"></ul>
         </div>
-        <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/70 p-3 space-y-2">
-          <div class="flex items-center justify-between">
-            <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100">Detected content</h3>
-            <span class="text-xs text-gray-500 dark:text-gray-400">JSON / JWT / Image</span>
+      </div>
+
+      <!-- Detected content section (visible in both Simple and Expert modes) -->
+      <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/70 p-3 space-y-2">
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100">Detected content</h3>
+          <div id="content-type-badge" class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold text-gray-500 dark:text-gray-400 transition-all duration-300">
+            <span id="content-type-text">None</span>
           </div>
-          <div id="detected-json" class="hidden">
-            <p class="text-[0.75rem] font-semibold text-primary-700 dark:text-primary-300 mb-1">JSON</p>
-            <pre class="text-[0.7rem] bg-white/60 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700 rounded-lg p-2 overflow-auto max-h-28"></pre>
-          </div>
-          <div id="detected-jwt" class="hidden space-y-1">
-            <p class="text-[0.75rem] font-semibold text-indigo-700 dark:text-indigo-300">JWT decoded</p>
-            <pre class="text-[0.7rem] bg-white/60 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700 rounded-lg p-2 overflow-auto max-h-28"></pre>
-          </div>
-          <div id="detected-image" class="hidden space-y-1">
-            <p class="text-[0.75rem] font-semibold text-emerald-700 dark:text-emerald-300">Image</p>
-            <button id="show-image" class="text-xs text-emerald-700 dark:text-emerald-300 font-semibold underline">Show preview</button>
-            <img id="image-preview" alt="Decoded preview" class="hidden w-24 h-24 rounded-lg border border-gray-200 dark:border-gray-700 object-cover shadow-sm" />
-          </div>
-          <p id="detected-none" class="text-xs text-gray-500 dark:text-gray-400">No special content detected yet.</p>
         </div>
+        <div id="detected-json" class="hidden">
+          <pre class="text-[0.7rem] bg-white/60 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700 rounded-lg p-2 overflow-auto max-h-28"></pre>
+        </div>
+        <div id="detected-jwt" class="hidden">
+          <pre class="text-[0.7rem] bg-white/60 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700 rounded-lg p-2 overflow-auto max-h-28"></pre>
+        </div>
+        <div id="detected-image" class="hidden space-y-2">
+          <button id="show-image" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-emerald-300 dark:border-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 font-semibold text-sm hover:bg-emerald-100 dark:hover:bg-emerald-900/40 hover:border-emerald-400 dark:hover:border-emerald-500 transition-all duration-200 shadow-sm hover:shadow-md">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+            </svg>
+            <span>Show Preview</span>
+          </button>
+          <img id="image-preview" alt="Decoded preview" class="hidden mt-2 w-full max-w-md rounded-lg border-2 border-gray-200 dark:border-gray-700 object-contain shadow-lg" />
+        </div>
+        <p id="detected-none" class="text-xs text-gray-500 dark:text-gray-400">No special content detected yet.</p>
       </div>
     </div>
   </div>

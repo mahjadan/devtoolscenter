@@ -12,6 +12,8 @@
   const detectedJwt = document.getElementById('detected-jwt');
   const detectedImage = document.getElementById('detected-image');
   const detectedNone = document.getElementById('detected-none');
+  const contentTypeBadge = document.getElementById('content-type-badge');
+  const contentTypeText = document.getElementById('content-type-text');
   const jsonPre = detectedJson?.querySelector('pre');
   const jwtPre = detectedJwt?.querySelector('pre');
   const imagePreview = document.getElementById('image-preview');
@@ -119,6 +121,76 @@
     pipelineText.textContent = `Raw bytes → [${state.charset.toUpperCase()}] → Base64 (${variantLabel}, ${paddingLabel}, ${wrapLabel})`;
   }
 
+  function updateContentTypeBadge(type) {
+    if (!contentTypeBadge || !contentTypeText) return;
+
+    // Reset classes
+    contentTypeBadge.className = 'inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold transition-all duration-300';
+
+    const svgNS = 'http://www.w3.org/2000/svg';
+    let icon = null;
+
+    if (type === 'json') {
+      contentTypeBadge.classList.add('border-2', 'border-primary-300', 'dark:border-primary-600', 'bg-primary-100', 'dark:bg-primary-900/40', 'text-primary-700', 'dark:text-primary-300', 'animate-pulse-once');
+      contentTypeText.textContent = 'JSON';
+      // Document icon
+      icon = document.createElementNS(svgNS, 'svg');
+      icon.setAttribute('class', 'w-3.5 h-3.5');
+      icon.setAttribute('fill', 'none');
+      icon.setAttribute('stroke', 'currentColor');
+      icon.setAttribute('viewBox', '0 0 24 24');
+      const path = document.createElementNS(svgNS, 'path');
+      path.setAttribute('stroke-linecap', 'round');
+      path.setAttribute('stroke-linejoin', 'round');
+      path.setAttribute('stroke-width', '2');
+      path.setAttribute('d', 'M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z');
+      icon.appendChild(path);
+    } else if (type === 'jwt') {
+      contentTypeBadge.classList.add('border-2', 'border-indigo-300', 'dark:border-indigo-600', 'bg-indigo-100', 'dark:bg-indigo-900/40', 'text-indigo-700', 'dark:text-indigo-300', 'animate-pulse-once');
+      contentTypeText.textContent = 'JWT';
+      // Shield icon
+      icon = document.createElementNS(svgNS, 'svg');
+      icon.setAttribute('class', 'w-3.5 h-3.5');
+      icon.setAttribute('fill', 'none');
+      icon.setAttribute('stroke', 'currentColor');
+      icon.setAttribute('viewBox', '0 0 24 24');
+      const path = document.createElementNS(svgNS, 'path');
+      path.setAttribute('stroke-linecap', 'round');
+      path.setAttribute('stroke-linejoin', 'round');
+      path.setAttribute('stroke-width', '2');
+      path.setAttribute('d', 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z');
+      icon.appendChild(path);
+    } else if (type === 'image') {
+      contentTypeBadge.classList.add('border-2', 'border-emerald-300', 'dark:border-emerald-600', 'bg-emerald-100', 'dark:bg-emerald-900/40', 'text-emerald-700', 'dark:text-emerald-300', 'animate-pulse-once');
+      contentTypeText.textContent = 'Image';
+      // Image icon
+      icon = document.createElementNS(svgNS, 'svg');
+      icon.setAttribute('class', 'w-3.5 h-3.5');
+      icon.setAttribute('fill', 'none');
+      icon.setAttribute('stroke', 'currentColor');
+      icon.setAttribute('viewBox', '0 0 24 24');
+      const path = document.createElementNS(svgNS, 'path');
+      path.setAttribute('stroke-linecap', 'round');
+      path.setAttribute('stroke-linejoin', 'round');
+      path.setAttribute('stroke-width', '2');
+      path.setAttribute('d', 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z');
+      icon.appendChild(path);
+    } else {
+      contentTypeBadge.classList.add('text-gray-500', 'dark:text-gray-400');
+      contentTypeText.textContent = 'None';
+    }
+
+    // Clear existing icon and add new one
+    const existingIcon = contentTypeBadge.querySelector('svg');
+    if (existingIcon) existingIcon.remove();
+    if (icon) contentTypeBadge.insertBefore(icon, contentTypeText);
+
+    // Remove animation class after animation completes
+    setTimeout(() => {
+      contentTypeBadge.classList.remove('animate-pulse-once');
+    }, 600);
+  }
+
   function clearDetected() {
     if (detectedJson) detectedJson.classList.add('hidden');
     if (detectedJwt) detectedJwt.classList.add('hidden');
@@ -131,6 +203,7 @@
     }
     if (showImageBtn) showImageBtn.classList.remove('hidden');
     if (detectedNone) detectedNone.classList.remove('hidden');
+    updateContentTypeBadge(null);
   }
 
   function renderInsights(items) {
@@ -297,8 +370,10 @@
   }
 
   function detectJwt(base64Input) {
-    if (!base64Input.includes('.')) return null;
-    const segments = base64Input.split('.');
+    // Remove all whitespace from input
+    const clean = base64Input.replace(/\s+/g, '');
+    if (!clean.includes('.')) return null;
+    const segments = clean.split('.');
     if (segments.length < 2) return null;
     try {
       const header = decodeJwtPart(segments[0]);
@@ -320,24 +395,27 @@
     return null;
   }
 
-  function updateDetections(bytes, base64Input) {
+  function updateDetections(bytes, output) {
     clearDetected();
 
-    if (!bytes || state.mode === 'simple') return;
+    if (!bytes) return;
     const json = detectJson(bytes);
-    const jwt = detectJwt(base64Input);
+    const jwt = detectJwt(output);
     const imageMime = detectImage(bytes);
     let shown = false;
+    let detectedType = null;
 
     if (json && detectedJson && jsonPre) {
       detectedJson.classList.remove('hidden');
       jsonPre.textContent = json;
       shown = true;
+      detectedType = 'json';
     }
     if (jwt && detectedJwt && jwtPre) {
       detectedJwt.classList.remove('hidden');
       jwtPre.textContent = jwt;
       shown = true;
+      detectedType = 'jwt';
     }
     if (imageMime && detectedImage) {
       detectedImage.classList.remove('hidden');
@@ -351,9 +429,11 @@
         showImageBtn.classList.add('hidden');
       };
       shown = true;
+      detectedType = 'image';
     }
 
     if (shown && detectedNone) detectedNone.classList.add('hidden');
+    updateContentTypeBadge(detectedType);
   }
 
   function handleEncode() {
@@ -440,7 +520,8 @@
         issues.length ? `Validation: ${issues.join(' ')}` : 'Validation: clean',
       ]);
 
-      updateDetections(bytes, clean);
+      // Pass the decoded output for JWT detection (JWT has dots in decoded form)
+      updateDetections(bytes, output);
       flashOutput();
     } catch (e) {
       showError('Decode failed. Make sure the Base64 is valid for the selected variant.');
