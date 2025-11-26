@@ -8,6 +8,7 @@
   const errorText = errorEl.querySelector('p');
   const uppercaseCheck = document.getElementById('uppercase-check');
   const hyphensCheck = document.getElementById('hyphens-check');
+  const formatPreset = document.getElementById('format-preset');
   // Button-based controls instead of dropdowns
   let selectedVersion = 'v4';
   let selectedFormat = 'list';
@@ -354,9 +355,11 @@
   // Toggle button functionality
   function updateToggleButton(toggleId, state) {
     const toggle = document.getElementById(toggleId);
+    if (!toggle) return;
     const indicator = toggle.querySelector('.toggle-indicator');
     const checkmark = toggle.querySelector('.toggle-check');
     const checkbox = document.getElementById(toggleId.replace('-toggle', '-check'));
+    if (!indicator || !checkmark || !checkbox) return;
     
     if (state) {
       // Active state
@@ -378,6 +381,48 @@
     
     toggle.setAttribute('data-state', state);
   }
+  
+  function lockFormatToggles(locked) {
+    const toggles = ['uppercase-toggle', 'hyphens-toggle', 'braces-toggle']
+      .map(id => document.getElementById(id))
+      .filter(Boolean);
+    toggles.forEach(toggle => {
+      toggle.classList.toggle('opacity-60', locked);
+      toggle.classList.toggle('pointer-events-none', locked);
+    });
+  }
+  
+  function applyPreset(preset) {
+    if (!formatPreset) return;
+    formatPreset.value = preset;
+    let uppercase = false;
+    let hyphens = true;
+    let braces = false;
+    
+    if (preset === 'compact') {
+      hyphens = false;
+    } else if (preset === 'brace') {
+      uppercase = true;
+      braces = true;
+    } else if (preset === 'rfc') {
+      // defaults already set
+    } else if (preset === 'custom') {
+      lockFormatToggles(false);
+      return;
+    }
+    
+    updateToggleButton('uppercase-toggle', uppercase);
+    updateToggleButton('hyphens-toggle', hyphens);
+    updateToggleButton('braces-toggle', braces);
+    lockFormatToggles(preset !== 'custom');
+  }
+  
+  function ensureCustomPreset() {
+    if (formatPreset && formatPreset.value !== 'custom') {
+      formatPreset.value = 'custom';
+      lockFormatToggles(false);
+    }
+  }
 
   // Event listeners
   generateBtn.addEventListener('click', generateUUIDs);
@@ -397,6 +442,7 @@
     btn.addEventListener('click', () => {
       const format = btn.getAttribute('data-format');
       updateFormatSelection(format);
+      generateUUIDs();
     });
   });
   
@@ -436,6 +482,7 @@
   if (uppercaseToggle) {
     uppercaseToggle.addEventListener('click', () => {
       const currentState = uppercaseToggle.getAttribute('data-state') === 'true';
+      ensureCustomPreset();
       updateToggleButton('uppercase-toggle', !currentState);
     });
   }
@@ -443,6 +490,7 @@
   if (hyphensToggle) {
     hyphensToggle.addEventListener('click', () => {
       const currentState = hyphensToggle.getAttribute('data-state') === 'true';
+      ensureCustomPreset();
       updateToggleButton('hyphens-toggle', !currentState);
     });
   }
@@ -450,7 +498,16 @@
   if (bracesToggle) {
     bracesToggle.addEventListener('click', () => {
       const currentState = bracesToggle.getAttribute('data-state') === 'true';
+      ensureCustomPreset();
       updateToggleButton('braces-toggle', !currentState);
+    });
+  }
+  
+  // Preset selection
+  if (formatPreset) {
+    formatPreset.addEventListener('change', (e) => {
+      applyPreset(e.target.value);
+      generateUUIDs();
     });
   }
   
@@ -460,11 +517,13 @@
   updateCountSelection(1);
   
   // Initialize toggle states
-  updateToggleButton('uppercase-toggle', false);
-  updateToggleButton('hyphens-toggle', true);
-  updateToggleButton('braces-toggle', false);
+  applyPreset(formatPreset ? formatPreset.value : 'custom');
+  if (!formatPreset) {
+    updateToggleButton('uppercase-toggle', false);
+    updateToggleButton('hyphens-toggle', true);
+    updateToggleButton('braces-toggle', false);
+  }
   
   // Generate one UUID on page load
   generateUUIDs();
 })();
-
