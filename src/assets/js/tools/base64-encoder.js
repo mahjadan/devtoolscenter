@@ -5,7 +5,15 @@
   const errorEl = document.getElementById('error-message');
   const errorText = errorEl?.querySelector('p');
   const statusBar = document.getElementById('status-bar');
-  const pipelineText = document.getElementById('pipeline-text');
+  const pipelineTextEl = document.getElementById('pipeline-text');
+  const pipelineMode = document.getElementById('pipeline-mode');
+  const pipelineStepInput = document.getElementById('pipeline-step-input');
+  const pipelineStepCharset = document.getElementById('pipeline-step-charset');
+  const pipelineStepVariant = document.getElementById('pipeline-step-variant');
+  const pipelineStepOptions = document.getElementById('pipeline-step-options');
+  const pipelineVariantPill = document.getElementById('pipeline-variant-pill');
+  const pipelinePaddingPill = document.getElementById('pipeline-padding-pill');
+  const pipelineWrapPill = document.getElementById('pipeline-wrap-pill');
   const insightsList = document.getElementById('insights-list');
   const charsetWarning = document.getElementById('charset-warning');
   const detectedJson = document.getElementById('detected-json');
@@ -16,6 +24,8 @@
   const contentTypeText = document.getElementById('content-type-text');
   const jsonPre = detectedJson?.querySelector('pre');
   const jwtPre = detectedJwt?.querySelector('pre');
+  const copyJsonBtn = document.getElementById('copy-json-btn');
+  const copyJwtBtn = document.getElementById('copy-jwt-btn');
   const imagePreview = document.getElementById('image-preview');
   const showImageBtn = document.getElementById('show-image');
 
@@ -114,11 +124,26 @@
   }
 
   function updatePipeline() {
-    if (!pipelineText) return;
     const variantLabel = state.variant === 'urlsafe' ? 'URL-safe' : 'Standard';
-    const paddingLabel = state.padding ? 'padding on' : 'no padding';
+    const paddingLabel = state.padding ? 'padding on' : 'padding off';
     const wrapLabel = state.wrap ? 'wrap 76' : 'no wrap';
-    pipelineText.textContent = `Raw bytes → [${state.charset.toUpperCase()}] → Base64 (${variantLabel}, ${paddingLabel}, ${wrapLabel})`;
+    const interpMap = {
+      text: 'Text input',
+      hex: 'Hex pairs',
+      binary: 'Binary bits',
+    };
+
+    if (pipelineTextEl) {
+      pipelineTextEl.textContent = `Raw bytes → [${state.charset.toUpperCase()}] → Base64 (${variantLabel}, ${paddingLabel}, ${wrapLabel})`;
+    }
+    if (pipelineMode) pipelineMode.textContent = state.mode === 'expert' ? 'Expert' : 'Simple';
+    if (pipelineStepInput) pipelineStepInput.textContent = interpMap[state.interpretation] || 'Raw bytes';
+    if (pipelineStepCharset) pipelineStepCharset.textContent = `${state.charset.toUpperCase()} encode`;
+    if (pipelineStepVariant) pipelineStepVariant.textContent = variantLabel;
+    if (pipelineStepOptions) pipelineStepOptions.textContent = `${state.padding ? 'Padding on' : 'Padding off'} · ${state.wrap ? 'Wrap 76' : 'No wrap'}`;
+    if (pipelineVariantPill) pipelineVariantPill.textContent = `Variant: ${variantLabel}`;
+    if (pipelinePaddingPill) pipelinePaddingPill.textContent = `Padding: ${state.padding ? 'on' : 'off'}`;
+    if (pipelineWrapPill) pipelineWrapPill.textContent = `Wrap: ${state.wrap ? '76 chars' : 'off'}`;
   }
 
   function updateContentTypeBadge(type) {
@@ -529,6 +554,41 @@
     }
   }
 
+  function showCopySuccess() {
+    const originalText = copyBtn.textContent;
+    copyBtn.textContent = '✓ Copied';
+    setTimeout(() => {
+      copyBtn.textContent = originalText;
+    }, 1600);
+  }
+
+  function copyToClipboardFallback(text) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+
+    // Ensure it's not visible but part of the DOM
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-9999px';
+    textArea.style.top = '0';
+    document.body.appendChild(textArea);
+
+    textArea.focus();
+    textArea.select();
+
+    try {
+      const successful = document.execCommand('copy');
+      if (successful) {
+        showCopySuccess();
+      } else {
+        showError('Failed to copy to clipboard.');
+      }
+    } catch (err) {
+      showError('Failed to copy to clipboard.');
+    }
+
+    document.body.removeChild(textArea);
+  }
+
   function copyResult() {
     hideError();
     const output = outputEl.value;
@@ -536,15 +596,83 @@
       showError('Nothing to copy.');
       return;
     }
-    navigator.clipboard.writeText(output).then(() => {
-      const originalText = copyBtn.textContent;
-      copyBtn.textContent = '✓ Copied';
-      setTimeout(() => {
-        copyBtn.textContent = originalText;
-      }, 1600);
-    }).catch(() => {
-      showError('Failed to copy to clipboard.');
-    });
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(output)
+        .then(() => showCopySuccess())
+        .catch(() => copyToClipboardFallback(output));
+    } else {
+      copyToClipboardFallback(output);
+    }
+  }
+
+  function copyDetectedContent(text, button) {
+    if (!text) return;
+    
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          // Show success feedback
+          const originalHTML = button.innerHTML;
+          button.innerHTML = '<svg class="w-4 h-4 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+          button.classList.add('text-green-600', 'dark:text-green-400');
+          setTimeout(() => {
+            button.innerHTML = originalHTML;
+            button.classList.remove('text-green-600', 'dark:text-green-400');
+          }, 1500);
+        })
+        .catch(() => {
+          // Fallback
+          const textArea = document.createElement('textarea');
+          textArea.value = text;
+          textArea.style.position = 'fixed';
+          textArea.style.left = '-9999px';
+          document.body.appendChild(textArea);
+          textArea.select();
+          try {
+            document.execCommand('copy');
+            const originalHTML = button.innerHTML;
+            button.innerHTML = '<svg class="w-4 h-4 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+            setTimeout(() => {
+              button.innerHTML = originalHTML;
+            }, 1500);
+          } catch (err) {
+            showError('Failed to copy to clipboard.');
+          }
+          document.body.removeChild(textArea);
+        });
+    } else {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-9999px';
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        const originalHTML = button.innerHTML;
+        button.innerHTML = '<svg class="w-4 h-4 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+        setTimeout(() => {
+          button.innerHTML = originalHTML;
+        }, 1500);
+      } catch (err) {
+        showError('Failed to copy to clipboard.');
+      }
+      document.body.removeChild(textArea);
+    }
+  }
+
+  function copyJsonContent() {
+    if (!jsonPre || !copyJsonBtn) return;
+    const jsonText = jsonPre.textContent;
+    copyDetectedContent(jsonText, copyJsonBtn);
+  }
+
+  function copyJwtContent() {
+    if (!jwtPre || !copyJwtBtn) return;
+    const jwtText = jwtPre.textContent;
+    copyDetectedContent(jwtText, copyJwtBtn);
   }
 
   function clearAll() {
@@ -578,6 +706,8 @@
   decodeBtn?.addEventListener('click', handleDecode);
   copyBtn?.addEventListener('click', copyResult);
   clearBtn?.addEventListener('click', clearAll);
+  copyJsonBtn?.addEventListener('click', copyJsonContent);
+  copyJwtBtn?.addEventListener('click', copyJwtContent);
 
   // Init defaults
   setMode('simple');
