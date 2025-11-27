@@ -74,6 +74,21 @@ breadcrumbSchema:
       readonly
     ></textarea>
   </div>
+  
+  <!-- Parsed View Section -->
+  <div id="parsed-view-section" class="hidden">
+    <div class="mb-4">
+      <h3 class="text-lg font-semibold mb-3 text-gray-900 dark:text-white">
+        Advanced Breakdown / Parsed View
+      </h3>
+      <div id="parsed-view" class="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700 font-mono text-sm break-all" style="color: inherit;">
+        <!-- Parsed URL parts will be inserted here -->
+      </div>
+      <div id="parsed-legend" class="mt-3 flex flex-wrap gap-4 text-xs">
+        <!-- Legend will be inserted here -->
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="mt-12 p-6 bg-gradient-to-r from-primary-50 via-primary-100/50 to-accent-50 dark:from-gray-800 dark:via-primary-900/30 dark:to-gray-800 rounded-lg border-2 border-primary-300 dark:border-primary-500/50 shadow-md dark:shadow-lg dark:shadow-primary-900/20">

@@ -2877,4 +2877,157 @@
     position: sticky !important;
     top: 1rem !important;
   }
+
+  /* URL Encoder/Decoder Parsed View Styles */
+  #parsed-view {
+    line-height: 1.8;
+    word-break: break-all;
+  }
+
+  /* Reset any inherited text colors on spans */
+  #parsed-view span.url-part {
+    color: inherit !important;
+  }
+
+  #parsed-legend {
+    color: var(--color-text-muted);
+  }
+
+  .url-part {
+    padding: 2px 4px;
+    border-radius: 3px;
+    transition: background-color 0.2s ease;
+  }
+
+  .url-part:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .dark .url-part:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Light mode colors - explicitly set for non-dark mode */
+  #parsed-view .url-part--scheme,
+  #parsed-legend .url-part--scheme {
+    color: #2563eb !important;
+    font-weight: 600;
+  }
+
+  /* Dark mode colors */
+  .dark #parsed-view .url-part--scheme,
+  .dark #parsed-legend .url-part--scheme,
+  html[data-theme="dark"] #parsed-view .url-part--scheme,
+  html[data-theme="dark"] #parsed-legend .url-part--scheme {
+    color: #60a5fa !important;
+  }
+
+  /* Host - Green */
+  #parsed-view .url-part--host,
+  #parsed-legend .url-part--host {
+    color: #16a34a !important;
+    font-weight: 600;
+  }
+
+  .dark #parsed-view .url-part--host,
+  .dark #parsed-legend .url-part--host,
+  html[data-theme="dark"] #parsed-view .url-part--host,
+  html[data-theme="dark"] #parsed-legend .url-part--host {
+    color: #4ade80 !important;
+  }
+
+  /* Port - Purple */
+  #parsed-view .url-part--port,
+  #parsed-legend .url-part--port {
+    color: #9333ea !important;
+    font-weight: 500;
+  }
+
+  .dark #parsed-view .url-part--port,
+  .dark #parsed-legend .url-part--port,
+  html[data-theme="dark"] #parsed-view .url-part--port,
+  html[data-theme="dark"] #parsed-legend .url-part--port {
+    color: #a78bfa !important;
+  }
+
+  /* Path - Orange */
+  #parsed-view .url-part--path,
+  #parsed-legend .url-part--path {
+    color: #ea580c !important;
+    font-weight: 500;
+  }
+
+  .dark #parsed-view .url-part--path,
+  .dark #parsed-legend .url-part--path,
+  html[data-theme="dark"] #parsed-view .url-part--path,
+  html[data-theme="dark"] #parsed-legend .url-part--path {
+    color: #fb923c !important;
+  }
+
+  /* Query - Yellow/Amber */
+  #parsed-view .url-part--query,
+  #parsed-legend .url-part--query {
+    color: #d97706 !important;
+    font-weight: 500;
+  }
+
+  .dark #parsed-view .url-part--query,
+  .dark #parsed-legend .url-part--query,
+  html[data-theme="dark"] #parsed-view .url-part--query,
+  html[data-theme="dark"] #parsed-legend .url-part--query {
+    color: #fbbf24 !important;
+  }
+
+  /* Fragment - Pink */
+  #parsed-view .url-part--fragment,
+  #parsed-legend .url-part--fragment {
+    color: #db2777 !important;
+    font-weight: 500;
+  }
+
+  .dark #parsed-view .url-part--fragment,
+  .dark #parsed-legend .url-part--fragment,
+  html[data-theme="dark"] #parsed-view .url-part--fragment,
+  html[data-theme="dark"] #parsed-legend .url-part--fragment {
+    color: #f472b6 !important;
+  }
+
+  /* Username - Teal */
+  #parsed-view .url-part--username,
+  #parsed-legend .url-part--username {
+    color: #0891b2 !important;
+    font-weight: 500;
+  }
+
+  .dark #parsed-view .url-part--username,
+  .dark #parsed-legend .url-part--username,
+  html[data-theme="dark"] #parsed-view .url-part--username,
+  html[data-theme="dark"] #parsed-legend .url-part--username {
+    color: #5eead4 !important;
+  }
+
+  /* Password - Red */
+  #parsed-view .url-part--password,
+  #parsed-legend .url-part--password {
+    color: #dc2626 !important;
+    font-weight: 500;
+  }
+
+  .dark #parsed-view .url-part--password,
+  .dark #parsed-legend .url-part--password,
+  html[data-theme="dark"] #parsed-view .url-part--password,
+  html[data-theme="dark"] #parsed-legend .url-part--password {
+    color: #f87171 !important;
+  }
+
+  /* Separator - Gray */
+  #parsed-view .url-part--separator {
+    color: #6b7280 !important;
+    font-weight: 400;
+  }
+
+  .dark #parsed-view .url-part--separator,
+  html[data-theme="dark"] #parsed-view .url-part--separator {
+    color: #9ca3af !important;
+  }
 }
