@@ -1,7 +1,7 @@
 ---
 layout: layouts/blog.njk
-title: Decode JWT in Postman, curl, and Node.js
-description: Practical ways to decode JWTs using Postman, curl, and Node.js with caveats on verification.
+title: "Decode JWT in Postman, curl & Node.js: Step-by-Step Guide + Free Tool"
+description: Learn how to decode JWTs in Postman, curl, and Node.js with practical examples. Use our free online JWT decoder for instant verification and troubleshooting.
 category: JWT
 date: 2025-11-12
 readTime: 8
@@ -21,6 +21,8 @@ Use our in-browser [JWT Encoder/Decoder](/jwt-decoder/) for quick inspection, th
 
 ## Why automate JWT decoding
 
+**Quick start:** For instant decoding without setup, use our **[free JWT Encoder/Decoder](/jwt-decoder/)** tool. Then automate for production workflows.
+
 **Manual decoding limitations:**
 - Slow for multiple tokens
 - Error-prone copy-paste
@@ -34,7 +36,7 @@ Use our in-browser [JWT Encoder/Decoder](/jwt-decoder/) for quick inspection, th
 - CI/CD pipeline support
 
 **When to use each tool:**
-- **Browser decoder**: Quick inspection, learning, one-off checks
+- **Browser decoder** ([our free tool](/jwt-decoder/)): Quick inspection, learning, one-off checks, instant results
 - **Postman**: API testing, automated test suites
 - **curl**: Shell scripts, CI/CD pipelines, server debugging
 - **Node.js**: Application code, verification, complex workflows
@@ -707,15 +709,15 @@ jwt.verify(token, key, {
 
 | Tool | Best For | Limitations |
 |------|----------|-------------|
-| **Browser Decoder** | Quick inspection, learning | Manual, one token at a time |
+| **[Browser Decoder](/jwt-decoder/)** | Quick inspection, learning, instant results | Manual, one token at a time |
 | **Postman** | API testing, test automation | Limited verification capabilities |
 | **curl** | Shell scripts, CI/CD | No signature verification |
 | **Node.js** | Application code, full verification | Requires Node.js environment |
 
 ## Next steps
 
-1. Try quick decoding with our [JWT Encoder/Decoder](/jwt-decoder/) for instant inspection
-2. Learn about [Base64URL encoding](/blog/base64url-vs-base64-jwt-decoding/) for manual decodes
-3. Understand [JWKS and key rotation](/blog/jwks-kid-key-rotation-decoding/) for RS256 verification
-4. Read our [troubleshooting guide](/blog/invalid-jwt-errors-fixes/) for common issues
-5. See [safe decoding practices](/blog/jwt-decode-safely/) before verification
+1. **Try quick decoding** with our **[free JWT Encoder/Decoder](/jwt-decoder/)** for instant inspection
+2. **Troubleshoot errors** - Read our [complete troubleshooting guide](/blog/invalid-jwt-errors-fixes/) for common issues
+3. **Learn Base64URL** - Understand [Base64URL encoding](/blog/base64url-vs-base64-jwt-decoding/) for manual decodes
+4. **Master JWKS** - Understand [JWKS and key rotation](/blog/jwks-kid-key-rotation-decoding/) for RS256 verification
+5. **Safe practices** - See [safe decoding practices](/blog/jwt-decode-safely/) before verification

@@ -457,7 +457,12 @@ breadcrumbSchema:
     <strong>Security Note:</strong> Remember that JWT payloads are encoded, not encrypted. Never include sensitive information in the payload 
     unless additional encryption is applied. Always verify tokens on the server side.
   </p>
-  <a href="/blog/jwt-tokens-explained/" class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold hover:underline">
-    Learn more about JWT tokens and best practices →
-  </a>
+  <div class="flex flex-col sm:flex-row gap-4">
+    <a href="/blog/invalid-jwt-errors-fixes/" class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold hover:underline">
+      Troubleshooting: Fix common JWT errors →
+    </a>
+    <a href="/blog/jwt-tokens-explained/" class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold hover:underline">
+      Learn more about JWT tokens and best practices →
+    </a>
+  </div>
 </div>

@@ -1,7 +1,7 @@
 ---
 layout: layouts/blog.njk
-title: JWT Claims Cheat Sheet (exp, nbf, aud, iss)
-description: A quick-reference guide to the most important JWT claims and how to validate them.
+title: "JWT Claims Cheat Sheet: Complete Reference Guide (exp, nbf, aud, iss)"
+description: Quick reference guide to JWT claims with validation rules, code examples, and common pitfalls. Use our free JWT decoder to inspect claims instantly.
 category: JWT
 date: 2025-11-12
 readTime: 7
@@ -660,6 +660,8 @@ Our [JWT Encoder/Decoder](/jwt-decoder/) helps you:
 - View custom claims
 - Debug validation failures
 
+**Validation failing?** If your token claims look correct but validation still fails, see our [complete guide on fixing invalid JWT errors](/blog/invalid-jwt-errors-fixes/) for systematic troubleshooting of signature, algorithm, and claim validation issues.
+
 ### Common Issues and Solutions
 
 **Issue: "Token expired" but exp looks fine**
@@ -715,7 +717,7 @@ if (Array.isArray(actual)) {
 
 ## Next Steps
 
-1. Decode tokens with our [JWT Encoder/Decoder](/jwt-decoder/) to inspect claims
-2. Learn [JWT tokens explained](/blog/jwt-tokens-explained/) for fundamentals
-3. Understand [authentication vs authorization](/blog/jwt-authorization-vs-authentication-decoding/) for security
-4. Fix [common JWT errors](/blog/invalid-jwt-errors-fixes/) with troubleshooting guide
+1. **Inspect claims instantly** - Decode tokens with our [free JWT Encoder/Decoder](/jwt-decoder/) to see all claims
+2. **Fix validation errors** - Use our [complete troubleshooting guide](/blog/invalid-jwt-errors-fixes/) for common JWT errors
+3. **Master fundamentals** - Learn [JWT tokens explained](/blog/jwt-tokens-explained/) for the basics
+4. **Understand security** - See [authentication vs authorization](/blog/jwt-authorization-vs-authentication-decoding/) for security best practices
