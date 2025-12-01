@@ -126,6 +126,15 @@ let currentMode = 'decode';
 let verifyExpanded = false;
 
 // Utility Functions
+function flashElement(el) {
+  if (!el) return;
+  el.classList.remove('base64-output-flash');
+  // Force reflow to restart animation
+  void el.offsetWidth;
+  el.classList.add('base64-output-flash');
+  setTimeout(() => el.classList.remove('base64-output-flash'), 1200);
+}
+
 function base64UrlEncode(str) {
   return btoa(str)
     .replace(/\+/g, '-')
@@ -230,12 +239,8 @@ function hideTokenInfo() {
 // Mode Switching
 function switchToDecodeMode() {
   currentMode = 'decode';
-  // Update decode button to active state
-  decodeModeBtn.classList.add('text-white', 'bg-gradient-to-r', 'from-primary-600', 'to-primary-700', 'shadow-md');
-  decodeModeBtn.classList.remove('text-gray-700', 'dark:text-gray-200', 'hover:bg-gray-200', 'dark:hover:bg-gray-700', 'hover:shadow-md');
-  // Update encode button to inactive state
-  encodeModeBtn.classList.remove('text-white', 'bg-gradient-to-r', 'from-primary-600', 'to-primary-700', 'shadow-md');
-  encodeModeBtn.classList.add('text-gray-700', 'dark:text-gray-200', 'hover:bg-gray-200', 'dark:hover:bg-gray-700', 'hover:shadow-md');
+  decodeModeBtn.classList.add('active');
+  encodeModeBtn.classList.remove('active');
 
   decodeMode.classList.remove('hidden');
   encodeMode.classList.add('hidden');
@@ -244,12 +249,8 @@ function switchToDecodeMode() {
 
 function switchToEncodeMode() {
   currentMode = 'encode';
-  // Update encode button to active state
-  encodeModeBtn.classList.add('text-white', 'bg-gradient-to-r', 'from-primary-600', 'to-primary-700', 'shadow-md');
-  encodeModeBtn.classList.remove('text-gray-700', 'dark:text-gray-200', 'hover:bg-gray-200', 'dark:hover:bg-gray-700', 'hover:shadow-md');
-  // Update decode button to inactive state
-  decodeModeBtn.classList.remove('text-white', 'bg-gradient-to-r', 'from-primary-600', 'to-primary-700', 'shadow-md');
-  decodeModeBtn.classList.add('text-gray-700', 'dark:text-gray-200', 'hover:bg-gray-200', 'dark:hover:bg-gray-700', 'hover:shadow-md');
+  encodeModeBtn.classList.add('active');
+  decodeModeBtn.classList.remove('active');
 
   encodeMode.classList.remove('hidden');
   decodeMode.classList.add('hidden');
@@ -322,6 +323,8 @@ function decodeJWT() {
 
     jwtHeader.textContent = JSON.stringify(header, null, 2);
     jwtPayload.textContent = JSON.stringify(payload, null, 2);
+    flashElement(jwtHeader);
+    flashElement(jwtPayload);
 
     // Display token info (both desktop and mobile) - only show if token is valid
     const algValue = header.alg || 'N/A';
@@ -1213,6 +1216,7 @@ function showGeneratedToken(token) {
   if (generatedToken && tokenSuccess) {
     generatedToken.textContent = token;
     tokenSuccess.classList.remove('hidden');
+    flashElement(generatedToken);
   }
 
   // Update mobile token preview
@@ -1220,6 +1224,7 @@ function showGeneratedToken(token) {
     mobileGeneratedToken.textContent = token;
     mobileTokenPlaceholder.classList.add('hidden');
     mobileTokenSuccess.classList.remove('hidden');
+    flashElement(mobileGeneratedToken);
   }
 
   // Decode and display token info
@@ -1230,11 +1235,13 @@ function showGeneratedToken(token) {
       const headerJson = base64UrlDecode(parts[0]);
       const header = JSON.parse(headerJson);
       encodeJwtHeader.textContent = JSON.stringify(header, null, 2);
+      flashElement(encodeJwtHeader);
 
       // Decode payload
       const payloadJson = base64UrlDecode(parts[1]);
       const payload = JSON.parse(payloadJson);
       encodeJwtPayload.textContent = JSON.stringify(payload, null, 2);
+      flashElement(encodeJwtPayload);
 
       // Display token info (both desktop and mobile)
       const algValue = header.alg || 'N/A';

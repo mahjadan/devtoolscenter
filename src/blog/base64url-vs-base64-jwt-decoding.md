@@ -1,7 +1,7 @@
 ---
 layout: layouts/blog.njk
-title: Base64URL vs Base64 for JWTs — Why Decoding Fails
-description: Learn how Base64URL differs from Base64 and how padding affects JWT decoding.
+title: "Base64URL vs. Base64: JWT Decoding Differences Explained + Quick Fixes"
+description: Is your Base64 token failing? Understand the critical differences between Base64 and Base64URL in JWT decoding. Use our tool to troubleshoot encoding/decoding errors now.
 category: JWT
 date: 2025-11-12
 readTime: 7
@@ -38,19 +38,38 @@ JWTs are designed to be URL-safe. Standard Base64 uses characters (`+`, `/`) tha
 | `/` | `_` | `/` is a path separator in URLs |
 | `=` (padding) | Often omitted | Padding can be inferred from length |
 
-### Example transformation
+### Visual examples: Character set differences
 
-**Standard Base64:**
+**Example 1: Standard Base64 with `+` character**
 ```
-eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9
-```
-
-**Base64URL (same data):**
-```
-eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9
+Standard Base64:  eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9+signature
+Base64URL:        eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9-signature
+                                    ↑                    ↑
+                              Same characters      + becomes -
 ```
 
-In this case they're the same, but if the data contains `+` or `/`, Base64URL would use `-` and `_` instead.
+**Example 2: Standard Base64 with `/` character**
+```
+Standard Base64:  eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9/signature
+Base64URL:        eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9_signature
+                                    ↑                    ↑
+                              Same characters      / becomes _
+```
+
+**Example 3: Padding differences**
+```
+Standard Base64:  eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9==
+Base64URL:        eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9
+                                    ↑
+                              Padding (=) omitted
+```
+
+**Key visual differences:**
+- **Character replacement**: `+` → `-` and `/` → `_` make tokens URL-safe
+- **Padding removal**: Base64URL often omits `=` padding characters
+- **Length variation**: Base64URL segments may not be multiples of 4 (without padding)
+
+Use our [JWT Decoder](/jwt-decoder/) to see these differences in action - paste a token and watch how it handles Base64URL normalization automatically.
 
 ## Why decoding fails
 
@@ -223,6 +242,8 @@ const decoded = Buffer.from(normalized, 'base64');
 **Prevention:**
 Always normalize Base64URL before decoding, or use our [JWT Encoder/Decoder](/jwt-decoder/) which handles this automatically.
 
+**Need more help?** If decoding errors persist, check our [complete troubleshooting guide for invalid JWT errors](/blog/invalid-jwt-errors-fixes/) which covers decode failures, verification issues, and common pitfalls.
+
 ### Symptom: "Incorrect padding" error
 
 **What you see:**
@@ -339,10 +360,13 @@ When you encounter Base64URL decode errors:
 
 ### Browser tool
 
-Our [JWT Encoder/Decoder](/jwt-decoder/) handles Base64URL normalization automatically:
-- No manual conversion needed
-- Instant decoding with error highlighting
-- Client-side processing (your tokens stay private)
+Our **[JWT Encoder/Decoder](/jwt-decoder/)** handles Base64URL normalization automatically:
+- **No manual conversion needed** - Automatically normalizes Base64URL to Base64
+- **Instant decoding** - See header and payload immediately with error highlighting
+- **Client-side processing** - Your tokens stay private, no server transmission
+- **Visual feedback** - See exactly how Base64URL segments are processed
+
+**Quick troubleshooting:** If your token fails to decode elsewhere, paste it into our tool to verify the Base64URL format is correct. The tool will show you the normalized segments and decoded content instantly.
 
 ### Command-line debugging
 

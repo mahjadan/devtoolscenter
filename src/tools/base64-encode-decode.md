@@ -50,12 +50,18 @@ breadcrumbSchema:
       </div>
       <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Toggle Simple or Expert mode to reveal more controls and diagnostics.</p>
     </div>
-    <div class="inline-flex items-center rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-1 shadow-sm">
-      <button id="mode-simple" data-mode="simple" class="mode-toggle active px-3 md:px-4 py-1.5 rounded-lg text-sm font-semibold text-gray-800 dark:text-gray-100 bg-white dark:bg-gray-900 shadow">
-        Simple
+    <div class="base64-mode-switcher">
+      <button id="mode-simple" data-mode="simple" class="mode-toggle active">
+        <span class="mode-toggle__content">
+          <span class="mode-toggle__icon" aria-hidden="true">◎</span>
+          <span>Simple</span>
+        </span>
       </button>
-      <button id="mode-expert" data-mode="expert" class="mode-toggle px-3 md:px-4 py-1.5 rounded-lg text-sm font-semibold text-gray-700 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-300">
-        Expert
+      <button id="mode-expert" data-mode="expert" class="mode-toggle">
+        <span class="mode-toggle__content">
+          <span class="mode-toggle__icon" aria-hidden="true">⚡</span>
+          <span>Expert</span>
+        </span>
       </button>
     </div>
   </div>
@@ -90,10 +96,8 @@ breadcrumbSchema:
 
       <!-- Expert-only options -->
       <div class="space-y-3 expert-only">
-        <div class="flex flex-wrap gap-2">
-          <div class="inline-flex items-center gap-2 rounded-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/80 px-3 py-1.5 text-xs font-semibold text-gray-700 dark:text-gray-200">
-            Encoding
-          </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-sm font-semibold text-gray-700 dark:text-gray-200 mr-1">Encoding:</span>
           <button class="variant-chip active" data-variant="standard">Standard</button>
           <button class="variant-chip" data-variant="urlsafe">URL-safe</button>
           <button id="padding-toggle" class="option-chip" data-state="on">Padding on</button>
@@ -114,11 +118,43 @@ breadcrumbSchema:
           </div>
         </div>
 
-        <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/60 p-3 text-xs text-gray-600 dark:text-gray-300 flex items-center gap-2">
-          <span class="lucide lucide-pipeline w-4 h-4" aria-hidden="true"></span>
-          <div class="space-y-0.5">
-            <div class="font-semibold text-gray-800 dark:text-gray-100 text-sm">Pipeline</div>
-            <p id="pipeline-text" class="text-xs">Raw bytes → [UTF-8] → Base64 (Standard, padding on)</p>
+        <div class="pipeline-card-wrapper">
+          <div class="pipeline-card-header">
+            <div class="flex items-center gap-2">
+              <span class="lucide lucide-pipeline w-4 h-4 text-primary-600 dark:text-primary-300" aria-hidden="true"></span>
+              <div>
+                <div class="text-sm font-semibold text-gray-900 dark:text-gray-100">Pipeline</div>
+                <p id="pipeline-text" class="text-xs text-primary-700 dark:text-primary-300">Raw bytes → [UTF-8] → Base64 (Standard, padding on, no wrap)</p>
+              </div>
+            </div>
+            <span id="pipeline-mode" class="pipeline-chip">Simple</span>
+          </div>
+          <div class="pipeline-track" aria-label="Encoding pipeline">
+            <div class="pipeline-track__glow"></div>
+            <div class="pipeline-step-card">
+              <div class="pipeline-step-label">Input</div>
+              <div id="pipeline-step-input" class="pipeline-step-value">Raw bytes</div>
+            </div>
+            <div class="pipeline-track__arrow" aria-hidden="true"></div>
+            <div class="pipeline-step-card">
+              <div class="pipeline-step-label">Charset</div>
+              <div id="pipeline-step-charset" class="pipeline-step-value">UTF-8 encode</div>
+            </div>
+            <div class="pipeline-track__arrow" aria-hidden="true"></div>
+            <div class="pipeline-step-card">
+              <div class="pipeline-step-label">Variant</div>
+              <div id="pipeline-step-variant" class="pipeline-step-value">Standard</div>
+            </div>
+            <div class="pipeline-track__arrow" aria-hidden="true"></div>
+            <div class="pipeline-step-card">
+              <div class="pipeline-step-label">Options</div>
+              <div id="pipeline-step-options" class="pipeline-step-value">Padding on · No wrap</div>
+            </div>
+          </div>
+          <div class="pipeline-meta" aria-label="Pipeline options">
+            <span class="pipeline-pill" id="pipeline-variant-pill">Variant: Standard</span>
+            <span class="pipeline-pill" id="pipeline-padding-pill">Padding: on</span>
+            <span class="pipeline-pill" id="pipeline-wrap-pill">Wrap: off</span>
           </div>
         </div>
       </div>
@@ -151,7 +187,8 @@ breadcrumbSchema:
         placeholder="Result will appear here."
       ></textarea>
 
-      <div class="expert-only grid gap-3 md:grid-cols-2">
+      <!-- Expert-only Insights section -->
+      <div class="expert-only">
         <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/70 p-3 space-y-2">
           <div class="flex items-center justify-between">
             <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100">Insights</h3>
@@ -159,26 +196,47 @@ breadcrumbSchema:
           </div>
           <ul id="insights-list" class="space-y-1 text-xs text-gray-700 dark:text-gray-300"></ul>
         </div>
-        <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/70 p-3 space-y-2">
-          <div class="flex items-center justify-between">
-            <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100">Detected content</h3>
-            <span class="text-xs text-gray-500 dark:text-gray-400">JSON / JWT / Image</span>
+      </div>
+
+      <!-- Detected content section (visible in both Simple and Expert modes) -->
+      <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/70 p-3 space-y-2">
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm font-semibold text-gray-800 dark:text-gray-100">Detected content</h3>
+          <div id="content-type-badge" class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold text-gray-500 dark:text-gray-400 transition-all duration-300">
+            <span id="content-type-text">None</span>
           </div>
-          <div id="detected-json" class="hidden">
-            <p class="text-[0.75rem] font-semibold text-primary-700 dark:text-primary-300 mb-1">JSON</p>
-            <pre class="text-[0.7rem] bg-white/60 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700 rounded-lg p-2 overflow-auto max-h-28"></pre>
-          </div>
-          <div id="detected-jwt" class="hidden space-y-1">
-            <p class="text-[0.75rem] font-semibold text-indigo-700 dark:text-indigo-300">JWT decoded</p>
-            <pre class="text-[0.7rem] bg-white/60 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700 rounded-lg p-2 overflow-auto max-h-28"></pre>
-          </div>
-          <div id="detected-image" class="hidden space-y-1">
-            <p class="text-[0.75rem] font-semibold text-emerald-700 dark:text-emerald-300">Image</p>
-            <button id="show-image" class="text-xs text-emerald-700 dark:text-emerald-300 font-semibold underline">Show preview</button>
-            <img id="image-preview" alt="Decoded preview" class="hidden w-24 h-24 rounded-lg border border-gray-200 dark:border-gray-700 object-cover shadow-sm" />
-          </div>
-          <p id="detected-none" class="text-xs text-gray-500 dark:text-gray-400">No special content detected yet.</p>
         </div>
+        <div id="detected-json" class="hidden">
+          <div class="relative">
+            <pre class="text-[0.7rem] bg-white/60 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700 rounded-lg p-2 overflow-auto max-h-28 pr-10"></pre>
+            <button id="copy-json-btn" class="absolute top-2 right-2 p-1.5 rounded-md bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 hover:border-primary-400 dark:hover:border-primary-500 transition-all duration-200 shadow-sm hover:shadow-md" title="Copy JSON">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div id="detected-jwt" class="hidden">
+          <div class="relative">
+            <pre class="text-[0.7rem] bg-white/60 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-700 rounded-lg p-2 overflow-auto max-h-28 pr-10"></pre>
+            <button id="copy-jwt-btn" class="absolute top-2 right-2 p-1.5 rounded-md bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 hover:border-primary-400 dark:hover:border-primary-500 transition-all duration-200 shadow-sm hover:shadow-md" title="Copy JWT">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div id="detected-image" class="hidden space-y-2">
+          <button id="show-image" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-emerald-300 dark:border-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 font-semibold text-sm hover:bg-emerald-100 dark:hover:bg-emerald-900/40 hover:border-emerald-400 dark:hover:border-emerald-500 transition-all duration-200 shadow-sm hover:shadow-md">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+            </svg>
+            <span>Show Preview</span>
+          </button>
+          <img id="image-preview" alt="Decoded preview" class="hidden mt-2 w-full max-w-md rounded-lg border-2 border-gray-200 dark:border-gray-700 object-contain shadow-lg" />
+        </div>
+        <p id="detected-none" class="text-xs text-gray-500 dark:text-gray-400">No special content detected yet.</p>
       </div>
     </div>
   </div>
