@@ -49,6 +49,92 @@ function getTimezoneName(timestampMs, timezone = null) {
   return Intl.DateTimeFormat().resolvedOptions().timeZone;
 }
 
+function getTimezoneOffset(timestampMs, timezone = null) {
+  const date = new Date(timestampMs);
+  let offsetMinutes;
+  
+  if (timezone) {
+    // Calculate offset by comparing UTC time with timezone time
+    // Create a date formatter for the target timezone
+    const utcFormatter = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'UTC',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    });
+    const tzFormatter = new Intl.DateTimeFormat('en-US', {
+      timeZone: timezone,
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    });
+    
+    const utcTime = utcFormatter.format(date);
+    const tzTime = tzFormatter.format(date);
+    
+    // Parse times (HH:MM format)
+    const [utcHours, utcMinutes] = utcTime.split(':').map(Number);
+    const [tzHours, tzMinutes] = tzTime.split(':').map(Number);
+    
+    // Calculate difference in minutes
+    const utcTotal = utcHours * 60 + utcMinutes;
+    const tzTotal = tzHours * 60 + tzMinutes;
+    let diff = tzTotal - utcTotal;
+    
+    // Handle day rollover (if difference is more than 12 hours, adjust)
+    if (diff > 12 * 60) diff -= 24 * 60;
+    if (diff < -12 * 60) diff += 24 * 60;
+    
+    offsetMinutes = diff;
+  } else {
+    offsetMinutes = -date.getTimezoneOffset();
+  }
+  
+  const sign = offsetMinutes >= 0 ? '+' : '-';
+  const hours = Math.floor(Math.abs(offsetMinutes) / 60);
+  const minutes = Math.abs(offsetMinutes) % 60;
+  
+  if (minutes === 0) {
+    return `${sign}${hours}`;
+  }
+  return `${sign}${hours}:${minutes.toString().padStart(2, '0')}`;
+}
+
+function formatTimezoneWithOffset(timestampMs, timezone = null) {
+  const tzName = getTimezoneName(timestampMs, timezone);
+  const offset = getTimezoneOffset(timestampMs, timezone);
+  return `${tzName}, UTC${offset}`;
+}
+
+function detectInputUnit(value) {
+  if (!value || typeof value !== 'string') return null;
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+  
+  // Check if it's a pure number
+  if (/^\d+$/.test(trimmed)) {
+    const num = parseInt(trimmed, 10);
+    if (trimmed.length === 10) return 'Seconds';
+    else if (trimmed.length === 13) return 'Milliseconds';
+    else if (trimmed.length === 16) return 'Microseconds';
+    else if (trimmed.length === 19) return 'Nanoseconds';
+    else if (num < 10000000000) return 'Seconds';
+    else return 'Milliseconds';
+  }
+  
+  // Check for ISO 8601 format
+  if (/^\d{4}-\d{2}-\d{2}/.test(trimmed)) return 'ISO 8601';
+  
+  // Check for RFC 2822 format
+  if (/^\w{3},\s\d{1,2}\s\w{3}\s\d{4}/.test(trimmed)) return 'RFC 2822';
+  
+  // Try to parse as date
+  const parsed = Date.parse(trimmed);
+  if (!isNaN(parsed)) return 'Date String';
+  
+  return null;
+}
+
 function formatTimestamp(timestampMs, format = 'iso', timezone = null) {
   const date = new Date(timestampMs);
   const options = timezone ? { timeZone: timezone } : {};
@@ -98,6 +184,8 @@ const timestampInputAdvanced = document.getElementById('timestamp-input-advanced
 const clearInputBtn = document.getElementById('clear-input-btn');
 const inputError = document.getElementById('input-error');
 const inputErrorAdvanced = document.getElementById('input-error-advanced');
+const inputUnitIndicator = document.getElementById('input-unit-indicator');
+const inputUnitIndicatorAdvanced = document.getElementById('input-unit-indicator-advanced');
 const timezoneSelect = document.getElementById('timezone-select');
 const quickAdjustBtns = document.querySelectorAll('.quick-adjust-btn');
 const quickAdjustBtnsAdvanced = document.querySelectorAll('.quick-adjust-btn-advanced');
@@ -166,15 +254,28 @@ function init() {
   const urlParams = new URLSearchParams(window.location.search);
   const valueParam = urlParams.get('value');
   if (valueParam) {
-    if (timestampInput) timestampInput.value = valueParam;
-    if (timestampInputAdvanced) timestampInputAdvanced.value = valueParam;
+    if (timestampInput) {
+      timestampInput.value = valueParam;
+      updateUnitIndicator(valueParam, inputUnitIndicator, clearInputBtn);
+    }
+    if (timestampInputAdvanced) {
+      timestampInputAdvanced.value = valueParam;
+      updateUnitIndicator(valueParam, inputUnitIndicatorAdvanced, null);
+    }
     handleInput(valueParam);
   } else {
     // Initialize with current time
     currentTimestamp = Date.now();
     const value = Math.floor(currentTimestamp / 1000).toString();
-    if (timestampInput) timestampInput.value = value;
-    if (timestampInputAdvanced) timestampInputAdvanced.value = value;
+    if (timestampInput) {
+      timestampInput.value = value;
+      updateUnitIndicator(value, inputUnitIndicator, clearInputBtn);
+    }
+    if (timestampInputAdvanced) {
+      timestampInputAdvanced.value = value;
+      updateUnitIndicator(value, inputUnitIndicatorAdvanced, null);
+    }
+    if (clearInputBtn) clearInputBtn.classList.remove('hidden');
     updateOutputs();
     updateAdvancedMode();
   }
@@ -210,18 +311,22 @@ function setupEventListeners() {
 
   // Input handling (both simple and advanced)
   timestampInput?.addEventListener('input', (e) => {
+    updateUnitIndicator(e.target.value, inputUnitIndicator, clearInputBtn);
     handleInput(e.target.value);
     // Sync with advanced input
     if (timestampInputAdvanced) {
       timestampInputAdvanced.value = e.target.value;
+      updateUnitIndicator(e.target.value, inputUnitIndicatorAdvanced, null);
     }
   });
 
   timestampInputAdvanced?.addEventListener('input', (e) => {
+    updateUnitIndicator(e.target.value, inputUnitIndicatorAdvanced, null);
     handleInput(e.target.value);
     // Sync with simple input
     if (timestampInput) {
       timestampInput.value = e.target.value;
+      updateUnitIndicator(e.target.value, inputUnitIndicator, clearInputBtn);
     }
   });
 
@@ -230,6 +335,12 @@ function setupEventListeners() {
     if (timestampInputAdvanced) timestampInputAdvanced.value = '';
     clearInputBtn.classList.add('hidden');
     hideInputError();
+    if (inputUnitIndicator) {
+      inputUnitIndicator.classList.add('hidden');
+    }
+    if (inputUnitIndicatorAdvanced) {
+      inputUnitIndicatorAdvanced.classList.add('hidden');
+    }
   });
 
   // Quick adjust buttons (simple mode)
@@ -339,12 +450,51 @@ function handleUseNow() {
   flashAllOutputs();
 }
 
-function handleInput(value) {
-  if (value.trim()) {
-    clearInputBtn.classList.remove('hidden');
+function updateUnitIndicator(value, indicator, clearBtn) {
+  if (!indicator) return;
+  
+  if (!value || !value.trim()) {
+    indicator.classList.add('hidden');
+    return;
+  }
+  
+  const unit = detectInputUnit(value);
+  if (unit) {
+    indicator.textContent = `Interpreted as ${unit}`;
+    // Show indicator only when clear button is hidden
+    if (clearBtn && !clearBtn.classList.contains('hidden')) {
+      // Position indicator to the left of clear button (clear button is at right-4 = 16px, so indicator at 32px)
+      indicator.style.right = '32px';
+    } else {
+      // Position indicator at right-14 (56px) with additional margin
+      indicator.style.right = '56px';
+    }
+    indicator.classList.remove('hidden');
   } else {
-    clearInputBtn.classList.add('hidden');
+    indicator.classList.add('hidden');
+  }
+}
+
+function handleInput(value) {
+  const isSimpleMode = currentMode === 'simple';
+  const activeInput = isSimpleMode ? timestampInput : timestampInputAdvanced;
+  const activeIndicator = isSimpleMode ? inputUnitIndicator : inputUnitIndicatorAdvanced;
+  
+  if (value.trim()) {
+    if (clearInputBtn && isSimpleMode) {
+      clearInputBtn.classList.remove('hidden');
+    }
+    // Update unit indicator
+    if (activeIndicator) {
+      updateUnitIndicator(value, activeIndicator, isSimpleMode ? clearInputBtn : null);
+    }
+  } else {
+    if (clearInputBtn && isSimpleMode) {
+      clearInputBtn.classList.add('hidden');
+    }
     hideInputError();
+    if (inputUnitIndicator) inputUnitIndicator.classList.add('hidden');
+    if (inputUnitIndicatorAdvanced) inputUnitIndicatorAdvanced.classList.add('hidden');
     return;
   }
 
@@ -405,18 +555,18 @@ function updateOutputs() {
   // Local time
   const localTz = getTimezoneName(currentTimestamp);
   if (outputLocalTime) outputLocalTime.textContent = formatLocalTime(currentTimestamp);
-  if (outputLocalTimezone) outputLocalTimezone.textContent = `(${localTz})`;
+  if (outputLocalTimezone) outputLocalTimezone.textContent = `(${formatTimezoneWithOffset(currentTimestamp)})`;
   
   // Selected timezone - always update, even if it's browser timezone
   if (selectedTz) {
     // A specific timezone was selected
     if (outputSelectedTimezone) outputSelectedTimezone.textContent = formatLocalTime(currentTimestamp, selectedTz);
-    if (outputSelectedTimezoneName) outputSelectedTimezoneName.textContent = `(${selectedTz})`;
+    if (outputSelectedTimezoneName) outputSelectedTimezoneName.textContent = `(${formatTimezoneWithOffset(currentTimestamp, selectedTz)})`;
   } else {
     // Browser timezone (or no selection)
     const browserTz = getTimezoneName(currentTimestamp);
     if (outputSelectedTimezone) outputSelectedTimezone.textContent = formatLocalTime(currentTimestamp);
-    if (outputSelectedTimezoneName) outputSelectedTimezoneName.textContent = `(${browserTz})`;
+    if (outputSelectedTimezoneName) outputSelectedTimezoneName.textContent = `(${formatTimezoneWithOffset(currentTimestamp)})`;
   }
 }
 
@@ -451,7 +601,7 @@ function updateUnitConversions() {
   }
   
   if (unifiedLocalTimezone) {
-    unifiedLocalTimezone.textContent = `(${localTz})`;
+    unifiedLocalTimezone.textContent = `(${formatTimezoneWithOffset(currentTimestamp)})`;
   }
   
   // Format UTC Time - large, prominent display
@@ -468,7 +618,7 @@ function updateUnitConversions() {
       hour12: true,
       timeZone: 'UTC'
     });
-    unifiedUtcTime.textContent = `${utcDateStr} (UTC)`;
+    unifiedUtcTime.textContent = `${utcDateStr} (UTC, UTC+0)`;
   }
   
   // Update numerical Unix Epoch values (Priority 2) - stacked list
@@ -486,8 +636,16 @@ function updateTimezoneConversion() {
   const fromTz = fromTimezone?.value === 'browser' ? null : fromTimezone?.value || 'UTC';
   const toTz = toTimezone?.value === 'browser' ? null : toTimezone?.value || 'UTC';
 
-  if (fromTimezoneLabel) fromTimezoneLabel.textContent = fromTz || 'Browser Timezone';
-  if (toTimezoneLabel) toTimezoneLabel.textContent = toTz || 'Browser Timezone';
+  if (fromTimezoneLabel) {
+    const fromTzName = fromTz || 'Browser Timezone';
+    const fromTzOffset = fromTz ? getTimezoneOffset(currentTimestamp, fromTz) : getTimezoneOffset(currentTimestamp);
+    fromTimezoneLabel.textContent = `${fromTzName}, UTC${fromTzOffset}`;
+  }
+  if (toTimezoneLabel) {
+    const toTzName = toTz || 'Browser Timezone';
+    const toTzOffset = toTz ? getTimezoneOffset(currentTimestamp, toTz) : getTimezoneOffset(currentTimestamp);
+    toTimezoneLabel.textContent = `${toTzName}, UTC${toTzOffset}`;
+  }
 
   if (fromTimezoneTime) fromTimezoneTime.textContent = formatLocalTime(currentTimestamp, fromTz);
   if (toTimezoneTime) toTimezoneTime.textContent = formatLocalTime(currentTimestamp, toTz);
@@ -593,6 +751,42 @@ function flashElement(element) {
 
 function flashOutputCard(element) {
   if (!element) return;
+  
+  // Debug logging
+  console.log('🔍 flashOutputCard called for element:', {
+    tagName: element.tagName,
+    classes: Array.from(element.classList),
+    hasDataAdjust: element.hasAttribute('data-adjust'),
+    dataAdjust: element.getAttribute('data-adjust'),
+    id: element.id,
+    textContent: element.textContent?.substring(0, 50),
+    selector: element.matches ? element.matches('button[data-adjust]') : 'N/A'
+  });
+  
+  // Explicitly skip buttons - they should never be animated
+  // Check multiple ways: tag name, classes, and data attribute
+  const isButton = element.tagName === 'BUTTON';
+  const hasQuickAdjustClass = element.classList.contains('quick-adjust-btn') || element.classList.contains('quick-adjust-btn-advanced');
+  const hasDataAdjust = element.hasAttribute('data-adjust');
+  const isInsideButton = element.closest('button[data-adjust]');
+  
+  if (isButton || hasQuickAdjustClass || hasDataAdjust || isInsideButton) {
+    console.log('❌ Element EXCLUDED from animation:', {
+      reason: isButton ? 'is BUTTON tag' : 
+              hasQuickAdjustClass ? 'has quick-adjust class' :
+              hasDataAdjust ? 'has data-adjust attribute' :
+              isInsideButton ? 'inside button with data-adjust' : 'unknown',
+      element: element
+    });
+    return;
+  }
+  
+  console.log('✅ Element WILL BE ANIMATED:', {
+    tagName: element.tagName,
+    classes: Array.from(element.classList),
+    id: element.id
+  });
+  
   // Apply focus effect similar to input field (border-primary-500, ring-2, ring-primary-500/20)
   element.classList.add('timestamp-output-focus');
   setTimeout(() => {
@@ -690,10 +884,180 @@ function flashSelectedTimezoneCard() {
   }
 }
 
-function flashAllOutputs() {
-  // Flash all output cards in simple mode
+// Store preview state to avoid duplicate flashes
+let previewFlashActive = false;
+let previewFlashElements = [];
+
+function previewOutputFlash() {
+  // Don't add duplicate preview if already active
+  if (previewFlashActive) return;
+  previewFlashActive = true;
+  previewFlashElements = [];
+
+  // Get theme colors
+  const primaryColor = '#0ea5e9'; // primary-500
+  const primaryColorDark = '#38bdf8'; // primary-400 for dark mode
+  const isDark = document.documentElement.classList.contains('dark') || 
+                 document.documentElement.getAttribute('data-theme') === 'dark';
+  const borderColor = isDark ? primaryColorDark : primaryColor;
+  const shadowColor = isDark ? 'rgba(56, 189, 248, 0.25)' : 'rgba(14, 165, 233, 0.25)';
+
+  // Preview effect on all output cards in simple mode
   const outputCards = document.querySelectorAll('#simple-mode .rounded-xl');
+  outputCards.forEach((card) => {
+    if (card) {
+      // Store original styles
+      const originalBorderColor = card.style.borderColor;
+      const originalBoxShadow = card.style.boxShadow;
+      const originalTransform = card.style.transform;
+      const originalTransition = card.style.transition;
+      
+      // Apply preview effect using inline styles (overrides Tailwind)
+      card.style.borderColor = borderColor;
+      card.style.boxShadow = `0 0 0 3px ${shadowColor}`;
+      card.style.transform = 'scale(1.01)';
+      card.style.transition = 'border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease';
+      card.classList.add('timestamp-output-focus');
+      
+      // Store element with original styles for cleanup
+      previewFlashElements.push({
+        element: card,
+        originalBorderColor,
+        originalBoxShadow,
+        originalTransform,
+        originalTransition
+      });
+    }
+  });
+
+  // Preview effect on advanced mode outputs
+  if (currentMode === 'advanced') {
+    // Preview unified conversion panel items (Unix Epoch Values - exclude buttons)
+    // Use a more specific selector that targets only the epoch value rows, not buttons
+    // Only select divs with rounded-lg.border that are direct children of .space-y-2
+    const unifiedItems = document.querySelectorAll('#advanced-mode .space-y-2 > div.rounded-lg.border');
+    unifiedItems.forEach((item) => {
+      if (item) {
+        // Explicitly exclude buttons: check if element is a button, has button classes, data-adjust attribute, or is inside button container
+        if (item.tagName === 'BUTTON' || 
+            item.classList.contains('quick-adjust-btn') || 
+            item.classList.contains('quick-adjust-btn-advanced') ||
+            item.hasAttribute('data-adjust') ||
+            item.closest('button[data-adjust], .quick-adjust-btn, .quick-adjust-btn-advanced, .flex.flex-wrap.gap-2') ||
+            item.querySelector('.quick-adjust-btn, .quick-adjust-btn-advanced, button[data-adjust]')) {
+          return;
+        }
+        
+        const originalBorderColor = item.style.borderColor;
+        const originalBoxShadow = item.style.boxShadow;
+        const originalTransform = item.style.transform;
+        const originalTransition = item.style.transition;
+        
+        item.style.borderColor = borderColor;
+        item.style.boxShadow = `0 0 0 3px ${shadowColor}`;
+        item.style.transform = 'scale(1.01)';
+        item.style.transition = 'border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease';
+        item.classList.add('timestamp-output-focus');
+        
+        previewFlashElements.push({
+          element: item,
+          originalBorderColor,
+          originalBoxShadow,
+          originalTransform,
+          originalTransition
+        });
+      }
+    });
+
+    // Preview timezone conversion card
+    const timezoneCard = document.querySelector('#advanced-mode .p-4.bg-gray-50, #advanced-mode .p-4.bg-gray-900');
+    if (timezoneCard && timezoneCard.querySelector('#from-timezone-time')) {
+      const originalBorderColor = timezoneCard.style.borderColor;
+      const originalBoxShadow = timezoneCard.style.boxShadow;
+      const originalTransform = timezoneCard.style.transform;
+      const originalTransition = timezoneCard.style.transition;
+      
+      timezoneCard.style.borderColor = borderColor;
+      timezoneCard.style.boxShadow = `0 0 0 3px ${shadowColor}`;
+      timezoneCard.style.transform = 'scale(1.01)';
+      timezoneCard.style.transition = 'border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease';
+      timezoneCard.classList.add('timestamp-output-focus');
+      
+      previewFlashElements.push({
+        element: timezoneCard,
+        originalBorderColor,
+        originalBoxShadow,
+        originalTransform,
+        originalTransition
+      });
+    }
+
+    // Preview formatted output card
+    const formattedOutputEl = document.getElementById('formatted-output');
+    if (formattedOutputEl) {
+      const formattedCard = formattedOutputEl.closest('.p-4');
+      if (formattedCard) {
+        const originalBorderColor = formattedCard.style.borderColor;
+        const originalBoxShadow = formattedCard.style.boxShadow;
+        const originalTransform = formattedCard.style.transform;
+        const originalTransition = formattedCard.style.transition;
+        
+        formattedCard.style.borderColor = borderColor;
+        formattedCard.style.boxShadow = `0 0 0 3px ${shadowColor}`;
+        formattedCard.style.transform = 'scale(1.01)';
+        formattedCard.style.transition = 'border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease';
+        formattedCard.classList.add('timestamp-output-focus');
+        
+        previewFlashElements.push({
+          element: formattedCard,
+          originalBorderColor,
+          originalBoxShadow,
+          originalTransform,
+          originalTransition
+        });
+      }
+    }
+  }
+}
+
+function removePreviewFlash() {
+  if (!previewFlashActive) return;
+  previewFlashActive = false;
+  
+  // Remove preview effect from all elements and restore original styles
+  previewFlashElements.forEach((item) => {
+    if (item && item.element) {
+      // Restore original styles
+      item.element.style.borderColor = item.originalBorderColor;
+      item.element.style.boxShadow = item.originalBoxShadow;
+      item.element.style.transform = item.originalTransform;
+      item.element.style.transition = item.originalTransition;
+      item.element.classList.remove('timestamp-output-focus');
+    }
+  });
+  previewFlashElements = [];
+}
+
+function flashAllOutputs() {
+  console.log('🚀 flashAllOutputs called, currentMode:', currentMode);
+  
+  // Flash all output cards in simple mode (exclude buttons)
+  const outputCards = document.querySelectorAll('#simple-mode .rounded-xl');
+  console.log('📦 Simple mode: Found', outputCards.length, 'cards with .rounded-xl');
   outputCards.forEach((card, index) => {
+    // Skip if it's a button or contains buttons
+    const hasQuickAdjustClass = card.classList.contains('quick-adjust-btn');
+    const containsQuickAdjust = card.querySelector('.quick-adjust-btn');
+    
+    if (hasQuickAdjustClass || containsQuickAdjust) {
+      console.log('❌ Simple mode card EXCLUDED:', {
+        index,
+        hasQuickAdjustClass,
+        containsQuickAdjust,
+        element: card
+      });
+      return;
+    }
     setTimeout(() => {
       flashOutputCard(card);
     }, index * 50); // Stagger the flashes for a nice effect
@@ -701,17 +1065,55 @@ function flashAllOutputs() {
 
   // Flash advanced mode outputs
   if (currentMode === 'advanced') {
-    // Flash unified conversion panel items
-    const unifiedItems = document.querySelectorAll('#advanced-mode .rounded-lg.border');
+    console.log('🔧 Advanced mode: Starting to find elements...');
+    
+    // Flash unified conversion panel items (Unix Epoch Values - exclude buttons)
+    // Use a more specific selector that targets only the epoch value rows, not buttons
+    // Exclude the button container explicitly
+    // Use a more specific selector that excludes buttons entirely
+    // Only select divs with rounded-lg.border that are inside the epoch values container
+    const unifiedItems = document.querySelectorAll('#advanced-mode .space-y-2 > div.rounded-lg.border');
+    console.log('📊 Advanced mode: Found', unifiedItems.length, 'items with selector: #advanced-mode .space-y-2 > div.rounded-lg.border');
+    
     unifiedItems.forEach((item, index) => {
+      console.log(`🔍 Checking item ${index}:`, {
+        tagName: item.tagName,
+        classes: Array.from(item.classList),
+        hasDataAdjust: item.hasAttribute('data-adjust'),
+        id: item.id,
+        textContent: item.textContent?.substring(0, 50)
+      });
+      
+      // Explicitly exclude buttons: check if element is a button, has button classes, data-adjust attribute, or is inside button container
+      const isButton = item.tagName === 'BUTTON';
+      const hasQuickAdjustClass = item.classList.contains('quick-adjust-btn') || item.classList.contains('quick-adjust-btn-advanced');
+      const hasDataAdjust = item.hasAttribute('data-adjust');
+      const isInsideButton = item.closest('button[data-adjust], .quick-adjust-btn, .quick-adjust-btn-advanced, .flex.flex-wrap.gap-2');
+      const containsButton = item.querySelector('.quick-adjust-btn, .quick-adjust-btn-advanced, button[data-adjust]');
+      
+      if (isButton || hasQuickAdjustClass || hasDataAdjust || isInsideButton || containsButton) {
+        console.log(`❌ Advanced mode item ${index} EXCLUDED:`, {
+          isButton,
+          hasQuickAdjustClass,
+          hasDataAdjust,
+          isInsideButton: !!isInsideButton,
+          containsButton: !!containsButton,
+          element: item
+        });
+        return;
+      }
+      
+      console.log(`✅ Advanced mode item ${index} WILL BE ANIMATED`);
       setTimeout(() => {
         flashOutputCard(item);
       }, index * 50);
     });
-
+    
     // Flash timezone conversion card
     const timezoneCard = document.querySelector('#advanced-mode .p-4.bg-gray-50, #advanced-mode .p-4.bg-gray-900');
+    console.log('🌍 Timezone card found:', !!timezoneCard);
     if (timezoneCard && timezoneCard.querySelector('#from-timezone-time')) {
+      console.log('✅ Timezone card WILL BE ANIMATED');
       setTimeout(() => {
         flashOutputCard(timezoneCard);
       }, 200);
@@ -719,14 +1121,47 @@ function flashAllOutputs() {
 
     // Flash formatted output card (find parent of formatted-output element)
     const formattedOutputEl = document.getElementById('formatted-output');
+    console.log('📝 Formatted output element found:', !!formattedOutputEl);
     if (formattedOutputEl) {
       const formattedCard = formattedOutputEl.closest('.p-4');
+      console.log('📝 Formatted card found:', !!formattedCard);
       if (formattedCard) {
+        console.log('✅ Formatted card WILL BE ANIMATED');
         setTimeout(() => {
           flashOutputCard(formattedCard);
         }, 250);
       }
     }
+    
+    // Also check if there are any other selectors that might be catching buttons
+    const allRoundedLgBorder = document.querySelectorAll('#advanced-mode .rounded-lg.border');
+    console.log('⚠️  WARNING: Found', allRoundedLgBorder.length, 'total elements with .rounded-lg.border in advanced mode');
+    allRoundedLgBorder.forEach((el, idx) => {
+      if (el.tagName === 'BUTTON' || el.hasAttribute('data-adjust')) {
+        console.log('🚨 BUTTON FOUND in .rounded-lg.border selector at index', idx, ':', {
+          tagName: el.tagName,
+          classes: Array.from(el.classList),
+          dataAdjust: el.getAttribute('data-adjust'),
+          textContent: el.textContent?.substring(0, 30),
+          parent: el.parentElement?.className
+        });
+      }
+    });
+    
+    // Check all buttons in advanced mode
+    const allButtons = document.querySelectorAll('#advanced-mode button');
+    console.log('🔘 Total buttons in advanced mode:', allButtons.length);
+    allButtons.forEach((btn, idx) => {
+      if (btn.hasAttribute('data-adjust')) {
+        console.log(`🔘 Quick adjust button ${idx}:`, {
+          classes: Array.from(btn.classList),
+          dataAdjust: btn.getAttribute('data-adjust'),
+          textContent: btn.textContent,
+          parent: btn.parentElement?.className,
+          matchesRoundedLgBorder: btn.matches('.rounded-lg.border')
+        });
+      }
+    });
   }
 }
 

@@ -890,25 +890,6 @@
         0 18px 40px rgba(37, 99, 235, 0.25);
     }
 
-    /* Timestamp converter output focus effect - matches input focus style */
-    .timestamp-output-focus,
-    .rounded-xl.timestamp-output-focus,
-    div.timestamp-output-focus {
-      border-color: #0ea5e9 !important; /* primary-500 */
-      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.25) !important; /* ring-2 ring-primary-500/20 - made more visible */
-      transition: border-color var(--motion-duration-quick)
-          var(--motion-ease-standard),
-        box-shadow var(--motion-duration-quick) var(--motion-ease-standard);
-      transform: scale(1.01); /* Slight scale for extra visibility */
-    }
-
-    :root[data-theme="dark"] .timestamp-output-focus,
-    :root[data-theme="dark"] .rounded-xl.timestamp-output-focus,
-    :root[data-theme="dark"] div.timestamp-output-focus {
-      border-color: #38bdf8 !important; /* primary-400 for dark mode */
-      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25) !important;
-    }
-
     60% {
       box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.14),
         0 12px 30px rgba(37, 99, 235, 0.18);
@@ -918,6 +899,25 @@
       box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1),
         0 8px 20px rgba(37, 99, 235, 0.12);
     }
+  }
+
+  /* Timestamp converter output focus effect - matches input focus style */
+  .timestamp-output-focus,
+  .rounded-xl.timestamp-output-focus,
+  div.timestamp-output-focus {
+    border-color: #0ea5e9 !important; /* primary-500 */
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.25) !important; /* ring-2 ring-primary-500/20 - made more visible */
+    transition: border-color var(--motion-duration-quick)
+        var(--motion-ease-standard),
+      box-shadow var(--motion-duration-quick) var(--motion-ease-standard);
+    transform: scale(1.01); /* Slight scale for extra visibility */
+  }
+
+  :root[data-theme="dark"] .timestamp-output-focus,
+  :root[data-theme="dark"] .rounded-xl.timestamp-output-focus,
+  :root[data-theme="dark"] div.timestamp-output-focus {
+    border-color: #38bdf8 !important; /* primary-400 for dark mode */
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25) !important;
   }
 
   .animate-pulse-once {

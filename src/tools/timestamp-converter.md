@@ -71,7 +71,7 @@ breadcrumbSchema:
 <!-- Current Time Panel -->
 <div id="current-time-panel" class="p-6 bg-gradient-to-br from-primary-50 via-primary-100/50 to-accent-50 dark:from-gray-800 dark:via-primary-900/30 dark:to-gray-800 rounded-xl border-2 border-primary-300 dark:border-primary-500/50">
   <div class="flex items-center justify-between mb-4">
-    <span class="text-xs font-medium text-primary-600 dark:text-primary-400 uppercase tracking-wide">Current Time</span>
+    <span class="text-xs font-medium text-primary-600 dark:text-primary-400 uppercase tracking-wide">Live Unix Timestamp (Seconds)</span>
     <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
   </div>
   <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
@@ -92,25 +92,25 @@ breadcrumbSchema:
   <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/70 shadow-sm p-4 md:p-5 space-y-3">
     <div class="flex items-center justify-between gap-2">
       <label for="timestamp-input" class="text-base font-semibold text-gray-900 dark:text-white">
-        Enter timestamp or date (auto-detected)
+        Timestamp Value
       </label>
     </div>
     <div class="relative">
       <input 
         type="text" 
         id="timestamp-input" 
-        class="w-full px-3 py-1.5 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-mono text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all"
+        class="w-full px-5 py-2 pr-44 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-mono text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all"
         placeholder="1699999999 or 2024-01-15T10:30:00Z"
       />
-      <button id="clear-input-btn" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
+      <div id="input-unit-indicator" class="absolute right-14 top-1/2 -translate-y-1/2 text-xs text-gray-600 dark:text-gray-400 font-semibold hidden pointer-events-none whitespace-nowrap ml-2"></div>
+      <button id="clear-input-btn" class="hidden absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors z-10">
         ✕
       </button>
     </div>
     <div id="input-error" class="hidden mt-2 p-3 bg-red-100 dark:bg-red-900/30 border border-red-300 dark:border-red-600 rounded text-sm text-red-700 dark:text-red-400"></div>
     
     <!-- Quick Adjust Buttons -->
-    <div class="mt-4">
-      <span class="text-xs text-gray-600 dark:text-gray-400 mb-2 block">Quick adjust:</span>
+    <div class="mt-2">
       <div class="flex flex-wrap gap-2">
         <button class="quick-adjust-btn px-3 py-1.5 text-xs font-medium bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all" data-adjust="-3600000">-1h</button>
         <button class="quick-adjust-btn px-3 py-1.5 text-xs font-medium bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all" data-adjust="-86400000">-1d</button>
@@ -123,8 +123,8 @@ breadcrumbSchema:
   </div>
 
   <!-- Timezone Selector -->
-  <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/70 shadow-sm p-4 md:p-5 space-y-3">
-    <label for="timezone-select" class="text-base font-semibold text-gray-900 dark:text-white">
+  <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/70 shadow-sm p-4 md:p-5 space-y-3 mt-6">
+    <label for="timezone-select" class="text-base font-semibold text-gray-900 dark:text-white mb-1">
       Display Timezone
     </label>
     <select id="timezone-select" class="w-full px-3 py-1.5 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-white focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all">
@@ -184,7 +184,7 @@ breadcrumbSchema:
 
       <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/70 shadow-sm p-4 min-h-[100px] flex flex-col">
         <div class="flex items-center justify-between mb-2">
-          <span class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Local Time</span>
+          <span class="text-xs font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Local Timezone</span>
           <button class="copy-btn text-xs text-primary-600 dark:text-primary-400 hover:underline" data-copy-target="local-time">Copy</button>
         </div>
         <p id="output-local-time" class="text-base font-medium text-gray-900 dark:text-white font-mono break-all flex-1"></p>
@@ -209,22 +209,22 @@ breadcrumbSchema:
   <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/70 shadow-sm p-4 md:p-5 space-y-3">
     <div class="flex items-center justify-between gap-2">
       <label for="timestamp-input-advanced" class="text-base font-semibold text-gray-900 dark:text-white">
-        Enter timestamp or date (auto-detected)
+        Timestamp Value
       </label>
     </div>
     <div class="relative">
       <input 
         type="text" 
         id="timestamp-input-advanced" 
-        class="w-full px-3 py-1.5 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-mono text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all"
+        class="w-full px-5 py-2 pr-44 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-mono text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all"
         placeholder="1699999999 or 2024-01-15T10:30:00Z"
       />
+      <div id="input-unit-indicator-advanced" class="absolute right-14 top-1/2 -translate-y-1/2 text-xs text-gray-600 dark:text-gray-400 font-semibold hidden pointer-events-none whitespace-nowrap ml-2"></div>
     </div>
     <div id="input-error-advanced" class="hidden mt-2 p-3 bg-red-100 dark:bg-red-900/30 border border-red-300 dark:border-red-600 rounded text-sm text-red-700 dark:text-red-400"></div>
     
     <!-- Quick Adjust Buttons -->
-    <div class="mt-4">
-      <span class="text-xs text-gray-600 dark:text-gray-400 mb-2 block">Quick adjust:</span>
+    <div class="mt-2">
       <div class="flex flex-wrap gap-2">
         <button class="quick-adjust-btn-advanced px-3 py-1.5 text-xs font-medium bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all" data-adjust="-3600000">-1h</button>
         <button class="quick-adjust-btn-advanced px-3 py-1.5 text-xs font-medium bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all" data-adjust="-86400000">-1d</button>
@@ -237,19 +237,19 @@ breadcrumbSchema:
   </div>
 
   <!-- Unified Conversion Panel -->
-  <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/70 shadow-sm p-4 md:p-6 space-y-6">
+  <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/70 shadow-sm p-4 md:p-6 space-y-6 mt-6">
     <!-- Priority 1: Human-Readable Date/Time (Large, Prominent) -->
     <div class="space-y-4">
-      <div class="pb-4 border-b border-gray-200 dark:border-gray-700">
-        <h3 class="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide mb-3">Human-Readable Date & Time</h3>
-        <div class="space-y-3">
-          <div>
-            <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">Local Time</p>
+      <div class="pb-5 border-b-2 border-gray-200 dark:border-gray-700">
+        <h3 class="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide mb-4">Human-Readable Date & Time</h3>
+        <div class="space-y-4">
+          <div class="pb-4 border-b border-gray-200 dark:border-gray-700">
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">Local Time</p>
             <p id="unified-local-time" class="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white"></p>
             <p id="unified-local-timezone" class="text-sm text-gray-500 dark:text-gray-400 mt-1"></p>
           </div>
-          <div>
-            <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">UTC</p>
+          <div class="pt-2 bg-gray-50/50 dark:bg-gray-800/30 rounded-lg px-3 py-3 -mx-3">
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">UTC</p>
             <p id="unified-utc-time" class="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white"></p>
           </div>
         </div>
@@ -257,33 +257,33 @@ breadcrumbSchema:
     </div>
 
     <!-- Priority 2: Numerical Unix Epoch Values (Stacked List) -->
-    <div class="space-y-3">
-      <h3 class="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Unix Epoch Values</h3>
+    <div class="space-y-3 pt-2">
+      <h3 class="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide mb-3">Unix Epoch Values</h3>
       <div class="space-y-2">
         <div class="flex items-center justify-between py-2 px-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
           <div class="flex items-center gap-3 flex-1 min-w-0">
-            <span class="text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">Seconds:</span>
+            <span class="text-sm font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">Seconds:</span>
             <span id="unified-seconds" class="text-sm font-mono text-gray-900 dark:text-white truncate flex-1"></span>
           </div>
           <button class="copy-btn ml-3 px-3 py-1 text-xs font-medium text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded transition-colors whitespace-nowrap" data-copy-target="unified-seconds">Copy</button>
         </div>
         <div class="flex items-center justify-between py-2 px-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
           <div class="flex items-center gap-3 flex-1 min-w-0">
-            <span class="text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">Milliseconds:</span>
+            <span class="text-sm font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">Milliseconds:</span>
             <span id="unified-milliseconds" class="text-sm font-mono text-gray-900 dark:text-white truncate flex-1"></span>
           </div>
           <button class="copy-btn ml-3 px-3 py-1 text-xs font-medium text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded transition-colors whitespace-nowrap" data-copy-target="unified-milliseconds">Copy</button>
         </div>
         <div class="flex items-center justify-between py-2 px-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
           <div class="flex items-center gap-3 flex-1 min-w-0">
-            <span class="text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">Microseconds:</span>
+            <span class="text-sm font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">Microseconds:</span>
             <span id="unified-microseconds" class="text-sm font-mono text-gray-900 dark:text-white truncate flex-1"></span>
           </div>
           <button class="copy-btn ml-3 px-3 py-1 text-xs font-medium text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded transition-colors whitespace-nowrap" data-copy-target="unified-microseconds">Copy</button>
         </div>
         <div class="flex items-center justify-between py-2 px-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
           <div class="flex items-center gap-3 flex-1 min-w-0">
-            <span class="text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">Nanoseconds:</span>
+            <span class="text-sm font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">Nanoseconds:</span>
             <span id="unified-nanoseconds" class="text-sm font-mono text-gray-900 dark:text-white truncate flex-1"></span>
           </div>
           <button class="copy-btn ml-3 px-3 py-1 text-xs font-medium text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded transition-colors whitespace-nowrap" data-copy-target="unified-nanoseconds">Copy</button>
@@ -293,14 +293,14 @@ breadcrumbSchema:
   </div>
 
   <!-- Timezone Conversion -->
-  <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/70 shadow-sm p-4 md:p-5 space-y-3">
-    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+  <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/70 shadow-sm p-4 md:p-5 space-y-3 mt-6">
+    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-5 flex items-center gap-2">
       <span>🌍</span>
       <span>Timezone Conversion</span>
     </h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
       <div>
-        <label for="from-timezone" class="text-base font-semibold text-gray-900 dark:text-white">From</label>
+        <label for="from-timezone" class="text-base font-semibold text-gray-900 dark:text-white block mb-1">From</label>
         <select id="from-timezone" class="w-full px-3 py-1.5 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-white focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all">
           <option value="UTC">UTC</option>
           <option value="browser" selected>Browser Timezone</option>
@@ -311,7 +311,7 @@ breadcrumbSchema:
         </select>
       </div>
       <div>
-        <label for="to-timezone" class="text-base font-semibold text-gray-900 dark:text-white">To</label>
+        <label for="to-timezone" class="text-base font-semibold text-gray-900 dark:text-white block mb-1">To</label>
         <select id="to-timezone" class="w-full px-3 py-1.5 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-white focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all">
           <option value="UTC">UTC</option>
           <option value="browser">Browser Timezone</option>
@@ -323,29 +323,31 @@ breadcrumbSchema:
       </div>
     </div>
     <div class="p-4 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg">
-      <div class="flex items-center justify-between">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
         <div>
-          <span id="from-timezone-label" class="text-xs text-gray-600 dark:text-gray-400 block"></span>
-          <span id="from-timezone-time" class="text-sm font-mono text-gray-900 dark:text-white"></span>
+          <span id="from-timezone-label" class="text-xs text-gray-600 dark:text-gray-400 block mb-1"></span>
+          <span id="from-timezone-time" class="text-sm font-mono text-gray-900 dark:text-white block"></span>
         </div>
-        <span class="text-gray-500 dark:text-gray-400">→</span>
-        <div class="text-right">
-          <span id="to-timezone-label" class="text-xs text-gray-600 dark:text-gray-400 block"></span>
-          <span id="to-timezone-time" class="text-sm font-mono text-gray-900 dark:text-white"></span>
+        <div class="flex items-center justify-center md:justify-end">
+          <span class="text-2xl text-gray-500 dark:text-gray-400 font-bold">→</span>
+        </div>
+        <div class="md:text-right">
+          <span id="to-timezone-label" class="text-xs text-gray-600 dark:text-gray-400 block mb-1"></span>
+          <span id="to-timezone-time" class="text-sm font-mono text-gray-900 dark:text-white block"></span>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Epoch & Format -->
-  <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/70 shadow-sm p-4 md:p-5 space-y-3">
-    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+  <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/70 shadow-sm p-4 md:p-5 space-y-3 mt-6">
+    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-5 flex items-center gap-2">
       <span>📅</span>
       <span>Epoch & Format</span>
     </h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
       <div>
-        <label for="epoch-select" class="text-base font-semibold text-gray-900 dark:text-white">Epoch Type</label>
+        <label for="epoch-select" class="text-base font-semibold text-gray-900 dark:text-white block mb-1">Epoch Origin Type</label>
         <select id="epoch-select" class="w-full px-3 py-1.5 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-white focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all">
           <option value="unix" selected>Unix (1970)</option>
           <option value="excel">Excel (1900)</option>
@@ -353,7 +355,7 @@ breadcrumbSchema:
         </select>
       </div>
       <div>
-        <label for="format-select" class="text-base font-semibold text-gray-900 dark:text-white">Output Format</label>
+        <label for="format-select" class="text-base font-semibold text-gray-900 dark:text-white block mb-1">Date/Time Output Format</label>
         <select id="format-select" class="w-full px-3 py-1.5 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-white focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all">
           <option value="iso" selected>ISO 8601</option>
           <option value="rfc">RFC 2822</option>
@@ -373,12 +375,12 @@ breadcrumbSchema:
   </div>
 
   <!-- Time Difference Tool -->
-  <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/70 shadow-sm p-4 md:p-5 space-y-3">
-    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+  <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/70 shadow-sm p-4 md:p-5 space-y-3 mt-6">
+    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-5 flex items-center gap-2">
       <span>⚖️</span>
       <span>Time Difference</span>
     </h3>
-    <label for="compare-timestamp" class="text-base font-semibold text-gray-900 dark:text-white">Compare with timestamp</label>
+    <label for="compare-timestamp" class="text-base font-semibold text-gray-900 dark:text-white block mb-1">Time Difference Calculator (vs. Input)</label>
     <input 
       type="text" 
       id="compare-timestamp" 
@@ -405,7 +407,7 @@ breadcrumbSchema:
     <div class="p-3 bg-blue-50 dark:bg-blue-900/20 rounded border border-blue-200 dark:border-blue-800">
       <h3 class="font-semibold text-blue-900 dark:text-blue-100 mb-2">🕐 Simple Mode</h3>
       <p class="text-sm text-blue-800 dark:text-blue-200">
-        Quick conversions with auto-detection of Unix seconds, milliseconds, ISO 8601, and date strings. Includes quick adjust buttons and timezone selector.
+        Quick conversions with auto-detection of Unix seconds, milliseconds, ISO 8601, and date strings. Includes quick adjust buttons and timezone selector for fast timestamp conversions.
       </p>
     </div>
     <div class="p-3 bg-green-50 dark:bg-green-900/20 rounded border border-green-200 dark:border-green-800">
