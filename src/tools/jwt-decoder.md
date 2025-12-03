@@ -14,6 +14,7 @@ tags:
 relatedTools:
   - /json-formatter/
   - /base64-encode-decode/
+  - /timestamp-converter/
 schema:
   "@context": "https://schema.org"
   "@type": "SoftwareApplication"
@@ -191,14 +192,12 @@ breadcrumbSchema:
         <span>📅</span>
         <span class="font-medium text-gray-700 dark:text-gray-300 text-xs">Issued:</span>
         <span id="token-iat-mobile" class="text-gray-900 dark:text-gray-100 text-xs"></span>
-        <a id="token-iat-link-mobile" href="#" class="text-xs text-primary-600 dark:text-primary-400 hover:underline ml-1">→</a>
       </div>
       <div id="token-exp-pill-mobile" class="hidden flex items-center gap-1.5 px-2.5 py-1.5 rounded text-sm">
         <span>🕒</span>
         <span class="font-medium text-xs">Expires:</span>
         <span id="token-exp-mobile" class="text-xs"></span>
         <span id="token-exp-status-mobile" class="px-2 py-0.5 rounded text-xs font-semibold ml-1"></span>
-        <a id="token-exp-link-mobile" href="#" class="text-xs text-primary-600 dark:text-primary-400 hover:underline ml-1">→</a>
       </div>
       <div id="token-sub-pill-mobile" class="hidden flex items-center gap-1.5 px-2.5 py-1.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded text-sm">
         <span>👤</span>
@@ -459,12 +458,7 @@ breadcrumbSchema:
     <strong>Security Note:</strong> Remember that JWT payloads are encoded, not encrypted. Never include sensitive information in the payload 
     unless additional encryption is applied. Always verify tokens on the server side.
   </p>
-  <div class="flex flex-col sm:flex-row gap-4">
-    <a href="/blog/invalid-jwt-errors-fixes/" class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold hover:underline">
-      Troubleshooting: Fix common JWT errors →
-    </a>
-    <a href="/blog/jwt-tokens-explained/" class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold hover:underline">
-      Learn more about JWT tokens and best practices →
-    </a>
-  </div>
+  <a href="/blog/jwt-tokens-explained/" class="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold hover:underline">
+    Learn more about JWT tokens and best practices →
+  </a>
 </div>

@@ -342,16 +342,6 @@ function decodeJWT() {
       tokenIatMobile.textContent = iatTime;
       tokenIatPill.classList.remove('hidden');
       tokenIatPillMobile.classList.remove('hidden');
-      
-      // Add link to timestamp converter
-      const iatLink = document.getElementById('token-iat-link');
-      const iatLinkMobile = document.getElementById('token-iat-link-mobile');
-      if (iatLink) {
-        iatLink.href = `/timestamp-converter/?value=${payload.iat}`;
-      }
-      if (iatLinkMobile) {
-        iatLinkMobile.href = `/timestamp-converter/?value=${payload.iat}`;
-      }
     } else {
       tokenIatPill.classList.add('hidden');
       tokenIatPillMobile.classList.add('hidden');
@@ -364,16 +354,6 @@ function decodeJWT() {
 
       tokenExp.textContent = expTime;
       tokenExpMobile.textContent = expTime;
-      
-      // Add link to timestamp converter
-      const expLink = document.getElementById('token-exp-link');
-      const expLinkMobile = document.getElementById('token-exp-link-mobile');
-      if (expLink) {
-        expLink.href = `/timestamp-converter/?value=${payload.exp}`;
-      }
-      if (expLinkMobile) {
-        expLinkMobile.href = `/timestamp-converter/?value=${payload.exp}`;
-      }
 
       if (remaining.expired) {
         const expiredClass = 'px-2 py-0.5 rounded-full text-xs font-semibold bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400';

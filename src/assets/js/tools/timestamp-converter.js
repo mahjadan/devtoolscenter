@@ -112,12 +112,14 @@ const outputLocalTimezone = document.getElementById('output-local-timezone');
 const outputSelectedTimezone = document.getElementById('output-selected-timezone');
 const outputSelectedTimezoneName = document.getElementById('output-selected-timezone-name');
 
-// Advanced Mode Elements
-const unitSelect = document.getElementById('unit-select');
-const unitSeconds = document.getElementById('unit-seconds');
-const unitMilliseconds = document.getElementById('unit-milliseconds');
-const unitMicroseconds = document.getElementById('unit-microseconds');
-const unitNanoseconds = document.getElementById('unit-nanoseconds');
+// Advanced Mode Elements - Unified Conversion Panel
+const unifiedLocalTime = document.getElementById('unified-local-time');
+const unifiedLocalTimezone = document.getElementById('unified-local-timezone');
+const unifiedUtcTime = document.getElementById('unified-utc-time');
+const unifiedSeconds = document.getElementById('unified-seconds');
+const unifiedMilliseconds = document.getElementById('unified-milliseconds');
+const unifiedMicroseconds = document.getElementById('unified-microseconds');
+const unifiedNanoseconds = document.getElementById('unified-nanoseconds');
 
 const fromTimezone = document.getElementById('from-timezone');
 const toTimezone = document.getElementById('to-timezone');
@@ -247,15 +249,22 @@ function setupEventListeners() {
   });
 
   // Timezone selector
-  timezoneSelect?.addEventListener('change', () => {
+  timezoneSelect?.addEventListener('change', (e) => {
     updateOutputs();
+    // Also update advanced mode timezone conversions
+    updateAdvancedMode();
+    // Add visual feedback - specifically highlight the Selected Timezone card
+    // Use a small delay to ensure DOM is updated first
+    setTimeout(() => {
+      flashSelectedTimezoneCard();
+    }, 50);
+    // Also flash all outputs for consistency (with delay to let Selected Timezone flash first)
+    setTimeout(() => {
+      flashAllOutputs();
+    }, 150);
   });
 
   // Advanced mode listeners
-  unitSelect?.addEventListener('change', () => {
-    updateUnitConversions();
-  });
-
   fromTimezone?.addEventListener('change', () => {
     updateTimezoneConversion();
   });
@@ -327,6 +336,7 @@ function handleUseNow() {
   updateAdvancedMode();
   if (timestampInput) flashElement(timestampInput);
   if (timestampInputAdvanced) flashElement(timestampInputAdvanced);
+  flashAllOutputs();
 }
 
 function handleInput(value) {
@@ -352,6 +362,7 @@ function handleInput(value) {
     currentTimestamp = parsed;
     updateOutputs();
     updateAdvancedMode();
+    flashAllOutputs();
   }, 300);
 }
 
@@ -365,6 +376,7 @@ function adjustTimestamp(ms) {
   updateAdvancedMode();
   if (timestampInput) flashElement(timestampInput);
   if (timestampInputAdvanced) flashElement(timestampInputAdvanced);
+  flashAllOutputs();
 }
 
 function updateOutputs() {
@@ -372,7 +384,11 @@ function updateOutputs() {
     currentTimestamp = Date.now();
   }
 
-  const selectedTz = timezoneSelect?.value === 'browser' ? null : timezoneSelect?.value || null;
+  // Get the selected timezone value - handle empty string and null cases
+  let selectedTz = null;
+  if (timezoneSelect && timezoneSelect.value) {
+    selectedTz = timezoneSelect.value === 'browser' ? null : timezoneSelect.value;
+  }
   
   // Unix seconds
   if (outputUnixSeconds) outputUnixSeconds.textContent = formatUnixSeconds(currentTimestamp);
@@ -391,11 +407,13 @@ function updateOutputs() {
   if (outputLocalTime) outputLocalTime.textContent = formatLocalTime(currentTimestamp);
   if (outputLocalTimezone) outputLocalTimezone.textContent = `(${localTz})`;
   
-  // Selected timezone
+  // Selected timezone - always update, even if it's browser timezone
   if (selectedTz) {
+    // A specific timezone was selected
     if (outputSelectedTimezone) outputSelectedTimezone.textContent = formatLocalTime(currentTimestamp, selectedTz);
     if (outputSelectedTimezoneName) outputSelectedTimezoneName.textContent = `(${selectedTz})`;
   } else {
+    // Browser timezone (or no selection)
     const browserTz = getTimezoneName(currentTimestamp);
     if (outputSelectedTimezone) outputSelectedTimezone.textContent = formatLocalTime(currentTimestamp);
     if (outputSelectedTimezoneName) outputSelectedTimezoneName.textContent = `(${browserTz})`;
@@ -413,13 +431,51 @@ function updateUnitConversions() {
     currentTimestamp = Date.now();
   }
 
-  const unit = unitSelect?.value || 'milliseconds';
+  // Update human-readable date/time (Priority 1)
+  const date = new Date(currentTimestamp);
+  const localTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
   
-  // Convert from milliseconds to each unit
-  if (unitSeconds) unitSeconds.textContent = Math.floor(currentTimestamp / UNIT_MULTIPLIERS.seconds).toString();
-  if (unitMilliseconds) unitMilliseconds.textContent = Math.floor(currentTimestamp / UNIT_MULTIPLIERS.milliseconds).toString();
-  if (unitMicroseconds) unitMicroseconds.textContent = Math.floor(currentTimestamp / UNIT_MULTIPLIERS.microseconds).toString();
-  if (unitNanoseconds) unitNanoseconds.textContent = Math.floor(currentTimestamp / UNIT_MULTIPLIERS.nanoseconds).toString();
+  // Format Local Time - large, prominent display
+  if (unifiedLocalTime) {
+    const localDateStr = date.toLocaleString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    });
+    unifiedLocalTime.textContent = localDateStr;
+  }
+  
+  if (unifiedLocalTimezone) {
+    unifiedLocalTimezone.textContent = `(${localTz})`;
+  }
+  
+  // Format UTC Time - large, prominent display
+  if (unifiedUtcTime) {
+    // Create a date formatter for UTC
+    const utcDateStr = date.toLocaleString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true,
+      timeZone: 'UTC'
+    });
+    unifiedUtcTime.textContent = `${utcDateStr} (UTC)`;
+  }
+  
+  // Update numerical Unix Epoch values (Priority 2) - stacked list
+  if (unifiedSeconds) unifiedSeconds.textContent = Math.floor(currentTimestamp / UNIT_MULTIPLIERS.seconds).toString();
+  if (unifiedMilliseconds) unifiedMilliseconds.textContent = Math.floor(currentTimestamp / UNIT_MULTIPLIERS.milliseconds).toString();
+  if (unifiedMicroseconds) unifiedMicroseconds.textContent = Math.floor(currentTimestamp / UNIT_MULTIPLIERS.microseconds).toString();
+  if (unifiedNanoseconds) unifiedNanoseconds.textContent = Math.floor(currentTimestamp / UNIT_MULTIPLIERS.nanoseconds).toString();
 }
 
 function updateTimezoneConversion() {
@@ -488,10 +544,10 @@ function copyToClipboard(targetId, button) {
     'rfc2822': outputRFC2822?.textContent,
     'local-time': outputLocalTime?.textContent,
     'selected-timezone': outputSelectedTimezone?.textContent,
-    'unit-seconds': unitSeconds?.textContent,
-    'unit-milliseconds': unitMilliseconds?.textContent,
-    'unit-microseconds': unitMicroseconds?.textContent,
-    'unit-nanoseconds': unitNanoseconds?.textContent,
+    'unified-seconds': unifiedSeconds?.textContent,
+    'unified-milliseconds': unifiedMilliseconds?.textContent,
+    'unified-microseconds': unifiedMicroseconds?.textContent,
+    'unified-nanoseconds': unifiedNanoseconds?.textContent,
     'formatted-output': formattedOutput?.textContent
   };
 
@@ -533,6 +589,145 @@ function flashElement(element) {
   setTimeout(() => {
     element.classList.remove('base64-output-flash');
   }, 300);
+}
+
+function flashOutputCard(element) {
+  if (!element) return;
+  // Apply focus effect similar to input field (border-primary-500, ring-2, ring-primary-500/20)
+  element.classList.add('timestamp-output-focus');
+  setTimeout(() => {
+    element.classList.remove('timestamp-output-focus');
+  }, 600); // Keep the effect visible longer for better feedback
+}
+
+function flashSelectedTimezoneCard() {
+  // Find the Selected Timezone card using multiple methods
+  let selectedTimezoneCard = null;
+  
+  // Method 1: Find by the output element's parent (most reliable)
+  if (outputSelectedTimezone) {
+    selectedTimezoneCard = outputSelectedTimezone.closest('.rounded-xl');
+  }
+  
+  // Method 2: Direct querySelector for the card containing the output-selected-timezone
+  if (!selectedTimezoneCard) {
+    selectedTimezoneCard = document.querySelector('#output-selected-timezone')?.closest('.rounded-xl');
+  }
+  
+  // Method 3: Search all cards for the one containing "Selected Timezone" label
+  if (!selectedTimezoneCard) {
+    const allCards = document.querySelectorAll('#simple-mode .rounded-xl');
+    for (const card of allCards) {
+      const spans = card.querySelectorAll('span');
+      for (const span of spans) {
+        if (span.textContent && span.textContent.trim().toUpperCase() === 'SELECTED TIMEZONE') {
+          selectedTimezoneCard = card;
+          break;
+        }
+      }
+      if (selectedTimezoneCard) break;
+    }
+  }
+  
+  // Method 4: Find by the last card in the grid (Selected Timezone is the 6th card)
+  if (!selectedTimezoneCard) {
+    const allCards = document.querySelectorAll('#simple-mode .rounded-xl');
+    if (allCards.length >= 6) {
+      selectedTimezoneCard = allCards[5]; // 6th card (0-indexed)
+    }
+  }
+  
+  if (selectedTimezoneCard) {
+    // Use inline styles to override Tailwind classes - this is more reliable
+    const primaryColor = '#0ea5e9'; // primary-500
+    const primaryColorDark = '#38bdf8'; // primary-400 for dark mode
+    const isDark = document.documentElement.classList.contains('dark') || 
+                   document.documentElement.getAttribute('data-theme') === 'dark';
+    const borderColor = isDark ? primaryColorDark : primaryColor;
+    const shadowColor = isDark ? 'rgba(56, 189, 248, 0.25)' : 'rgba(14, 165, 233, 0.25)';
+    
+    // Store original styles to restore later
+    const originalBorderColor = selectedTimezoneCard.style.borderColor;
+    const originalBoxShadow = selectedTimezoneCard.style.boxShadow;
+    const originalTransform = selectedTimezoneCard.style.transform;
+    const originalTransition = selectedTimezoneCard.style.transition;
+    
+    // Apply the focus effect using inline styles (overrides Tailwind)
+    selectedTimezoneCard.style.borderColor = borderColor;
+    selectedTimezoneCard.style.boxShadow = `0 0 0 3px ${shadowColor}`;
+    selectedTimezoneCard.style.transform = 'scale(1.01)';
+    selectedTimezoneCard.style.transition = 'border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease';
+    selectedTimezoneCard.classList.add('timestamp-output-focus');
+    
+    // Remove the effect after 800ms
+    setTimeout(() => {
+      selectedTimezoneCard.style.borderColor = originalBorderColor;
+      selectedTimezoneCard.style.boxShadow = originalBoxShadow;
+      selectedTimezoneCard.style.transform = originalTransform;
+      selectedTimezoneCard.style.transition = originalTransition;
+      selectedTimezoneCard.classList.remove('timestamp-output-focus');
+    }, 800);
+    
+    // Apply a second flash for extra emphasis
+    setTimeout(() => {
+      selectedTimezoneCard.style.borderColor = borderColor;
+      selectedTimezoneCard.style.boxShadow = `0 0 0 3px ${shadowColor}`;
+      selectedTimezoneCard.style.transform = 'scale(1.01)';
+      selectedTimezoneCard.style.transition = 'border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease';
+      selectedTimezoneCard.classList.add('timestamp-output-focus');
+      
+      setTimeout(() => {
+        selectedTimezoneCard.style.borderColor = originalBorderColor;
+        selectedTimezoneCard.style.boxShadow = originalBoxShadow;
+        selectedTimezoneCard.style.transform = originalTransform;
+        selectedTimezoneCard.style.transition = originalTransition;
+        selectedTimezoneCard.classList.remove('timestamp-output-focus');
+      }, 400);
+    }, 400);
+  } else {
+    // Fallback: flash all cards if we can't find the specific one
+    flashAllOutputs();
+  }
+}
+
+function flashAllOutputs() {
+  // Flash all output cards in simple mode
+  const outputCards = document.querySelectorAll('#simple-mode .rounded-xl');
+  outputCards.forEach((card, index) => {
+    setTimeout(() => {
+      flashOutputCard(card);
+    }, index * 50); // Stagger the flashes for a nice effect
+  });
+
+  // Flash advanced mode outputs
+  if (currentMode === 'advanced') {
+    // Flash unified conversion panel items
+    const unifiedItems = document.querySelectorAll('#advanced-mode .rounded-lg.border');
+    unifiedItems.forEach((item, index) => {
+      setTimeout(() => {
+        flashOutputCard(item);
+      }, index * 50);
+    });
+
+    // Flash timezone conversion card
+    const timezoneCard = document.querySelector('#advanced-mode .p-4.bg-gray-50, #advanced-mode .p-4.bg-gray-900');
+    if (timezoneCard && timezoneCard.querySelector('#from-timezone-time')) {
+      setTimeout(() => {
+        flashOutputCard(timezoneCard);
+      }, 200);
+    }
+
+    // Flash formatted output card (find parent of formatted-output element)
+    const formattedOutputEl = document.getElementById('formatted-output');
+    if (formattedOutputEl) {
+      const formattedCard = formattedOutputEl.closest('.p-4');
+      if (formattedCard) {
+        setTimeout(() => {
+          flashOutputCard(formattedCard);
+        }, 250);
+      }
+    }
+  }
 }
 
 // Initialize on DOM load

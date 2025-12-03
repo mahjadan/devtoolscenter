@@ -17,6 +17,7 @@ relatedTools:
   - /json-formatter/
   - /base64-encode-decode/
   - /jwt-decoder/
+  - /timestamp-converter/
 schema:
   "@context": "https://schema.org"
   "@type": "SoftwareApplication"

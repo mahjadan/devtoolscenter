@@ -1,12 +1,12 @@
 ---
 layout: layouts/tool.njk
+templateEngineOverride: njk
 title: Timestamp Converter
 description: Convert Unix timestamps, switch timezones, compare times. Free online timestamp converter supporting Unix seconds/milliseconds, ISO 8601, RFC 2822, and timezone conversions.
 permalink: /timestamp-converter/
 icon: 🕐
 order: 9
 pageScript: /assets/js/tools/timestamp-converter.js
-pageScriptModule: true
 keywords: timestamp converter, unix timestamp, epoch converter, time converter, iso 8601 converter, rfc 2822 converter, timezone converter, unix time, epoch time, timestamp to date, date to timestamp
 tags:
   - tools
@@ -236,46 +236,57 @@ breadcrumbSchema:
     </div>
   </div>
 
-  <!-- Unit Conversion -->
-  <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/70 shadow-sm p-4 md:p-5 space-y-3">
-    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-      <span>🕐</span>
-      <span>Unit Conversion</span>
-    </h3>
-    <label for="unit-select" class="text-base font-semibold text-gray-900 dark:text-white">Input Unit</label>
-    <select id="unit-select" class="w-full px-3 py-1.5 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-white focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all mb-4">
-      <option value="seconds">Seconds</option>
-      <option value="milliseconds" selected>Milliseconds</option>
-      <option value="microseconds">Microseconds</option>
-      <option value="nanoseconds">Nanoseconds</option>
-    </select>
-    <div class="grid grid-cols-2 gap-3">
-      <div class="p-3 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg">
-        <span class="text-xs text-gray-600 dark:text-gray-400 block mb-1">Seconds</span>
-        <div class="flex items-center justify-between">
-          <span id="unit-seconds" class="text-sm font-mono text-gray-900 dark:text-white truncate"></span>
-          <button class="copy-btn text-xs text-primary-600 dark:text-primary-400 hover:underline" data-copy-target="unit-seconds">Copy</button>
+  <!-- Unified Conversion Panel -->
+  <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/70 shadow-sm p-4 md:p-6 space-y-6">
+    <!-- Priority 1: Human-Readable Date/Time (Large, Prominent) -->
+    <div class="space-y-4">
+      <div class="pb-4 border-b border-gray-200 dark:border-gray-700">
+        <h3 class="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide mb-3">Human-Readable Date & Time</h3>
+        <div class="space-y-3">
+          <div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">Local Time</p>
+            <p id="unified-local-time" class="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white"></p>
+            <p id="unified-local-timezone" class="text-sm text-gray-500 dark:text-gray-400 mt-1"></p>
+          </div>
+          <div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">UTC</p>
+            <p id="unified-utc-time" class="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white"></p>
+          </div>
         </div>
       </div>
-      <div class="p-3 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg">
-        <span class="text-xs text-gray-600 dark:text-gray-400 block mb-1">Milliseconds</span>
-        <div class="flex items-center justify-between">
-          <span id="unit-milliseconds" class="text-sm font-mono text-gray-900 dark:text-white truncate"></span>
-          <button class="copy-btn text-xs text-primary-600 dark:text-primary-400 hover:underline" data-copy-target="unit-milliseconds">Copy</button>
+    </div>
+
+    <!-- Priority 2: Numerical Unix Epoch Values (Stacked List) -->
+    <div class="space-y-3">
+      <h3 class="text-sm font-medium text-gray-600 dark:text-gray-400 uppercase tracking-wide">Unix Epoch Values</h3>
+      <div class="space-y-2">
+        <div class="flex items-center justify-between py-2 px-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+          <div class="flex items-center gap-3 flex-1 min-w-0">
+            <span class="text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">Seconds:</span>
+            <span id="unified-seconds" class="text-sm font-mono text-gray-900 dark:text-white truncate flex-1"></span>
+          </div>
+          <button class="copy-btn ml-3 px-3 py-1 text-xs font-medium text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded transition-colors whitespace-nowrap" data-copy-target="unified-seconds">Copy</button>
         </div>
-      </div>
-      <div class="p-3 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg">
-        <span class="text-xs text-gray-600 dark:text-gray-400 block mb-1">Microseconds</span>
-        <div class="flex items-center justify-between">
-          <span id="unit-microseconds" class="text-sm font-mono text-gray-900 dark:text-white truncate"></span>
-          <button class="copy-btn text-xs text-primary-600 dark:text-primary-400 hover:underline" data-copy-target="unit-microseconds">Copy</button>
+        <div class="flex items-center justify-between py-2 px-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+          <div class="flex items-center gap-3 flex-1 min-w-0">
+            <span class="text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">Milliseconds:</span>
+            <span id="unified-milliseconds" class="text-sm font-mono text-gray-900 dark:text-white truncate flex-1"></span>
+          </div>
+          <button class="copy-btn ml-3 px-3 py-1 text-xs font-medium text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded transition-colors whitespace-nowrap" data-copy-target="unified-milliseconds">Copy</button>
         </div>
-      </div>
-      <div class="p-3 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg">
-        <span class="text-xs text-gray-600 dark:text-gray-400 block mb-1">Nanoseconds</span>
-        <div class="flex items-center justify-between">
-          <span id="unit-nanoseconds" class="text-sm font-mono text-gray-900 dark:text-white truncate"></span>
-          <button class="copy-btn text-xs text-primary-600 dark:text-primary-400 hover:underline" data-copy-target="unit-nanoseconds">Copy</button>
+        <div class="flex items-center justify-between py-2 px-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+          <div class="flex items-center gap-3 flex-1 min-w-0">
+            <span class="text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">Microseconds:</span>
+            <span id="unified-microseconds" class="text-sm font-mono text-gray-900 dark:text-white truncate flex-1"></span>
+          </div>
+          <button class="copy-btn ml-3 px-3 py-1 text-xs font-medium text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded transition-colors whitespace-nowrap" data-copy-target="unified-microseconds">Copy</button>
+        </div>
+        <div class="flex items-center justify-between py-2 px-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+          <div class="flex items-center gap-3 flex-1 min-w-0">
+            <span class="text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">Nanoseconds:</span>
+            <span id="unified-nanoseconds" class="text-sm font-mono text-gray-900 dark:text-white truncate flex-1"></span>
+          </div>
+          <button class="copy-btn ml-3 px-3 py-1 text-xs font-medium text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded transition-colors whitespace-nowrap" data-copy-target="unified-nanoseconds">Copy</button>
         </div>
       </div>
     </div>
