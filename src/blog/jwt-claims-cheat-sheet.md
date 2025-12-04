@@ -166,6 +166,8 @@ const userId = getUserId(verified);
 }
 ```
 
+> 💡 **Tip:** Convert Unix timestamps to readable dates using our [Timestamp Converter](/timestamp-converter/) tool.
+
 **Validation rules:**
 - ✅ **Reject if expired** - `now >= exp`
 - ✅ **Allow clock skew** - Small time differences between systems
@@ -224,6 +226,8 @@ if (isTokenExpired(decoded)) {
 }
 ```
 
+> 💡 **Tip:** Convert Unix timestamps to readable dates using our [Timestamp Converter](/timestamp-converter/) tool.
+
 **Validation rules:**
 - ✅ **Reject if too early** - `now < nbf` (with tolerance)
 - ✅ **Allow clock skew** - Small time differences
@@ -261,6 +265,8 @@ jwt.verify(token, secret, {
   "iat": 1704067200  // Issued on Jan 1, 2024
 }
 ```
+
+> 💡 **Tip:** Convert Unix timestamps to readable dates using our [Timestamp Converter](/timestamp-converter/) tool.
 
 **Validation rules:**
 - ⚠️ **Rarely enforced** - Usually for debugging/logging

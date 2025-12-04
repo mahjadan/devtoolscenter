@@ -901,6 +901,25 @@
     }
   }
 
+  /* Timestamp converter output focus effect - matches input focus style */
+  .timestamp-output-focus,
+  .rounded-xl.timestamp-output-focus,
+  div.timestamp-output-focus {
+    border-color: #0ea5e9 !important; /* primary-500 */
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.25) !important; /* ring-2 ring-primary-500/20 - made more visible */
+    transition: border-color var(--motion-duration-quick)
+        var(--motion-ease-standard),
+      box-shadow var(--motion-duration-quick) var(--motion-ease-standard);
+    transform: scale(1.01); /* Slight scale for extra visibility */
+  }
+
+  :root[data-theme="dark"] .timestamp-output-focus,
+  :root[data-theme="dark"] .rounded-xl.timestamp-output-focus,
+  :root[data-theme="dark"] div.timestamp-output-focus {
+    border-color: #38bdf8 !important; /* primary-400 for dark mode */
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25) !important;
+  }
+
   .animate-pulse-once {
     animation: pulse-once 0.6s ease-out;
   }
@@ -2884,11 +2903,6 @@
     word-break: break-all;
   }
 
-  /* Reset any inherited text colors on spans */
-  #parsed-view span.url-part {
-    color: inherit !important;
-  }
-
   #parsed-legend {
     color: var(--color-text-muted);
   }
@@ -2907,18 +2921,15 @@
     background-color: rgba(255, 255, 255, 0.1);
   }
 
-  /* Light mode colors - explicitly set for non-dark mode */
+  /* Scheme (Protocol) - Blue */
   #parsed-view .url-part--scheme,
   #parsed-legend .url-part--scheme {
     color: #2563eb !important;
     font-weight: 600;
   }
 
-  /* Dark mode colors */
   .dark #parsed-view .url-part--scheme,
-  .dark #parsed-legend .url-part--scheme,
-  html[data-theme="dark"] #parsed-view .url-part--scheme,
-  html[data-theme="dark"] #parsed-legend .url-part--scheme {
+  .dark #parsed-legend .url-part--scheme {
     color: #60a5fa !important;
   }
 
@@ -2930,9 +2941,7 @@
   }
 
   .dark #parsed-view .url-part--host,
-  .dark #parsed-legend .url-part--host,
-  html[data-theme="dark"] #parsed-view .url-part--host,
-  html[data-theme="dark"] #parsed-legend .url-part--host {
+  .dark #parsed-legend .url-part--host {
     color: #4ade80 !important;
   }
 
@@ -2944,9 +2953,7 @@
   }
 
   .dark #parsed-view .url-part--port,
-  .dark #parsed-legend .url-part--port,
-  html[data-theme="dark"] #parsed-view .url-part--port,
-  html[data-theme="dark"] #parsed-legend .url-part--port {
+  .dark #parsed-legend .url-part--port {
     color: #a78bfa !important;
   }
 
@@ -2958,9 +2965,7 @@
   }
 
   .dark #parsed-view .url-part--path,
-  .dark #parsed-legend .url-part--path,
-  html[data-theme="dark"] #parsed-view .url-part--path,
-  html[data-theme="dark"] #parsed-legend .url-part--path {
+  .dark #parsed-legend .url-part--path {
     color: #fb923c !important;
   }
 
@@ -2972,9 +2977,7 @@
   }
 
   .dark #parsed-view .url-part--query,
-  .dark #parsed-legend .url-part--query,
-  html[data-theme="dark"] #parsed-view .url-part--query,
-  html[data-theme="dark"] #parsed-legend .url-part--query {
+  .dark #parsed-legend .url-part--query {
     color: #fbbf24 !important;
   }
 
@@ -2986,9 +2989,7 @@
   }
 
   .dark #parsed-view .url-part--fragment,
-  .dark #parsed-legend .url-part--fragment,
-  html[data-theme="dark"] #parsed-view .url-part--fragment,
-  html[data-theme="dark"] #parsed-legend .url-part--fragment {
+  .dark #parsed-legend .url-part--fragment {
     color: #f472b6 !important;
   }
 
@@ -3000,9 +3001,7 @@
   }
 
   .dark #parsed-view .url-part--username,
-  .dark #parsed-legend .url-part--username,
-  html[data-theme="dark"] #parsed-view .url-part--username,
-  html[data-theme="dark"] #parsed-legend .url-part--username {
+  .dark #parsed-legend .url-part--username {
     color: #5eead4 !important;
   }
 
@@ -3014,9 +3013,7 @@
   }
 
   .dark #parsed-view .url-part--password,
-  .dark #parsed-legend .url-part--password,
-  html[data-theme="dark"] #parsed-view .url-part--password,
-  html[data-theme="dark"] #parsed-legend .url-part--password {
+  .dark #parsed-legend .url-part--password {
     color: #f87171 !important;
   }
 
@@ -3026,8 +3023,7 @@
     font-weight: 400;
   }
 
-  .dark #parsed-view .url-part--separator,
-  html[data-theme="dark"] #parsed-view .url-part--separator {
+  .dark #parsed-view .url-part--separator {
     color: #9ca3af !important;
   }
 }

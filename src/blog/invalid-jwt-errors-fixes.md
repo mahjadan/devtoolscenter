@@ -19,7 +19,7 @@ faq:
 
 Invalid JWT errors frustrate developers daily. Understanding why these errors occur and how to systematically fix them saves hours of debugging. This guide walks through common error categories, root causes, and step-by-step solutions.
 
-> **🔍 Quick Diagnosis:** Paste your invalid token into our **[JWT Encoder/Decoder](/jwt-decoder/)** tool. It will instantly show you the `EXP`, `IAT`, algorithm (`alg`), and signature status to identify the likely error before diving into code fixes.
+> **🔍 Quick Diagnosis:** Paste your invalid token into our **[JWT Encoder/Decoder](/jwt-decoder/)** tool. It will instantly show you the `EXP`, `IAT`, algorithm (`alg`), and signature status to identify the likely error before diving into code fixes. Convert Unix timestamps (`EXP`, `IAT`) to readable dates using our [Timestamp Converter](/timestamp-converter/) tool.
 
 ## Why JWT validation fails
 

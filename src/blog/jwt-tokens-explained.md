@@ -84,6 +84,8 @@ The payload contains the claims - statements about an entity (typically the user
 }
 ```
 
+> 💡 **Note:** The `iat` and `exp` fields are Unix timestamps (seconds since epoch). Convert them to readable dates using our [Timestamp Converter](/timestamp-converter/) tool.
+
 ### 3. Signature
 
 The signature ensures the token hasn't been tampered with:
@@ -109,10 +111,12 @@ JWT defines several standard claims:
 - **iss** (issuer): Who issued the token
 - **sub** (subject): Who the token is about
 - **aud** (audience): Who should accept the token
-- **exp** (expiration): When the token expires
-- **nbf** (not before): When the token becomes valid
-- **iat** (issued at): When the token was created
+- **exp** (expiration): When the token expires (Unix timestamp)
+- **nbf** (not before): When the token becomes valid (Unix timestamp)
+- **iat** (issued at): When the token was created (Unix timestamp)
 - **jti** (JWT ID): Unique identifier for the token
+
+> 💡 **Tip:** Convert Unix timestamps (`exp`, `nbf`, `iat`) to readable dates using our [Timestamp Converter](/timestamp-converter/) tool.
 
 ### Custom Claims
 

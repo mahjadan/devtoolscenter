@@ -235,6 +235,8 @@ if (decoded.exp < now) {
 }
 ```
 
+> 💡 **Tip:** Convert Unix timestamps to readable dates using our [Timestamp Converter](/timestamp-converter/) tool.
+
 **Not Before (`nbf`):**
 ```javascript
 // Token not valid before nbf
@@ -242,6 +244,8 @@ if (decoded.nbf && decoded.nbf > now) {
   throw new Error('Token not yet valid');
 }
 ```
+
+> 💡 **Tip:** Convert Unix timestamps to readable dates using our [Timestamp Converter](/timestamp-converter/) tool.
 
 **Clock tolerance:**
 ```javascript
