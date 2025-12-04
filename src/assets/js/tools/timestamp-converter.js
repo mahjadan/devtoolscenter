@@ -364,15 +364,11 @@ function setupEventListeners() {
     updateOutputs();
     // Also update advanced mode timezone conversions
     updateAdvancedMode();
-    // Add visual feedback - specifically highlight the Selected Timezone card
+    // Add visual feedback - only highlight the Selected Timezone card
     // Use a small delay to ensure DOM is updated first
     setTimeout(() => {
       flashSelectedTimezoneCard();
     }, 50);
-    // Also flash all outputs for consistency (with delay to let Selected Timezone flash first)
-    setTimeout(() => {
-      flashAllOutputs();
-    }, 150);
   });
 
   // Advanced mode listeners
